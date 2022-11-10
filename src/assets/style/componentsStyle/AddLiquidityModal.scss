@@ -1,0 +1,168 @@
+.AddLiquidityModal {
+    .ant-modal-content {
+        padding: 30px 40px;
+        background: #1D1E44;
+        box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 19px;
+
+        .ant-modal-body {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0px;
+
+
+            .title {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 24px;
+                line-height: 34px;
+                /* identical to box height */
+                text-align: center;
+                color: #FFFFFF;
+                margin-bottom: 50px;
+            }
+
+            .Box {
+                height: 100px;
+                width: 100%;
+
+                // balanceBox/coinBox
+                >div {
+                    display: flex;
+
+
+                    .balance,
+                    .valueBox {
+                        flex: auto;
+                    }
+
+                    .balance {
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 20px;
+                        /* identical to box height */
+                        text-align: right;
+                        color: #FFFFFF;
+                        margin-bottom: 10px;
+                    }
+
+                    .rightBox {
+                        width: 130px;
+                        display: flex;
+                        justify-content: end;
+                    }
+
+                    .approveBtn {
+
+                        width: 109px;
+                        height: 33px;
+                        left: 1075px;
+                        top: 389px;
+                        border: 1px solid rgba(255, 255, 255, 0.2);
+                        border-radius: 6px;
+                        font-family: 'DIN';
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 14px;
+                        line-height: 17px;
+                        /* identical to box height */
+                        letter-spacing: 0.08em;
+                        color: rgba(255, 255, 255, 0.6);
+                    }
+
+                    .toApproveBtn {
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 20px;
+                        /* 紫色 */
+                        color: #DB2DCF;
+                    }
+
+
+                }
+
+                .coinBox {
+                    width: 100%;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .valueBox {
+                        padding: 16px 15px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        background: #171833;
+                        border: 1px solid rgba(255, 255, 255, 0.1);
+                        border-radius: 10px;
+
+                        .value {
+                            font-family: 'PingFang SC';
+                            font-style: normal;
+                            font-weight: 700;
+                            font-size: 24px;
+                            line-height: 34px;
+                            /* identical to box height */
+                            color: #FFFFFF;
+                        }
+
+                        .coinName {
+                            font-family: 'DIN';
+                            font-style: normal;
+                            font-weight: 500;
+                            font-size: 14px;
+                            /* identical to box height */
+                            letter-spacing: 0.08em;
+                            color: #FFFFFF;
+                            display: flex;
+                            align-items: center;
+
+                            img {
+                                margin-right: 4px;
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            .midBox {
+                margin: 30px auto;
+            }
+
+            .supplyBtn {
+                width: 270px;
+                height: 36px;
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 6px;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 20px;
+                /* identical to box height */
+                color: #FFFFFF;
+                margin-top: 50px;
+            }
+
+            span {
+                position: absolute;
+                bottom: -60px;
+                width: 100%;
+                text-align: center;
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 17px;
+                color: #DB2DCF;
+            }
+
+        }
+    }
+}

@@ -117,7 +117,6 @@ function Home() {
       nei: ["Road Map sub title 13", "Road Map subtitle 13"],
     },
   ]);
-  // console.log(lxt[0], "==--==--==");
   let [bt, setBt] = useState([
     {
       img: bt1,
@@ -315,17 +314,11 @@ function Home() {
   }
   return (
     <div className="bj">
-      {/* <div className="bj1"></div>
-      <div className="bj2"></div>
-      <div className="bj3"></div>
-      <div className="bj4"></div>
-      <div className="bj5"></div> */}
-
       <div className="space">
         <div className="tit">
           <div className="title">SPACE BALL</div>
           <div className="xiang">{t("SPACE BALL")}</div>
-          <a href={i18n.language === "zh" ? "http://spaceballgames.com/File/SpaceBallZh.pdf" :"http://spaceballgames.com/File/SpaceBallEn.pdf"} target="downloadFile">
+          <a href={i18n.language === "zh" ? "http://spaceballgames.com/File/SpaceBallZh.pdf" : "http://spaceballgames.com/File/SpaceBallEn.pdf"} target="downloadFile">
             <div className="btn">{t("WHITEPAPER")}</div>
           </a>
         </div>
@@ -461,6 +454,7 @@ function Home() {
         </div>
       </div>
 
+      {/* 代笔经济 */}
       <div className="tokens">
         <div className="title">
           <div className="bei">{t("Tokenomicst")}</div>
@@ -471,21 +465,12 @@ function Home() {
             <div className="stone">{t("Space Ball adopts a")}</div>
             <div className="stone">{t("SBL is Space Ball's")}</div>
             <img src={i18n.language === "zh" ? bzt2 : bzt1} alt="" />
-            {/* <div className="bunto">
-              <div className="to">
-                <div>Total supply：</div>
-                <span>1,245,456,789</span>
-              </div>
-              <div className="to">
-                <div> Donation burned：</div>
-                <span>1,245,456,789</span>
-              </div>
-            </div> */}
           </div>
         </div>
         <div className="fsbtm"></div>
       </div>
 
+      {/* 路线图 */}
       <div className="WaspNest">
         <div className="title">
           <div className="bei">{t("Road Map")}</div>
@@ -625,6 +610,7 @@ function Home() {
         </div>
       </div>
 
+      {/* 战略合作 */}
       <div className="partner">
         <div className="partibox">
           <div className="title">

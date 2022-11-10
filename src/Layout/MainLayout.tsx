@@ -16,70 +16,73 @@ import Lang from "../assets/image/Lang.png";
 import "../assets/style/layout.scss";
 import { Menu, Dropdown } from "antd";
 const { Header, Content, Footer } = Layout;
-interface SubMenuItemType{
-  name:string,
-  Fun:()=>void
+interface SubMenuItemType {
+  name: string,
+  Fun: () => void
 }
 const MainLayout: React.FC = () => {
   let { t, i18n } = useTranslation();
   const web3React = useWeb3React();
-  let [showSubMenu , setShowSubMenu] = useState(false);
-  let [subMenuList , setSubMenuList] = useState<SubMenuItemType []>([]);
+  let [showSubMenu, setShowSubMenu] = useState(false);
+  let [subMenuList, setSubMenuList] = useState<SubMenuItemType[]>([]);
   let Connect = useConnectWallet();
-  const moreSubMenuList=[
+  // 底部更多菜单
+  const moreSubMenuList = [
     {
-      name:t("Swap"),
-      Fun:() => {
+      name: t("Swap"),
+      Fun: () => {
         navigate("/Swap");
       }
     },
     {
-      name:t("Invitation"),
-      Fun:() => {
+      name: t("Invitation"),
+      Fun: () => {
         navigate("/Invitation");
       }
     },
     {
-      name:t("Guess"),
-      Fun:noOpen
+      name: t("Guess"),
+      Fun: noOpen
     },
     {
-      name:t("Games"),
-      Fun:noOpen
+      name: t("Games"),
+      Fun: noOpen
     },
     {
-      name:t('Farms'),
-      Fun:() => {
+      name: t('Farms'),
+      Fun: () => {
         navigate("/Farms");
       }
     }
   ]
-  const NFTSubMenuList =[
+  // 底部NFT菜单
+  const NFTSubMenuList = [
     {
-      name:t("stock2"),
-      Fun:() => {
+      name: t("stock2"),
+      Fun: () => {
         navigate("/NFT");
       }
     },
     {
-      name:t("Pledge"),
-      Fun:noOpen
+      name: t("Pledge"),
+      Fun: noOpen
     },
   ]
-  const SBLSubMenuList =[
+  // 底部SBL菜单
+  const SBLSubMenuList = [
     {
-      name:t("Node Coinage"),
-      Fun:() => {
+      name: t("Node Coinage"),
+      Fun: () => {
         navigate("/Node");
       }
     },
     {
-      name:t("Donation"),
-      Fun:noOpen
+      name: t("Donation"),
+      Fun: noOpen
     },
     {
-      name:t("Liquidity"),
-      Fun:noOpen
+      name: t("Liquidity"),
+      Fun: noOpen
     },
   ]
   function getparent(triggerNode: any) {
@@ -105,7 +108,7 @@ const MainLayout: React.FC = () => {
     }
   }
   function goSBL(path: any) {
-    if (path.key === '/Node') {
+    if (path.key === '/Node' || path.key === '/Liquidity') {
       navigate(path.key);
     } else {
       addMessage(t("Not opened yet"));
@@ -147,27 +150,37 @@ const MainLayout: React.FC = () => {
       ]}
     />
   );
+
+  // SBL下拉菜单
   const SBLMenu = (
     <Menu
-    onClick={goSBL}
+      className="SBLMenu"
+      onClick={goSBL}
       items={[
         {
-          label: <div className="DropItem">{t("Node Coinage")}</div>,
+          label: <div className="DropItem">{t("Liquidity")}</div>,
+          key: "/Liquidity",
+        },
+        {
+          type: "divider",
+        },
+        {
+          label: <div className="DropItem">捐贈銷毀</div>,
           key: "/Node",
         },
         {
           type: "divider",
         },
         {
-          label: <div className="DropItem">{t("Donation")}</div>,
+          label: <div className="DropItem">鑄幣節點</div>,
           key: "none1",
         },
         {
           type: "divider",
         },
         {
-          label: <div className="DropItem">{t("Liquidity")}</div>,
-          key: "none2",
+          label: <div className="DropItem">MBA兌換</div>,
+          key: "none3",
         },
       ]}
     />
@@ -215,18 +228,18 @@ const MainLayout: React.FC = () => {
       return "MenuItem pointer";
     }
   }
-   function showOther(){
+  function showOther() {
     setSubMenuList(moreSubMenuList)
     setShowSubMenu(true)
-   }
-   function showNftOther(){
+  }
+  function showNftOther() {
     setSubMenuList(NFTSubMenuList)
     setShowSubMenu(true)
-   }
-   function showSBLOther(){
+  }
+  function showSBLOther() {
     setSubMenuList(SBLSubMenuList)
     setShowSubMenu(true)
-   }
+  }
   const HeadMenu = (
     <Menu>
       <Menu.Item
@@ -360,7 +373,7 @@ const MainLayout: React.FC = () => {
               arrow={{ pointAtCenter: true }}
             >
               <div className={menuActive("")}>...</div>
-              
+
             </Dropdown>
           </div>
           <div className="MenuList LargeScreen">
@@ -474,7 +487,7 @@ const MainLayout: React.FC = () => {
               placement="bottom"
               overlayClassName="LangDropDown"
               trigger={["click"]}
-              //   arrow={{ pointAtCenter: true }}
+            //   arrow={{ pointAtCenter: true }}
             >
               <img style={{ width: "24px" }} src={Lang} alt="" />
             </Dropdown>
@@ -550,8 +563,8 @@ const MainLayout: React.FC = () => {
               <a
                 href={
                   i18n.language === "zh"
-                    ? "http://13.215.173.111/File/SpaceBallZh.pdf"
-                    : "http://13.215.173.111/File/SpaceBallEn.pdf"
+                    ? "http://spaceballgames.com/File/SpaceBallZh.pdf"
+                    : "http://spaceballgames.com/File/SpaceBallEn.pdf"
                 }
                 target="_blank"
                 rel="noreferrer"
@@ -568,17 +581,17 @@ const MainLayout: React.FC = () => {
         </div>
       </Footer>
       {
-        showSubMenu && <div className="subMenuMold" onClick={()=>{setShowSubMenu(false)}}>
+        showSubMenu && <div className="subMenuMold" onClick={() => { setShowSubMenu(false) }}>
           <div className="subMenu">
             {
-              subMenuList.map((item,index)=><div key={index} className="SubMenuItem" onClick={item.Fun}>{item.name}</div>)
+              subMenuList.map((item, index) => <div key={index} className="SubMenuItem" onClick={item.Fun}>{item.name}</div>)
             }
-            
+
           </div>
         </div>
       }
       <div className="FootMenu">
-        <div className="MenuItem flexCenter"  onClick={() => {
+        <div className="MenuItem flexCenter" onClick={() => {
           navigate("/");
         }}>{t("Home")}</div>
         <div className="division"></div>
@@ -591,11 +604,11 @@ const MainLayout: React.FC = () => {
         }}>{t("Swap")}</div> */}
         <div className="MenuItem flexCenter" onClick={showSBLOther}>SBL</div>
         <div className="division"></div>
-        <div className="MenuItem flexCenter"onClick={showNftOther}>NFT</div>
+        <div className="MenuItem flexCenter" onClick={showNftOther}>NFT</div>
         <div className="division"></div>
         <div className="MenuItem flexCenter" onClick={showOther}>
           <div className="other flexCenter">
-          ···
+            ···
           </div>
         </div>
       </div>

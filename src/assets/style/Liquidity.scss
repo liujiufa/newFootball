@@ -1,0 +1,60 @@
+.LiquidityBox {
+    max-width: 1200px;
+    width: 100%;
+    margin: 60px auto 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .title {
+        font-family: 'DIN';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 29px;
+        color: #FFFFFF;
+        text-align: center;
+    }
+
+    .content {
+        padding: 60px 0;
+        margin-top: 150px;
+        width: 100%;
+        max-width: 413px;
+        background: #1F2045;
+        box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 19px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .myLiquidity {
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 20px;
+            /* identical to box height */
+            color: #FFFFFF;
+            margin-bottom: 30px;
+
+            span {
+                color: rgba(255, 255, 255, 0.6);
+            }
+        }
+
+        .addLiquidity {
+            width: 118px;
+            height: 36px;
+            background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+            border-radius: 6px;
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            /* identical to box height */
+            color: #FFFFFF;
+        }
+    }
+}

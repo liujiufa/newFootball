@@ -1,32 +1,29 @@
 import Token from './ABI/ERC20Token.json';
 import BlindBox from './ABI/BlindBox.json';
-// import IDO from './ABI/IDO.json';
 import EXChangeNFT from './ABI/EXChangeNFT.json';
 import Merge from './ABI/Merge.json';
 import NFT from './ABI/NFT.json';
 import Node from './ABI/Node.json';
 // export let baseUrl:string = 'http://192.168.2.36:10000';
 // export let baseUrl:string = 'http://47.107.116.172:10000';
-export let baseUrl:string = 'http://spaceballgames.com:10000';
+export let baseUrl: string = 'http://spaceballgames.com:10000';
 interface abiObjType {
     [propName: string]: any;
 }
 interface contractAddressType {
     [propName: string]: string;
 }
-export const abiObj :abiObjType = { 
+export const abiObj: abiObjType = {
     "Token": Token,
-    // "IDO": IDO,
     "BlindBox": BlindBox,
     "NFT": NFT,
     "Merge": Merge,
     "EXChangeNFT": EXChangeNFT,
     "Node": Node,
 }
-export const contractAddress :contractAddressType = {
+export const contractAddress: contractAddressType = {
     //正式
     "Token": "0x55d398326f99059fF775485246999027B3197955",
-    "IDO":"0x08c8A0B32eE3EB7285aF9766F048d962B33daA04",
     "BlindBox": "0xb6B4b59d8105C132e3892d1B4cB1FE573BBaE995",
     "EXChangeNFT": "0x321b5981a0bB2c919DD8581cAD8a61ABAD924727",
     "NFT": "0x86C94d3F18D0cb355916705EeDB0bB4329C23b41",
@@ -39,4 +36,4 @@ export const contractAddress :contractAddressType = {
     // "NFT": "0x1B57103eD624bA5aBeA0E8Eeb02f616372C8AAbf",
     // "Merge": "0xCAB778AB656f2d598C05fE6af1e1f3F30D3fE567",
     // "Node": "0x54df87C2ed83Ee12aE8a53cC58EcF6aa55Ef2172"
-  }
+}

@@ -1,15 +1,15 @@
 import './App.scss';
 import { useEffect } from 'react';
 import './lang/i18n'
-import {useWeb3React} from '@web3-react/core'
-import {useSelector , useDispatch} from "react-redux";
+import { useWeb3React } from '@web3-react/core'
+import { useSelector, useDispatch } from "react-redux";
 import styled from 'styled-components';
 import Routers from './router'
-import {GetQueryString} from './utils/tool'
+import { GetQueryString } from './utils/tool'
 // import web3 from 'web3';
-import {stateType} from './store/reducer'
-import {createAddMessageAction,createLoginSuccessAction,createDelMessageAction} from './store/actions'
-import {Login} from './API'
+import { stateType } from './store/reducer'
+import { createAddMessageAction, createLoginSuccessAction, createDelMessageAction } from './store/actions'
+import { Login } from './API'
 import { useConnectWallet } from './web3'
 import Loding from './components/loding'
 import ViewportProvider from './components/viewportContext'
@@ -19,14 +19,14 @@ import prohibit from './assets/image/prohibit.png'
 import cloneIcon from './assets/image/cloneIcon.png'
 import { t } from 'i18next';
 
-const Message=styled.span`
+const Message = styled.span`
   color: #fff;
   text-align: center;
   background:#DB2DCF;
   padding: 5px 12px;
   border-radius: 5px;
 `
-const MessageRow=styled.div`
+const MessageRow = styled.div`
   height: 50px;
 `
 const MessageBox = styled.div`
@@ -42,20 +42,20 @@ const MessageBox = styled.div`
 // function GetQueryString(name:string): string | null{
 //   var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
 //   var r = window.location.search.substr(1).match(reg);
-//   if(r!=null)return  unescape(r[2]); return null;
+//   if(r!=null){ return  unescape(r[2]); }else{ return null; }
 // }
 function App() {
   const web3React = useWeb3React()
   // const navigate = useNavigate();
-  useEffect(()=>{
-    if(web3React.active){
+  useEffect(() => {
+    if (web3React.active) {
       LoginFun()
-    }else{
+    } else {
       // dispatch(createLoginSuccessAction('',''))
     }
-  },[web3React.account])
+  }, [web3React.account])
   const dispatch = useDispatch();
-  let state = useSelector<stateType,stateType>(state => state);
+  let state = useSelector<stateType, stateType>(state => state);
   // useEffect(()=>{
   //   let address = GetQueryString('address')
   //   if(address!=null){
@@ -63,63 +63,54 @@ function App() {
   //   }
   // },[])
   useConnectWallet()
-  function addMessage (msg:string){
-    dispatch(createAddMessageAction({ 
-      message:msg,
-      index:state.message.length
+  function addMessage(msg: string) {
+    dispatch(createAddMessageAction({
+      message: msg,
+      index: state.message.length
     }))
   }
   // function addMessage (msg:string){
   //   // dispatch(createAddMessageAction('添加提醒'))
   // }
-  function LoginFun(){
-    let refereeUserAddress = GetQueryString("address")|| ''
+  function LoginFun() {
+    let refereeUserAddress = GetQueryString("address") || ''
     Login({
-      password:"123",
+      password: "123",
       refereeUserAddress,
-      userAddress:web3React.account as string,
+      userAddress: web3React.account as string,
       // userAddress:'0x9482394b609b51693FBd0b3B5Ed632B34c5070Eb',
-      userPower:0
-    }).then((res:any)=>{
+      userPower: 0
+    }).then((res: any) => {
       // console.log(res)
-      if(res.code !== 200){
+      if (res.code !== 200) {
         addMessage(res.msg)
       }
-      dispatch(createLoginSuccessAction(res.data.token,web3React.account as string))
+      dispatch(createLoginSuccessAction(res.data.token, web3React.account as string))
     })
   }
   return (
     <ViewportProvider>
       <div className="App">
-        {/* {state.address}
-        <button onClick={addMessage}>添加提示</button>
-        <button onClick={LoginFun}>登录接口调试</button>
-        {
-          state.message.map((item,index)=><Message key={index}>{item.message}</Message>)
-        }
-        {state.address}
-        {state.token} */}
-        
         <MessageBox>
           {
-            state.message.map((item,index)=>
-                <div className="messageItem" key={index}>
-                    <div className="messageLebel">
-                        <img src={prohibit} alt="" />
-                    </div>
-                    <div className="messageConter">
-                        <div className="title">{t('Info')}</div>
-                        <div className="content">
-                            {item.message}
-                        </div>
-                        <img  className="clone" onClick={()=>{dispatch(createDelMessageAction(item.index))}} src={cloneIcon} alt="" />
-                    </div>
+            state.message.map((item, index) =>
+              <div className="messageItem" key={index}>
+                <div className="messageLebel">
+                  <img src={prohibit} alt="" />
                 </div>
+                <div className="messageConter">
+                  <div className="title">{t('Info')}</div>
+                  <div className="content">
+                    {item.message}
+                  </div>
+                  <img className="clone" onClick={() => { dispatch(createDelMessageAction(item.index)) }} src={cloneIcon} alt="" />
+                </div>
+              </div>
             )
           }
         </MessageBox>
         <Routers></Routers>
-        { state.showLoding && <Loding></Loding>}
+        {state.showLoding && <Loding></Loding>}
       </div>
     </ViewportProvider>
   );
