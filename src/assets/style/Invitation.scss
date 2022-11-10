@@ -1,0 +1,188 @@
+.SwapTitle{
+    margin-top: 60px;
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 24px;
+    text-align: center;
+}
+.TabRow{
+    border-radius: 6px;
+    display: flex;
+    >div{
+        margin-right: 6px;
+    }
+    .TabItem{
+        border-radius: 6px;
+        padding: 8px 24px;
+        color: #FFFFFF;
+        width: max-content;
+        
+    }
+    .InvitationInvalid{
+        padding: 8px 24px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 6px;
+        color: rgba(255, 255, 255, 0.6);
+    }
+}
+.InvitationLabel{
+    font-weight: 700;
+    font-size: 20px;
+    width: max-content;
+    color:#fff;
+    margin-top: 27px;
+    .prominent{
+        font-weight: 700;
+        font-size: 20px;
+        color:#DB2DCF;
+    }
+}
+.levelText{
+    font-weight: 700;
+font-size: 24px;
+margin-top: 15px;
+}
+.InvitationRule{
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 400;
+    font-size: 14px;
+    max-width: 405px;
+}
+.BoxBorder{
+    // background: linear-gradient(180deg, #4EADF533, #DB2DCF33);
+    border: 1px solid #4EADF533;
+    border-radius: 19px;
+    padding: 1px;
+    max-width: 346px;
+    width: 100%;
+}
+.InvitationAddr{
+    box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 19px;
+    background: #161731;
+    padding:20px;
+    max-width: 346px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.labelItem{
+    font-weight: 700;
+font-size: 16px;
+}
+.labelItemActivr{
+    color: #DB2DCF;
+}
+.InvitationList{
+    max-height: 252px;
+    overflow-y: auto;
+    padding-right: 18px;
+    margin-top: 20px;
+    li{
+        height: 55px;
+        border-bottom:1px solid rgba(255, 255, 255, 0.1);
+        color: #FFFFFF;
+        font-weight: 500;
+        font-size: 14px;
+        letter-spacing: 0.08em;
+        display: flex;
+        align-items: center;
+    }
+}
+.refereeAddress{
+    height: 55px;
+    border-bottom:1px solid rgba(255, 255, 255, 0.1);
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+}
+.InvitationList::-webkit-scrollbar{
+    width: 3px;
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.1);
+}
+.InvitationList::-webkit-scrollbar-thumb{
+    width: 3px;
+    border-radius: 9px;
+    background: #5B5C83;
+}
+.boxLabel{
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    .InvitationNum{
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        width: 104px;
+        height: 23px;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 400;
+        font-size: 12px;
+    }
+}
+.userAddr{
+    max-width: 100%;
+    width: 306px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px 0 10px;
+    .linkLabel{
+        width: 100%;
+        font-weight: 400;
+        font-size: 12px;
+        color: #FFFFFF;
+    }
+    .link{
+        display: flex;
+        align-items: center;
+        .linkAddr{
+            font-weight: 500;
+            font-size: 12px;
+            color: #FFFFFF;
+        }
+        .division{
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.46875) 53.12%, rgba(255, 255, 255, 0) 100%);
+            width: 1px;height: 14px;
+            margin: 0 6px;
+        }
+    }
+}
+.OperationTips{
+    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    font-size: 14px;
+}
+.ObtainMethodItem{
+    color: #FFFFFF;
+    font-weight: 400;
+font-size: 16px
+}
+.land{
+    .imgBox{
+        text-align: center;
+        img{
+            max-width: 60%;
+            margin: 80px auto 0;
+        }
+    }
+}
+
+@media (max-width:768px) {
+    .land{
+        img{
+            max-width: 80%;
+        }
+    }
+}

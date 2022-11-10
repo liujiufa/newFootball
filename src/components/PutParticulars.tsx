@@ -1,0 +1,42 @@
+// 交易场卡牌详情
+import React  from 'react';
+import { useTranslation } from 'react-i18next'
+import { Modal} from 'antd';
+import {orderInfoType} from '../view/Swap'
+import '../assets/style/componentsStyle/PutParticulars.scss'
+
+interface PropsType{
+  isShow:boolean,
+  close:Function,
+  OrderInfo:orderInfoType
+}
+const cardClass=['','Perseus Badge','Khaos Badge','Gaea Badge','Astra Badge']
+const level = ['','Common','Uncommon','Outstanding','Rare','Perfect','Epic']
+ function PutParticulars(props:PropsType) {
+  let { t ,i18n } = useTranslation()
+  return (
+    <>
+    {/* <div className='box'>11111</div> */}
+      <Modal title="Basic Modal" visible={props.isShow} 
+      className='PutParticulars'
+      onCancel={()=>props.close()}
+      centered
+      width={'449px'}
+      closable={ false }
+      footer={null}
+      >
+          <p className='title'>{t('Card Details')}</p>
+          <div className='hzimg'>
+              <img src={props.OrderInfo.image} alt="" ></img>
+          </div>
+          <p className='kpdetails'>{t('Card Name')}:{i18n.language === 'zh' ? props.OrderInfo.zhCardName:props.OrderInfo.cardName}</p>
+          <p className='kpdetails'>{t('CardID')}:{props.OrderInfo.cardNo}</p>
+          <p className='kpdetails'>{t('CardLevel')}:{t(level[props.OrderInfo.cardLevel])}</p>
+          <p className='kpdetails'>{t('CardType')}:{t(cardClass[props.OrderInfo.cardType])}</p>
+          <p className='kpdetails'>{t('Introduction Card')}:{i18n.language === 'zh' ? props.OrderInfo.zhIntroduce:props.OrderInfo.introduce}</p>
+        <span>{t('Click anywhere to close')}</span>
+      </Modal>
+    </>
+  )
+}
+export default PutParticulars

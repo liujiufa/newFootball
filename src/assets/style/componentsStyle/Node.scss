@@ -1,0 +1,115 @@
+.NodeTips{
+    font-weight: 400;
+    font-size: 14px;
+    color: #FFFFFF;
+    .important{
+        font-weight: 600;
+    }
+    img{
+        margin-left: 5px;
+    }
+    .imgRotate{
+        animation:rotate 1s linear 1;
+    }
+}
+.row{
+    display: flex;
+    flex-wrap: wrap;
+}
+.progressRow{
+    display: flex;
+    margin: 10px 0;
+    align-items: center;
+    .progressLabel{
+        color: #FFFFFF;
+        font-weight: 400;
+        font-size: 14px;
+    }
+    .progress{
+        flex:1;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        height: 10px;
+        .progressValue{
+            background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+            border-radius: 8px;
+            width: 50%;
+            height: 100%;
+        }
+    }
+    .progressInrt{
+        letter-spacing: 0.08em;
+        color: #FFFFFF;
+        font-weight: 500;
+        font-size: 14px;
+    }
+}
+.rewardNumRow{
+    display: flex;
+    align-items: center;
+    height: 66px;
+    background: #171833;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding:0 24px 0 15px;
+    .rewardNum{
+        flex: 1;
+        color: #FFFFFF;
+        font-weight: 700;
+        font-size: 24px;
+    }
+    .TokenInfo{
+        img{
+            margin-right: 5px;
+        }
+        color: #FFFFFF;
+        letter-spacing: 0.08em;
+        font-weight: 500;
+        font-size: 14px;
+    }
+}
+.applyBtn{
+    width: 100%;
+    background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+    border-radius: 6px;
+    height: 36px;
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.invalid{
+    background: rgba(255, 255, 255, 0.2);
+}
+.BtnRow{
+    display: flex;
+}
+.receiveNodeBtn{
+    background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+    border-radius: 6px;
+    height: 36px;
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 10px;
+    flex:1;
+    margin-right: 16px;
+}
+.returnBtn{
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    height: 36px;
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 10px;
+    flex:1;
+}
+@keyframes rotate{
+    0%{-webkit-transform:rotate(0deg);}
+    25%{-webkit-transform:rotate(90deg);}
+    50%{-webkit-transform:rotate(180deg);}
+    75%{-webkit-transform:rotate(270deg);}
+    100%{-webkit-transform:rotate(360deg);}
+}

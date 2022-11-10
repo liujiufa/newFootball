@@ -1,0 +1,85 @@
+.RaceBoxModal {
+    height: 393px;
+    .ant-modal-content {
+        box-shadow: none;
+        background: #1d1e44;
+        box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+        padding: 0;
+        border-radius: 19px;
+
+        .ant-modal-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .Img,
+            .BoxImg {
+                width: 235px;
+                height: 235px;
+            }
+            .buyNum{
+                font-weight: 400;
+                font-size: 16px;
+                color: #FFFFFF;
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+                display: flex;
+                align-items: center;
+                .Label{
+                    margin-right: 25px;
+                    font-weight: 400;
+                    font-size: 16px;
+                }
+                input{
+                    flex:1;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    border-radius: 10px;
+                    background: #171833;
+                    height: 37px;
+                    margin:0 10px;
+                    width: 142px;
+                    text-align: center;
+                }
+            }
+            .payamount{
+                width: 300px;
+                font-weight: 400;
+                font-size: 16px;
+                color: #FFFFFF;
+                margin-top: 30px;
+            }
+            .Tip {
+                // width: 285px;
+                height: 22px;
+                margin-top: 30px;
+                font-size: 16px;
+                color: #fff;
+            }
+            .Verify {
+                // width: 76px;
+                padding: 0 15px;
+                height: 36px;
+                margin-top: 30px;
+                background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+                border-radius: 6px;
+                color: #fff;
+                border: none;
+            }
+            span{
+                width: 100%;
+                text-align: center;
+                position: absolute;
+                bottom: -30px;
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 17px;
+                color: rgba(255, 255, 255, 0.6);
+            }
+        }
+    }
+
+
+
+}
