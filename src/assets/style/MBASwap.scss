@@ -1,0 +1,105 @@
+.MBASwapBox {
+    max-width: 1200px;
+    width: 100%;
+    margin: 60px auto 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .title {
+        font-family: 'DIN';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 29px;
+        color: #FFFFFF;
+        text-align: center;
+    }
+
+    .content {
+        margin-top: 120px;
+        width: 100%;
+        max-width: 413px;
+
+        .balanceBox {
+            display: flex;
+            justify-content: space-between;
+
+            &:first-child {
+                margin-bottom: 24px;
+            }
+
+            >div {
+                display: flex;
+                align-items: center;
+            }
+
+            .leftBox {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 20px;
+                line-height: 28px;
+                /* identical to box height */
+                text-align: center;
+                color: #FFFFFF;
+
+                img {
+                    width: 40px;
+                    height: 40px;
+                    margin-right: 20px;
+                }
+            }
+
+            .rightBox {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                /* identical to box height */
+                color: rgba(255, 255, 255, 0.8);
+
+                img {
+                    width: 14px;
+                    height: 14px;
+                    margin-left: 5px;
+                }
+            }
+
+        }
+
+        .MBAContent {
+            margin-top: 35px;
+            padding: 20px 35px;
+            width: 100%;
+            background: #1F2045;
+            box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 19px;
+
+            .subMBATitle {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 20px;
+                line-height: 28px;
+                /* identical to box height */
+                color: #DB2DCF;
+            }
+
+            .Box {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+                .itemTitle {
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 22px;
+                    color: #FFFFFF;
+                }
+            }
+        }
+    }
+
+}

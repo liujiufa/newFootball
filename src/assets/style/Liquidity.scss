@@ -57,4 +57,135 @@
             color: #FFFFFF;
         }
     }
+
+
+    //我的流动性
+    .myLiquidityContent {
+        padding: 20px;
+        margin-top: 112px;
+        width: 100%;
+        max-width: 413px;
+        background: #1F2045;
+        box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 19px;
+
+        .myLiquidity {
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 20px;
+            /* identical to box height */
+            color: #FFFFFF;
+
+        }
+
+        .rmLiquidityBox {
+            margin-top: 30px;
+            padding: 16px 15px;
+            background: #171833;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+
+            .coinsBox {
+                display: flex;
+                justify-content: space-between;
+
+                .coinsvalue {
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 24px;
+                    line-height: 34px;
+                    /* identical to box height */
+                    color: #FFFFFF;
+                }
+
+                .rightBox {
+                    width: 40px;
+                    display: flex;
+                    justify-content: space-between;
+
+                    .coinsIcon {
+                        display: flex;
+                        align-items: center;
+                        width: 21px;
+                        position: relative;
+
+                        .img1 {
+                            z-index: 2;
+                        }
+
+                        .img2 {
+                            position: absolute;
+                            left: 7px;
+
+                        }
+
+                    }
+
+                }
+            }
+
+            .detailBox {
+                margin-top: 35px;
+
+                .item {
+                    display: flex;
+                    margin-top: 20px;
+                    justify-content: space-between;
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 20px;
+                    /* identical to box height */
+                    color: #FFFFFF;
+
+                    .itemValue {
+                        font-family: 'DIN';
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 17px;
+                        /* identical to box height */
+                        text-align: right;
+                        letter-spacing: 0.08em;
+                        color: #FFFFFF;
+                    }
+                }
+
+                .rmBtn {
+                    width: 139px;
+                    height: 36px;
+                    background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+                    border-radius: 6px;
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 20px;
+                    /* identical to box height */
+                    color: #FFFFFF;
+                    margin: 20px auto 0px;
+                }
+            }
+        }
+
+    }
+
+    .addLiquidityBtn {
+        margin: 40px auto 0px;
+        width: 118px;
+        height: 36px;
+        background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+        border-radius: 6px;
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        /* identical to box height */
+        color: #FFFFFF;
+    }
 }

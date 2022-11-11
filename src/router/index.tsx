@@ -9,6 +9,7 @@ const Swap = React.lazy(() => import('../view/Swap'));
 const NFT = React.lazy(() => import('../view/NFT'));
 const SBL = React.lazy(() => import('../view/Node'));
 const Liquidity = React.lazy(() => import('../view/Liquidity'));
+const MBASwap = React.lazy(() => import('../view/MBASwap'));
 const Farms = React.lazy(() => import('../view/farms'));
 const Invitation = React.lazy(() => import('../view/Invitation'));
 export default function Router() {
@@ -22,6 +23,7 @@ export default function Router() {
           <Route path="NFT" element={<NFT />}></Route>
           <Route path="Node" element={<SBL />}></Route>
           <Route path="Liquidity" element={<Liquidity />}></Route>
+          <Route path="MBASwap" element={<MBASwap />}></Route>
           <Route path="Farms" element={<Farms />}></Route>
           <Route path="Invitation" element={<Invitation />}></Route>
         </Route>

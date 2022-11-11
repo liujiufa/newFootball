@@ -48,7 +48,6 @@
                         /* identical to box height */
                         text-align: right;
                         color: #FFFFFF;
-                        margin-bottom: 10px;
                     }
 
                     .rightBox {
@@ -130,6 +129,10 @@
                     }
                 }
 
+                .balanceBox {
+                    margin-top: 15px;
+                }
+
             }
 
             .midBox {
@@ -140,6 +143,21 @@
                 width: 270px;
                 height: 36px;
                 background: rgba(255, 255, 255, 0.2);
+                border-radius: 6px;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 20px;
+                /* identical to box height */
+                color: #FFFFFF;
+                margin-top: 50px;
+            }
+
+            .toSupplyBtn {
+                width: 270px;
+                height: 36px;
+                background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
                 border-radius: 6px;
                 font-family: 'PingFang SC';
                 font-style: normal;
@@ -163,6 +181,49 @@
                 color: #DB2DCF;
             }
 
+        }
+    }
+}
+
+.AddLiquidityDropdown {
+    .ant-dropdown-menu {
+        background: #434477;
+        border-radius: 5px;
+
+        .dropValue {
+            width: 81px;
+            text-align: center;
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            /* identical to box height */
+            color: #FFFFFF;
+            margin: 6px auto;
+        }
+
+        .ant-dropdown-menu-item {
+            padding: 0px;
+        }
+
+        .ant-dropdown-menu-item-divider,
+        .ant-dropdown-menu-submenu-title-divider {
+            height: 1px;
+            margin: 4px 0;
+            overflow: hidden;
+            line-height: 0;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .ant-dropdown-menu-item.ant-dropdown-menu-item-active,
+        .ant-dropdown-menu-item.ant-dropdown-menu-submenu-title-active,
+        .ant-dropdown-menu-item:hover,
+        .ant-dropdown-menu-submenu-title.ant-dropdown-menu-item-active,
+        .ant-dropdown-menu-submenu-title.ant-dropdown-menu-submenu-title-active,
+        .ant-dropdown-menu-submenu-title:hover {
+            background: #434477;
+            border-radius: 5px;
         }
     }
 }

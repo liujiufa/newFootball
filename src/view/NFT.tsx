@@ -202,7 +202,7 @@ function NFT() {
         level: level,
         pageSize: 12,
         type: type,
-        userAddress: web3React.account
+        userAddress: '0x1fcac7551589e67c6b7e4452a681dab0127a5db7'
       }).then(res => {
         console.log(res.data.list, "用户卡牌")
         setuserCard(res.data.list)
@@ -270,7 +270,7 @@ function NFT() {
         </div>
         {
           TabIndex === 0 ? <>
-            {/* 卡牌 */}
+            {/* 卡牌徽章 */}
             {
               userCard.length !== 0 ? <>
                 <div className="CardList">

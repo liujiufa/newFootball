@@ -108,7 +108,7 @@ const MainLayout: React.FC = () => {
     }
   }
   function goSBL(path: any) {
-    if (path.key === '/Node' || path.key === '/Liquidity') {
+    if (path.key === '/Node' || path.key === '/Liquidity' || path.key === '/MBASwap') {
       navigate(path.key);
     } else {
       addMessage(t("Not opened yet"));
@@ -180,7 +180,7 @@ const MainLayout: React.FC = () => {
         },
         {
           label: <div className="DropItem">MBA兌換</div>,
-          key: "none3",
+          key: "/MBASwap",
         },
       ]}
     />

@@ -1,0 +1,152 @@
+.Card {
+    width: 100%;
+    padding: 1px;
+    border-radius: 19px;
+    box-sizing: border-box;
+    // background: linear-gradient(180deg, #4EADF5 0%, #DB2DCF 100%);
+    overflow: hidden;
+    height: max-content;
+
+
+    .CardItem {
+        background: #1F2045;
+        box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 19px;
+        padding: 25px;
+        box-sizing: border-box;
+        margin: 1px;
+
+        .computingPower {
+            margin-top: 18px;
+            display: flex;
+            justify-content: space-between;
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 22px;
+            color: #FFFFFF;
+
+            .value {
+                color: #DB2DCF;
+            }
+        }
+
+        .share {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+
+            .shareBox {
+                height: 12px;
+                flex: auto;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 8px;
+
+                .shareValue {
+                    height: 100%;
+                    background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+                    border-radius: 8px;
+                    font-family: 'DIN';
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 12px;
+                    line-height: 15px;
+                    letter-spacing: 0.08em;
+                    color: #FFFFFF;
+                    text-align: right;
+                }
+            }
+
+            .addBtn {
+                width: 70px;
+                display: flex;
+                justify-content: end;
+            }
+        }
+
+        .CardImg {
+            background: #171833;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            border-radius: 10px;
+            width: 100%;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .BoxNum {
+            color: #FFFFFF;
+            font-weight: 400;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .cardId {
+            color: #FFFFFF;
+            font-weight: 400;
+            font-size: 14px;
+            text-align: center;
+            margin: 0px 0px 20px 0px;
+        }
+
+        .openBtn {
+            padding: 8px 24px;
+            width: max-content;
+            border-radius: 6px;
+            font-weight: 400;
+            font-size: 14px;
+            color: #FFFFFF;
+            margin: 15px auto 0;
+        }
+
+        .price {
+            font-weight: 400;
+            font-size: 14px;
+            color: #FFFFFF;
+            margin-top: 10px;
+
+            .decorate {
+                flex-shrink: 0;
+                width: 14px;
+                height: 14px;
+                background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+                border-radius: 50%;
+                margin-left: 6px;
+            }
+        }
+
+        @media (max-width:768px) {
+            .price {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width:425px) {
+            .price {
+                // justify-content: space-between;
+            }
+
+            // .priceFlex{
+            //     display: flex;
+            //     flex-direction: column;
+            // }
+        }
+
+        .coinName {
+            margin-left: 10px;
+        }
+
+        .buyBtn {
+            width: max-content;
+            padding: 8px 24px;
+            border-radius: 6px;
+            color: #FFFFFF;
+            font-weight: 400;
+            font-size: 14px;
+            margin: 22px auto 0;
+        }
+    }
+}

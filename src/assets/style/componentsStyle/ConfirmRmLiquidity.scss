@@ -1,0 +1,153 @@
+.ConfirmRmLiquidity {
+    .ant-modal-content {
+        padding: 30px 40px;
+        background: #1D1E44;
+        box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 19px;
+
+        .ant-modal-body {
+            position: relative;
+            padding: 0px;
+
+
+            .title {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 24px;
+                line-height: 34px;
+                /* identical to box height */
+                text-align: center;
+                color: #FFFFFF;
+                margin-bottom: 50px;
+            }
+
+            .coinBox {
+                display: flex;
+                align-items: center;
+
+                .coinsValue {
+                    font-family: 'DIN';
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 40px;
+                    line-height: 49px;
+                    /* identical to box height */
+                    text-align: left;
+                    color: #FFFFFF;
+                    font-size: 40px;
+                    margin-right: 12px;
+                }
+
+                .coinsIcon {
+                    display: flex;
+                    align-items: center;
+                    width: 43px;
+                    position: relative;
+
+                    .img1 {
+                        z-index: 2;
+                    }
+
+                    .img2 {
+                        position: absolute;
+                        left: 17px;
+                    }
+                }
+            }
+
+            .tip {
+                margin-top: 20px;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                /* identical to box height */
+                color: #FFFFFF;
+            }
+
+            .subTitle {
+                margin-top: 20px;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                /* identical to box height */
+                color: #FFFFFF;
+            }
+
+            .box {
+                margin-top: 20px;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                color: #FFFFFF;
+
+                .value {
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        margin-right: 5px;
+                    }
+                }
+
+                .radioValue {
+                    font-family: 'DIN';
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 17px;
+                    /* identical to box height */
+                    text-align: right;
+                    letter-spacing: 0.08em;
+                    color: #FFFFFF;
+
+                    .radio {
+                        margin-bottom: 10px;
+                    }
+                }
+
+            }
+
+
+
+
+            .toRemoveBtn {
+                width: 270px;
+                height: 36px;
+                background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+                border-radius: 6px;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 20px;
+                /* identical to box height */
+                color: #FFFFFF;
+                margin: 21px auto 0px;
+
+            }
+
+            span {
+                position: absolute;
+                bottom: -60px;
+                width: 100%;
+                text-align: center;
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 17px;
+                color: #DB2DCF;
+            }
+
+        }
+    }
+}
