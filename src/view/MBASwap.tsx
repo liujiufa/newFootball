@@ -1,7 +1,8 @@
 import React from 'react'
 import '../assets/style/MBASwap.scss'
-import AddLiquidityModal from '../components/AddLiquidityModal'
-import SBLIcon from '../assets/image/SBLToken.png'
+import ConfirmExchange from '../components/ConfirmExchange'
+import ExchangeRecord from '../components/ExchangeRecord'
+import SBLIcon from '../assets/image/SBLTokens.png'
 import bigSBLIcon from '../assets/image/SBLTokenIcon.png'
 import recordIcon from '../assets/image/recordIcon.png'
 export default function MBASwap() {
@@ -33,26 +34,32 @@ export default function MBASwap() {
                     </div>
                     <div className="MBAContent">
                         <div className="subMBATitle">MBA</div>
-                        <div className="Box">
+                        <div className="Box topBox">
                             <div className="itemTitle">消耗</div>
-                            <div className="coinName">SBL</div>
-                            <div className="coinValue"><img src={SBLIcon} alt="" /> 100，000.00</div>
-                            <div className="maxBtn">最大</div>
+                            <div className="minBox">
+                                <div className="coinName">SBL</div>
+                                <div className="coinValue"><img src={SBLIcon} alt="" /> 100，000.00</div>
+                                <div className="maxBtn">最大</div>
+                            </div>
                         </div>
                         <div className="Box">
                             <div className="itemTitle">獲得</div>
-                            <div className="coinName">MBA</div>
-                            <div className="coinValue"><img src={SBLIcon} alt="" /> 100，000.00</div>
-                            <div className="maxBtn"></div>
+                            <div className="minBox">
+                                <div className="coinName">MBA</div>
+                                <div className="coinValue"><img src={SBLIcon} alt="" /> 100，000.00</div>
+                                <div className="maxBtn"></div>
+                            </div>
                         </div>
                         <div className="recentlyRadio">當前匯率：1MBA = 11SBL</div>
-                        <div className="toMBA">兌換為MBA</div>
+                        <div className="toMBA flex">兌換為MBA</div>
                     </div>
                 </div>
 
             </div>
 
-            <AddLiquidityModal showModal={false}></AddLiquidityModal>
+            <ConfirmExchange showModal={false}></ConfirmExchange>
+            {/* 兑换记录&使用记录 */}
+            <ExchangeRecord showModal={false}></ExchangeRecord>
 
         </>
     )

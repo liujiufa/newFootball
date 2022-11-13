@@ -52,7 +52,7 @@ export default function Merge(props:CardSynthesisPropsType) {
             addMessage(t('Please connect Wallet'))
         }
         showLoding(true)
-        /* 判断卡牌等级 */
+        /* 判断徽章等级 */
         Contracts.example.setApprovalForAll(web3React.account as string,contractAddress.Merge,true).then(()=>{
             addMessage(t('Authorization succeeded'))
           setIsApproved(true)

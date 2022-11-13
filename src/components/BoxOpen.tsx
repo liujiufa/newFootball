@@ -17,7 +17,7 @@ function BoxOpen() {
         <div className='box'>
         <img src='' />
         </div>
-        <p className='title'> 恭喜您！獲得優秀卡牌一張！</p>
+        <p className='title'> 恭喜您！獲得優秀徽章一張！</p>
 
       <span>点击任意地方离开</span>
     </Modal>

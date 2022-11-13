@@ -15,7 +15,7 @@ import AddImg from '../assets/image/Union.png'
 import DropDown from '../components/DropDown'
 import Tips from '../components/Tips'
 import { useTranslation } from 'react-i18next'
-// 卡牌合成规则
+// 徽章合成规则
 import CardComRule from '../components/CardComRule'
 import BigNumber from 'big.js'
 interface CardSynthesisPropsType {
@@ -95,7 +95,7 @@ function CardSynthesis(props: CardSynthesisPropsType) {
             addMessage(t('Please connect Wallet'))
         }
         showLoding(true)
-        /* 判断卡牌等级 */
+        /* 判断徽章等级 */
         Contracts.example.setApprovalForAll(web3React.account as string, contractAddress.Merge, true).then(() => {
             addMessage(t('Authorization succeeded'))
             setIsApproved(true)
@@ -117,7 +117,7 @@ function CardSynthesis(props: CardSynthesisPropsType) {
             Contracts.example.ownerOf(web3React.account as string, SelCard.tokenId)
         ])
         if (owner[0] !== web3React.account || owner[1] !== web3React.account) {
-            return addMessage('要合成的卡牌不属于你')
+            return addMessage('要合成的徽章不属于你')
         }
         let Balance = await Contracts.example.getBalance(web3React.account as string)
         Balance = new BigNumber(Balance).div(10 ** 18).toString()
@@ -197,7 +197,7 @@ function CardSynthesis(props: CardSynthesisPropsType) {
                                 <Pagination simple current={page} total={total} defaultPageSize={12} onChange={changePage} />
                             </div>
                         </div>
-                        {/* 可点击选择的合成卡牌 */}
+                        {/* 可点击选择的合成徽章 */}
                         <div className="CardListBox">
                             {
                                 ToBeSelect?.list.map((item, index) => <div className="SynthesisCardList" key={item.id} onClick={() => { setSelCard(item) }}>

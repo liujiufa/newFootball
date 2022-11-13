@@ -62,7 +62,7 @@ interface getUserCardType{
     type?:number,
     userAddress:string
 }
-/* 获取用户卡牌信息 */
+/* 获取用户徽章信息 */
 export function getUserCard(data:getUserCardType){
     return axois.request({
         url:`/user/cCardUser/getCardUserInfo`,
@@ -82,7 +82,7 @@ export function compoundCard(data:compoundCardType){
         data
     })
 }
-/* 获取可合成卡牌 */
+/* 获取可合成徽章 */
 export function getCardCompoundList(data:getUserCardType){
     return axois.request({
         url:`/user/cCardUser/getCardCompoundList`,

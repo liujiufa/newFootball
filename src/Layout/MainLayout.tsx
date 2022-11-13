@@ -101,14 +101,15 @@ const MainLayout: React.FC = () => {
   }
   function goNft(path: any) {
     console.log(path);
-    if (path.key === "/NFT") {
-      navigate("/NFT");
+    if (path.key === "/NFT" || path.key === "/Land") {
+      navigate(path.key);
     } else {
       addMessage(t("Not opened yet"));
     }
   }
+  // SBL治理
   function goSBL(path: any) {
-    if (path.key === '/Node' || path.key === '/Liquidity' || path.key === '/MBASwap') {
+    if (path.key === '/Node' || path.key === '/Liquidity' || path.key === '/MBASwap' || path.key === '/DestructFund') {
       navigate(path.key);
     } else {
       addMessage(t("Not opened yet"));
@@ -144,6 +145,13 @@ const MainLayout: React.FC = () => {
           type: "divider",
         },
         {
+          label: <div className="DropItem">土地</div>,
+          key: "/Land",
+        },
+        {
+          type: "divider",
+        },
+        {
           label: <div className="DropItem">{t("Pledge")}</div>,
           key: "/Pledge",
         },
@@ -165,15 +173,15 @@ const MainLayout: React.FC = () => {
           type: "divider",
         },
         {
-          label: <div className="DropItem">捐贈銷毀</div>,
-          key: "/Node",
+          label: <div className="DropItem">銷毀基金</div>,
+          key: "/DestructFund",
         },
         {
           type: "divider",
         },
         {
           label: <div className="DropItem">鑄幣節點</div>,
-          key: "none1",
+          key: "/Node",
         },
         {
           type: "divider",
@@ -273,6 +281,13 @@ const MainLayout: React.FC = () => {
           }}
         >
           {t("stock2")}
+        </Menu.Item>
+        <Menu.Item
+          onClick={() => {
+            navigate("/Land");
+          }}
+        >
+          土地
         </Menu.Item>
         <Menu.Item onClick={noOpen}>{t("Pledge")}</Menu.Item>
       </Menu.SubMenu>

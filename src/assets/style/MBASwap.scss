@@ -1,7 +1,7 @@
 .MBASwapBox {
     max-width: 1200px;
     width: 100%;
-    margin: 60px auto 0px;
+    margin: 60px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,7 +17,7 @@
     }
 
     .content {
-        margin-top: 120px;
+        margin-top: 80px;
         width: 100%;
         max-width: 413px;
 
@@ -85,6 +85,8 @@
                 line-height: 28px;
                 /* identical to box height */
                 color: #DB2DCF;
+                text-align: center;
+                margin-bottom: 20px;
             }
 
             .Box {
@@ -98,6 +100,72 @@
                     line-height: 22px;
                     color: #FFFFFF;
                 }
+
+                .minBox {
+                    display: flex;
+                    margin: 30px auto 16px;
+
+
+                    >div {
+                        width: 50px;
+                        display: flex;
+                        align-items: center;
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 22px;
+                        color: #FFFFFF;
+                    }
+
+                    .coinValue {
+                        flex: auto;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+
+                        img {
+                            width: 20px;
+                            width: 20px;
+                            margin-right: 10px;
+                        }
+                    }
+
+                    .maxBtn {
+                        color: #DB2DCF;
+                    }
+                }
+
+            }
+
+            .topBox {
+                margin-bottom: 40px;
+            }
+
+            .recentlyRadio {
+                margin-top: 20px;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 22px;
+                color: #FFFFFF;
+            }
+
+            .toMBA {
+                margin: 40px auto 0px;
+                width: 122px;
+                height: 36px;
+                background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+                border-radius: 6px;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                /* identical to box height */
+                color: #FFFFFF;
             }
         }
     }

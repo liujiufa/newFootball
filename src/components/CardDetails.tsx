@@ -21,7 +21,7 @@ interface CardDetailPropsType {
 }
 const cardClass = ['', 'Perseus Badge', 'Khaos Badge', 'Gaea Badge', 'Astra Badge']
 const level = ['', 'Common', 'Uncommon', 'Outstanding', 'Rare', 'Perfect', 'Epic']
-/* type:Swap 交易场详情 CreateOrder 挂单详情 NFT 背包卡牌详情 */
+/* type:Swap 交易场详情 CreateOrder 挂单详情 NFT 背包徽章详情 */
 function CardDetails(props: CardDetailPropsType) {
   let { t, i18n } = useTranslation()
   const web3React = useWeb3React()
@@ -78,7 +78,7 @@ function CardDetails(props: CardDetailPropsType) {
     if (!web3React.account) {
       addMessage(t('Please connect Wallet'))
     }
-    /* 判断卡牌等级 */
+    /* 判断徽章等级 */
     Contracts.example.setApprovalForAll(web3React.account as string, contractAddress.EXChangeNFT, true).then(() => {
       setIsApproved(true)
       addMessage(t('Authorization succeeded'))

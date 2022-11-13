@@ -1,7 +1,8 @@
-.Node {
+.Land {
     max-width: 1200px;
     margin: auto;
     width: 100%;
+
 
     .SwapTitle {
         margin-top: 60px;
@@ -11,15 +12,27 @@
         text-align: center;
     }
 
-    .NodeDesc {
+    .processState {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-image: url(../image/landProcess/processLine.png) 100% 1px;
+    }
+
+    .LandDesc {
         max-width: 1200px;
-        margin: 70px auto;
-        border-radius: 19px;
+        margin: auto;
+        width: 100%;
         box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
-        text-align: left;
+        margin-top: 70px;
+        font-family: 'PingFang SC';
+        font-style: normal;
         font-weight: 400;
-        font-size: 14px;
-        color: #FFFFFF;
+        font-size: 20px;
+        line-height: 28px;
+
+        color: rgba(255, 255, 255, 0.8);
+
 
         @media (max-width:768px) {
             padding: 20px 16px;
@@ -203,50 +216,37 @@
                 }
             }
 
-
-            .btnBox {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-
-                .Btn {
-                    max-width: 150px;
-                    margin: 36px 0 15px;
-                    padding: 0px 40px;
-                    font-family: 'PingFang SC';
-                    font-style: normal;
-                    font-weight: 400;
-                    font-size: 14px;
-                    line-height: 20px;
-                    /* identical to box height */
-                    color: #FFFFFF;
-                    width: 316px;
-                    height: 40px;
-                    background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
-                    border-radius: 6px;
-
-                }
-
-                .notBtn {
-                    max-width: 150px;
-                    margin: 36px 0 15px;
-                    padding: 0px 40px;
-                    font-family: 'PingFang SC';
-                    font-style: normal;
-                    font-weight: 400;
-                    font-size: 14px;
-                    line-height: 20px;
-                    /* identical to box height */
-                    color: #FFFFFF;
-                    width: 316px;
-                    height: 40px;
-                    background: rgba(255, 255, 255, 0.2);
-                    border-radius: 6px;
-
-                }
+            .Balance {
+                margin-top: 15px;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                /* identical to box height */
+                text-align: right;
+                color: #FFFFFF;
             }
 
-            .getRecord {
+            .Btn {
+                margin: 36px auto 15px;
+                padding: 0px 40px;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                /* identical to box height */
+                color: #FFFFFF;
+                width: 316px;
+                height: 40px;
+                background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+                border-radius: 6px;
+
+            }
+
+            .getRecord,
+            .DestructRecord {
                 font-family: 'PingFang SC';
                 font-style: normal;
                 font-weight: 400;
@@ -256,6 +256,7 @@
                 color: rgba(255, 255, 255, 0.6);
                 text-align: center;
                 display: flex;
+                justify-content: center;
                 align-items: center;
 
                 img {
@@ -264,5 +265,4 @@
             }
         }
     }
-
 }

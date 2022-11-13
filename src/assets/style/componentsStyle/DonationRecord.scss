@@ -5,18 +5,22 @@
   // height: 424px;
   padding-left: 30px;
   padding-right: 32px;
+
   .ant-modal-content {
     box-shadow: none;
     background: #1d1e44;
     margin-bottom: 30px;
   }
+
   .ant-modal-header {
     display: none;
   }
+
   .ant-modal-body {
     position: relative;
     background: #1d1e44;
     padding: 0;
+
     .title {
       font-size: 24px;
       margin: auto;
@@ -25,31 +29,36 @@
       color: #fff;
       box-shadow: 0;
     }
+
     span {
       position: absolute;
-      bottom: -85px;
+      bottom: -60px;
       width: 100%;
       text-align: center;
       font-style: normal;
       font-weight: 400;
       font-size: 12px;
       line-height: 17px;
-      color: #fff;
+      color: #DB2DCF;
     }
+
     .ant-table {
       background: #1d1e44;
     }
+
     .ant-table-wrapper {
       .ant-pagination {
         display: none;
       }
     }
   }
+
   .ant-table-thead {
     tr {
       .ant-table-cell-scrollbar {
         box-shadow: none;
       }
+
       th {
         font-size: 14px;
         background: #1d1e44;
@@ -57,31 +66,38 @@
         border: 0;
         text-align: center;
       }
+
       th:nth-child(1) {
         text-align: left;
         padding-left: 0;
       }
     }
   }
+
   .ant-table-tbody {
     border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+
     tr {
       font-size: 14px;
       background: #1d1e44;
       color: #fff;
+
       td {
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         text-align: center;
       }
+
       td:nth-child(1) {
         text-align: left;
         padding-left: 0;
       }
+
       .ant-table-cell-row-hover {
         background: #1d1e44 !important;
       }
     }
   }
+
   //表格体的滚动条设置
   .ant-table-body {
     &::-webkit-scrollbar {
@@ -93,6 +109,7 @@
       background: #5b5c83;
       border-radius: 9px;
     }
+
     //滚动条的轨道（里面装有thumb）滚动槽
     &::-webkit-scrollbar-track {
       background: rgba(255, 255, 255, 0.1);

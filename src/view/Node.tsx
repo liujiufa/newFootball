@@ -1,75 +1,57 @@
-import React , {useState , useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Reward from '../components/Reward'
 import Node from '../components/Node'
 import { useTranslation } from 'react-i18next'
 import '../assets/style/SBL.scss'
-// import AwardMechanism from '../components/AwardMechanism'
-// import GainRecording from '../components/GainRecording'
-import TeamMachine from '../components/TeamMachine'
-import TeamEarnings from '../components/TeamEarnings'
-import GlodMechanism from '../components/GlodMechanism'
-// import GlodJdSy from '../components/GlodJdSy'
-import DonateSucceed from '../components/DonateSucceed'
-import DonateRule from '../components/DonateRule'
-import DonateDestroy from '../components/DonateDestroy'
-import ReleaseMechanusm from '../components/ReleaseMechanusm'
-import DonationRecord from '../components/DonationRecord'
-import AddFlowSucceed from '../components/AddFlowSucceed'
-import AddFlowRem from '../components/AddFlowRem'
-import RemoveAffirm from '../components/RemoveAffirm'
+import RewardRecord from '../components/RewardRecord'
 // import MyDealRecord from '../components/MyDealRecord'
-
+import SBLIcon from '../assets/image/SBLTokens.png'
+import RecordIcon from '../assets/image/record.png'
 function SBL() {
   let { t } = useTranslation()
-    let [Tab,setTab] = useState(1)
+  let [Tab, setTab] = useState(1)
 
   return (
     <div>
-        <div className="Edition-Center">
-            <div className="SwapTitle">
-            {t('Node Coinage')}
-            </div>
-            <div className="NodeDesc">
-            {t('NodeDesc')}
-            </div>
-            {/* <div className="TabRow">
-                <div className={Tab ===0 ? "TabItem linear-gradient":"TabItem Inactivation"} onClick={() =>setTab(0)}>{t('Reward')}</div>
-                <div className={Tab ===1 ? "TabItem linear-gradient":"TabItem Inactivation"}onClick={() =>setTab(1)}>{t('Coinage')}</div>
-            </div> */}
-            {
-                Tab ===0 && <>
-                {/* 奖励模块 */}
-                <Reward></Reward>
-                </>
-            }
-            {
-                Tab ===1 && <>
-                {/* 铸币节点模块 */}
-                <Node></Node>
-                </>
-            }
+      <div className="Node">
+        <div className="SwapTitle">
+          {t('Node Coinage')}
         </div>
-       {/* 我的交易记录 */}
-      {/* <MyDealRecord></MyDealRecord> */}
-      {/*  以添加流动性移除确认*/}
-      <RemoveAffirm></RemoveAffirm>
-      {/* 以添加流动性移除 */}
-      <AddFlowRem></AddFlowRem>
-      {/* 添加流动性成功 */}
-      <AddFlowSucceed></AddFlowSucceed>
-      {/* 捐赠奖励，收益记录 */}
-      <DonationRecord></DonationRecord>
-      {/* 捐赠奖励，释放机制 */}
-      <ReleaseMechanusm></ReleaseMechanusm>
-      {/* 捐赠销毁，销毁记录 */}
-      <DonateDestroy></DonateDestroy>
-      {/* 捐赠规则 */}
-      <DonateRule></DonateRule>
-      {/* 捐赠销毁捐赠成功 */}
-      <DonateSucceed></DonateSucceed>
+        <div className="NodeDesc">
+          {t('NodeDesc')}
+        </div>
+        <div className="Content">
+          {/* 節點申請 */}
+          <Node></Node>
+          {/* 銷毀獎勵 */}
+          <div className="DestructReward">
+            <div className="title">節點獎勵</div>
+            <div className="rewardValue">鑄幣額度：1800 SBL</div>
+            <div className="toFreed">剩餘鑄幣：200 SBL</div>
+            <div className="process">
+              <div className="Freed">進程：</div>
+              <div className="processBox">
+                <div className="processBar" style={{ width: '50%' }}></div>
+              </div>
+              <div className="value">（97D）</div>
+            </div>
+            <div className="inputBox">
+              <input type="number" value={0} />
+              <div className="coinBox"><img src={SBLIcon} alt="" /> SBL</div>
+            </div>
+            <div className="btnBox">
+              <div className="Btn flex">領取</div>
+              <div className="notBtn flex">退還</div>
+            </div>
+            <div className="getRecord">
+              收益記錄 <img src={RecordIcon} alt="" />
+            </div>
+          </div>
+        </div>
 
-      {/* 团队奖励的收益记录 */}
-      <TeamEarnings></TeamEarnings>
+      </div>
+      {/* 收益记录 */}
+      <RewardRecord showModal={false}></RewardRecord>
 
     </div>
   )

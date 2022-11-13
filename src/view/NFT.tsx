@@ -27,7 +27,7 @@ import PutParticulars from '../components/PutParticulars'
 // 合成成功
 import ComSucceed from '../components/ComSucceed'
 import OpenRes from '../components/openRes'
-// 卡牌合成规则
+// 徽章合成规则
 import CardComRule from '../components/CardComRule'
 // 盲盒开启
 import BoxOpen from '../components/BoxOpen'
@@ -113,7 +113,7 @@ function NFT() {
   let [userCard, setuserCard] = useState<CardInfoType[]>([])
   /* 合成弹窗控制 */
   const [showCardSynthesis, setshowCardSynthesis] = useState(false)
-  /* 卡牌详情弹窗控制 */
+  /* 徽章详情弹窗控制 */
   let [showCardDetail, setShowCardDetail] = useState(false)
   /* 创建订单弹窗控制 */
   let [showCreateOrder, setShowCreateOrder] = useState(false)
@@ -123,11 +123,11 @@ function NFT() {
   let [showOpenCard, setShowOpenCard] = useState(false)
   /* 合成成功弹窗控制 */
   let [showMergeSuccess, setShowMergeSuccess] = useState(false)
-  /* 移动端选择合成卡牌 */
+  /* 移动端选择合成徽章 */
   let [showMerge, setshowMerge] = useState(false)
-  /* 移动端选择合成卡牌 */
+  /* 移动端选择合成徽章 */
   let [showSelCard, setshowSelCard] = useState(false)
-  /* 选中合成的卡牌信息 */
+  /* 选中合成的徽章信息 */
   const [SelCardInfo, setSelCardInfo] = useState<CardInfoType | null>(null)
   /* 开盲盒结果 */
   let [openRes, setOpenRes] = useState<OpenResType[] | null>(null)
@@ -164,7 +164,7 @@ function NFT() {
     setshowCardSynthesis(false)
     setShowMergeSuccess(true)
   }
-  /* 移动端显示选择卡牌弹窗 */
+  /* 移动端显示选择徽章弹窗 */
   function SelCard() {
     setshowMerge(false)
     setshowSelCard(true)
@@ -204,7 +204,7 @@ function NFT() {
         type: type,
         userAddress: '0x1fcac7551589e67c6b7e4452a681dab0127a5db7'
       }).then(res => {
-        console.log(res.data.list, "用户卡牌")
+        console.log(res.data.list, "用户徽章")
         setuserCard(res.data.list)
         SetTotalNum(res.data.size)
       })
@@ -221,17 +221,17 @@ function NFT() {
       {
         openRes && <OpenRes isShow={showOpenCard} OpenRes={openRes} close={() => setShowOpenCard(false)} ></OpenRes>
       }
-      {/* 卡牌详情 */}
+      {/* 徽章详情 */}
       {
         userCard.length > 0 && <CardDetails isShow={showCardDetail} showMerge={showMergeFun} showCreateOrder={createOrderFun} CardInfo={userCard[cardDetialIndex]} close={() => setShowCardDetail(false)} type="NFT"></CardDetails>
       }
-      {/* 卡牌挂卖 */}
+      {/* 徽章挂卖 */}
       {
         userCard.length > 0 && userCard[cardDetialIndex] && <CardDetails isShow={showCreateOrder} CardInfo={userCard[cardDetialIndex]} CreateOrderSuccess={CreateOrderSuccess} close={() => setShowCreateOrder(false)} type="CreateOrder"></CardDetails>
       }
       {/* 挂卖成功 */}
       <Tips isShow={showCreateOrderSuccess} title={t('List successfully')} subTitle={t('List to the market successfully')} enterFun={() => setShowCreateOrderSuccess(false)} close={() => setShowCreateOrderSuccess(false)}></Tips>
-      {/* 卡牌合成 */}
+      {/* 徽章合成 */}
       {
         width >= 1024 && <CardSynthesis isShow={showCardSynthesis} mergeSuccess={mergeSuccess} CardInfo={userCard[cardDetialIndex]} close={() => setshowCardSynthesis(false)}></CardSynthesis>
       }
@@ -270,7 +270,7 @@ function NFT() {
         </div>
         {
           TabIndex === 0 ? <>
-            {/* 卡牌徽章 */}
+            {/* 徽章徽章 */}
             {
               userCard.length !== 0 ? <>
                 <div className="CardList">

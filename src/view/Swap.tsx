@@ -122,7 +122,7 @@ function Swap() {
   let [userlevel, SetUserlevel] = useState(0)
   /* tab */
   let [TabIndex, SetTabIndex] = useState(0)
-  /* 卡牌详情弹窗控制 */
+  /* 徽章详情弹窗控制 */
   let [showCardDetail, setShowCardDetail] = useState(false)
   /* 确认购买弹窗控制 */
   let [showEnterBuy, setShowEnterBuy] = useState(false)
@@ -219,7 +219,7 @@ function Swap() {
       <div className="Edition-Center">
         {/* 我的交易记录 */}
         <MyDealRecord isShow={showOrderRecord} close={() => { setShowOrderRecord(false) }} ></MyDealRecord>
-        {/* 卡牌详情 */}
+        {/* 徽章详情 */}
         {
           orderInfo && <PutParticulars isShow={showCardDetail} OrderInfo={orderInfo} close={() => setShowCardDetail(false)} ></PutParticulars>
         }
@@ -235,7 +235,7 @@ function Swap() {
         {
           orderInfo && <MarketDealing isShow={showEnterBuy} buyInfo={orderInfo} close={() => { setShowEnterBuy(false) }} buySuccess={() => setShowBuySuccess(true)}></MarketDealing>
         }
-        {/* 卡牌详情 */}
+        {/* 徽章详情 */}
         <div className="SwapTitle">
           {t('Swap')}
         </div>

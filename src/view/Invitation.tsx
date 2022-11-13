@@ -164,9 +164,9 @@ export default function Invitation() {
     } else {
       copy(
         window.location.origin +
-          window.location.pathname +
-          "?address=" +
-          web3React.account
+        window.location.pathname +
+        "?address=" +
+        web3React.account
       );
       addMessage(t("Copy Success"));
     }
@@ -245,18 +245,6 @@ export default function Invitation() {
           }}
         >
           {t("Invitation")}
-        </div>
-        <div
-          className={
-            TabIndex === 1
-              ? "TabItem linear-gradient"
-              : "TabItem InvitationInvalid"
-          }
-          onClick={() => {
-            setTabIndex(1);
-          }}
-        >
-          {t("Family land")}
         </div>
       </div>
       {TabIndex === 0 ? (

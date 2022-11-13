@@ -1,18 +1,22 @@
-.ReleaseMechanusm {
+.ConfirmDestruct {
   background: #1d1e44;
   box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
   border-radius: 19px;
+
   .ant-modal-content {
     box-shadow: none;
   }
+
   .ant-modal-header {
     display: none;
   }
+
   .ant-modal-body {
     position: relative;
     background: #1d1e44;
     // box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
     padding: 0;
+
     .title {
       font-size: 24px;
       margin: auto;
@@ -21,29 +25,32 @@
       color: #fff;
       box-shadow: 0;
     }
+
     .box {
-      margin-bottom: 58px;
+      padding: 0px 100px;
+
       .zifujg {
         width: 100%;
-        padding-left: 30px;
-        padding-right: 30px;
-        height: 22px;
         margin-top: 8px;
         line-height: 22px;
         font-size: 16px;
         color: #fff;
       }
     }
-    span {
-      position: absolute;
-      bottom: -80px;
-      width: 100%;
-      text-align: center;
+
+    .ConfirmBtn {
+      margin: 30px auto;
+      width: 76px;
+      height: 36px;
+      background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+      border-radius: 6px;
+      font-family: 'PingFang SC';
       font-style: normal;
       font-weight: 400;
-      font-size: 12px;
-      line-height: 17px;
-      color: #fff;
+      font-size: 14px;
+      line-height: 20px;
+      /* identical to box height */
+      color: #FFFFFF;
     }
   }
 }
