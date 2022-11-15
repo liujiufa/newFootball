@@ -1,0 +1,199 @@
+.SwapTitle {
+  margin-top: 60px;
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 24px;
+  text-align: center;
+}
+
+.pledgeScreen {
+  display: flex;
+  margin-top: 30px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+
+  >div {
+    margin-top: 20px;
+  }
+
+  .Tabs {
+    display: flex;
+
+    >div {
+      font-family: 'PingFang SC';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 22px;
+
+      color: #FFFFFF;
+
+      .recentlyComputingPower {
+        margin-bottom: 24px;
+      }
+    }
+
+  }
+
+  .DropDownGroup {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+
+    color: #FFFFFF;
+
+    .ableGetReward {
+      display: flex;
+      align-items: center;
+      font-family: 'PingFang SC';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      color: #FFFFFF;
+
+      span {
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+
+        color: #D533D1;
+      }
+
+      .getBtn {
+        width: 76px;
+        height: 36px;
+        background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+        border-radius: 6px;
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        /* identical to box height */
+        color: #FFFFFF;
+        margin-left: 20px;
+      }
+    }
+  }
+}
+
+@media (max-width:548px) {
+  .screen {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .DropDownGroup {
+      display: flex;
+      position: relative;
+      align-items: center;
+      flex-wrap: wrap;
+
+      // flex-direction: column;
+      .dropDown {
+        width: 85px;
+        padding: 10px 10px;
+      }
+    }
+  }
+
+}
+
+.CardList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 270px);
+  grid-row-gap: 40px;
+  grid-column-gap: 40px;
+  justify-content: space-between;
+  margin-top: 20px;
+  max-width: 1200px;
+
+  .cancelPledge {
+    .btn {
+      margin: 40px auto;
+      width: 104px;
+      height: 36px;
+      background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+      border-radius: 6px;
+      font-family: 'PingFang SC';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      /* identical to box height */
+      color: #FFFFFF;
+    }
+
+  }
+}
+
+@media (max-width:1023px) {
+  .CardList {
+    grid-template-columns: repeat(auto-fill, 180px);
+  }
+}
+
+@media (max-width:425px) {
+  .CardList {
+    grid-template-columns: repeat(auto-fill, 158px);
+    grid-row-gap: 20px;
+    grid-column-gap: 20px;
+  }
+}
+
+@media (max-width:374px) {
+  .CardList {
+    grid-template-columns: repeat(auto-fill, 135px);
+    grid-row-gap: 15px;
+    grid-column-gap: 15px;
+  }
+}
+
+.Pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.ant-pagination-item-link {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 3px !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.ant-pagination-item {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 3px !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+
+  a {
+    color: rgba(255, 255, 255, 0.6) !important;
+  }
+}
+
+.ant-pagination-item-active {
+  background: #D533D1 !important;
+  border: 1px solid #D533D1 !important;
+}
+
+.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 3px !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.ant-pagination-options-quick-jumper {
+  color: rgba(255, 255, 255, 0.6) !important;
+
+  input {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 3px !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+  }
+}

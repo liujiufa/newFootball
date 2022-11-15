@@ -15,15 +15,15 @@ import { useWeb3React } from "@web3-react/core";
 import { addMessage, AddrHandle } from "../utils/tool";
 import { Contracts } from "../web3";
 import BigNumber from "big.js";
-import AwardMechanism from "../components/AwardMechanism";
 import GainRecording from "../components/GainRecording";
-import TeamMachine from "../components/TeamMachine";
+import InviteList from "../components/InviteList";
 import BNBIcon from "../assets/image/BNBIcon.svg";
 import SBLToken from "../assets/image/SBL.svg";
 import copyIcon from "../assets/image/copyIcon.png";
 import mechanism from "../assets/image/mechanism.png";
 import Refresh from "../assets/image/Refresh.png";
 import record from "../assets/image/record.png";
+import inviteListIcon from "../assets/image/inviteListIcon.png";
 import copy from "copy-to-clipboard";
 import { useLocation } from "react-router-dom";
 import "../assets/style/Invitation.scss";
@@ -233,236 +233,46 @@ export default function Invitation() {
   return (
     <div className="Edition-Center">
       <div className="SwapTitle">{t("Invitation")}</div>
-      <div className="TabRow">
-        <div
-          className={
-            TabIndex === 0
-              ? "TabItem linear-gradient"
-              : "TabItem InvitationInvalid"
-          }
-          onClick={() => {
-            setTabIndex(0);
-          }}
-        >
-          {t("Invitation")}
+      <div className="Invitation">
+        <div className="itemBox">
+          <div className="itemTitle">邀請獎勵</div>
+          <div className="allRewardBox">
+            <div className="allReward">
+              <span>纍計獎勵：</span><span>100.11 SBL</span>
+            </div>
+            <div className="getBox"></div>
+          </div>
+          <div className="inputBox">
+            <div className="inputValue">
+              <span>0.000000</span>
+              <span>
+                <img src={SBLToken} alt="" />SBL
+              </span>
+            </div>
+            <div className="getBox"><div className="getBtn flex">領取</div></div>
+          </div>
+          <div className="rewardRecord">獎勵記錄<img src={record} alt="" /></div>
+        </div>
+        <div className="itemBox">
+          <div className="itemTitle">發送您的邀請鏈接</div>
+          <div className="itemTip">複製併使用此鏈接，邀請您的朋友加入Space Ball ，一起探索無限精彩的元宇宙世界。建立自己的Space Ball家族！</div>
+          <div className="addressBox">
+            <div className="referee">邀請鏈接</div>
+            <div className="addressValue">https://bnb...c7****70</div>
+            <div className="devideLine"></div>
+            <div className="copyBtn"><img src={copyIcon} alt="" /></div>
+          </div>
+          <div className="inviteListBtn">邀請列表(8) <img src={inviteListIcon} alt="" /></div>
         </div>
       </div>
-      {TabIndex === 0 ? (
-        <>
-          <div className="RewardLabel">{t("Referral Rewards")}</div>
-          {rewardData && (
-            <div className="RewardItem">
-              {rewardData.refereeList.map((item) => (
-                <div key={item.id} className="RewardRow">
-                  <div className="RewardNum">
-                    {item.amountString}
-                    <div className="TokenInfo">
-                      <img src={tokenIcon[item.coinName]} alt="" />
-                      {item.coinName}
-                    </div>
-                  </div>
-                  <div
-                    className="receiveBtn linear-gradient flexCenter"
-                    onClick={() => Receive(1, item.id, item.amountString)}
-                  >
-                    {t("Claim")}
-                  </div>
-                </div>
-              ))}
-              <div className="RewardExplain">
-                {t("My tier")}:
-                {MaxLevel >= 2 ? t(recommend[2]) : t(recommend[MaxLevel])}{" "}
-                <img
-                  src={Refresh}
-                  className={heavyLoad ? "imgRotate" : ""}
-                  onClick={() => {
-                    getMaxLevel(0);
-                  }}
-                  alt=""
-                />
-              </div>
-              <span
-                className="mechanism"
-                onClick={() => {
-                  setShowInvitationrewardMech(true);
-                }}
-              >
-                {t("rules")} <img src={mechanism} alt="" />
-              </span>
-              <span className="record" onClick={() => ShowRevenueRecordFun(1)}>
-                {t("Records2")} <img src={record} alt="" />
-              </span>
-            </div>
-          )}
-          <div className="InvitationLabel">{t("Send your referral link")}</div>
-          <div className="InvitationRule">{t("CopyReferralTips")}</div>
-          <div className="BoxBorder" style={{ marginTop: 10 }}>
-            <div className="InvitationAddr">
-              <div className="boxLabel">{t("Invitation")}</div>
-              <div className="userAddr" onClick={invitation}>
-                {web3React.account && (
-                  <div className="link">
-                    <div className="linkAddr">
-                      {window.location.origin +
-                        window.location.pathname +
-                        "?address=" +
-                        AddrHandle(web3React.account)}
-                    </div>
-                    <div className="division"></div>
-                    <img src={copyIcon} alt="" />
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-          <div className="BoxBorder" style={{ marginTop: 20 }}>
-            <div className="InvitationAddr">
-              <div className="boxLabel">
-                <div
-                  className="labelItem"
-                  style={{ marginRight: 30 }}
-                  onClick={() => {
-                    setInviTabIndex(0);
-                  }}
-                >
-                  {t("Invitation list")}
-                </div>
-              </div>
-              {/* <div className="boxLabel"> {t('Referral')} <div className="InvitationNum flexCenter">{t('Referrals')}:{InvitationData?.size}{t('ren')}</div></div> */}
-              {
-                <ul className="InvitationList">
-                  {InvitationData?.list.map((item, index) => (
-                    <li key={item.id}>
-                      {AddrHandle(item.userAddress, 6, 4, ".............")}
-                    </li>
-                  ))}
-                </ul>
-              }
-            </div>
-          </div>
-        </>
-      ) : (
-        <div className="land">
-          <div className="RewardLabel">{t("Community rewards")}</div>
-          {rewardData && (
-            <div className="RewardItem">
-              {rewardData.teamList.map((item) => (
-                <div key={item.id} className="RewardRow">
-                  <div className="RewardNum">
-                    {item.amountString}
-                    <div className="TokenInfo">
-                      <img src={tokenIcon[item.coinName]} alt="" />
-                      {item.coinName}
-                    </div>
-                  </div>
-                  <div
-                    className="receiveBtn linear-gradient flexCenter"
-                    onClick={() => Receive(2, item.id, item.amountString)}
-                  >
-                    {t("Claim")}
-                  </div>
-                </div>
-              ))}
-              <div className="RewardExplain">
-                {t("My tier")}:{t(teamreward[MaxLevel])}{" "}
-                <img
-                  src={Refresh}
-                  className={teamHeavyLoad ? "imgRotate" : ""}
-                  onClick={() => {
-                    getMaxLevel(1);
-                  }}
-                  alt=""
-                />
-              </div>
-              <span
-                className="mechanism"
-                onClick={() => {
-                  setShowTeamMachine(true);
-                }}
-              >
-                {t("Reward rules")} <img src={mechanism} alt="" />
-              </span>
-              <span className="record" onClick={() => ShowRevenueRecordFun(2)}>
-                {t("Records2")} <img src={record} alt="" />
-              </span>
-            </div>
-          )}
-          <div
-            className="InvitationLabel"
-            onClick={() => {
-              setShowObtainMethod(true);
-            }}
-          >
-            {t("How to obtain family land")}{" "}
-            <span className="prominent">?</span>
-          </div>
-          {landData?.status === 0 && !landData?.imageUrl ? (
-            <div className="OperationTips">
-              {t("Obtain method")}:<br></br>
-              1、{t("Obtain method1")}
-              <br></br>
-              2、{t("Obtain method2")}
-              <br></br>
-              3、{t("Obtain method3")}
-              <br></br>
-              4、{t("Obtain method4")}
-              <br></br>
-              5、{t("Obtain method5")}
-              <br></br>
-            </div>
-          ) : (
-            <div className="imgBox">
-              <img src={landData?.imageUrl} alt="" />
-              <div
-                style={{ color: level[landData?.level as number].color }}
-                className="levelText"
-              >
-                {t(level[landData?.level as number].text)}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-      <Modal
-        visible={showObtainMethod}
-        className="MyDealRecord"
-        onCancel={() => setShowObtainMethod(false)}
-        centered
-        width={"634px"}
-        closable={false}
-        footer={null}
-      >
-        <p className="title"> {t("Obtain method")} </p>
-        <div className="ObtainMethodItem">
-          1、{t("Obtain method1")}
-          <br></br>
-          2、{t("Obtain method2")}
-          <br></br>
-          3、{t("Obtain method3")}
-          <br></br>
-          4、{t("Obtain method4")}
-          <br></br>
-          5、{t("Obtain method5")}
-          <br></br>
-        </div>
-        <span>{t("Click anywhere to close")}</span>
-      </Modal>
-      {/* 推荐奖励机制 */}
-      <AwardMechanism
-        isShow={ShowInvitationrewardMech}
-        close={() => setShowInvitationrewardMech(false)}
-      ></AwardMechanism>
       {/* 奖励记录 */}
       <GainRecording
         isShow={ShowRevenueRecord}
         type={RevenueType}
         close={() => setShowRevenueRecord(false)}
       ></GainRecording>
-      {/* 团队奖励机制 */}
-      <TeamMachine
-        isShow={showTeamMachine}
-        close={() => setShowTeamMachine(false)}
-      ></TeamMachine>
+      {/* 邀请列表 */}
+      <InviteList showModal={false}></InviteList>
     </div>
   );
 }

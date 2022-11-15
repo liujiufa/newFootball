@@ -13,10 +13,13 @@
     }
 
     .processState {
+        margin-top: 90px;
+        height: 1px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background-image: url(../image/landProcess/processLine.png) 100% 1px;
+        background-image: url('../image/landProcess/processLine.png');
+        background-size: 100% 100%;
     }
 
     .LandDesc {
@@ -24,13 +27,11 @@
         margin: auto;
         width: 100%;
         box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
-        margin-top: 70px;
         font-family: 'PingFang SC';
         font-style: normal;
         font-weight: 400;
         font-size: 20px;
         line-height: 28px;
-
         color: rgba(255, 255, 255, 0.8);
 
 
@@ -40,228 +41,218 @@
     }
 
     .Content {
-        margin: 70px auto 60px;
+        margin: 80px auto 60px;
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
 
-        >div {
-            padding: 30px 55px;
-            max-width: 485px;
+        //1.土地申领
+        .applyBtn {
+            width: 132px;
+            height: 40px;
+            background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+            border-radius: 6px;
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            /* identical to box height */
+            color: #FFFFFF;
+        }
+
+        .toApplyBtn {
+            width: 132px;
+            height: 40px;
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            /* identical to box height */
+            color: #FFFFFF;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+        }
+
+        // 2.我的领地
+        .screen {
             width: 100%;
-            background: #1F2045;
+            justify-content: space-between;
+            align-items: center;
+
+            .title {
+                display: flex;
+                align-items: center;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 20px;
+                /* identical to box height */
+                color: #FFFFFF;
+
+                .myTitle {
+                    width: 68px;
+                    height: 32px;
+                    background: rgba(213, 51, 209, 0.3);
+                    border: 1px solid rgba(213, 51, 209, 0.8);
+                    border-radius: 23px;
+                }
+            }
+        }
+
+        // 3.我的权益
+        .myLandRightBox {
+            padding: 58px 45px;
+            margin-top: 30px;
+            width: 100%;
+            background: #1D1E44;
             box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
             border-radius: 19px;
 
-            .title {
-                font-family: 'DIN';
-                font-style: normal;
-                font-weight: 700;
-                font-size: 24px;
-                line-height: 29px;
-                text-align: center;
-                color: #DB2DCF;
-                margin-bottom: 30px;
-            }
-
-            .DestructValue,
-            .rewardValue,
-            .toFreed {
-                font-family: 'PingFang SC';
-                font-style: normal;
-                font-weight: 400;
-                font-size: 18px;
-                line-height: 25px;
-                color: #FFFFFF;
-                margin-bottom: 25px;
-
-                >span {
-                    font-family: 'PingFang SC';
-                    font-style: normal;
-                    font-weight: 400;
-                    font-size: 18px;
-                    line-height: 25px;
-                    color: #DB2DCF;
-                }
-            }
-
-            .subTitle {
+            .myTitle {
                 display: flex;
                 align-items: center;
                 font-family: 'PingFang SC';
                 font-style: normal;
                 font-weight: 400;
-                font-size: 12px;
-                color: rgba(255, 255, 255, 0.9);
-                margin-bottom: 20px;
+                font-size: 24px;
+                line-height: 34px;
+                /* identical to box height */
+                color: #FFFFFF;
 
                 img {
-                    margin-left: 10px;
+                    margin-left: 15px;
                 }
             }
 
-            .process {
-                display: flex;
-                align-items: center;
-                margin-bottom: 30px;
-
-                .Freed,
-                .value {
-                    width: 65px;
-                    font-family: 'PingFang SC';
-                    font-style: normal;
-                    font-weight: 400;
-                    font-size: 14px;
-                    line-height: 20px;
-                    /* identical to box height */
-                    color: #FFFFFF;
-                }
-
-                .Freed {
-                    width: 42px;
-                }
-
-                .value {
-                    text-align: right;
-                }
-
-                .processBox {
-                    height: 10px;
-                    flex: auto;
-                    background: rgba(255, 255, 255, 0.1);
-                    border-radius: 8px;
-
-                    .processBar {
-                        height: 100%;
-                        background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
-                        border-radius: 8px;
-                    }
-                }
-            }
-
-            .inputBox {
-                padding: 16px 30px;
-                background: #171833;
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                border-radius: 10px;
+            .RewardBox {
+                margin-top: 60px;
+                width: 100%;
                 display: flex;
                 justify-content: space-between;
-                align-items: center;
 
-                input {
-                    width: 70px;
-                    background: #171833;
-                    color: #FFFFFF;
-                    padding: 0;
-                    border: 0;
-                    font-family: 'PingFang SC';
-                    font-style: normal;
-                    font-weight: 400;
-                    font-size: 24px;
-                    line-height: 34px;
+                >div {
+                    padding: 28px 20px;
+                    width: 100%;
+                    max-width: 525px;
+                    background: #2D2F5C;
+                    box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+                    border-radius: 19px;
 
-                    input[type=number]::-webkit-inner-spin-button,
-                    input[type=number]::-webkit-outer-spin-button {
-                        -webkit-appearance: none;
-                        margin: 0;
+                    &:first-child {
+                        margin-right: 20px;
                     }
 
-                    input[type=number] {
-                        -moz-appearance: textfield;
+                    &:last-child {
+                        margin-left: 20px;
                     }
 
-                    &::placeholder {
+                    .title {
                         font-family: 'PingFang SC';
                         font-style: normal;
                         font-weight: 400;
-                        font-size: 14px;
-                        line-height: 20px;
+                        font-size: 24px;
+                        line-height: 34px;
                         /* identical to box height */
-                        color: rgba(255, 255, 255, 0.5);
+                        color: #D533D1;
                     }
-                }
 
-                input::-webkit-outer-spin-button,
-                input::-webkit-inner-spin-button {
-                    -webkit-appearance: none !important;
-                }
+                    .allReward,
+                    .valueBox {
+                        display: flex;
 
-                input[type="number"] {
-                    -moz-appearance: textfield;
-                }
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 18px;
+                        line-height: 25px;
+                        color: #FFFFFF;
 
-                .maxBtn {
-                    font-family: 'PingFang SC';
-                    font-style: normal;
-                    font-weight: 400;
-                    font-size: 16px;
-                    line-height: 22px;
-                    color: #DB2DCF;
-                }
+                        .allRewardBox {
+                            flex: auto;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            font-family: 'PingFang SC';
+                            font-style: normal;
+                            font-weight: 400;
+                            font-size: 18px;
+                            line-height: 25px;
+                            color: #FFFFFF;
+                            margin: 23px 0 18px;
+                        }
 
-                .coinBox {
-                    display: flex;
-                    align-items: center;
-                    font-family: 'DIN';
-                    font-style: normal;
-                    font-weight: 700;
-                    font-size: 16px;
-                    line-height: 20px;
-                    /* identical to box height */
-                    letter-spacing: 0.08em;
-                    color: #FFFFFF;
+                        .box {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: 16px;
+                            flex: auto;
+                            background: #171833;
+                            border: 1px solid rgba(255, 255, 255, 0.1);
+                            border-radius: 10px;
 
-                    img {
-                        margin-right: 8px;
+                            .value {
+                                font-family: 'PingFang SC';
+                                font-style: normal;
+                                font-weight: 400;
+                                font-size: 24px;
+                                line-height: 34px;
+                                /* identical to box height */
+                                color: #FFFFFF;
+                            }
+
+                            .coinName {
+                                display: flex;
+                                align-items: center;
+                                font-family: 'DIN';
+                                font-style: normal;
+                                font-weight: 700;
+                                font-size: 16px;
+                                line-height: 20px;
+                                /* identical to box height */
+                                letter-spacing: 0.08em;
+                                color: #FFFFFF;
+
+                                img {
+                                    margin-right: 8px;
+                                }
+                            }
+                        }
+
+                        .btnBox {
+                            width: 106px;
+                            display: flex;
+                            justify-content: flex-end;
+                            align-items: center;
+
+                            .getBtn {
+                                height: 36px;
+                                width: 76px;
+                                background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+                                border-radius: 6px;
+                            }
+                        }
                     }
+
+                    .rewardRecord {
+                        margin-top: 10px;
+                        text-align: right;
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 12px;
+                        line-height: 17px;
+                        /* identical to box height */
+                        color: rgba(255, 255, 255, 0.6);
+                        img{
+                            margin-left: 5px;
+                        }
+                    }
+
                 }
-            }
 
-            .Balance {
-                margin-top: 15px;
-                font-family: 'PingFang SC';
-                font-style: normal;
-                font-weight: 400;
-                font-size: 14px;
-                line-height: 20px;
-                /* identical to box height */
-                text-align: right;
-                color: #FFFFFF;
-            }
-
-            .Btn {
-                margin: 36px auto 15px;
-                padding: 0px 40px;
-                font-family: 'PingFang SC';
-                font-style: normal;
-                font-weight: 400;
-                font-size: 14px;
-                line-height: 20px;
-                /* identical to box height */
-                color: #FFFFFF;
-                width: 316px;
-                height: 40px;
-                background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
-                border-radius: 6px;
-
-            }
-
-            .getRecord,
-            .DestructRecord {
-                font-family: 'PingFang SC';
-                font-style: normal;
-                font-weight: 400;
-                font-size: 12px;
-                line-height: 17px;
-                /* identical to box height */
-                color: rgba(255, 255, 255, 0.6);
-                text-align: center;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                img {
-                    margin-left: 6px;
-                }
             }
         }
     }

@@ -74,6 +74,11 @@
     }
   }
 
+  .ant-table-body {
+    overflow-y: auto !important;
+
+  }
+
   .ant-table-tbody {
     border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
 
@@ -81,6 +86,8 @@
       font-size: 14px;
       background: #1d1e44;
       color: #fff;
+
+      // border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 
       td {
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);

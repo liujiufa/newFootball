@@ -4,6 +4,7 @@ import Node from '../components/Node'
 import { useTranslation } from 'react-i18next'
 import '../assets/style/SBL.scss'
 import RewardRecord from '../components/RewardRecord'
+import ApplyRecord from '../components/ApplyRecord'
 // import MyDealRecord from '../components/MyDealRecord'
 import SBLIcon from '../assets/image/SBLTokens.png'
 import RecordIcon from '../assets/image/record.png'
@@ -52,6 +53,8 @@ function SBL() {
       </div>
       {/* 收益记录 */}
       <RewardRecord showModal={false}></RewardRecord>
+      {/* 申请记录 */}
+      <ApplyRecord showModal={false}></ApplyRecord>
 
     </div>
   )

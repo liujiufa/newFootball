@@ -11,17 +11,15 @@ import Tips from '../components/Tips'
 import BlindBox from '../components/BlindBox'
 import CardSynthesis from "../components/CardSynthesis"
 import '../assets/style/Swap.scss'
-import '../assets/style/componentsStyle/CardSynthesis.scss'
+
 import NoData from '../components/NoData'
 import Merge from '../components/Merge'
 import { useViewport } from '../components/viewportContext'
 import { addMessage, showLoding } from '../utils/tool'
 import { Pagination } from 'antd';
 import '../assets/style/componentsStyle/AddFlow.scss'
-import AddFluidOk from "../components/AddFluidOk"
 import SelMerge from "../components/SelMerge"
 import { useTranslation } from 'react-i18next'
-import '../assets/style/componentsStyle/AddFluidOk.scss'
 // 挂卖详情
 import PutParticulars from '../components/PutParticulars'
 // 合成成功

@@ -10,7 +10,7 @@ import { Modal, Pagination } from 'antd';
 import { addMessage, showLoding } from '../utils/tool'
 import RuleImg from '../assets/image/CardSynthesis.png'
 import addIcon from '../assets/image/addIcon.png'
-
+import '../assets/style/componentsStyle/CardSynthesis.scss'
 import AddImg from '../assets/image/Union.png'
 import DropDown from '../components/DropDown'
 import Tips from '../components/Tips'
@@ -180,13 +180,16 @@ function CardSynthesis(props: CardSynthesisPropsType) {
                                     <div className="Price">{t('Expenses')}:</div><div className='Number'>{ToBeSelect?.price}BNB</div>
                                 </div>
                                 {
-                                    isApproved ? <button onClick={() => { setShowEnterMerge(true) }}>{t('Confirm')}</button> : <button onClick={Approval}>{t('Approve')}</button>
+                                    isApproved ? <div className='confirmBtn' onClick={() => { setShowEnterMerge(true) }}>{t('Confirm')}</div> : <div className='confirmBtn' onClick={Approval}>{t('Approve')}</div>
                                 }
 
                                 <div className='Tip'><div className='TipContent' onClick={() => { setShowMergeRule(true) }}>{t('Evolve rules')}</div><div className='TipImg'><img src={RuleImg} alt="" /></div></div>
                             </div>
                         </div>
                     </div>
+
+                    <div className="deviceLine"></div>
+
                     <div className='SynthesisList'>
                         <div className="Category">
                             {

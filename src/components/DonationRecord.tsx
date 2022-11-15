@@ -1,33 +1,24 @@
-// 捐赠奖励，收益记录
-import React from "react";
+// 捐赠（销毁）记录，收益记录
+import React, { useEffect, useState } from "react";
 import { Modal, Table } from "antd";
+import { useSelector } from "react-redux";
+import { stateType } from '../store/reducer'
+import { getBurnRecord } from '../API/index'
 import "../assets/style/componentsStyle/DonationRecord.scss";
 const { Column } = Table;
 function DonationRecord(props: any) {
-  const columns = [
-    {
-      title: "時間",
-      dataIndex: "time",
-      width: 130,
-    },
-    {
-      title: "銷毀金額SBL",
-      dataIndex: "SBLBalance",
-    },
-    {
-      title: "獎勵BNB",
-      dataIndex: "BNBReward",
-    },
-  ];
-  const data = [];
-  for (let i = 0; i < 100; i++) {
-    data.push({
-      key: i,
-      name: `2022/05/06 11:40`,
-      ID: "2,352,455.4756",
-      denji: "10.4156",
-    });
-  }
+  let state = useSelector<stateType, stateType>(state => state);
+  let [donationRecord, setDonationRecord] = useState([])
+
+  useEffect(() => {
+    if (state.token && props.showModal) {
+      getBurnRecord().then(res => {
+        setDonationRecord(res.data)
+        console.log(res.data, "销毁记录")
+      })
+    }
+  }, [state.token, props.showModal])
+
   return (
     <>
       <Modal
@@ -37,10 +28,11 @@ function DonationRecord(props: any) {
         width={"525px"}
         closable={false}
         footer={null}
+        onCancel={() => props.close()}
       >
         <p className="title"> 銷毀記錄 </p>
         <Table
-          dataSource={data}
+          dataSource={donationRecord}
           pagination={false}
           rowKey="id"
           scroll={{ y: 260 }}
@@ -50,7 +42,7 @@ function DonationRecord(props: any) {
             width={140}
             render={(item) => (
               <>
-                <div>{item.name}</div>
+                <div>{item.createTime}</div>
               </>
             )}
           />
@@ -58,16 +50,17 @@ function DonationRecord(props: any) {
             title="銷毀金額SBL"
             render={(item) => (
               <>
-                <div>{item.ID}</div>
+                <div>{item.burnAmount}</div>
               </>
             )}
           />
           <Column
             title="獎勵BNB"
             width={140}
+            className='rewardBNB'
             render={(item) => (
               <>
-                <div>{item.denji}</div>
+                <div>{item.awardAmount}</div>
               </>
             )}
           />

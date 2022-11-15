@@ -101,7 +101,7 @@ const MainLayout: React.FC = () => {
   }
   function goNft(path: any) {
     console.log(path);
-    if (path.key === "/NFT" || path.key === "/Land") {
+    if (path.key === "/NFT" || path.key === "/Land" || path.key === "/Pledge") {
       navigate(path.key);
     } else {
       addMessage(t("Not opened yet"));

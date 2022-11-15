@@ -21,14 +21,20 @@ function CardItem(props: CardInfo) {
         </div>
         {
           props.type === "commodity" && <>
-            <div className="price flexCenter">
-              <div className="priceFlex">
-                <span>{t('price')}:{props.orderInfo?.price} </span>
-                <span>{props.orderInfo?.coinName}</span>
+            <div className="price">
+              <div className="computingPower">
+                <div className="title">算力</div>
+                <div className="shareBox"><div className="shareValue" style={{ width: '50%' }}>66.7%</div></div>
+                <div className="value">50/100</div>
               </div>
-              <img className="coinName" src={props.orderInfo?.coinName === 'SBL' ? SBLIcon : BNBIcon} alt="" />
+              <div className="box">
+                <div className="priceFlex">
+                  <span>{t('price')}:{props.orderInfo?.price} </span>
+                  <span>{props.orderInfo?.coinName}</span>
+                </div>
+                <img className="coinName" src={props.orderInfo?.coinName === 'SBL' ? SBLIcon : BNBIcon} alt="" />
+              </div>
             </div>
-            <div className="buyBtn linear-gradient" onClick={() => { props.buy!() }}>{t('buy')}</div>
           </>
         }
         {
@@ -38,6 +44,7 @@ function CardItem(props: CardInfo) {
           </>
         }
       </div>
+      <div className="buyBtn linear-gradient" onClick={() => { props.buy!() }}>{t('buy')}</div>
     </div>
   )
 }

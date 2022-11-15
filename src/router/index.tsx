@@ -7,6 +7,7 @@ const Home = React.lazy(() => import('../view/Home'));
 const BlindBox = React.lazy(() => import('../view/BlindBox'));
 const Swap = React.lazy(() => import('../view/Swap'));
 const NFT = React.lazy(() => import('../view/NFT'));
+const Pledge = React.lazy(() => import('../view/Pledge'));
 const Land = React.lazy(() => import('../view/Land'));
 const SBL = React.lazy(() => import('../view/Node'));
 const DestructFund = React.lazy(() => import('../view/DestructFund'));
@@ -23,6 +24,7 @@ export default function Router() {
           <Route path="BlindBox" element={<BlindBox />}></Route>
           <Route path="Swap" element={<Swap />}></Route>
           <Route path="NFT" element={<NFT />}></Route>
+          <Route path="Pledge" element={<Pledge />}></Route>
           <Route path="Land" element={<Land />}></Route>
           <Route path="Node" element={<SBL />}></Route>
           <Route path="DestructFund" element={<DestructFund />}></Route>

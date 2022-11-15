@@ -1,31 +1,25 @@
 import React, { useState, useEffect } from 'react'
-import Reward from '../components/Reward'
-import Node from '../components/Node'
 import { useTranslation } from 'react-i18next'
 import '../assets/style/DestructFund.scss'
-// import AwardMechanism from '../components/AwardMechanism'
-// import GainRecording from '../components/GainRecording'
-import TeamMachine from '../components/TeamMachine'
-import TeamEarnings from '../components/TeamEarnings'
-import GlodMechanism from '../components/GlodMechanism'
-// import GlodJdSy from '../components/GlodJdSy'
 import DestructSucceed from '../components/DestructSucceed'
 import DestructDes from '../components/DestructDes'
 import DonateDestroy from '../components/DonateDestroy'
 import ConfirmDestruct from '../components/ConfirmDestruct'
 import DonationRecord from '../components/DonationRecord'
 import GetRecord from '../components/GetRecord'
-import AddFlowSucceed from '../components/AddFlowSucceed'
-import AddFlowRem from '../components/AddFlowRem'
-import RemoveAffirm from '../components/RemoveAffirm'
-// import MyDealRecord from '../components/MyDealRecord'
 import SBLIcon from '../assets/image/SBLTokens.png'
 import BNBIcon from '../assets/image/BNBTokens.png'
 import RecordIcon from '../assets/image/record.png'
 import desIcon from '../assets/image/desIcon.png'
 function DestructFund() {
   let { t } = useTranslation()
+
   let [Tab, setTab] = useState(1)
+  let [destructDes, setDestructDes] = useState(false)
+  // 销毁记录
+  let [donationRecord, setDonationRecord] = useState(false)
+  // 领取记录
+  let [getRecord, setGetRecord] = useState(false)
 
   return (
     <div>
@@ -42,7 +36,7 @@ function DestructFund() {
           <div className="DestructJoin">
             <div className="title">销毁参与</div>
             <div className="DestructValue">銷毀基金額度：<span>563.4568 BNB</span></div>
-            <div className="subTitle">當前最大可銷毀1000SBL，最小須銷毀50 SBL <img src={desIcon} alt="" /></div>
+            <div className="subTitle">當前最大可銷毀1000SBL，最小須銷毀50 SBL <img onClick={() => { setDestructDes(!destructDes) }} src={desIcon} alt="" /></div>
             <div className="inputBox">
               <input type="number" value={0} />
               <div className="maxBtn">max</div>
@@ -50,7 +44,7 @@ function DestructFund() {
             </div>
             <div className="Balance">餘額：1,457485 SBLSBL</div>
             <div className="DestructBtn Btn flex">銷毀</div>
-            <div className="DestructRecord">
+            <div className="DestructRecord" onClick={() => { setDonationRecord(!donationRecord) }}>
               銷毀記錄<img src={RecordIcon} alt="" />
             </div>
           </div>
@@ -71,7 +65,7 @@ function DestructFund() {
               <div className="coinBox"><img src={BNBIcon} alt="" /> BNB</div>
             </div>
             <div className="getBtn Btn flex">領取</div>
-            <div className="getRecord">
+            <div className="getRecord" onClick={() => { setGetRecord(!getRecord) }}>
               領取記錄 <img src={RecordIcon} alt="" />
             </div>
           </div>
@@ -80,31 +74,15 @@ function DestructFund() {
       </div>
 
       {/* 销毁说明 */}
-      <DestructDes showModal={false}></DestructDes>
+      <DestructDes showModal={destructDes} close={() => { setDestructDes(false) }}></DestructDes>
       {/* 确认销毁 */}
       <ConfirmDestruct showModal={false}></ConfirmDestruct>
       {/* 销毁成功 */}
       <DestructSucceed showModal={false}></DestructSucceed>
       {/* 销毁(捐赠)记录 */}
-      <DonationRecord showModal={false}></DonationRecord>
+      <DonationRecord showModal={donationRecord} close={() => { setDonationRecord(false) }}></DonationRecord>
       {/* 领取记录 */}
-      <GetRecord showModal={false}></GetRecord>
-
-
-      {/* 我的交易记录 */}
-      {/* <MyDealRecord></MyDealRecord> */}
-      {/*  以添加流动性移除确认*/}
-      <RemoveAffirm></RemoveAffirm>
-      {/* 以添加流动性移除 */}
-      <AddFlowRem></AddFlowRem>
-      {/* 添加流动性成功 */}
-      <AddFlowSucceed></AddFlowSucceed>
-
-
-
-
-      {/* 团队奖励的收益记录 */}
-      <TeamEarnings></TeamEarnings>
+      <GetRecord showModal={getRecord} close={() => { setGetRecord(false) }}></GetRecord>
 
     </div >
   )

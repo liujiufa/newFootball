@@ -1,54 +1,220 @@
-.SwapTitle{
+.SwapTitle {
     margin-top: 60px;
     color: #FFFFFF;
     font-weight: 700;
     font-size: 24px;
     text-align: center;
 }
-.TabRow{
-    border-radius: 6px;
+
+.Invitation {
+    margin-top: 150px;
     display: flex;
-    >div{
-        margin-right: 6px;
-    }
-    .TabItem{
-        border-radius: 6px;
-        padding: 8px 24px;
-        color: #FFFFFF;
-        width: max-content;
-        
-    }
-    .InvitationInvalid{
-        padding: 8px 24px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 6px;
-        color: rgba(255, 255, 255, 0.6);
+    justify-content: space-between;
+
+    .itemBox {
+        padding: 28px 20px;
+        width: 100%;
+        max-width: 525px;
+        background: #1F2045;
+        box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 19px;
+
+        .itemTitle {
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 34px;
+            /* identical to box height */
+            color: #D533D1;
+        }
+
+        .allRewardBox,
+        .inputBox {
+            display: flex;
+
+            .allReward,
+            .inputValue {
+                flex: auto;
+                display: flex;
+                justify-content: space-between;
+
+                span {
+                    display: flex;
+                    align-items: center;
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 18px;
+                    color: #FFFFFF;
+
+                    img {
+                        width: 18px;
+                        height: 18px;
+                        margin-right: 8px;
+                    }
+                }
+            }
+
+            .allReward {
+                margin: 23px auto 18px;
+            }
+
+            .inputValue {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 16px;
+                height: 66px;
+                background: #171833;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 10px;
+            }
+
+            .getBox {
+                width: 106px;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+
+                .getBtn {
+                    width: 76px;
+                    height: 36px;
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 20px;
+                    /* identical to box height */
+                    color: #FFFFFF;
+                    background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+                    border-radius: 6px;
+                }
+            }
+
+        }
+
+        .rewardRecord {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 10px;
+            text-align: right;
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 17px;
+            /* identical to box height */
+            color: rgba(255, 255, 255, 0.6);
+
+            img {
+                margin-left: 5px;
+            }
+        }
+
+        .itemTip {
+            margin-top: 25px;
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .addressBox {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 306px;
+            padding: 12px 10px;
+            background: #171833;
+            box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+
+            >div {
+                display: flex;
+                align-items: center;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 17px;
+                /* identical to box height */
+                color: #FFFFFF;
+                text-align: right;
+            }
+
+
+            .copyBtn {
+                width: 25px;
+            }
+
+            .referee {
+                width: 50px;
+                text-align: left;
+            }
+
+            .addressValue {
+                flex: auto;
+                display: flex;
+                justify-content: flex-end;
+            }
+
+            .devideLine {
+                margin: 0px 6px;
+                width: 1px;
+                height: 14px;
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.46875) 53.12%, rgba(255, 255, 255, 0) 100%);
+            }
+
+            .copyBtn {}
+        }
+
+        .inviteListBtn {
+            margin-top: 12px;
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 17px;
+            /* identical to box height */
+            color: rgba(255, 255, 255, 0.6);
+        }
     }
 }
-.InvitationLabel{
+
+.InvitationLabel {
     font-weight: 700;
     font-size: 20px;
     width: max-content;
-    color:#fff;
+    color: #fff;
     margin-top: 27px;
-    .prominent{
+
+    .prominent {
         font-weight: 700;
         font-size: 20px;
-        color:#DB2DCF;
+        color: #DB2DCF;
     }
 }
-.levelText{
+
+.levelText {
     font-weight: 700;
-font-size: 24px;
-margin-top: 15px;
+    font-size: 24px;
+    margin-top: 15px;
 }
-.InvitationRule{
+
+.InvitationRule {
     color: rgba(255, 255, 255, 0.6);
     font-weight: 400;
     font-size: 14px;
     max-width: 405px;
 }
-.BoxBorder{
+
+.BoxBorder {
     // background: linear-gradient(180deg, #4EADF533, #DB2DCF33);
     border: 1px solid #4EADF533;
     border-radius: 19px;
@@ -56,30 +222,35 @@ margin-top: 15px;
     max-width: 346px;
     width: 100%;
 }
-.InvitationAddr{
+
+.InvitationAddr {
     box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
     border-radius: 19px;
     background: #161731;
-    padding:20px;
+    padding: 20px;
     max-width: 346px;
     width: 100%;
     box-sizing: border-box;
 }
-.labelItem{
+
+.labelItem {
     font-weight: 700;
-font-size: 16px;
+    font-size: 16px;
 }
-.labelItemActivr{
+
+.labelItemActivr {
     color: #DB2DCF;
 }
-.InvitationList{
+
+.InvitationList {
     max-height: 252px;
     overflow-y: auto;
     padding-right: 18px;
     margin-top: 20px;
-    li{
+
+    li {
         height: 55px;
-        border-bottom:1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         color: #FFFFFF;
         font-weight: 500;
         font-size: 14px;
@@ -88,9 +259,10 @@ font-size: 16px;
         align-items: center;
     }
 }
-.refereeAddress{
+
+.refereeAddress {
     height: 55px;
-    border-bottom:1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     color: #FFFFFF;
     font-weight: 500;
     font-size: 14px;
@@ -98,23 +270,27 @@ font-size: 16px;
     display: flex;
     align-items: center;
 }
-.InvitationList::-webkit-scrollbar{
+
+.InvitationList::-webkit-scrollbar {
     width: 3px;
     border-radius: 9px;
     background: rgba(255, 255, 255, 0.1);
 }
-.InvitationList::-webkit-scrollbar-thumb{
+
+.InvitationList::-webkit-scrollbar-thumb {
     width: 3px;
     border-radius: 9px;
     background: #5B5C83;
 }
-.boxLabel{
+
+.boxLabel {
     color: #FFFFFF;
     font-weight: 700;
     font-size: 16px;
     display: flex;
     align-items: center;
-    .InvitationNum{
+
+    .InvitationNum {
         background: rgba(255, 255, 255, 0.1);
         box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
         border-radius: 4px;
@@ -125,7 +301,8 @@ font-size: 16px;
         font-size: 12px;
     }
 }
-.userAddr{
+
+.userAddr {
     max-width: 100%;
     width: 306px;
     height: 40px;
@@ -137,42 +314,51 @@ font-size: 16px;
     align-items: center;
     justify-content: space-between;
     padding: 0 15px 0 10px;
-    .linkLabel{
+
+    .linkLabel {
         width: 100%;
         font-weight: 400;
         font-size: 12px;
         color: #FFFFFF;
     }
-    .link{
+
+    .link {
         display: flex;
         align-items: center;
-        .linkAddr{
+
+        .linkAddr {
             font-weight: 500;
             font-size: 12px;
             color: #FFFFFF;
         }
-        .division{
+
+        .division {
             background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.46875) 53.12%, rgba(255, 255, 255, 0) 100%);
-            width: 1px;height: 14px;
+            width: 1px;
+            height: 14px;
             margin: 0 6px;
         }
     }
 }
-.OperationTips{
+
+.OperationTips {
     margin-top: 10px;
     color: rgba(255, 255, 255, 0.8);
     font-weight: 400;
     font-size: 14px;
 }
-.ObtainMethodItem{
+
+.ObtainMethodItem {
     color: #FFFFFF;
     font-weight: 400;
-font-size: 16px
+    font-size: 16px
 }
-.land{
-    .imgBox{
+
+.land {
+    .imgBox {
         text-align: center;
-        img{
+
+        img {
             max-width: 60%;
             margin: 80px auto 0;
         }
@@ -180,8 +366,8 @@ font-size: 16px
 }
 
 @media (max-width:768px) {
-    .land{
-        img{
+    .land {
+        img {
             max-width: 80%;
         }
     }

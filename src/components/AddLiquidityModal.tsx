@@ -9,35 +9,35 @@ import SBLIcon from '../assets/image/SBL.png'
 function AddLiquidityModal(props: any) {
     const items: MenuProps['items'] = [
         {
-            label: <div className='dropValue'>0.4</div>,
+            label: <div className='dropValue'>0.2</div>,
             key: '0',
         },
         {
             type: 'divider',
         },
         {
-            label: <div className='dropValue'>1</div>,
+            label: <div className='dropValue'>0.5</div>,
             key: '1',
         },
         {
             type: 'divider',
         },
         {
-            label: <div className='dropValue'>2</div>,
+            label: <div className='dropValue'>1</div>,
             key: '2',
         },
         {
             type: 'divider',
         },
         {
-            label: <div className='dropValue'>5</div>,
+            label: <div className='dropValue'>2.5</div>,
             key: '3',
         },
         {
             type: 'divider',
         },
         {
-            label: <div className='dropValue'>16</div>,
+            label: <div className='dropValue'>8</div>,
             key: '3',
         },
     ];
