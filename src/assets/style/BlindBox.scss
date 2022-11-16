@@ -1,36 +1,43 @@
-.BlindBoxTitle{
-    margin-top:100px;
+.BlindBoxTitle {
+    margin-top: 100px;
     color: #FFFFFF;
-    text-align:center;
+    text-align: center;
     font-weight: 700;
     font-size: 24px;
 }
-.BlindBoxInfo{
+
+.BlindBoxInfo {
     margin-top: 70px;
     display: flex;
     align-items: center;
-    >div{
+
+    >div {
         margin: 0 29px;
     }
+
     @media (max-width:426px) {
-        >div{
+        >div {
             margin: 0;
         }
     }
-    .Info{
+
+    .Info {
         flex: 1;
-        .intr{
+
+        .intr {
             color: #FFFFFF;
             font-weight: 700;
             font-size: 16px;
         }
-        .intrContent{
+
+        .intrContent {
             font-weight: 400;
             font-size: 14px;
             color: #FFFFFF;
             margin-top: 10px;
         }
-        .CopyAddr{
+
+        .CopyAddr {
             margin-top: 20px;
             max-width: 306px;
             height: 40px;
@@ -38,64 +45,76 @@
             box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
             border-radius: 6px;
             display: flex;
-            padding:10px;
+            padding: 10px;
             align-items: center;
             font-weight: 500;
             font-size: 12px;
             letter-spacing: 0.08em;
             justify-content: space-between;
             color: #FFFFFF;
-            .division{
+
+            .division {
                 background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.46875) 53.12%, rgba(255, 255, 255, 0) 100%);
                 width: 1px;
                 height: 14px;
             }
-            img{
-                width: 14px;height: 14px;
+
+            img {
+                width: 14px;
+                height: 14px;
                 flex-shrink: 0;
             }
         }
-        .BuyRow{
+
+        .BuyRow {
             display: flex;
             align-items: center;
             margin-top: 40px;
-            .buyInfo{
+
+            .buyInfo {
+
                 // width:125px;
-                .BuyName{
+                .BuyName {
                     color: #FFFFFF;
                     font-weight: 700;
                     font-size: 14px;
                     margin-bottom: 5px;
                 }
-                .price{
+
+                .price {
                     color: #FFFFFF;
                     font-weight: 400;
                     font-size: 14px;
                 }
             }
-            .BuyBtn{
+
+            .BuyBtn {
                 border-radius: 6px;
                 padding: 8px 16px;
                 color: #FFFFFF;
                 letter-spacing: 0.08em;
                 font-weight: 400;
                 font-size: 14px;
-                margin-left: 58px;
+                margin-left: 75px;
             }
+
             @media (max-width:375px) {
-                .BuyBtn{
+                .BuyBtn {
                     margin-left: 20px;
                 }
             }
         }
-        .PriceDesc{
+
+        .PriceDesc {
             color: #FFFFFF;
             font-size: 12px;
         }
-        .progress{
+
+        .progress {
             display: flex;
             align-items: center;
-            .groove{
+
+            .groove {
                 background: rgba(255, 255, 255, 0.23);
                 border-radius: 5px;
                 max-width: 272px;
@@ -103,59 +122,71 @@
                 height: 12px;
                 overflow: hidden;
                 margin-right: 7px;
-                .Value{
+
+                .Value {
                     background: #7F53FE;
                     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
                     border-radius: 5px;
                     height: 100%;
                     color: #FFFFFF;
                     text-align: right;
-                    line-height:14px;
+                    line-height: 14px;
                     padding-right: 10px;
                 }
             }
-            .progressValue{
+
+            .progressValue {
                 font-weight: 500;
                 font-size: 16px;
                 color: #FFFFFF;
             }
         }
+
         @media (max-width:426px) {
-            .BuyRow{
-                justify-content:space-between;
+            .BuyRow {
+                justify-content: space-between;
             }
         }
     }
-    .Img{
+
+    .Img {
         flex: 1;
-        img{
-            max-width:100%
+
+        img {
+            max-width: 100%
         }
-        .probability{
+
+        .probability {
             display: flex;
             margin-top: 100px;
-            .proItem{
+
+            .proItem {
                 display: flex;
                 align-items: center;
-                .Dbg{
+
+                .Dbg {
                     background: rgba(255, 255, 255, 0.2);
                     width: 20px;
                     height: 20px;
                     border-radius: 50%;
-                    .DRadius{
+
+                    .DRadius {
                         width: 14px;
                         height: 14px;
                         border-radius: 50%;
                     }
                 }
-                .ProInfo{
+
+                .ProInfo {
                     margin-left: 8px;
-                    .InfoNum{
+
+                    .InfoNum {
                         color: #FFFFFF;
                         font-weight: 700;
                         font-size: 14px;
                     }
-                    .InfoName{
+
+                    .InfoName {
                         color: rgba(255, 255, 255, 0.6);
                         font-weight: 400;
                         font-size: 12px;
@@ -165,11 +196,13 @@
         }
     }
 }
+
 @media (max-width:1023px) {
-    .BlindBoxInfo{
+    .BlindBoxInfo {
         flex-direction: column-reverse;
     }
-    .BlindBoxTitle{
-        margin-top:50px; 
+
+    .BlindBoxTitle {
+        margin-top: 50px;
     }
 }

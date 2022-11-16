@@ -1,11 +1,13 @@
-// 捐赠奖励，收益记录
+// 获取销毁奖励领取记录
 import React, { useEffect, useState } from "react";
 import { Modal, Table } from "antd";
 import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
 import { getDrawBurnRecord } from '../API/index'
+import { dateFormat } from "../utils/tool";
 import "../assets/style/componentsStyle/DonationRecord.scss";
 const { Column } = Table;
+const typeObj = { '3': '收益领取' }
 function GetRecord(props: any) {
   let state = useSelector<stateType, stateType>(state => state);
   // 获取销毁奖励领取记录
@@ -42,7 +44,7 @@ function GetRecord(props: any) {
             width={140}
             render={(item) => (
               <>
-                <div>{item.createTime}</div>
+                <div>{dateFormat('YYYY-mm-dd HH:MM', new Date(item.createTime))}</div>
               </>
             )}
           />
@@ -59,7 +61,7 @@ function GetRecord(props: any) {
             width={140}
             render={(item) => (
               <>
-                <div>{item.denji}</div>
+                <div>{typeObj[item.type]}</div>
               </>
             )}
           />

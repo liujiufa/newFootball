@@ -4,6 +4,7 @@ import { Modal, Table } from "antd";
 import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
 import { getBurnRecord } from '../API/index'
+import { dateFormat } from "../utils/tool";
 import "../assets/style/componentsStyle/DonationRecord.scss";
 const { Column } = Table;
 function DonationRecord(props: any) {
@@ -42,7 +43,8 @@ function DonationRecord(props: any) {
             width={140}
             render={(item) => (
               <>
-                <div>{item.createTime}</div>
+                {/* <div>{item.createTime}</div> */}
+                <div>{dateFormat('YYYY-mm-dd HH:MM', new Date(item.createTime))}</div>
               </>
             )}
           />

@@ -29,11 +29,24 @@
     margin: 1px;
 
     .CardImg {
+        position: relative;
         background: #171833;
         border: 1px solid rgba(255, 255, 255, 0.1);
         overflow: hidden;
         border-radius: 10px;
         width: 100%;
+
+        .pending {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 22px;
+            color: #D533D1;
+        }
 
         img {
             width: 100%;

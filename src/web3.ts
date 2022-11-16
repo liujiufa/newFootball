@@ -12,8 +12,8 @@ interface contractType {
     [propName: string]: Contract;
 }
 export const ChainId = {
-    // BSC: 97,
-    BSC: 56,
+    BSC: 97,
+    // BSC: 56,
 }
 //切换链
 const SCAN_ADDRESS = {
@@ -22,16 +22,16 @@ const SCAN_ADDRESS = {
 //配置连接链的信息
 const networkConf = {
     [ChainId.BSC]: {
-        // chainId: '0x61',
-        chainId: '0x38',
+        chainId: '0x61',
+        // chainId: '0x38',
         chainName: 'BSC',
         nativeCurrency: {
             name: 'BNB',
             symbol: 'BNB',
             decimals: 18,
         },
-        rpcUrls: ['https://bsc-dataseed.binance.org/'],
-        // rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545/'],
+        // rpcUrls: ['https://bsc-dataseed.binance.org/'],
+        rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545/'],
         blockExplorerUrls: [SCAN_ADDRESS[ChainId.BSC]],
     }
 }

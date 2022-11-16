@@ -1,30 +1,30 @@
-//金币节点 收益记录
-import React , {useEffect , useState} from "react";
+//节点收益记录
+import React, { useEffect, useState } from "react";
 import { Modal, Table } from "antd";
-import {useSelector} from "react-redux";
-import {stateType} from '../store/reducer'
-import {getNodeEarnRecord} from '../API'
-import {dateFormat} from '../utils/tool'
+import { useSelector } from "react-redux";
+import { stateType } from '../store/reducer'
+import { getNodeEarnRecord } from '../API'
+import { dateFormat } from '../utils/tool'
 import { useTranslation } from 'react-i18next'
 import "../assets/style/componentsStyle/GlodJdSy.scss";
 const { Column } = Table;
-interface propsType{
-  isShow:boolean,
-  id:number,
-  close:Function
+interface propsType {
+  isShow: boolean,
+  id: number,
+  close: Function
 }
-const type = ['' , 'claim' , 'Distribution' , 'refund']
-function GlodJdSy(props:propsType) {
+const type = ['', 'claim', 'Distribution', 'refund']
+function GlodJdSy(props: propsType) {
   let { t } = useTranslation()
-  let state = useSelector<stateType,stateType>(state => state);
-  let [tableData , setTableData] = useState([])
-  useEffect(()=>{
-    if(state.token && props.id!==-1){
-      getNodeEarnRecord(props.id).then(res=>{
+  let state = useSelector<stateType, stateType>(state => state);
+  let [tableData, setTableData] = useState([])
+  useEffect(() => {
+    if (state.token && props.id !== -1) {
+      getNodeEarnRecord(props.id).then(res => {
         setTableData(res.data)
       })
     }
-  },[state.token,props.id])
+  }, [state.token, props.id])
 
   return (
     <>
@@ -32,7 +32,7 @@ function GlodJdSy(props:propsType) {
         visible={props.isShow}
         className="GlodJdSy"
         centered
-        onCancel={()=>props.close()}
+        onCancel={() => props.close()}
         width={"525px"}
         closable={false}
         footer={null}
@@ -42,13 +42,13 @@ function GlodJdSy(props:propsType) {
           dataSource={tableData}
           pagination={false}
           rowKey="id"
-          scroll={{ y: 260,x:'auto' }}
+          scroll={{ y: 260, x: 'auto' }}
         >
           <Column
             title={t('Time')}
             render={(item) => (
               <>
-                <div>{dateFormat('YYYY-mm-dd HH:MM',new Date(item.createTime))}</div>
+                <div>{dateFormat('YYYY-mm-dd HH:MM', new Date(item.createTime))}</div>
               </>
             )}
           />

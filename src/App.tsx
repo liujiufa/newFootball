@@ -77,8 +77,8 @@ function App() {
     Login({
       password: "123",
       refereeUserAddress,
-      userAddress: web3React.account as string,
-      // userAddress: '0x9482394b609b51693FBd0b3B5Ed632B34c5070Eb',
+      // userAddress: web3React.account as string,
+      userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58',
       userPower: 0
     }).then((res: any) => {
       console.log(res, '登陆')

@@ -12,6 +12,7 @@ function DestructDesRule(props: any) {
         width={'394px'}
         closable={false}
         footer={null}
+        onCancel={() => props.close()}
       >
 
         <p className='title'>土地詳情説明</p>

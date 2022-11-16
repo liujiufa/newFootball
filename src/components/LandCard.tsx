@@ -1,7 +1,7 @@
 import React from 'react'
 import '../assets/style/componentsStyle/LandCard.scss'
 import landImg from '../assets/image/landImg.png'
-export interface CardInfoType {
+export interface LandUserCard {
   id: number,
   imageUrl: string,
   introduce: string,
@@ -13,19 +13,19 @@ export interface CardInfoType {
   cardLevel: number,
   tokenId: string
 }
-interface CardPropsType {
-  showDetia: Function,
-  cardInfo: CardInfoType,
+interface LandUserCardPropsType {
+  showDetail: Function,
+  cardInfo: LandUserCard,
   Index: number,
 }
-function LandCard() {
+function LandCard(props: LandUserCardPropsType) {
   return (
-    <div className="CardItemLinearBorder">
+    <div className="CardItemLinearBorder" onClick={() => { props.showDetail(props.Index) }}>
       <div className="CardItem">
         <div className="CardImg">
-          <img src={landImg} alt="" />
+          <img src={props.cardInfo.imageUrl} alt="" />
         </div>
-        <div className="cardId">ID：456978</div>
+        <div className="cardId">ID：{props.cardInfo.cardNo}</div>
       </div>
     </div>
   )

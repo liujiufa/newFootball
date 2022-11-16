@@ -101,6 +101,8 @@ export interface orderInfoType {
   introduce: string
   zhIntroduce: string
   userAddress: string
+  basePower: number
+  currentPower: number
 }
 function Swap() {
   let { t } = useTranslation()
@@ -166,7 +168,9 @@ function Swap() {
         pageSize: 12,
         type: usertype,
         userAddress: web3React.account
+        // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
       }).then(res => {
+        console.log(res.data.list, '我的列表')
         setUserOrderList(res.data.list)
         SetTotalNum(res.data.size)
       })

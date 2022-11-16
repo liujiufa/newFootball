@@ -38,10 +38,10 @@ function LandCardDetails(props: any) {
       >
         <p className='title'>土地詳情</p>
         <div className='hzimg'>
-          <img src={LandDetailImg} alt=""></img>
+          <img src={props.CardInfo.imageUrl} alt=""></img>
         </div>
         <p className='kpdetails'>土地品質:優秀</p>
-        <p className='kpdetails'>ID：152145</p>
+        <p className='kpdetails'>ID：{props.CardInfo.cardNo}</p>
         <p className='kpdetails'>土地封號：領主</p>
         <p className='kpdetails'>狀態：未激活</p>
         <p className='kpdetails'>激活要求：添加價值0.4 BNB的LP</p>

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { getBurnUserInfo } from '../API/index'
+import { useSelector } from "react-redux";
+import { stateType } from '../store/reducer'
 import '../assets/style/DestructFund.scss'
 import DestructSucceed from '../components/DestructSucceed'
 import DestructDes from '../components/DestructDes'
@@ -11,15 +14,35 @@ import SBLIcon from '../assets/image/SBLTokens.png'
 import BNBIcon from '../assets/image/BNBTokens.png'
 import RecordIcon from '../assets/image/record.png'
 import desIcon from '../assets/image/desIcon.png'
-function DestructFund() {
-  let { t } = useTranslation()
 
-  let [Tab, setTab] = useState(1)
+
+interface DestructRewardType {
+  awardAmount: number,
+  coinName: string,
+  amount: number,
+  dataId: number,
+  treatAmount: number
+}
+
+function DestructFund() {
+  let state = useSelector<stateType, stateType>(state => state);
+  let { t } = useTranslation()
   let [destructDes, setDestructDes] = useState(false)
   // 销毁记录
   let [donationRecord, setDonationRecord] = useState(false)
   // 领取记录
   let [getRecord, setGetRecord] = useState(false)
+  // 获取用户销毁奖励
+  let [drawBurnRecord, setDrawBurnRecord] = useState<DestructRewardType | null>(null)
+
+  useEffect(() => {
+    if (state.token) {
+      getBurnUserInfo().then(res => {
+        setDrawBurnRecord(res.data)
+        console.log(res.data, "获取销毁奖励领取记录")
+      })
+    }
+  }, [state.token])
 
   return (
     <div>
@@ -49,26 +72,26 @@ function DestructFund() {
             </div>
           </div>
           {/* 銷毀獎勵 */}
-          <div className="DestructReward">
+          {drawBurnRecord?.dataId && <div className="DestructReward">
             <div className="title">銷毀獎勵</div>
-            <div className="rewardValue">獎勵金額：563.4568 BNB</div>
-            <div className="toFreed">待釋放：563.4568 BNB</div>
+            <div className="rewardValue">獎勵金額：{drawBurnRecord?.awardAmount} {drawBurnRecord?.coinName}</div>
+            <div className="toFreed">待釋放：{drawBurnRecord?.treatAmount} {drawBurnRecord?.coinName}</div>
             <div className="process">
               <div className="Freed">進程：</div>
               <div className="processBox">
-                <div className="processBar" style={{ width: '50%' }}></div>
+                <div className="processBar" style={{ width: `${(drawBurnRecord?.treatAmount * 100) / (drawBurnRecord?.awardAmount * 100)}` }}></div>
               </div>
-              <div className="value">66.7%</div>
+              <div className="value">{(drawBurnRecord?.treatAmount * 100) / (drawBurnRecord?.awardAmount * 100) * 100}%</div>
             </div>
             <div className="inputBox">
-              <input type="number" value={0} />
+              <input type="number" value={drawBurnRecord?.amount} readOnly={true} />
               <div className="coinBox"><img src={BNBIcon} alt="" /> BNB</div>
             </div>
             <div className="getBtn Btn flex">領取</div>
             <div className="getRecord" onClick={() => { setGetRecord(!getRecord) }}>
               領取記錄 <img src={RecordIcon} alt="" />
             </div>
-          </div>
+          </div>}
         </div>
 
       </div>

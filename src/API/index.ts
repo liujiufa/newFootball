@@ -258,3 +258,67 @@ export function getDrawBurnRecord() {
         method: 'get'
     })
 }
+// 获取用户销毁奖励
+export function getBurnUserInfo() {
+    return axois.request({
+        url: `/user/dBurnUser/getBurnUserInfo`,
+        method: 'get'
+    })
+}
+// 获取用户兑换记录
+export function getExchangeRecord() {
+    return axois.request({
+        url: `/user/mMbaUser/getExchangeRecord`,
+        method: 'get'
+    })
+}
+// 获取用户MBA使用记录
+export function getMbaUseRecord() {
+    return axois.request({
+        url: `/user/mMbaUser/getMbaUseRecord`,
+        method: 'get'
+    })
+}
+// 获取用户销毁奖励
+export function getMbaUserInfo() {
+    return axois.request({
+        url: `/user/mMbaUser/getMbaUserInfo`,
+        method: 'get'
+    })
+}
+// 获取我的权益
+export function getLandUserBeneficial() {
+    return axois.request({
+        url: `/user/lLandUser/getLandUserBeneficial`,
+        method: 'get'
+    })
+}
+// 土地申领数据
+export function getLandUserList() {
+    return axois.request({
+        url: `/user/lLandUser/getLandUserList`,
+        method: 'get'
+    })
+}
+interface getUserLandCardType {
+    currentPage: number,
+    level: number,
+    pageSize: number,
+    type?: number,
+    userAddress: string
+}
+// 获取用户土地卡牌
+export function getLandUserCardList(data: getUserLandCardType) {
+    return axois.request({
+        url: `/user/lLandUser/getLandUserCardList`,
+        method: 'post',
+        data
+    })
+}
+// 获取个人信息
+export function getUserInfo() {
+    return axois.request({
+        url: `/user/uUser/getUserInfo`,
+        method: 'get'
+    })
+}
