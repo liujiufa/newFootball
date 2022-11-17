@@ -76,7 +76,7 @@ function CardSynthesis(props: CardSynthesisPropsType) {
                 level: props.CardInfo.cardLevel,
                 type: props.CardInfo.cardLevel < 5 ? type : props.CardInfo.cardType,
                 pageSize: 12,
-                userAddress: '0x1fcac7551589e67c6b7e4452a681dab0127a5db7'
+                userAddress: web3React.account
             }).then(res => {
                 res.data.list = res.data.list.filter((item: CardInfoType) => {
                     return item.tokenId !== props.CardInfo.tokenId

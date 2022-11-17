@@ -61,7 +61,7 @@ function DestructFund() {
             <div className="DestructValue">銷毀基金額度：<span>563.4568 BNB</span></div>
             <div className="subTitle">當前最大可銷毀1000SBL，最小須銷毀50 SBL <img onClick={() => { setDestructDes(!destructDes) }} src={desIcon} alt="" /></div>
             <div className="inputBox">
-              <input type="number" value={0} />
+              <input type="number" value={0} readOnly={true} />
               <div className="maxBtn">max</div>
               <div className="coinBox"><img src={SBLIcon} alt="" /> SBL</div>
             </div>

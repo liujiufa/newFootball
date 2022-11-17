@@ -173,7 +173,7 @@ export function getNodeEarnRecord(id: number) {
         method: 'get'
     })
 }
-/* 获取收益记录 type:1推荐 2 团队 */
+/* 获取收益记录 type:1 推荐 2 土地服务奖 4 土地分红 */
 export function getUserAccountDetail(type: number) {
     return axois.request({
         url: `/user/uUserAccount/getUserAccountDetail/${type}`,
@@ -315,10 +315,54 @@ export function getLandUserCardList(data: getUserLandCardType) {
         data
     })
 }
+interface getPledgeCardUserInfo {
+    currentPage: number,
+    level?: number,
+    pageSize: number,
+    type?: number,
+    userAddress: string
+}
+// 获取用户质押卡牌
+export function getPledgeCardUserInfo(data: getPledgeCardUserInfo) {
+    return axois.request({
+        url: `/user/cCardUser/getPledgeCardUserInfo`,
+        method: 'post',
+        data
+    })
+}
+// 提升算力
+export function promotePower(data: any) {
+    return axois.request({
+        url: `/user/mMbaUser/promotePower`,
+        method: 'post',
+        data
+    })
+}
 // 获取个人信息
 export function getUserInfo() {
     return axois.request({
         url: `/user/uUser/getUserInfo`,
+        method: 'get'
+    })
+}
+// 获取用户邀请资产
+export function getRefereeUserAccount() {
+    return axois.request({
+        url: `/user/uUserAccount/getRefereeUserAccount`,
+        method: 'get'
+    })
+}
+// 获取用户质押上方数据
+export function getPledgeCardUserData() {
+    return axois.request({
+        url: `/user/cCardUser/getPledgeCardUserData`,
+        method: 'get'
+    })
+}
+// 获取用户流动性列表
+export function getUserLpList() {
+    return axois.request({
+        url: `/user/uUserLp/getUserLpList`,
         method: 'get'
     })
 }

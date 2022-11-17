@@ -3,7 +3,7 @@ import '../assets/style/componentsStyle/carddetails.scss'
 import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
 import { useWeb3React } from '@web3-react/core'
-import { getBoxUserInfo, getUserCard } from '../API'
+import { getBoxUserInfo, getPledgeCardUserInfo, getPledgeCardUserData } from '../API'
 import PledgeCard, { CardInfoType } from '../components/PledgeCard'
 import ImproveComputingPower from '../components/ImproveComputingPower'
 import CancelPledge from '../components/CancelPledge'
@@ -28,6 +28,12 @@ export interface OpenResType {
   cardLevel: number,
   cardName: string
 }
+interface PledgeDataType {
+  power: number
+  amount: number
+  dataId: number
+  totalAmount: number
+}
 
 function Pledge() {
   let { t } = useTranslation()
@@ -35,61 +41,85 @@ function Pledge() {
   const { width } = useViewport();
   const web3React = useWeb3React()
   let [TabIndex, SetTabIndex] = useState(0)
-  /* 类型筛选 */
-  let [type, SetType] = useState(0)
+  /* 获取用户质押上方数据 */
+  let [pledgeData, SetPledgeData] = useState<PledgeDataType | null>(null)
   /* 等级筛选 */
   let [level, SetLevel] = useState(0)
   /* 分页总条数 */
   let [totalNum, SetTotalNum] = useState(0)
+  // 可领取金额
+  let [getValue, setGetValue] = useState(0)
+  // 提升算力值数据
+  let [computingPower, setComputingPower] = useState(0)
+  // 控制可领取金额
+  let [getPage, setGetPage] = useState(false)
+  // 奖励记录
+  let [rewardRecord, setRewardRecord] = useState(false)
   let [page, SetPage] = useState(1)
   let [userCard, setuserCard] = useState<CardInfoType[]>([])
-  /* 合成成功弹窗控制 */
-  let [showMergeSuccess, setShowMergeSuccess] = useState(false)
+  // 提升算力值弹窗
+  let [iproveComputingPower, setImproveComputingPower] = useState(false)
+  // 提升算力函数
+  const ImproveComputingPowerFun = (id: number) => {
+    setComputingPower(id)
+    setImproveComputingPower(true)
+  }
 
   function onChange(pageNumber: number) {
     SetPage(pageNumber)
     console.log('Page: ', pageNumber);
   }
+  // 领取页面
+  const getBtnFun = (value: any) => {
+    setGetValue(value)
+    setGetPage(true)
+  }
 
   useEffect(() => {
     if (state.token && web3React.account && TabIndex === 0) {
-      getUserCard({
+      getPledgeCardUserInfo({
         currentPage: page,
-        level: level,
         pageSize: 12,
-        type: type,
-        userAddress: '0x1fcac7551589e67c6b7e4452a681dab0127a5db7'
+        userAddress: web3React.account
       }).then(res => {
-        console.log(res.data.list, "用户徽章")
+        console.log(res.data, "用户徽章")
         setuserCard(res.data.list)
         SetTotalNum(res.data.size)
       })
     }
-  }, [state.token, web3React.account, type, level, page, TabIndex])
+  }, [state.token, web3React.account, page, TabIndex])
+  useEffect(() => {
+    if (state.token && web3React.account) {
+      getPledgeCardUserData().then(res => {
+        console.log(res.data, "获取用户质押上方数据")
+        SetPledgeData(res.data)
+      })
+    }
+  }, [state.token, web3React.account])
   return (
     <div>
       <div className="Edition-Center">
         <div className="SwapTitle">
           質押
         </div>
-        <div className="pledgeScreen">
+        {pledgeData && <div className="pledgeScreen">
           <div className="Tabs">
             <div className="pledgeValueBox">
-              <div className="recentlyComputingPower">當前算力縂值：10000</div>
-              <div className="pledgeAllReward">質押獎勵總額：100，000，000 SBL</div>
+              <div className="recentlyComputingPower">當前算力縂值：{pledgeData?.power}</div>
+              <div className="pledgeAllReward">質押獎勵總額：{pledgeData?.totalAmount} SBL</div>
             </div>
           </div>
           <div className="DropDownGroup">
-            <div className="ableGetReward">可領取收益：<span>100，000，000 SBL</span> <div className="getBtn flex">領取</div></div>
+            <div className="ableGetReward">可領取收益：<span onClick={() => { setRewardRecord(true) }}>{pledgeData?.amount} SBL</span> {pledgeData?.amount ? <div className="getBtn flex" onClick={() => { getBtnFun(pledgeData?.amount) }}>領取</div> : <div className="getBtn flex" onClick={() => { getBtnFun(0) }}>領取</div>}</div>
           </div>
-        </div>
+        </div>}
         {
           userCard.length !== 0 ? <>
             <div className="CardList">
               {
                 userCard.map((item, index) => <div className="cancelPledge">
-                  <PledgeCard key={item.id} Index={index} cardInfo={item} ></PledgeCard>
-                  <div className="btn flex">取消質押</div>
+                  <PledgeCard key={item.id} Index={index} cardInfo={item} changeFun={ImproveComputingPowerFun}></PledgeCard>
+                  <div className="btn flex" >取消質押</div>
                 </div>)
               }
             </div>
@@ -104,11 +134,11 @@ function Pledge() {
       {/* 取消质押 */}
       <CancelPledge showModal={false}></CancelPledge>
       {/* 提升算力值 */}
-      <ImproveComputingPower showModal={false}></ImproveComputingPower>
+      {userCard[computingPower] && <ImproveComputingPower data={userCard[computingPower]} showModal={iproveComputingPower} close={() => { setImproveComputingPower(false) }}></ImproveComputingPower>}
       {/* 领取记录 */}
-      <RewardRecord showModal={false}></RewardRecord>
+      <RewardRecord showModal={rewardRecord} close={() => { setRewardRecord(false) }}></RewardRecord>
       {/* 可领取金额 */}
-      <AbleGetReward showModal={false}></AbleGetReward>
+      <AbleGetReward data={getValue} showModal={getPage} close={() => { setGetPage(false) }}></AbleGetReward>
 
     </div>
   )

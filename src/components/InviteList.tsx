@@ -1,16 +1,12 @@
 // 捐赠奖励，收益记录
 import React from "react";
 import { Modal, Table } from "antd";
+import { AddrHandle } from "../utils/tool";
+
 import "../assets/style/componentsStyle/DonationRecord.scss";
 const { Column } = Table;
 function GetRecord(props: any) {
-  const data = [];
-  for (let i = 0; i < 100; i++) {
-    data.push({
-      key: i,
-      name: `OxE123.............dhio`,
-    });
-  }
+
   return (
     <>
       <Modal
@@ -20,11 +16,12 @@ function GetRecord(props: any) {
         width={"525px"}
         closable={false}
         footer={null}
+        onCancel={() => props.close()}
       >
         <p className="title" style={{ marginBottom: '20px' }}> 邀請列表 </p>
         <Table
           showHeader={false}
-          dataSource={data}
+          dataSource={props.data}
           pagination={false}
           rowKey="id"
           scroll={{ y: 260 }}
@@ -33,7 +30,7 @@ function GetRecord(props: any) {
             width={140}
             render={(item) => (
               <>
-                <div>{item.name}</div>
+                <div>{AddrHandle(item.userAddress, 6, 4, ".............")}</div>
               </>
             )}
           />

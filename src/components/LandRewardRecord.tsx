@@ -4,17 +4,21 @@ import { Modal, Table } from "antd";
 import { useWeb3React } from '@web3-react/core'
 import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
-
+import { getUserAccountDetail } from '../API/index'
+import { dateFormat } from '../utils/tool'
 import "../assets/style/componentsStyle/DonationRecord.scss";
 const { Column } = Table;
+const type = ['奖励发放', '奖励发放', '奖励发放', 'Claim2', '奖励发放']
 function GetRecord(props: any) {
   let state = useSelector<stateType, stateType>(state => state);
   const [rewardRecordList, setRewardRecordList] = useState([])
   const web3React = useWeb3React()
 
   useEffect(() => {
-
-  }, [state.token, web3React.account, props.showModal])
+    getUserAccountDetail(props.id).then((res) => {
+      setRewardRecordList(res.data)
+    })
+  }, [state.token, web3React.account, props.showModal, props.id])
   return (
     <>
       <Modal
@@ -28,7 +32,7 @@ function GetRecord(props: any) {
       >
         <p className="title"> 獎勵記錄 </p>
         <Table
-          // dataSource={ }
+          dataSource={rewardRecordList}
           pagination={false}
           rowKey="id"
           scroll={{ y: 260 }}
@@ -38,15 +42,15 @@ function GetRecord(props: any) {
             width={140}
             render={(item) => (
               <>
-                <div>{item.name}</div>
+                <div>{dateFormat('YYYY-mm-dd', new Date(item.createTime))}</div>
               </>
             )}
           />
           <Column
-            title="金額(SBL)"
+            title="金額"
             render={(item) => (
               <>
-                <div>{item.ID}</div>
+                <div>{item.amount} {item.coinName}</div>
               </>
             )}
           />
@@ -54,16 +58,7 @@ function GetRecord(props: any) {
             title="類型"
             render={(item) => (
               <>
-                <div>{item.denji}</div>
-              </>
-            )}
-          />
-          <Column
-            title="類別"
-            width={140}
-            render={(item) => (
-              <>
-                <div>{item.denji}</div>
+                <div>{type[item.type]}</div>
               </>
             )}
           />

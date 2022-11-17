@@ -77,6 +77,7 @@ function Land() {
   let { t } = useTranslation()
   let [tabActive, setTabActive] = useState('1')
   let [totalNum, SetTotalNum] = useState(0)
+  // 我的封号
   let [userLevel, setUserLevel] = useState(0)
   let [page, SetPage] = useState(1)
   // 土地详情index
@@ -110,7 +111,7 @@ function Land() {
     SetPage(pageNumber)
     console.log('Page: ', pageNumber);
   }
-  // 打开对应土地详情
+  // 打开对应土地详情（index:）
   const showDetailFun = (index: number) => {
     setCardDetialIndex(index)
     setUserCardDetail(true)
@@ -210,10 +211,10 @@ function Land() {
         {/* 3.我的权益 */}
         {
           tabActive === '3' && <div className="Content">
-            <div className="myLandRightBox">
+            {userBeneficial.length > 0 && <div className="myLandRightBox">
               <div className="myTitle" onClick={() => { setLandDetailDes(true) }}>我的封號：{LevelObj[userLevel]}<img src={helpIcon}></img> </div>
               {/* 我的权益 */}
-              {userBeneficial.length > 0 && <div className="RewardBox">
+              <div className="RewardBox">
 
                 <div className="landService">
                   <div className="title">土地服務獎</div>
@@ -231,7 +232,7 @@ function Land() {
                     </div>
                     <div className="btnBox"><div className="getBtn flex">領取</div></div>
                   </div>
-                  <div className="rewardRecord" onClick={() => { rewardRecordFun(1) }}>獎勵記錄<img src={RecordIcon} alt="" /></div>
+                  <div className="rewardRecord" onClick={() => { rewardRecordFun(2) }}>獎勵記錄<img src={RecordIcon} alt="" /></div>
                 </div>
 
                 <div className="landShare">
@@ -250,11 +251,11 @@ function Land() {
                     </div>
                     <div className="btnBox"><div className="getBtn flex">領取</div></div>
                   </div>
-                  <div className="rewardRecord" onClick={() => { rewardRecordFun(2) }}>獎勵記錄<img src={RecordIcon} alt="" /></div>
+                  <div className="rewardRecord" onClick={() => { rewardRecordFun(4) }}>獎勵記錄<img src={RecordIcon} alt="" /></div>
                 </div>
 
-              </div>}
-            </div>
+              </div>
+            </div>}
           </div>
         }
 
@@ -262,7 +263,7 @@ function Land() {
       {/* 申领成功 */}
       <ClaimSuccess showModal={false}></ClaimSuccess>
       {/* 土地详情 */}
-      {landUserCard[cardDetialIndex] && <LandCardDetails CardInfo={landUserCard[cardDetialIndex]} showModal={userCardDetail} close={() => setUserCardDetail(false)}></LandCardDetails>}
+      {landUserCard[cardDetialIndex] && <LandCardDetails userLevel={userLevel} CardInfo={landUserCard[cardDetialIndex]} showModal={userCardDetail} close={() => setUserCardDetail(false)}></LandCardDetails>}
       {/* 土地详情说明 */}
       <LandDetailDes showModal={landDetailDes} close={() => setLandDetailDes(false)}></LandDetailDes>
       {/* 奖励记录(土地服务费、土地分红) */}

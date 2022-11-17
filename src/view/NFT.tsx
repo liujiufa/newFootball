@@ -200,7 +200,7 @@ function NFT() {
         level: level,
         pageSize: 12,
         type: type,
-        userAddress: '0x1fcac7551589e67c6b7e4452a681dab0127a5db7'
+        userAddress: web3React.account
       }).then(res => {
         console.log(res.data.list, "用户徽章")
         setuserCard(res.data.list)

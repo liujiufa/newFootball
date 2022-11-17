@@ -13,9 +13,10 @@ function AbleGetReward(props: any) {
                 width={'418px'}
                 closable={false}
                 footer={null}
+                onCancel={() => { props.close() }}
             >
                 <p className='title'>可領取金額</p>
-                <div className="valueBox flex">100 SBL </div>
+                <div className="valueBox flex">{props.data} SBL </div>
                 <div className="confirmBtn flex">確認</div>
 
                 <span>点击任意地方离开</span>

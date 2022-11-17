@@ -1,33 +1,23 @@
 // 捐赠奖励，收益记录
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Table } from "antd";
+import { useWeb3React } from '@web3-react/core'
+import { useSelector } from "react-redux";
+import { stateType } from '../store/reducer'
+import { getUserAccountDetail } from '../API/index'
+import { dateFormat } from '../utils/tool'
 import "../assets/style/componentsStyle/DonationRecord.scss";
 const { Column } = Table;
 function GetRecord(props: any) {
-  const columns = [
-    {
-      title: "時間",
-      dataIndex: "time",
-      width: 130,
-    },
-    {
-      title: "金額",
-      dataIndex: "SBLBalance",
-    },
-    {
-      title: "類型",
-      dataIndex: "BNBReward",
-    },
-  ];
-  const data = [];
-  for (let i = 0; i < 100; i++) {
-    data.push({
-      key: i,
-      name: `2022/05/06 11:40`,
-      ID: "2,352,455.4756",
-      denji: "收益領取",
-    });
-  }
+  let state = useSelector<stateType, stateType>(state => state);
+  const [rewardRecordList, setRewardRecordList] = useState([])
+  const web3React = useWeb3React()
+
+  useEffect(() => {
+    getUserAccountDetail(3).then((res) => {
+      setRewardRecordList(res.data)
+    })
+  }, [state.token, web3React.account, props.showModal])
   return (
     <>
       <Modal
@@ -37,10 +27,11 @@ function GetRecord(props: any) {
         width={"525px"}
         closable={false}
         footer={null}
+        onCancel={() => props.close()}
       >
         <p className="title"> 領取記錄 </p>
         <Table
-          dataSource={data}
+          dataSource={rewardRecordList}
           pagination={false}
           rowKey="id"
           scroll={{ y: 260 }}
@@ -58,7 +49,7 @@ function GetRecord(props: any) {
             title="金額"
             render={(item) => (
               <>
-                <div>{item.ID}</div>
+                <div>{item.amount}</div>
               </>
             )}
           />
@@ -67,7 +58,7 @@ function GetRecord(props: any) {
             width={140}
             render={(item) => (
               <>
-                <div>{item.denji}</div>
+                <div>獎勵領取</div>
               </>
             )}
           />

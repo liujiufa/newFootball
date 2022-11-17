@@ -28,14 +28,14 @@ function Card(props: any) {
         </div>
         <div className="computingPower">
           <div className="title">算力</div>
-          <div className="value">50/100</div>
+          <div className="value">{props.cardInfo?.basePower}/{props.cardInfo?.currentPower}</div>
         </div>
         <div className="share">
-          <div className="shareBox"><div className="shareValue" style={{ width: '50%' }}>66.7%</div></div>
-          <div className="addBtn"><img src={addIcon} alt="" /></div>
+          <div className="shareBox"><div className="shareValue" style={{ width: `${props.orderInfo?.basePower / props.orderInfo?.currentPower*100}%` }}>{props.orderInfo?.basePower / props.orderInfo?.currentPower}%</div></div>
+          <div className="addBtn" onClick={() => { props.changeFun(props.Index) }}><img src={addIcon} alt="" /></div>
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 export default React.memo(Card)

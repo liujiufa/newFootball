@@ -25,7 +25,7 @@ function CardItem(props: CardInfo) {
             <div className="price">
               <div className="computingPower">
                 <div className="title">算力</div>
-                <div className="shareBox"><div className="shareValue" style={{ width: `${props.orderInfo?.basePower / props.orderInfo?.currentPower}%` }}>{props.orderInfo?.basePower / props.orderInfo?.currentPower}%</div></div>
+                <div className="shareBox"><div className="shareValue" style={{ width: `${props.orderInfo?.basePower / props.orderInfo?.currentPower * 100}%` }}>{props.orderInfo?.basePower / props.orderInfo?.currentPower}%</div></div>
                 <div className="value">{props.orderInfo?.basePower}/{props.orderInfo?.currentPower}</div>
               </div>
               <div className="box">
@@ -43,7 +43,7 @@ function CardItem(props: CardInfo) {
             <div className="price">
               <div className="computingPower">
                 <div className="title">算力</div>
-                <div className="shareBox"><div className="shareValue" style={{ width: `${props.orderInfo?.basePower / props.orderInfo?.currentPower}%` }}>{props.orderInfo?.basePower / props.orderInfo?.currentPower}%</div></div>
+                <div className="shareBox"><div className="shareValue" style={{ width: `${props.orderInfo?.basePower / props.orderInfo?.currentPower * 100}%` }}>{props.orderInfo?.basePower / props.orderInfo?.currentPower}%</div></div>
                 <div className="value">{props.orderInfo?.basePower}/{props.orderInfo?.currentPower}</div>
               </div>
               <div className="box">

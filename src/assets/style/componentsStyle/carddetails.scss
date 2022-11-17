@@ -1,22 +1,27 @@
-.ant-modal-content{
+.ant-modal-content {
   overflow: visible;
 }
+
 .Card {
   background: #1d1e44;
   box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
   border-radius: 19px;
   // height: 573px;
   position: relative;
+
   .ant-modal-content {
     box-shadow: none;
   }
+
   .ant-modal-header {
     display: none;
   }
+
   .ant-modal-body {
     background: #1d1e44;
     box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
     padding: 0;
+
     .title {
       font-size: 24px;
       margin: 30px auto 20px;
@@ -24,7 +29,9 @@
       color: #fff;
       box-shadow: 0;
     }
+
     .hzimg {
+      position: relative;
       width: 150px;
       height: 150px;
       background: #171833;
@@ -32,16 +39,31 @@
       border-radius: 10px;
       margin: 0 auto;
       overflow: hidden;
-      img{
+
+      .pending {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        color: #D533D1;
+      }
+
+      img {
         width: 100%;
       }
     }
+
     .kpdetails {
       min-height: 20px;
       margin-top: 20px;
-      padding:0 30px;
+      padding: 0 30px;
       color: #fff;
       font-size: 14px;
+
       input {
         margin-left: 20px;
         margin-right: 10px;
@@ -50,11 +72,13 @@
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 10px;
       }
+
       input::-webkit-outer-spin-button,
       input::-webkit-inner-spin-button {
-          -webkit-appearance: none;
+        -webkit-appearance: none;
       }
     }
+
     .butm {
       width: 80%;
       display: flex;
@@ -63,6 +87,7 @@
       color: #fff;
       margin-top: 25px;
       margin-bottom: 30px;
+
       //   flex-grow: 0;
       .gm {
         // flex-grow: 0;
@@ -76,6 +101,7 @@
         box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
         border-radius: 6px;
         border: 0;
+
         div {
           position: absolute;
           // justify-content: center;
@@ -91,9 +117,11 @@
           background: #1d1e44;
         }
       }
-      .invalid{
+
+      .invalid {
         background: rgba(255, 255, 255, 0.2);
       }
+
       .hc {
         border: 0;
         width: 76px;
@@ -101,6 +129,7 @@
         background: linear-gradient(90deg, #4eadf5 0%, #db2dcf 100%);
         border-radius: 6px;
       }
+
       .zy {
         width: 76px;
         height: 36px;
@@ -109,6 +138,7 @@
         border-radius: 6px;
       }
     }
+
     span {
       width: 100%;
       text-align: center;

@@ -30,6 +30,7 @@ import "../assets/style/Invitation.scss";
 import "../assets/style/componentsStyle/MyDealRecord.scss";
 import "../assets/style/componentsStyle/Reward.scss";
 import { type } from "@testing-library/user-event/dist/type";
+import { getRefereeUserAccount } from '../API/index'
 interface InvitationItem {
   userAddress: string;
   id: number;
@@ -45,14 +46,23 @@ interface refereeData {
   amountString: string;
   coinName: string;
 }
-interface rewardDataType {
-  refereeList: refereeData[];
-  teamList: refereeData[];
-}
 interface landDataType {
   status: number;
   level: number;
   imageUrl?: string;
+}
+interface rewardDataType {
+  amount: number,
+  amountString: string,
+  coinName: string,
+  createTime: string,
+  freezeAmount: number,
+  id: number,
+  totalAmount: number,
+  type: number,
+  updateTime: string,
+  userAddress: string,
+  userId: number
 }
 const tokenIcon: { [key: string]: string } = {
   SBL: SBLToken,
@@ -109,15 +119,16 @@ export default function Invitation() {
   //   console.log(location.state);
   let { t } = useTranslation();
   let state = useSelector<stateType, stateType>((state) => state);
-  let [InvitationData, setInvitationTypeDate] = useState<InvitationType | null>(
-    null
-  );
+  // 邀请列表数据
+  let [InvitationData, setInvitationTypeDate] = useState<InvitationType | null>(null);
+
+
   let [landData, setLandData] = useState<landDataType | null>(null);
   let [TabIndex, setTabIndex] = useState(0);
-  /* 团队奖励机制弹窗控制 */
-  let [showTeamMachine, setShowTeamMachine] = useState(false);
+  // 邀请列表数据弹窗
+  let [inviteModal, setInviteModal] = useState(false);
   let [InviTabIndex, setInviTabIndex] = useState(0);
-  /* 奖励弹窗类型 */
+  /* 奖励记录类型 */
   let [RevenueType, setRevenueType] = useState(0);
   let [heavyLoad, setHeavyLoad] = useState(false);
   /* 邀请奖励机制弹窗控制 */
@@ -125,6 +136,7 @@ export default function Invitation() {
   let [teamHeavyLoad, setteamHeavyLoad] = useState(false);
   /* 邀请奖励机制弹窗控制 */
   let [ShowInvitationrewardMech, setShowInvitationrewardMech] = useState(false);
+  // 邀请奖励数据
   let [rewardData, setRewardData] = useState<rewardDataType | null>(null);
   /* 用户最高等级 */
   let [MaxLevel, setMaxLevel] = useState(0);
@@ -133,13 +145,17 @@ export default function Invitation() {
   //   console.log(TabIndex, "TabIndex");
   useEffect(() => {
     if (state.token) {
-      getUserAccountList().then((res) => {
-        console.log(res);
+      // 邀请奖励
+      getRefereeUserAccount().then((res) => {
+        console.log(res.data, '邀请奖励');
         setRewardData(res.data);
       });
+
+
       getCardUserMaxLevelInfo().then((res) => {
         setMaxLevel(res.data);
       });
+      // 邀请列表
       getUserReferee().then((res) => {
         console.log(res);
         setInvitationTypeDate(res.data);
@@ -151,6 +167,7 @@ export default function Invitation() {
     }
   }, [state.token]);
   let [touteid] = useState(location.state);
+
   useEffect(() => {
     // console.log(touteid);
     if (touteid && rewardData && landData) {
@@ -234,36 +251,42 @@ export default function Invitation() {
     <div className="Edition-Center">
       <div className="SwapTitle">{t("Invitation")}</div>
       <div className="Invitation">
-        <div className="itemBox">
+        {rewardData && <div className="itemBox">
           <div className="itemTitle">邀請獎勵</div>
           <div className="allRewardBox">
             <div className="allReward">
-              <span>纍計獎勵：</span><span>100.11 SBL</span>
+              <span>纍計獎勵：</span><span>{rewardData.totalAmount} {rewardData.coinName}</span>
             </div>
             <div className="getBox"></div>
           </div>
           <div className="inputBox">
             <div className="inputValue">
-              <span>0.000000</span>
+              <span>{rewardData.amount}</span>
               <span>
-                <img src={SBLToken} alt="" />SBL
+                <img src={SBLToken} alt="" />{rewardData.coinName}
               </span>
             </div>
             <div className="getBox"><div className="getBtn flex">領取</div></div>
           </div>
-          <div className="rewardRecord">獎勵記錄<img src={record} alt="" /></div>
-        </div>
-        <div className="itemBox">
+          <div className="rewardRecord" onClick={() => ShowRevenueRecordFun(1)}>獎勵記錄<img src={record} alt="" /></div>
+        </div>}
+        {web3React.account && <div className="itemBox">
           <div className="itemTitle">發送您的邀請鏈接</div>
           <div className="itemTip">複製併使用此鏈接，邀請您的朋友加入Space Ball ，一起探索無限精彩的元宇宙世界。建立自己的Space Ball家族！</div>
           <div className="addressBox">
-            <div className="referee">邀請鏈接</div>
-            <div className="addressValue">https://bnb...c7****70</div>
+            <div className="referee" >邀請鏈接</div>
+            <div className="addressValue">
+              {window.location.origin +
+                window.location.pathname +
+                "?address=" +
+                AddrHandle(web3React.account)}
+            </div>
             <div className="devideLine"></div>
-            <div className="copyBtn"><img src={copyIcon} alt="" /></div>
+            <div className="copyBtn" onClick={invitation}><img src={copyIcon} alt="" /></div>
           </div>
-          <div className="inviteListBtn">邀請列表(8) <img src={inviteListIcon} alt="" /></div>
-        </div>
+          {/* <div className="inviteListBtn" onClick={() => { setInviteModal(true) }}>邀請列表({InvitationData ? 0 : (InvitationData?.list.length - 1)}) <img src={inviteListIcon} alt="" /></div> */}
+          <div className="inviteListBtn" onClick={() => { setInviteModal(true) }}>邀請列表({InvitationData?.list.length}) <img src={inviteListIcon} alt="" /></div>
+        </div>}
       </div>
       {/* 奖励记录 */}
       <GainRecording
@@ -272,7 +295,7 @@ export default function Invitation() {
         close={() => setShowRevenueRecord(false)}
       ></GainRecording>
       {/* 邀请列表 */}
-      <InviteList showModal={false}></InviteList>
-    </div>
+      <InviteList data={InvitationData?.list} showModal={inviteModal} close={() => setInviteModal(false)}></InviteList>
+    </div >
   );
 }
