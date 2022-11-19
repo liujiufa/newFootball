@@ -16,10 +16,11 @@ function ConfirmRmLiquidity(props: any) {
                 width={'459px'}
                 closable={false}
                 footer={null}
+                onCancel={() => { props.close() }}
             >
                 <p className='title'>移除流動性</p>
                 <div className="coinBox">
-                    <div className="coinsValue">1 BNB</div>
+                    <div className="coinsValue">{props.data.currencyPair} BNB</div>
                     <div className="coinsIcon">
                         <img className='img1' src={bigSBLIcon} alt="" />
                         <img className='img2' src={bigBNBIcon} alt="" />
@@ -31,14 +32,14 @@ function ConfirmRmLiquidity(props: any) {
                 <div className="subTitle">您將獲得：</div>
                 <div className="box">
                     <div className="itemTitle">BNB</div>
-                    <div className="value"><img src={BNBIcon} alt="" />128.7894</div>
+                    <div className="value"><img src={BNBIcon} alt="" />{props.data.hostAmount}</div>
                 </div>
                 <div className="box">
                     <div className="itemTitle">SBL</div>
-                    <div className="value"><img src={SBLIcon} alt="" />128.7894</div>
+                    <div className="value"><img src={SBLIcon} alt="" />{props.data.tokenAmount}</div>
                 </div>
 
-                <div className="toRemoveBtn flex">確認移除</div>
+                <div className="toRemoveBtn flex" onClick={() => { props.rmFun() }}>確認移除</div>
 
                 <span>点击任意地方离开</span>
             </Modal>

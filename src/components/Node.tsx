@@ -116,7 +116,6 @@ export default function Node() {
                 console.log("购买节点加密", res)
                 if (res.data) {
                     Contracts.example.buyNode(web3React.account as string, res.data, NodeBase!.currentNodeBase.price).then(() => {
-
                     }, (error: any) => {
                         cancelBuyNodeBase({
                             id: NodeBase!.currentNodeBase.id,
@@ -206,13 +205,13 @@ export default function Node() {
                 }
 
             </div>
-            {
+            {/* {
                 NodeRecord.length > 0 && <div className="RewardLabel">
                     {t('Node Coinage')}
                 </div>
-            }
+            } */}
 
-            <div className="row">
+            {/* <div className="row">
                 {
                     NodeRecord.map((item) => <div className="RewardItem" key={item.id}>
                         <div className="NodeTips">
@@ -253,7 +252,7 @@ export default function Node() {
                     </div>
                     )
                 }
-            </div>
+            </div> */}
             {/* 铸币节点申请记录 */}
             <GoldRecord isShow={showApplyRecord} close={() => { setshowApplyRecord(false) }}></GoldRecord>
             {/* 铸币节点收益记录 */}

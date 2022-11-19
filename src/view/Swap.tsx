@@ -16,7 +16,8 @@ import CancelPurchase from '../components/CancelPurchase'
 // import CancelSucceed from '../components/CancelSucceed'
 import MyDealRecord from '../components/MyDealRecord'
 import { Pagination } from 'antd';
-
+import { Contracts } from "../web3";
+import BigNumber from 'big.js'
 import '../assets/style/Swap.scss'
 import MarketDealing from '../components/MarketDealing'
 
@@ -142,6 +143,8 @@ function Swap() {
   let [orderList, setOrderList] = useState<orderInfoType[]>([])
   /* 用户订单列表 */
   let [userOrderList, setUserOrderList] = useState<orderInfoType[]>([])
+
+
   useEffect(() => {
     setShowCancelOrder(false)
   }, [web3React.account])
@@ -160,6 +163,8 @@ function Swap() {
       })
     }
   }, [page, sort, type, level, TabIndex, state.token, web3React.account])
+
+
   useEffect(() => {
     if (TabIndex === 1 && state.token && web3React.account) {
       getOrderList({
@@ -180,8 +185,9 @@ function Swap() {
     SetPage(pageNumber)
     console.log('Page: ', pageNumber);
   }
+
+
   function buy(index: number) {
-    // if()
     console.log(orderList[index].userAddress === web3React.account?.toLocaleLowerCase())
     if (orderList[index].userAddress === web3React.account?.toLocaleLowerCase()) {
       return addMessage(t("Can't buy your own order"))
@@ -189,6 +195,10 @@ function Swap() {
     setOrderInfo(orderList[index])
     setShowEnterBuy(true)
   }
+
+
+
+
   function Cancel(index: number) {
     setOrderInfo(userOrderList[index])
     setShowCancelOrder(true)
@@ -207,9 +217,13 @@ function Swap() {
     })
     setShowCancelSuccess(true)
   }
+
+
   function changeTab(tab: number) {
     SetTabIndex(tab)
   }
+
+
   function ShowCardDetailFun(index: number, type: string) {
     if (type === 'swap') {
       setOrderInfo(orderList[index])
@@ -218,10 +232,12 @@ function Swap() {
     }
     setShowCardDetail(true)
   }
+
+
   return (
     <div>
       <div className="Edition-Center">
-        {/* 我的交易记录 */}
+        {/* 交易记录 */}
         <MyDealRecord isShow={showOrderRecord} close={() => { setShowOrderRecord(false) }} ></MyDealRecord>
         {/* 徽章详情 */}
         {

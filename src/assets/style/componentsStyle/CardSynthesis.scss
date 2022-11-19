@@ -166,7 +166,7 @@
                         display: flex;
                         justify-content: space-between;
                         flex-wrap: wrap;
-                        padding-right:30px ;
+                        padding-right: 30px;
 
                         >div {
                             height: 36px;
@@ -177,65 +177,46 @@
                             display: flex;
                             align-items: center;
                             justify-content: end;
+                        }
 
-                            ul {
-                                display: flex;
-                                align-items: center;
-                                justify-content: space-around;
+                        .ant-pagination-item-link {
+                            background: rgba(255, 255, 255, 0.04) !important;
+                            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                            border-radius: 3px !important;
+                            color: rgba(255, 255, 255, 0.6) !important;
+                        }
+
+                        .ant-pagination-item {
+                            background: rgba(255, 255, 255, 0.04) !important;
+                            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                            border-radius: 3px !important;
+                            color: rgba(255, 255, 255, 0.6) !important;
+
+                            a {
+                                color: rgba(255, 255, 255, 0.6) !important;
                             }
+                        }
 
-                            button {
-                                width: 24px;
-                                height: 24px;
+                        .ant-pagination-item-active {
+                            background: #D533D1 !important;
+                            border: 1px solid #D533D1 !important;
+                        }
 
-                            }
+                        .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+                            background: rgba(255, 255, 255, 0.04) !important;
+                            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                            border-radius: 3px !important;
+                            color: rgba(255, 255, 255, 0.6) !important;
+                        }
 
-                            .ant-pagination {
+                        .ant-pagination-options-quick-jumper {
+                            color: rgba(255, 255, 255, 0.6) !important;
 
-
-                                .ant-pagination-prev {
-                                    margin-right: 0;
-                                    min-width: 34px;
-
-                                    button {
-                                        border: 1px solid rgba(255, 255, 255, 0.2);
-                                        border-radius: 6px;
-                                        color: rgba(255, 255, 255, 0.2);
-
-                                    }
-                                }
-
-                                .ant-pagination-simple-pager {
-                                    width: 50px;
-                                    line-height: 24px;
-                                    margin-right: 0;
-                                    color: rgba(255, 255, 255, 0.8);
-
-                                    span {
-                                        margin: 0 auto;
-                                    }
-
-                                    input {
-                                        width: 22px;
-                                        background: #1d1e44;
-                                        border: 0;
-                                        margin-right: 0;
-                                    }
-                                }
-
-                                .ant-pagination-next {
-                                    display: flex;
-                                    justify-content: end;
-
-                                    button {
-                                        font-size: 14px;
-                                        font-weight: 700;
-                                        border-radius: 6px;
-                                        background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
-                                        color: #fff;
-                                        font-weight: 400;
-                                    }
-                                }
+                            input {
+                                background: rgba(255, 255, 255, 0.04) !important;
+                                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                                border-radius: 3px !important;
+                                color: rgba(255, 255, 255, 0.6) !important;
                             }
                         }
 
@@ -332,10 +313,12 @@
                                         font-style: normal;
                                         font-weight: 500;
                                         font-size: 12px;
-                                        line-height: 15px;
                                         letter-spacing: 0.08em;
                                         color: #FFFFFF;
                                         text-align: right;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: flex-end;
                                     }
                                 }
 
@@ -345,7 +328,6 @@
                                     justify-content: end;
                                 }
                             }
-
                         }
 
                         @media (max-width:1024px) {

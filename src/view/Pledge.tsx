@@ -5,6 +5,7 @@ import { stateType } from '../store/reducer'
 import { useWeb3React } from '@web3-react/core'
 import { getBoxUserInfo, getPledgeCardUserInfo, getPledgeCardUserData } from '../API'
 import PledgeCard, { CardInfoType } from '../components/PledgeCard'
+import CancelPledgeSuccess from '../components/CancelPledgeSuccess'
 import ImproveComputingPower from '../components/ImproveComputingPower'
 import CancelPledge from '../components/CancelPledge'
 import '../assets/style/componentsStyle/pledge.scss'
@@ -14,6 +15,8 @@ import { useViewport } from '../components/viewportContext'
 import { Pagination } from 'antd';
 import '../assets/style/componentsStyle/AddFlow.scss'
 import { useTranslation } from 'react-i18next'
+import { showLoding } from "../utils/tool";
+import { Contracts } from "../web3";
 import '../assets/style/componentsStyle/AddFluidOk.scss'
 import RewardRecord from '../components/RewardRecord'
 import AbleGetReward from '../components/AbleGetReward'
@@ -55,6 +58,12 @@ function Pledge() {
   let [getPage, setGetPage] = useState(false)
   // 奖励记录
   let [rewardRecord, setRewardRecord] = useState(false)
+  // 取消质押
+  let [cancelPledge, setCancelPledge] = useState(false)
+  // 取消质押
+  let [cancelPledgeSuccess, setCancelPledgeSuccess] = useState(false)
+  // 取消质押tokenId
+  let [cancelPledgeValue, setCancelPledgeValue] = useState('')
   let [page, SetPage] = useState(1)
   let [userCard, setuserCard] = useState<CardInfoType[]>([])
   // 提升算力值弹窗
@@ -73,6 +82,24 @@ function Pledge() {
   const getBtnFun = (value: any) => {
     setGetValue(value)
     setGetPage(true)
+  }
+  // 取消NFT质押
+  const CancelNFTPledgeFun = (tokenId: string) => {
+    if (web3React.account && tokenId) {
+      showLoding(true)
+      Contracts.example.stake(web3React.account as string, tokenId).then((res: any) => {
+        setCancelPledgeSuccess(true)
+      }).finally(() => {
+        showLoding(false)
+      })
+    }
+  }
+  // 确认NFT质押
+  const ConNFTPledgeFun = (tokenId: string) => {
+    if (web3React.account && tokenId) {
+      setCancelPledge(true)
+      setCancelPledgeValue(tokenId)
+    }
   }
 
   useEffect(() => {
@@ -119,7 +146,7 @@ function Pledge() {
               {
                 userCard.map((item, index) => <div className="cancelPledge">
                   <PledgeCard key={item.id} Index={index} cardInfo={item} changeFun={ImproveComputingPowerFun}></PledgeCard>
-                  <div className="btn flex" >取消質押</div>
+                  <div className="btn flex" onClick={() => { ConNFTPledgeFun(item.tokenId) }}>取消質押</div>
                 </div>)
               }
             </div>
@@ -132,13 +159,15 @@ function Pledge() {
         </div>
       </div>
       {/* 取消质押 */}
-      <CancelPledge showModal={false}></CancelPledge>
+      <CancelPledge CancelFun={CancelNFTPledgeFun} tokenId={cancelPledgeValue} showModal={cancelPledge} close={() => { setCancelPledge(false) }}></CancelPledge>
       {/* 提升算力值 */}
       {userCard[computingPower] && <ImproveComputingPower data={userCard[computingPower]} showModal={iproveComputingPower} close={() => { setImproveComputingPower(false) }}></ImproveComputingPower>}
       {/* 领取记录 */}
       <RewardRecord showModal={rewardRecord} close={() => { setRewardRecord(false) }}></RewardRecord>
       {/* 可领取金额 */}
       <AbleGetReward data={getValue} showModal={getPage} close={() => { setGetPage(false) }}></AbleGetReward>
+      {/* 取消成功 */}
+      <CancelPledgeSuccess showModal={cancelPledgeSuccess} close={() => { setCancelPledgeSuccess(false) }}></CancelPledgeSuccess>
 
     </div>
   )

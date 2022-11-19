@@ -12,6 +12,7 @@ function DestructSucceed(props: any) {
         width={'446px'}
         closable={false}
         footer={null}
+        onCancel={() => { props.close() }}
       >
 
         <p className='title'>恭喜，銷毀成功！</p>

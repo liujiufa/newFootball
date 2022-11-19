@@ -68,7 +68,7 @@ function ExchangeRecord(props: any) {
                         className='rewardBNB'
                         render={(item) => (
                             <>
-                                <div>{props.id === 2 ? item.amount : item.earnAmount}</div>
+                                <div>{props.id === 1 ? item.amount : item.earnAmount}</div>
                             </>
                         )}
                     />

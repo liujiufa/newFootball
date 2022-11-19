@@ -11,7 +11,7 @@ import Tips from '../components/Tips'
 import BlindBox from '../components/BlindBox'
 import CardSynthesis from "../components/CardSynthesis"
 import '../assets/style/Swap.scss'
-
+import PledgeSuccess from '../components/PledgeSuccess'
 import NoData from '../components/NoData'
 import Merge from '../components/Merge'
 import { useViewport } from '../components/viewportContext'
@@ -125,15 +125,19 @@ function NFT() {
   let [showMerge, setshowMerge] = useState(false)
   /* 移动端选择合成徽章 */
   let [showSelCard, setshowSelCard] = useState(false)
+  /* 质押成功 */
+  let [showPledge, setShowPledge] = useState(false)
   /* 选中合成的徽章信息 */
   const [SelCardInfo, setSelCardInfo] = useState<CardInfoType | null>(null)
   /* 开盲盒结果 */
   let [openRes, setOpenRes] = useState<OpenResType[] | null>(null)
   let [MergeRes, setMergeRes] = useState<OpenResType | null>(null)
+
   function showDetial(index: number) {
     setCardDetialIndex(index)
     setShowCardDetail(true)
   }
+  
   function onChange(pageNumber: number) {
     SetPage(pageNumber)
     console.log('Page: ', pageNumber);
@@ -214,14 +218,15 @@ function NFT() {
   }, [web3React.account])
   return (
     <div>
-      {/* <AddFlow></AddFlow> */}
+      {/*质押成功 */}
+      <PledgeSuccess show={showPledge} close={() => { setShowPledge(false) }}></PledgeSuccess>
       {/* 盲盒开启成功 */}
       {
         openRes && <OpenRes isShow={showOpenCard} OpenRes={openRes} close={() => setShowOpenCard(false)} ></OpenRes>
       }
       {/* 徽章详情 */}
       {
-        userCard.length > 0 && <CardDetails isShow={showCardDetail} showMerge={showMergeFun} showCreateOrder={createOrderFun} CardInfo={userCard[cardDetialIndex]} close={() => setShowCardDetail(false)} type="NFT"></CardDetails>
+        userCard.length > 0 && <CardDetails pledgeModal={() => { setShowPledge(true) }} isShow={showCardDetail} showMerge={showMergeFun} showCreateOrder={createOrderFun} CardInfo={userCard[cardDetialIndex]} close={() => setShowCardDetail(false)} type="NFT"></CardDetails>
       }
       {/* 徽章挂卖 */}
       {
@@ -239,16 +244,10 @@ function NFT() {
       {
         width < 1024 && <SelMerge isShow={showCardSynthesis && showSelCard} CardInfo={userCard[cardDetialIndex]} EnterSelCard={EnterSelCard} close={() => { setshowSelCard(false); setshowCardSynthesis(false) }}></SelMerge>
       }
-
-
       <div className="Edition-Center">
         <div className="SwapTitle">
           {t('stock')}
         </div>
-        {/* 盲盒开启 */}
-        {/* <BoxOpen></BoxOpen> */}
-        {/* 挂卖详情 */}
-        {/* <PutParticulars></PutParticulars> */}
         {/* 合成成功 */}
         {
           MergeRes && <ComSucceed isShow={showMergeSuccess} CardInfo={MergeRes as OpenResType} close={() => { setShowMergeSuccess(false) }}></ComSucceed>

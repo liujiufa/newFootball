@@ -5,6 +5,9 @@ import Merge from './ABI/Merge.json';
 import NFT from './ABI/NFT.json';
 import Node from './ABI/Node.json';
 import Liquidity from './ABI/Liquidity.json';
+import BurnFund from './ABI/BurnFund.json';
+import Stake from './ABI/Stake.json';
+
 // export let baseUrl: string = 'http://192.168.2.122:10000';
 export let baseUrl: string = 'http://47.107.116.172:10000';
 // export let baseUrl: string = 'http://spaceballgames.com:10000';
@@ -22,6 +25,8 @@ export const abiObj: abiObjType = {
     "EXChangeNFT": EXChangeNFT,
     "Node": Node,
     "Liquidity": Liquidity,
+    "BurnFund": BurnFund,
+    "Stake": Stake,
 }
 export const contractAddress: contractAddressType = {
     //正式
@@ -39,4 +44,8 @@ export const contractAddress: contractAddressType = {
     "Merge": "0xE49a04Db91b9965D850B98119b6cA4332Bd31fA6",
     "Node": "0x6062B25cFAAB9a5e784f78D86E6d2EBcF286fFa0",
     "Liquidity": "0x9F46cBC1FE2347EE29a5B136f0bdE20cB3AA5d15",
+    "BurnFund": "0xCEd9be5260b0e6eEaAf2EE6D66e6FD082974C711",
+    "Stake": "0xA79944fc236e4A82A2B1312398Be6B42AFa9DdCe",
+    "Pledge": "0xA79944fc236e4A82A2B1312398Be6B42AFa9DdCe",
+    "DstructFund": "0xCEd9be5260b0e6eEaAf2EE6D66e6FD082974C711",
 }

@@ -98,17 +98,17 @@ function AddLiquidityModal(props: any) {
     }
 
     // 添加流动性
-    function addLiquidity() {
-        if (!web3React.account) {
-            return addMessage(t('Please connect Wallet'))
-        }
-        showLoding(true)
-        Contracts.example.addLiquidity(web3React.account as string, type).then((res: any) => {
-            setApproveValue(new BigNumber(res).div(10 ** 18).toString())
-        }).finally(() => {
-            showLoding(false)
-        })
-    }
+    // function addLiquidity() {
+    //     if (!web3React.account) {
+    //         return addMessage(t('Please connect Wallet'))
+    //     }
+    //     showLoding(true)
+    //     Contracts.example.addLiquidity(web3React.account as string, type).then((res: any) => {
+    //         setApproveValue(new BigNumber(res).div(10 ** 18).toString())
+    //     }).finally(() => {
+    //         showLoding(false)
+    //     })
+    // }
 
     useEffect(() => {
         if (web3React.account) {
@@ -131,7 +131,7 @@ function AddLiquidityModal(props: any) {
             })
 
         }
-    }, [web3React.account])
+    }, [web3React.account, props.showModal])
     return (
         <>
             <Modal visible={props.showModal}
@@ -153,10 +153,10 @@ function AddLiquidityModal(props: any) {
                             </Dropdown>
                             <div className="coinName"> <img src={BNBIcon} alt="" /> BNB</div>
                         </div>
-                        <div className="rightBox"><div className="approveBtn flex" >已批准</div> </div>
+                        <div className="rightBox">{web3React.account && <div className="approveBtn flex" >已批准</div>} </div>
                     </div>
                     <div className="balanceBox">
-                        <div className="balance">餘額：{balance}</div>
+                        <div className="balance">餘額：{NumSplic(balance, 4)}</div>
                         <div className="rightBox"></div>
                     </div>
                 </div>
@@ -171,11 +171,11 @@ function AddLiquidityModal(props: any) {
                         <div className="rightBox">{parseFloat(ApproveValue) > 0 ? <div className="approveBtn flex">已批准</div> : <div className="approveBtn toApproveBtn  flex" onClick={() => { ApproveFun() }}>批准 SBL</div>}</div>
                     </div>
                     <div className="balanceBox">
-                        <div className="balance">餘額：{balance1}</div>
+                        <div className="balance">餘額：{NumSplic(balance1, 4)}</div>
                         <div className="rightBox"></div>
                     </div>
                 </div>
-                {true ? <div className="toSupplyBtn flex">供應</div> : <div className="supplyBtn flex">供應</div>}
+                {parseFloat(ApproveValue) > 0 ? <div className="toSupplyBtn flex" onClick={() => { props.nextFun(type) }}>供應</div> : <div className="supplyBtn flex">供應</div>}
 
                 <span>点击任意地方离开</span>
             </Modal>

@@ -27,7 +27,8 @@ interface CardSynthesisPropsType {
 interface SelCardType {
     list: CardInfoType[],
     price: number,
-    size: number
+    size: number,
+
 }
 const typeMap = [
     {
@@ -68,6 +69,8 @@ function CardSynthesis(props: CardSynthesisPropsType) {
     let [page, SetPage] = useState(1)
     /* 总条数 */
     let [total, SetTotal] = useState(0)
+    // SBL授权
+    const [ApproveValue, setApproveValue] = useState('0')
     useEffect(() => {
         if (web3React.account && state.token && props.isShow) {
             setSelCard(null)
@@ -81,7 +84,7 @@ function CardSynthesis(props: CardSynthesisPropsType) {
                 res.data.list = res.data.list.filter((item: CardInfoType) => {
                     return item.tokenId !== props.CardInfo.tokenId
                 })
-                console.log(res.data)
+                console.log(res.data, '合成列表')
                 setToBeSelect(res.data)
                 SetTotal(res.data.size)
             })
@@ -90,6 +93,22 @@ function CardSynthesis(props: CardSynthesisPropsType) {
             })
         }
     }, [web3React.account, state.token, type, props.isShow, page])
+
+    // 授权
+    function ApproveFun() {
+        if (!web3React.account) {
+            return addMessage(t('Please connect Wallet'))
+        }
+        showLoding(true)
+        Contracts.example.approve1(web3React.account as string, contractAddress.Merge, `${ToBeSelect?.price}`).then(() => {
+            Contracts.example.Tokenapprove(web3React.account as string, contractAddress.Merge).then((res: any) => {
+                setApproveValue(new BigNumber(res).div(10 ** 18).toString())
+            }).finally(() => {
+                showLoding(false)
+            })
+        })
+    }
+    // 以前的授权
     function Approval() {
         if (!web3React.account) {
             addMessage(t('Please connect Wallet'))
@@ -138,9 +157,20 @@ function CardSynthesis(props: CardSynthesisPropsType) {
             showLoding(false)
         })
     }
+
     function changePage(pageNum: number) {
         SetPage(pageNum)
     }
+
+    useEffect(() => {
+        if (web3React.account) {
+            // 查询授权
+            Contracts.example.Tokenapprove(web3React.account as string, contractAddress.Merge).then((res: any) => {
+                setApproveValue(new BigNumber(res).div(10 ** 18).toString())
+            })
+        }
+    }, [web3React.account])
+
     return (
         <>
             {/* 确认合成 */}
@@ -180,7 +210,7 @@ function CardSynthesis(props: CardSynthesisPropsType) {
                                     <div className="Price">{t('Expenses')}:</div><div className='Number'>{ToBeSelect?.price}BNB</div>
                                 </div>
                                 {
-                                    isApproved ? <div className='confirmBtn' onClick={() => { setShowEnterMerge(true) }}>{t('Confirm')}</div> : <div className='confirmBtn' onClick={Approval}>{t('Approve')}</div>
+                                    parseFloat(ApproveValue) > 0 ? <div className='confirmBtn' onClick={() => { setShowEnterMerge(true) }}>{t('Confirm')}</div> : <div className='confirmBtn' onClick={ApproveFun}>{t('Approve')}</div>
                                 }
 
                                 <div className='Tip'><div className='TipContent' onClick={() => { setShowMergeRule(true) }}>{t('Evolve rules')}</div><div className='TipImg'><img src={RuleImg} alt="" /></div></div>
@@ -196,8 +226,11 @@ function CardSynthesis(props: CardSynthesisPropsType) {
                                 props.isShow && props.CardInfo.cardLevel < 5 && <DropDown Map={typeMap} change={SetType}></DropDown>
                             }
                             {/* 三个水平排列（保证布局一致） */}
-                            <div className="Page">
+                            {/* <div className="Page">
                                 <Pagination simple current={page} total={total} defaultPageSize={12} onChange={changePage} />
+                            </div> */}
+                            <div className="Page">
+                                <Pagination  style={{ margin: "auto" }} current={page}  defaultPageSize={12} total={total} onChange={changePage} />
                             </div>
                         </div>
                         {/* 可点击选择的合成徽章 */}
@@ -210,10 +243,10 @@ function CardSynthesis(props: CardSynthesisPropsType) {
                                     </div>
                                     <div className="computingPower">
                                         <div className="title">算力</div>
-                                        <div className="value">50/100</div>
+                                        <div className="value">{item?.currentPower}/{item?.basePower}</div>
                                     </div>
                                     <div className="share">
-                                        <div className="shareBox"><div className="shareValue" style={{ width: '50%' }}>66.7%</div></div>
+                                        <div className="shareBox"><div className="shareValue" style={{ width: `${item?.currentPower / item?.basePower * 100}%` }}>{Math.floor(item?.currentPower / item?.basePower * 100)}%</div></div>
                                     </div>
                                 </div>)
                             }

@@ -8,15 +8,18 @@ import { getLandUserBeneficial, getLandUserCardList, getUserInfo, getLandUserLis
 import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
 import { useWeb3React } from '@web3-react/core'
+import { Swiper, SwiperSlide } from 'swiper/react';
 import DropDown from '../components/DropDown'
 import LandCardDetails from '../components/LandCardDetails'
 import LandRewardRecord from '../components/LandRewardRecord'
-import LandSwiper from '../components/LandSwiperCopy'
+import "swiper/css";
+import "swiper/css/pagination";
 import '../assets/style/Swap.scss'
 import '../assets/style/Land.scss'
 import ClaimSuccess from '../components/ClaimSuccess'
 // import MyDealRecord from '../components/MyDealRecord'
 import SBLIcon from '../assets/image/SBLTokens.png'
+import landSwiper from '../assets/image/landSwiper1.png'
 import myTerritory from '../assets/image/landProcess/myTerritory.png'
 import landApply from '../assets/image/landProcess/landApply.png'
 import myRight from '../assets/image/landProcess/myRight.png'
@@ -56,7 +59,14 @@ const LevelMap = [
     value: 6
   },
 ]
-const LevelObj = { 0: '', 1: '领主', 2: '城主', 3: '市长', 4: '州长', 5: '议长' }
+
+const landObj = [
+  { id: 1, title: '优秀品质土地', subTitle: '申领资格：合成良好徽章NFT', img: landSwiper, count: 0 },
+  { id: 2, title: '稀有品质土地', subTitle: '申领资格：合成优秀徽章NFT', img: landSwiper, count: 0 },
+  { id: 3, title: '良品品质土地', subTitle: '申领资格：合成稀有徽章NFT', img: landSwiper, count: 0 },
+  { id: 4, title: '史诗品质土地', subTitle: '申领资格：合成良品徽章NFT', img: landSwiper, count: 0 },
+  { id: 5, title: '传奇品质土地', subTitle: '申领资格：合成史诗徽章NFT', img: landSwiper, count: 0 },]
+const LevelObj = { 0: '普通', 1: '领主', 2: '城主', 3: '市长', 4: '州长', 5: '议长' }
 interface UserBeneficialType {
   amount: number,
   amountString: string,
@@ -69,6 +79,13 @@ interface UserBeneficialType {
   updateTime: string,
   userAddress: string,
   userId: number
+}
+interface landObjType {
+  id: number,
+  title: string,
+  subTitle: string,
+  img: string,
+  count: string
 }
 
 function Land() {
@@ -93,7 +110,7 @@ function Land() {
   // 控制土地详情说明
   let [landDetailDes, setLandDetailDes] = useState(false)
   //  土地申领
-  let [landApplication, setLandApplication] = useState([])
+  let [landApplication, setLandApplication] = useState<landObjType[]>([])
   // 我的权益
   let [userBeneficial, setUserBeneficial] = useState<UserBeneficialType[]>([])
   //  土地申领数量
@@ -139,15 +156,28 @@ function Land() {
       // 土地申领
       getLandUserList().then(res => {
         console.log(res.data, "获取土地申领数据")
-        setLandApplication(res.data)
+        const list = landObj.map((item: any, index: any) => {
+          let newOptions = res.data.filter((v: any) => item.level == v.id)[0];
+            return ({
+              ...item,
+              count: newOptions?.landCount || item.count
+          })
+        })
+
+        landObj.map((item: any, index: number) => {
+
+        })
+        // setLandApplication()
         setLandApplicationNum(res.data.reduce((sum: any, item: any) => sum + item.landCount, 0))
       })
     }
-    // 我的封号
-    getUserInfo().then(res => {
-      console.log(res.data, "我的封号")
-      setUserLevel(res.data.levlel)
-    })
+    if (state.token) {
+      // 我的封号
+      getUserInfo().then(res => {
+        console.log(res.data, "我的封号")
+        setUserLevel(res.data.levlel)
+      })
+    }
 
     if (state.token && web3React.account && tabActive === '3') {
       // 我的权益
@@ -176,7 +206,29 @@ function Land() {
               土地是Space Ball 生態中最有價值的NFT，發行數量有限，是生態中最稀缺的資源。Space Ball 將對早期參與生態交互的用戶進行土地免費空投，用戶參與徽章NFT的合成，即可獲得土地申領權限。持有土地並激活后，可以享受土地分紅和土地服務獎，共享生態發展收益。
             </div>
             {/* 轮播图 */}
-            <LandSwiper></LandSwiper>
+            <Swiper
+              style={{ width: "1200px", display: "flex" }}
+              slidesPerView={3}
+              spaceBetween={30}
+              centeredSlides={true}
+              loop={true}
+              loopFillGroupWithBlank={true}
+              className="mySwiper"
+              id="swiper-nft-pc"
+              slideToClickedSlide
+              onSlideChangeTransitionEnd={(s) => {
+                // if (landObj[s.realIndex]?.type && landObj[s.realIndex]?.url) {
+                //   // setNftType(nftIdo[s.realIndex]?.type)
+                //   // setInfoImg(nftIdo[s.realIndex]?.url)
+                // }
+              }}
+            >
+              {
+                landObj.map((item, idx) => <SwiperSlide style={{ width: "20%", height: "500px", background: "#FFF" }}>
+                  <div ><img src={item.img} alt="" /></div>
+                </SwiperSlide>)
+              }
+            </Swiper>
             {landApplicationNum > 0 ? <div className="applyBtn flex">申请({landApplicationNum})</div> : <div className="toApplyBtn flex">申请</div>}
           </div>
         }
@@ -186,7 +238,7 @@ function Land() {
             <>
               <div className="screen">
                 <div className="title">
-                  我的封號：<div className="myTitle flex">{LevelObj[userLevel]}</div>
+                  {userLevel >= 0 && <>我的封號：<div className="myTitle flex">{LevelObj[userLevel]}</div></>}
                 </div>
                 <div className="DropDownGroup">
                   <DropDown Map={LevelMap} change={SetLevel} staetIndex={level}></DropDown>

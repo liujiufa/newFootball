@@ -13,10 +13,11 @@ function ConfirmExchange(props: any) {
                 width={'418px'}
                 closable={false}
                 footer={null}
+                onCancel={() => props.close()}
             >
                 <p className='title'>確認兌換嗎</p>
 
-                <div className="confirmBtn flex">確認</div>
+                <div className="confirmBtn flex" onClick={() => { props.swapFun() }}>確認</div>
 
                 <span>点击任意地方离开</span>
             </Modal>

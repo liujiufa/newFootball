@@ -20,13 +20,13 @@ function PurchaseBox(props: PurchasePropsType) {
         closable={false}
         footer={null}
       >
-        <div className="Title">{t("buySuccess")}!</div>
+        <div className="Title">{t("buySuccess")}</div>
         <div className="Tip">{t("Tipx")}</div>
         <div className="Handle">
           <div className="Button">
-            <button className="Open" onClick={() => props.close()}>
+            <div className="Open flex" onClick={() => props.close()}>
               {t("Verify")}
-            </button>
+            </div>
           </div>
         </div>
       </Modal>

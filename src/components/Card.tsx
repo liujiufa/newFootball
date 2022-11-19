@@ -12,6 +12,8 @@ export interface CardInfoType {
   cardType: number,
   cardLevel: number,
   tokenId: string
+  currentPower: number,
+  basePower: number
 }
 interface CardPropsType {
   showDetia: Function,
@@ -20,19 +22,19 @@ interface CardPropsType {
 }
 function Card(props: any) {
   return (
-    <div className="Card" onClick={() => { props.showDetia(props.Index) }}>
+    <div className="Card">
       <div className="CardItem">
         <div className="cardId">ID：{props.cardInfo.cardNo}</div>
-        <div className="CardImg">
+        <div className="CardImg" onClick={() => { props.showDetia(props.Index) }}>
           <img src={props.cardInfo.imageUrl} alt="" />
         </div>
         <div className="computingPower">
           <div className="title">算力</div>
-          <div className="value">50/100</div>
+          <div className="value">{props.cardInfo?.currentPower}/{props.cardInfo?.basePower}</div>
         </div>
         <div className="share">
-          <div className="shareBox"><div className="shareValue" style={{ width: '50%' }}>66.7%</div></div>
-          <div className="addBtn"><img src={addIcon} alt="" /></div>
+          <div className="shareBox"><div className="shareValue" style={{ width: `${props.cardInfo?.currentPower / props.cardInfo?.basePower * 100}%` }}>{Math.floor(props.cardInfo?.currentPower / props.cardInfo?.basePower * 100)}%</div></div>
+          <div className="addBtn" ><img src={addIcon} alt="" /></div>
         </div>
       </div>
     </div>

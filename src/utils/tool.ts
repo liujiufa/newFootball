@@ -23,12 +23,14 @@ export function HowLongAgo(time: number) {
     var a = dayjs()
     return a.to(new Date(time))
 }
+
 export function GetQueryString(name: string) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
     // console.log(window.location)
     var r = window.location.search.slice(1).match(reg);
     if (r != null) return decodeURI(r[2]); return null;
 }
+
 export function JudgmentNumber(number: string) {
     let numArr = number.split(".")
     if (numArr.length > 1) {
@@ -56,6 +58,16 @@ export function NumSplic(val: string, len: number) {
         s += '0';
     }
     return s;
+}
+// 截断小数（不四舍五入）
+export function getBit(value: number, bit = 5) {
+    let str = value.toString();
+    let strIndex = str.indexOf('.');
+    if (strIndex === -1) return str;
+    str = str.substring(0, strIndex + bit);
+    // console.log(str, bit);
+    // console.log(typeof str,'getBit值')    
+    return str;
 }
 
 export function numberDivision() {

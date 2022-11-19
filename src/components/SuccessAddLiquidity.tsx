@@ -13,14 +13,15 @@ function SuccessAddLiquidity(props: any) {
                 width={'459px'}
                 closable={false}
                 footer={null}
+                onCancel={() => { props.close() }}
             >
                 <p className='title'>成功添加流動性</p>
 
                 <div className="subTitle">您已獲得</div>
-                <div className="coinValueBox">1,215.451 <div className='coinsBox'><img className='img1' src={SBLIcon} alt="" /><img className='img2'  src={BNBIcon} alt="" /></div></div>
+                <div className="coinValueBox">1,215.451 <div className='coinsBox'><img className='img1' src={SBLIcon} alt="" /><img className='img2' src={BNBIcon} alt="" /></div></div>
                 <div className="subTokens">SBL/BNB Pool Tokens</div>
 
-                {true ? <div className="toSupplyBtn flex">確認供應</div> : <div className="supplyBtn flex">供應</div>}
+                <div className="toSupplyBtn flex" onClick={() => { props.close() }}>確認供應</div>
 
                 <span>点击任意地方离开</span>
             </Modal>

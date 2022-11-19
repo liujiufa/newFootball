@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BigNumber from 'big.js'
 import { BoxBaseType } from '../view/BlindBox'
 import { useTranslation } from 'react-i18next'
@@ -7,6 +7,8 @@ import { showLoding, addMessage } from '../utils/tool'
 import { Contracts } from '../web3'
 import { buyBox } from '../API'
 import { Modal } from 'antd';
+import { contractAddress } from "../config"
+
 import BlindBoxImg from '../assets/image/BlindBoxImg.png';
 import reduce from '../assets/image/reduce.png';
 import reduceProhibit from '../assets/image/reduceProhibit.png';
@@ -24,13 +26,15 @@ function RaceBoxModal(props: RaceBoxModalPropsType) {
   let { t } = useTranslation()
   const web3React = useWeb3React()
   let [putNum, setPutNum] = useState('1')
+  // ToSBL
+  const [toSBL, setToSBL] = useState('0')
+  const [approveValue, setApproveValue] = useState('0')
   let [totalPrice, setTotalPrice] = useState(props.BoxInfo.price)
   async function Buy() {
     if (!web3React.account) {
       return addMessage(t('not enough'))
     }
     /* 获取BNB余额 */
-
     let Balance: number | string
     console.log(props.BoxInfo.coinName)
     if (Number(putNum) > 10 || Number(putNum) <= 0) {
@@ -62,6 +66,27 @@ function RaceBoxModal(props: RaceBoxModalPropsType) {
       showLoding(false)
     })
   }
+
+  // 授权
+  function ApproveFun() {
+    if (!web3React.account) {
+      return addMessage(t('Please connect Wallet'))
+    }
+    showLoding(true)
+    Contracts.example.toSBL(web3React.account as string, totalPrice).then((res: any) => {
+      let value = new BigNumber(res).div(10 ** 18).toString()
+      Contracts.example.approve1(web3React.account as string, contractAddress.BlindBox, value).then(() => {
+        Contracts.example.Tokenapprove(web3React.account as string, contractAddress.BlindBox).then((res: any) => {
+          setApproveValue(new BigNumber(res).div(10 ** 18).toString())
+        }).finally(() => {
+          showLoding(false)
+        })
+      })
+    })
+
+  }
+
+
   function changeNum(e: React.ChangeEvent<HTMLInputElement> | number) {
     if (typeof e === 'number') {
       if (e < 0) {
@@ -82,6 +107,20 @@ function RaceBoxModal(props: RaceBoxModalPropsType) {
       setPutNum(num)
     }
   }
+
+  useEffect(() => {
+    if (web3React.account) {
+      /* 查询用户授权 */
+      Contracts.example.Tokenapprove(web3React.account, contractAddress.BlindBox).then((res: any) => {
+        setApproveValue(new BigNumber(res).div(10 ** 18).toString())
+        console.log(new BigNumber(res).div(10 ** 18).toString(), '授权额度');
+      })
+      // toSBL
+      Contracts.example.toSBL(web3React.account as string, props.BoxInfo.price).then((res: any) => {
+        setToSBL(new BigNumber(res).div(10 ** 18).toString())
+      })
+    }
+  }, [web3React.account])
   return (
     <>
       <Modal visible={props.isShow}
@@ -110,7 +149,7 @@ function RaceBoxModal(props: RaceBoxModalPropsType) {
         </div>
 
         <div className='Tip'>{t('Tip')}{totalPrice}{props.BoxInfo.coinName}</div>
-        <button className='Verify' onClick={Buy}>{t('Verify')}</button>
+        {(parseFloat(approveValue) > 0) ? <button className='Verify' onClick={Buy}>{t('Verify')}</button> : <button className='Verify' onClick={() => ApproveFun()}>授权</button>}
       </Modal>
     </>
   )

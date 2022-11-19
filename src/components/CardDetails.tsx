@@ -18,6 +18,7 @@ interface CardDetailPropsType {
   showCreateOrder?: Function
   CreateOrderSuccess?: Function
   showMerge?: Function
+  pledgeModal?: Function
 }
 const cardClass = ['', 'Perseus Badge', 'Khaos Badge', 'Gaea Badge', 'Astra Badge']
 const level = ['', 'Common', 'Uncommon', 'Outstanding', 'Rare', 'Perfect', 'Epic']
@@ -25,8 +26,14 @@ const level = ['', 'Common', 'Uncommon', 'Outstanding', 'Rare', 'Perfect', 'Epic
 function CardDetails(props: CardDetailPropsType) {
   let { t, i18n } = useTranslation()
   const web3React = useWeb3React()
+  // 挂卖授权
   let [isApproved, setIsApproved] = useState(false)
+  // 质押授权
+  const [isApprovePledgeValue, setIsApprovePledgeValue] = useState(false)
   let [putPrice, setPutPrice] = useState('')
+  const [ApproveValue, setApproveValue] = useState('0')
+
+
   async function createOrder() {
     if (!web3React.account) {
       addMessage(t('Please connect Wallet'))
@@ -58,23 +65,44 @@ function CardDetails(props: CardDetailPropsType) {
       return addMessage(t('Please enter the correct price'))
     }
     showLoding(true)
-    Contracts.example.createOrder(web3React.account as string, props.CardInfo.tokenId, putPrice, '0x0000000000000000000000000000000000000000', contractAddress.NFT).then((res: any) => {
+    Contracts.example.createOrder(web3React.account as string, props.CardInfo.tokenId, putPrice, contractAddress.Token, contractAddress.NFT).then((res: any) => {
       // addMessage("创建订单成功")
       props.CreateOrderSuccess && props.CreateOrderSuccess()
-
     }).finally(() => {
       showLoding(false)
     })
   }
+
+  // NFT质押
+  const NFTPledgeFun = () => {
+    if (web3React.account && props.CardInfo.tokenId) {
+      showLoding(true)
+      Contracts.example.stake(web3React.account as string, props.CardInfo.tokenId).then((res: any) => {
+        props.close()
+        props.pledgeModal && props.pledgeModal()
+      }).finally(() => {
+        showLoding(false)
+      })
+    }
+  }
+
   useEffect(() => {
-    if (web3React.account && props.type === "CreateOrder" && props.isShow) {
+    if (web3React.account && props.isShow) {
       setPutPrice('')
+      // 查询挂卖是否授权
       Contracts.example.isApprovedForAll(web3React.account, contractAddress.EXChangeNFT).then((res: any) => {
         setIsApproved(res)
       })
+
+      // 查询质押授权
+      Contracts.example.isApprovedForAll(web3React.account, contractAddress.Pledge).then((res: any) => {
+        setIsApprovePledgeValue(res)
+      })
     }
   }, [web3React.account, props.type, props.isShow])
-  function Approval() {
+
+  // 挂卖授权
+  function createOrderApproval() {
     if (!web3React.account) {
       addMessage(t('Please connect Wallet'))
     }
@@ -84,6 +112,19 @@ function CardDetails(props: CardDetailPropsType) {
       addMessage(t('Authorization succeeded'))
     })
   }
+
+  // 挂卖授权
+  function Approval() {
+    if (!web3React.account) {
+      addMessage(t('Please connect Wallet'))
+    }
+    Contracts.example.setApprovalForAll(web3React.account as string, contractAddress.Pledge, true).then(() => {
+      setIsApprovePledgeValue(true)
+      addMessage(t('Authorization succeeded'))
+    })
+  }
+
+
   function putNum(e: React.ChangeEvent<HTMLInputElement>) {
     setPutPrice(e.target.value.replace(/[^\d.]/g, ""))
   }
@@ -105,32 +146,35 @@ function CardDetails(props: CardDetailPropsType) {
           </div>
           <p className='kpdetails'>{t('Card Name')}:{i18n.language === 'zh' ? props.CardInfo.zhCardName : props.CardInfo.cardName}</p>
           <p className='kpdetails'>{t('CardID')}:{props.CardInfo.cardNo}</p>
+          <p className='kpdetails'>算力:{props.CardInfo.currentPower}/{props.CardInfo.basePower}({Math.floor(props.CardInfo.currentPower / props.CardInfo.basePower * 100)})%</p>
           <p className='kpdetails'>{t('CardLevel')}:{t(level[props.CardInfo.cardLevel])}</p>
           <p className='kpdetails'>{t('CardType')}:{t(cardClass[props.CardInfo.cardType])}</p>
           <p className='kpdetails'>{t('Introduction Card')}:{i18n.language === 'zh' ? props.CardInfo.zhIntroduce : props.CardInfo.introduce}</p>
-          {
-            props.type === "CreateOrder" && <p className='kpdetails'>{t('Please enter price')}:<input type='text' value={putPrice} onChange={putNum} />BNB</p>
-          }
+
           {
             props.type === "NFT" && <div className='butm'>
               <button className={props.CardInfo.cardLevel < 5 ? 'zy' : 'gm'}><div onClick={() => { props.showCreateOrder && props.showCreateOrder(props.CardInfo.cardLevel) }}>{t("Sale")}</div></button>
               {
                 props.CardInfo.cardLevel <= 5 && <button className='hc' onClick={() => { props.showMerge && props.showMerge() }}>{t('Evolve')}</button>
               }
-              <button className='zy' onClick={() => { addMessage(t('Not opened yet')) }}>{t('Pledge')}</button>
+              {
+                isApprovePledgeValue ? <button className='hc' onClick={() => { NFTPledgeFun() }}>{t('Pledge')}</button> : <button className='hc' onClick={() => { Approval() }}>{t('Approve')}</button>
+              }
             </div>
+          }
+          
+          {/* 挂卖 */}
+          {
+            props.type === "CreateOrder" && <p className='kpdetails'>{t('Please enter price')}:<input type='text' value={putPrice} onChange={putNum} />SBL</p>
           }
           {
             props.type === "CreateOrder" && <div className='butm'>
               {
-                isApproved ? <>
-                  <button className='hc' onClick={createOrder}>{t('Verify')}</button>
-                </> : <>
-                  <button className='hc' onClick={Approval}>{t('Approve')}</button>
-                </>
+                isApproved ? <button className='hc' onClick={createOrder}>{t('Verify')}</button> : <button className='hc' onClick={() => createOrderApproval()}>{t('Approve')}</button>
               }
             </div>
           }
+
           <span>{t('Click anywhere to close')}</span>
         </Modal>
       }

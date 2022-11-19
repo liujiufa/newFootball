@@ -48,10 +48,12 @@ function BlindBox() {
     copy('0x86C94d3F18D0cb355916705EeDB0bB4329C23b41')
     addMessage(t('Copy Success'))
   }
+
   function buyBox(index: number) {
     setBuyBoxIndex(index)
     setShowRaceBoxModal(true)
   }
+
   function approveFun() {
     if (!web3React.account) {
       return addMessage(t('Please connect Wallet'))
@@ -66,12 +68,19 @@ function BlindBox() {
     })
   }
   useEffect(() => {
-    /* 查询盲盒基本配置 */
-    getBoxBase().then(res => {
-      // console.log(res,"盲盒基本配置")
-      setBoxBase(res.data)
-    })
-  }, [])
+    if (web3React.account) {
+      /* 查询盲盒基本配置 */
+      getBoxBase().then(res => {
+        console.log(res.data);
+        let data = res.data.map((item: any) => {
+          Contracts.example.toSBL(web3React.account as string, item?.price).then((res: any) => {
+            let value = new BigNumber(res).div(10 ** 18).toString()
+            setBoxBase([{ ...item, price: value }])
+          })
+        })
+      })
+    }
+  }, [web3React.account])
   useEffect(() => {
     if (web3React.account) {
       /* 查询用户授权 */
@@ -144,12 +153,6 @@ function BlindBox() {
                     </div>
                   </>
                 }
-                {/* <div className="progress">
-                <div className="groove">
-                  <div className="Value" style={{width:(item.sellCardinality+item.sellNum)/item.totalNum*100+'%'}}>{NumSplic((item.sellCardinality+item.sellNum)/item.totalNum*100+'',2)}%</div>
-                </div>
-                <div className="progressValue">{item.totalNum - (item.sellCardinality+item.sellNum)}</div>
-              </div> */}
               </div>)
             }
           </div>
