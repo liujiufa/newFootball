@@ -3,7 +3,7 @@ import BigNumber from 'big.js'
 import { BoxBaseType } from '../view/BlindBox'
 import { useTranslation } from 'react-i18next'
 import { useWeb3React } from '@web3-react/core'
-import { showLoding, addMessage } from '../utils/tool'
+import { showLoding, addMessage, NumSplic } from '../utils/tool'
 import { Contracts } from '../web3'
 import { buyBox } from '../API'
 import { Modal } from 'antd';
@@ -14,6 +14,7 @@ import reduce from '../assets/image/reduce.png';
 import reduceProhibit from '../assets/image/reduceProhibit.png';
 import Add from '../assets/image/Add.png';
 import AddProhibit from '../assets/image/AddProhibit.png';
+import { useViewport } from '../components/viewportContext';
 
 interface RaceBoxModalPropsType {
   BoxInfo: BoxBaseType
@@ -23,6 +24,7 @@ interface RaceBoxModalPropsType {
 }
 
 function RaceBoxModal(props: RaceBoxModalPropsType) {
+  const { width } = useViewport()
   let { t } = useTranslation()
   const web3React = useWeb3React()
   let [putNum, setPutNum] = useState('1')
@@ -81,9 +83,10 @@ function RaceBoxModal(props: RaceBoxModalPropsType) {
         }).finally(() => {
           showLoding(false)
         })
+      }).finally(() => {
+        showLoding(false)
       })
     })
-
   }
 
 
@@ -135,10 +138,13 @@ function RaceBoxModal(props: RaceBoxModalPropsType) {
         <div className="Img">
           <img className="BoxImg" src={BlindBoxImg} alt="" />
         </div>
+        {width <= 425 && <div className="Label">
+          {t('quantity')}:
+        </div>}
         <div className="buyNum">
-          <div className="Label">
-            {t('quantity')}
-          </div>
+          {!(width <= 425) && <div className="Label">
+            {t('quantity')}:
+          </div>}
           <img src={putNum === '0' ? reduceProhibit : reduce} className="reduce" onClick={() => {
             changeNum(Number(putNum) - 1)
           }} alt="" />
@@ -148,8 +154,8 @@ function RaceBoxModal(props: RaceBoxModalPropsType) {
           }} alt="" />
         </div>
 
-        <div className='Tip'>{t('Tip')}{totalPrice}{props.BoxInfo.coinName}</div>
-        {(parseFloat(approveValue) > 0) ? <button className='Verify' onClick={Buy}>{t('Verify')}</button> : <button className='Verify' onClick={() => ApproveFun()}>授权</button>}
+        <div className='Tip'>{t('Tip')}{Math.floor(totalPrice * 100 + 1) / 100}{props.BoxInfo.coinName}</div>
+        {(parseFloat(approveValue) > 0) ? <button className='Verify' onClick={Buy}>{t('Verify')}</button> : <button className='Verify' onClick={() => ApproveFun()}>{t("Approve")}</button>}
       </Modal>
     </>
   )

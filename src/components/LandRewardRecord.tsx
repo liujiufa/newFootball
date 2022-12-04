@@ -7,17 +7,23 @@ import { stateType } from '../store/reducer'
 import { getUserAccountDetail } from '../API/index'
 import { dateFormat } from '../utils/tool'
 import "../assets/style/componentsStyle/DonationRecord.scss";
+import { useTranslation } from "react-i18next";
 const { Column } = Table;
-const type = ['奖励发放', '奖励发放', '奖励发放', 'Claim2', '奖励发放']
 function GetRecord(props: any) {
+  let { t } = useTranslation()
+  const type = [t('Distribution'), t('Distribution'), t('Distribution'), t('Claim2'), t('Distribution')]
   let state = useSelector<stateType, stateType>(state => state);
   const [rewardRecordList, setRewardRecordList] = useState([])
   const web3React = useWeb3React()
 
   useEffect(() => {
-    getUserAccountDetail(props.id).then((res) => {
-      setRewardRecordList(res.data)
-    })
+    if (state.token) {
+      getUserAccountDetail(props.id).then((res) => {
+        setRewardRecordList(res.data)
+        console.log(res.data, '土地奖励');
+
+      })
+    }
   }, [state.token, web3React.account, props.showModal, props.id])
   return (
     <>
@@ -30,7 +36,7 @@ function GetRecord(props: any) {
         footer={null}
         onCancel={() => { props.close() }}
       >
-        <p className="title"> 獎勵記錄 </p>
+        <p className="title"> {t("Records2")} </p>
         <Table
           dataSource={rewardRecordList}
           pagination={false}
@@ -38,7 +44,7 @@ function GetRecord(props: any) {
           scroll={{ y: 260 }}
         >
           <Column
-            title="時間"
+            title={t("Time")}
             width={140}
             render={(item) => (
               <>
@@ -47,7 +53,7 @@ function GetRecord(props: any) {
             )}
           />
           <Column
-            title="金額"
+            title={t("Amount")}
             render={(item) => (
               <>
                 <div>{item.amount} {item.coinName}</div>
@@ -55,7 +61,7 @@ function GetRecord(props: any) {
             )}
           />
           <Column
-            title="類型"
+            title={t("Type")}
             render={(item) => (
               <>
                 <div>{type[item.type]}</div>
@@ -63,7 +69,7 @@ function GetRecord(props: any) {
             )}
           />
         </Table>
-        <span>點擊任意地方關閉</span>
+        <span>{t("clickLeave")}</span>
       </Modal>
     </>
   );

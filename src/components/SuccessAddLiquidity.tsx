@@ -1,10 +1,13 @@
 // SBL捐赠销毁捐赠成功
 import React from 'react'
 import { Modal } from 'antd';
+import { getBit } from '../utils/tool';
 import '../assets/style/componentsStyle/SuccessAddLiquidity.scss'
-import BNBIcon from '../assets/image/BNBTokens.png'
+import BNBIcon from '../assets/image/BNBIcon.svg'
 import SBLIcon from '../assets/image/SBLTokens.png'
+import { useTranslation } from 'react-i18next';
 function SuccessAddLiquidity(props: any) {
+    const { t } = useTranslation()
     return (
         <>
             <Modal visible={props.showModal}
@@ -15,15 +18,15 @@ function SuccessAddLiquidity(props: any) {
                 footer={null}
                 onCancel={() => { props.close() }}
             >
-                <p className='title'>成功添加流動性</p>
+                <p className='title'>{t("Successfully added liquidity")}</p>
 
-                <div className="subTitle">您已獲得</div>
-                <div className="coinValueBox">1,215.451 <div className='coinsBox'><img className='img1' src={SBLIcon} alt="" /><img className='img2' src={BNBIcon} alt="" /></div></div>
+                <div className="subTitle">{t("You have obtained")}</div>
+                <div className="coinValueBox">{getBit(props.data, 4)} <div className='coinsBox'><img className='img1' src={SBLIcon} alt="" /><img className='img2' src={BNBIcon} alt="" /></div></div>
                 <div className="subTokens">SBL/BNB Pool Tokens</div>
 
-                <div className="toSupplyBtn flex" onClick={() => { props.close() }}>確認供應</div>
+                <div className="toSupplyBtn flex" onClick={() => { props.close() }}>{t("Confirm supply")}</div>
 
-                <span>点击任意地方离开</span>
+                <span>{t("clickLeave")}</span>
             </Modal>
         </>
     )

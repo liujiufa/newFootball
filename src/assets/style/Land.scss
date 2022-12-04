@@ -1,8 +1,8 @@
 .Land {
-    max-width: 1200px;
+    max-width: 1240px;
     margin: auto;
     width: 100%;
-
+    padding: 0 20px;
 
     .SwapTitle {
         margin-top: 60px;
@@ -41,13 +41,17 @@
     }
 
     .Content {
+        max-width: 1200px;
         margin: 80px auto 60px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        position: relative;
 
         //1.土地申领
         .applyBtn {
+            position: absolute;
+            bottom: -20px;
             width: 132px;
             height: 40px;
             background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
@@ -59,9 +63,13 @@
             line-height: 20px;
             /* identical to box height */
             color: #FFFFFF;
+            z-index: 9999;
+
         }
 
         .toApplyBtn {
+            position: absolute;
+            bottom: -20px;
             width: 132px;
             height: 40px;
             font-family: 'PingFang SC';
@@ -73,6 +81,7 @@
             color: #FFFFFF;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 6px;
+            z-index: 9999;
         }
 
         // 2.我的领地
@@ -181,6 +190,15 @@
                             line-height: 25px;
                             color: #FFFFFF;
                             margin: 23px 0 18px;
+
+                            >div {
+                                font-family: 'PingFang SC';
+                                font-style: normal;
+                                font-weight: 400;
+                                font-size: 18px;
+                                line-height: 25px;
+                                color: #FFFFFF;
+                            }
                         }
 
                         .box {
@@ -217,6 +235,8 @@
 
                                 img {
                                     margin-right: 8px;
+                                    width: 20px;
+                                    height: 20px;
                                 }
                             }
                         }
@@ -246,13 +266,168 @@
                         line-height: 17px;
                         /* identical to box height */
                         color: rgba(255, 255, 255, 0.6);
-                        img{
+
+                        img {
                             margin-left: 5px;
                         }
                     }
 
                 }
 
+            }
+        }
+    }
+}
+
+
+#app {
+    height: 100%
+}
+
+html,
+body {
+    position: relative;
+    height: 100%;
+}
+
+body {
+    background: #eee;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #000;
+    margin: 0;
+    padding: 0;
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mySwiper {
+    margin: 50px auto;
+}
+
+
+@media screen and (max-width:768px) {
+    .Land {
+        padding: 0 18px;
+
+        .processState {
+            background-image: none;
+            justify-content: start;
+
+            .imgBox {
+                margin-right: 12px;
+
+                img {
+                    width: 100px;
+                }
+            }
+        }
+
+        .Content .screen {
+            margin-top: 0px;
+        }
+    }
+}
+
+@media screen and (max-width:1024px) {
+    .Land .Content .myLandRightBox {
+        padding: 40px;
+
+        .RewardBox {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+
+            >div {
+                max-width: 100%;
+                margin: 20px 0px !important;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:550px) {
+    .Land .Content .myLandRightBox {
+        padding: 16px 20px;
+
+        .RewardBox {
+            margin-top: 0px;
+        }
+
+        .myTitle {
+            font-size: 18px;
+            justify-content: center;
+
+            img {
+                width: 18px;
+                height: 18px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:425px) {
+    .Land {
+        padding: 0px 12px;
+
+        .LandDesc {
+            padding: 0px;
+            font-size: 14px;
+        }
+
+        .processState {
+            // justify-content: space-between
+
+            .imgBox {
+                img {
+                    width: 80px;
+                }
+            }
+        }
+    }
+
+    .Land .Content .myLandRightBox .RewardBox>div .allReward,
+    .Land .Content .myLandRightBox .RewardBox>div .valueBox {
+        display: block;
+
+        .btnBox {
+            width: 100%;
+            justify-content: center;
+
+            .getBtn {
+                width: 100%;
+                margin: 20px auto 0px;
             }
         }
     }

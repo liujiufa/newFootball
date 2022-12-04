@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Reward from '../components/Reward'
 import Node from '../components/Node'
 import { useTranslation } from 'react-i18next'
-import { getNodeBase, buyNodeBase, getNodeUserList, getCardUserMaxLevelInfo, nodeReturned, cancelBuyNodeBase, userDrawAward } from '../API'
+import { getNodeBase, buyNodeBase, getNodeUserList, getCardUserMaxLevelInfo, nodeReturned, cancelBuyNodeBase, userDrawAward, userCancelDrawAward } from '../API'
 import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
 import { addMessage, showLoding } from '../utils/tool'
@@ -10,10 +10,8 @@ import { Contracts } from '../web3'
 import { useWeb3React } from '@web3-react/core'
 import '../assets/style/SBL.scss'
 import RewardRecord from '../components/RewardRecord'
-import ApplyRecord from '../components/ApplyRecord'
 import GlodJdSy from '../components/GlodJdSy'
 import BigNumber from 'big.js'
-
 // import MyDealRecord from '../components/MyDealRecord'
 import SBLIcon from '../assets/image/SBLTokens.png'
 import RecordIcon from '../assets/image/record.png'
@@ -41,6 +39,7 @@ interface NodeRecordType {
   coinName: string,
   isReturn: number
   retainTokenNum: number
+  applyPrice: number
 }
 interface ApplyRecordType {
   id: number,
@@ -72,15 +71,7 @@ function SBL() {
     setProfitId(id)
     setShowProfit(true)
   }
-  /* 领取 */
-  function receive() {
-    userDrawAward({
-      "id": 0,
-      "type": 0
-    }).then(res => {
-      console.log(res, '节点奖励领取')
-    })
-  }
+
   /* 退还 */
   function returnFun(id: number, amount: number) {
     if (new BigNumber(amount).lte(0)) {
@@ -89,8 +80,10 @@ function SBL() {
     if (web3React.account) {
       showLoding(true)
       nodeReturned({ id, userAddress: web3React.account }).then(res => {
+        console.log(res, 'tuihuan');
         if (res.data) {
           Contracts.example.quitNode(web3React.account as string, res.data).then((res: any) => {
+            addMessage(t("Successful refund"))
           }).finally(() => {
             showLoding(false)
           })
@@ -103,10 +96,44 @@ function SBL() {
     }
   }
 
+  // 领取奖励
+  function Receive(type: number, id: number, amount: number) {
+    console.log(type, id, amount);
+    if (!web3React.account) {
+      return addMessage(t('Please connect Wallet'))
+    }
+    if (new BigNumber(amount).lte(0)) {
+      return addMessage(t('No collectable quantity'))
+    }
+    userDrawAward({
+      type, id
+    }).then((res: any) => {
+      console.log(res);
+      if (res.data && web3React.account) {
+        showLoding(true)
+        Contracts.example.getNodeAward(web3React.account as string, res.data, type).then((res: any) => {
+          addMessage(t('Receive success'))
+        }, (err: any) => {
+          if (err.code === 4001) {
+            userCancelDrawAward({ type, id }).then(() => {
+              addMessage(t('Cancellation received successfully'))
+            })
+          }
+        }).finally(() => {
+          showLoding(false)
+        })
+      } else {
+        addMessage(res.msg)
+      }
+    })
+  }
+
   useEffect(() => {
     if (state.token) {
       getNodeUserList().then(res => {
         setNodeRecord(res.data)
+        console.log(res.data, '节点奖励');
+
       })
       getNodeBase().then(res => {
         setNodeBase(res.data)
@@ -143,11 +170,11 @@ function SBL() {
           <Node></Node>
           {/* 銷毀獎勵 */}
           {NodeRecord.map((item) => <div key={item.id} className="DestructReward">
-            <div className="title">節點獎勵</div>
-            <div className="rewardValue">鑄幣額度：{item.totalAwardNum} {item.coinName}</div>
-            <div className="toFreed">剩餘鑄幣：{item.stayAwardNum} {item.coinName}</div>
+            <div className="title">{t("Node reward")}</div>
+            <div className="rewardValue">{t("Mintage")}：{item.totalAwardNum} {item.coinName}</div>
+            <div className="toFreed">{t("RemainingMint")}：{item.stayAwardNum} {item.coinName}</div>
             <div className="process">
-              <div className="Freed">進程：</div>
+              <div className="Freed">{t("Progress")}：</div>
               <div className="processBox">
                 <div className="processBar" style={{ width: item.currentDay / item.backDay * 100 + '%' }}></div>
               </div>
@@ -160,15 +187,16 @@ function SBL() {
             {
               item.isReturn === 1 ?
                 <div className="btnBox">
-                  <div className="Btn flex" onClick={receive}>{t('Claim')}</div>
-                  <div className="notBtn flex" onClick={() => { returnFun(item.id, item.retainTokenNum) }}>{t('Refund')}</div>
+                  <div className="Btn flex" onClick={() => Receive(6, item.id, item.stayDrawNum)}>{t('Claim')}</div>
+                  <div className="notBtn flex" onClick={() => { returnFun(item.id, item.applyPrice) }}>{t('Refund')}</div>
                 </div> :
                 <div className="btnBox">
-                  <div className="Btn flex" onClick={receive}>{t('Claim')}</div>
+                  <div className="Btn flex" onClick={() => Receive(6, item.id, item.stayDrawNum)}>{t('Claim')}</div>
+                  <div className="notBtn flex">{t('Refund')}</div>
                 </div>
             }
             <div className="getRecord" onClick={() => { ShowProfitFun(item.id) }}>
-              收益記錄 <img src={RecordIcon} alt="" />
+              {t("Records")} <img src={RecordIcon} alt="" />
             </div>
           </div>)}
         </div>
@@ -178,9 +206,6 @@ function SBL() {
       <RewardRecord showModal={false}></RewardRecord>
       {/* 节点收益记录 */}
       <GlodJdSy isShow={showProfit} id={ProfitId} close={() => { setShowProfit(false) }}></GlodJdSy>
-
-      {/* 申请记录 */}
-      <ApplyRecord showModal={false}></ApplyRecord>
 
     </div>
   )

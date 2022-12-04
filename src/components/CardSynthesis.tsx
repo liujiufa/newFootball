@@ -7,7 +7,7 @@ import { stateType } from '../store/reducer'
 import { CardInfoType } from './Card'
 import { contractAddress } from '../config'
 import { Modal, Pagination } from 'antd';
-import { addMessage, showLoding } from '../utils/tool'
+import { addMessage, NumSplic, showLoding } from '../utils/tool'
 import RuleImg from '../assets/image/CardSynthesis.png'
 import addIcon from '../assets/image/addIcon.png'
 import '../assets/style/componentsStyle/CardSynthesis.scss'
@@ -28,7 +28,6 @@ interface SelCardType {
     list: CardInfoType[],
     price: number,
     size: number,
-
 }
 const typeMap = [
     {
@@ -85,7 +84,7 @@ function CardSynthesis(props: CardSynthesisPropsType) {
                     return item.tokenId !== props.CardInfo.tokenId
                 })
                 console.log(res.data, '合成列表')
-                setToBeSelect(res.data)
+                toSBLFun(res.data.price, res.data)
                 SetTotal(res.data.size)
             })
             Contracts.example.isApprovedForAll(web3React.account, contractAddress.Merge).then((res: boolean) => {
@@ -93,6 +92,13 @@ function CardSynthesis(props: CardSynthesisPropsType) {
             })
         }
     }, [web3React.account, state.token, type, props.isShow, page])
+
+    async function toSBLFun(price: number, item: any) {
+        let value = await Contracts.example.toSBL(web3React.account as string, price)
+        let valueed = new BigNumber(value).div(10 ** 18).toString()
+        console.log(valueed);
+        setToBeSelect({ ...item, price: valueed })
+    }
 
     // 授权
     function ApproveFun() {
@@ -106,6 +112,8 @@ function CardSynthesis(props: CardSynthesisPropsType) {
             }).finally(() => {
                 showLoding(false)
             })
+        }).finally(() => {
+            showLoding(false)
         })
     }
     // 以前的授权
@@ -131,14 +139,19 @@ function CardSynthesis(props: CardSynthesisPropsType) {
         if (!SelCard) {
             return addMessage(t('Please select the card to synthesize'))
         }
+        if (Math.floor(SelCard?.currentPower / SelCard?.basePower * 100) != 100) {
+            return addMessage(t('Please select the card to synthesize'))
+        }
+
         let owner = await Promise.all([
             Contracts.example.ownerOf(web3React.account as string, props.CardInfo.tokenId),
             Contracts.example.ownerOf(web3React.account as string, SelCard.tokenId)
         ])
+        console.log('mager1', props.CardInfo.tokenId, SelCard.tokenId);
         if (owner[0] !== web3React.account || owner[1] !== web3React.account) {
-            return addMessage('要合成的徽章不属于你')
+            return addMessage(t('The badge to be synthesized does not belong to you'))
         }
-        let Balance = await Contracts.example.getBalance(web3React.account as string)
+        let Balance = await Contracts.example.balanceOf(web3React.account as string)
         Balance = new BigNumber(Balance).div(10 ** 18).toString()
         if (new BigNumber(Balance).lt(ToBeSelect?.price as number)) {
             return addMessage(t('not enough'))
@@ -162,9 +175,17 @@ function CardSynthesis(props: CardSynthesisPropsType) {
         SetPage(pageNum)
     }
 
+    function ToBeSelectFun(currentPower: number, basePower: number, obj: any) {
+        if (currentPower == basePower) {
+            setSelCard(obj)
+        } else {
+            addMessage(t('Insufficient computing power'))
+        }
+    }
+
     useEffect(() => {
         if (web3React.account) {
-            // 查询授权
+            // 查询合成授权（SBL）
             Contracts.example.Tokenapprove(web3React.account as string, contractAddress.Merge).then((res: any) => {
                 setApproveValue(new BigNumber(res).div(10 ** 18).toString())
             })
@@ -174,7 +195,7 @@ function CardSynthesis(props: CardSynthesisPropsType) {
     return (
         <>
             {/* 确认合成 */}
-            <Tips isShow={showEnterMerge} title={t('Expenses')} subTitle={t('The evolving cost') + ToBeSelect?.price + "BNB"} enterFun={mager} close={() => setShowEnterMerge(false)}></Tips>
+            <Tips isShow={showEnterMerge} title={t('Expenses')} subTitle={t('The evolving cost') + Math.floor(ToBeSelect?.price as number) + "SBL"} enterFun={mager} close={() => setShowEnterMerge(false)}></Tips>
             <CardComRule isShow={showMergeRule} close={() => setShowMergeRule(false)}></CardComRule>
             <Modal visible={props.isShow && !showMergeRule}
                 className='CardSynthesis'
@@ -204,16 +225,15 @@ function CardSynthesis(props: CardSynthesisPropsType) {
 
                             </div>
                             <div className="CardItem">
-                                <div className="CardImg">
+                                <div className="CardImg1">
                                 </div>
-                                <div className="Decorate">
-                                    <div className="Price">{t('Expenses')}:</div><div className='Number'>{ToBeSelect?.price}BNB</div>
-                                </div>
+                                {ToBeSelect && <div className="Decorate">
+                                    <div className="Price">{t('Expenses')}</div> <div className='Number'> {` `}{Math.floor(ToBeSelect?.price)} SBL</div>
+                                </div>}
                                 {
-                                    parseFloat(ApproveValue) > 0 ? <div className='confirmBtn' onClick={() => { setShowEnterMerge(true) }}>{t('Confirm')}</div> : <div className='confirmBtn' onClick={ApproveFun}>{t('Approve')}</div>
+                                    ToBeSelect && (parseFloat(ApproveValue) > ToBeSelect?.price) ? <div className='confirmBtn' onClick={() => { setShowEnterMerge(true) }}>{t('Confirm')}</div> : <div className='confirmBtn' onClick={ApproveFun}>{t('Approve')}</div>
                                 }
-
-                                <div className='Tip'><div className='TipContent' onClick={() => { setShowMergeRule(true) }}>{t('Evolve rules')}</div><div className='TipImg'><img src={RuleImg} alt="" /></div></div>
+                                <div className='Tip'><div className='TipContent' onClick={() => { setShowMergeRule(true) }}>{t('Evolve rules')}</div><div className='TipImg'> <img style={{ marginLeft: '5px' }} src={RuleImg} alt="" /></div></div>
                             </div>
                         </div>
                     </div>
@@ -230,19 +250,19 @@ function CardSynthesis(props: CardSynthesisPropsType) {
                                 <Pagination simple current={page} total={total} defaultPageSize={12} onChange={changePage} />
                             </div> */}
                             <div className="Page">
-                                <Pagination  style={{ margin: "auto" }} current={page}  defaultPageSize={12} total={total} onChange={changePage} />
+                                <Pagination style={{ margin: "auto" }} current={page} defaultPageSize={12} total={total} onChange={changePage} />
                             </div>
                         </div>
                         {/* 可点击选择的合成徽章 */}
                         <div className="CardListBox">
                             {
-                                ToBeSelect?.list.map((item, index) => <div className="SynthesisCardList" key={item.id} onClick={() => { setSelCard(item) }}>
+                                ToBeSelect?.list.map((item, index) => <div className="SynthesisCardList" key={item.id} onClick={() => { ToBeSelectFun(item?.basePower, item?.currentPower, item) }}>
                                     <div className="Id">ID：{item.cardNo}</div>
                                     <div className="Img">
                                         <img src={item.imageUrl} alt="" />
                                     </div>
                                     <div className="computingPower">
-                                        <div className="title">算力</div>
+                                        <div className="title">{t("Computing power")}</div>
                                         <div className="value">{item?.currentPower}/{item?.basePower}</div>
                                     </div>
                                     <div className="share">

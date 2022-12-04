@@ -18,7 +18,7 @@
 
     .content {
         padding: 60px 0;
-        margin-top: 150px;
+        margin-top: 100px;
         width: 100%;
         max-width: 413px;
         background: #1F2045;
@@ -42,6 +42,8 @@
                 color: rgba(255, 255, 255, 0.6);
             }
         }
+
+
 
         .addLiquidity {
             width: 118px;
@@ -102,7 +104,7 @@
                 }
 
                 .rightBox {
-                    width: 40px;
+                    width: 60px;
                     display: flex;
                     justify-content: space-between;
 
@@ -114,11 +116,15 @@
 
                         .img1 {
                             z-index: 2;
+                            width: 20px;
+                            height: 20px;
                         }
 
                         .img2 {
                             position: absolute;
-                            left: 7px;
+                            left: 10px;
+                            width: 20px;
+                            height: 20px;
 
                         }
 
@@ -187,5 +193,15 @@
         line-height: 20px;
         /* identical to box height */
         color: #FFFFFF;
+    }
+}
+
+@media screen and (max-width:425px) {
+    .LiquidityBox {
+        padding: 0px 12px;
+
+        .content {
+            // margin-top: 50px;
+        }
     }
 }

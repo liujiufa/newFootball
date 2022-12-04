@@ -12,13 +12,13 @@ import { Modal } from "antd";
 import { useTranslation } from "react-i18next";
 import { stateType } from "../store/reducer";
 import { useWeb3React } from "@web3-react/core";
-import { addMessage, AddrHandle } from "../utils/tool";
+import { addMessage, AddrHandle, NumSplic, showLoding } from "../utils/tool";
 import { Contracts } from "../web3";
 import BigNumber from "big.js";
 import GainRecording from "../components/GainRecording";
 import InviteList from "../components/InviteList";
 import BNBIcon from "../assets/image/BNBIcon.svg";
-import SBLToken from "../assets/image/SBL.svg";
+import SBLToken from "../assets/image/SBL.png";
 import copyIcon from "../assets/image/copyIcon.png";
 import mechanism from "../assets/image/mechanism.png";
 import Refresh from "../assets/image/Refresh.png";
@@ -150,8 +150,6 @@ export default function Invitation() {
         console.log(res.data, '邀请奖励');
         setRewardData(res.data);
       });
-
-
       getCardUserMaxLevelInfo().then((res) => {
         setMaxLevel(res.data);
       });
@@ -225,10 +223,12 @@ export default function Invitation() {
       id,
     }).then((res: any) => {
       if (res.data) {
+        showLoding(true)
         Contracts.example
-          .getAward(web3React.account as string, res.data, type)
+          .getInviteReward(web3React.account as string, res.data)
           .then(
             (res: any) => {
+              addMessage(t('Receive success'))
               getUserAccountList().then((res) => {
                 setRewardData(res.data);
               });
@@ -238,10 +238,14 @@ export default function Invitation() {
             },
             (err: any) => {
               if (err.code === 4001) {
-                userCancelDrawAward({ type, id });
+                userCancelDrawAward({ type, id }).then((res) => {
+                  addMessage(t('Cancellation received successfully'))
+                });
               }
             }
-          );
+          ).finally(() => {
+            showLoding(false)
+          });
       } else {
         addMessage(res.msg);
       }
@@ -251,30 +255,32 @@ export default function Invitation() {
     <div className="Edition-Center">
       <div className="SwapTitle">{t("Invitation")}</div>
       <div className="Invitation">
+
         {rewardData && <div className="itemBox">
-          <div className="itemTitle">邀請獎勵</div>
+          <div className="itemTitle">{t("Referral Rewards")}</div>
           <div className="allRewardBox">
             <div className="allReward">
-              <span>纍計獎勵：</span><span>{rewardData.totalAmount} {rewardData.coinName}</span>
+              <span>{t("Cumulative rewards")}：</span><span>{NumSplic(`${rewardData.totalAmount}`, 4)} {rewardData.coinName}</span>
             </div>
             <div className="getBox"></div>
           </div>
           <div className="inputBox">
             <div className="inputValue">
-              <span>{rewardData.amount}</span>
+              <span className="inputValueStyle">{NumSplic(`${rewardData.amountString}`, 4)}</span>
               <span>
                 <img src={SBLToken} alt="" />{rewardData.coinName}
               </span>
             </div>
-            <div className="getBox"><div className="getBtn flex">領取</div></div>
+            <div className="getBox"><div className="getBtn flex" onClick={() => Receive(1, rewardData?.id as number, `${rewardData?.amount}`)}>{t("Harvest")}</div></div>
           </div>
-          <div className="rewardRecord" onClick={() => ShowRevenueRecordFun(1)}>獎勵記錄<img src={record} alt="" /></div>
+          <div className="rewardRecord" onClick={() => ShowRevenueRecordFun(1)}>{t("Records2")}<img src={record} alt="" /></div>
         </div>}
+
         {web3React.account && <div className="itemBox">
-          <div className="itemTitle">發送您的邀請鏈接</div>
-          <div className="itemTip">複製併使用此鏈接，邀請您的朋友加入Space Ball ，一起探索無限精彩的元宇宙世界。建立自己的Space Ball家族！</div>
+          <div className="itemTitle">{t("Send your invite link")}</div>
+          <div className="itemTip">{t("copyLink")}</div>
           <div className="addressBox">
-            <div className="referee" >邀請鏈接</div>
+            <div className="referee" >{t("Invite link")}</div>
             <div className="addressValue">
               {window.location.origin +
                 window.location.pathname +
@@ -285,7 +291,7 @@ export default function Invitation() {
             <div className="copyBtn" onClick={invitation}><img src={copyIcon} alt="" /></div>
           </div>
           {/* <div className="inviteListBtn" onClick={() => { setInviteModal(true) }}>邀請列表({InvitationData ? 0 : (InvitationData?.list.length - 1)}) <img src={inviteListIcon} alt="" /></div> */}
-          <div className="inviteListBtn" onClick={() => { setInviteModal(true) }}>邀請列表({InvitationData?.list.length}) <img src={inviteListIcon} alt="" /></div>
+          <div className="inviteListBtn" onClick={() => { setInviteModal(true) }}>{t("Invitation list")}({InvitationData?.list.length}) <img src={inviteListIcon} alt="" /></div>
         </div>}
       </div>
       {/* 奖励记录 */}

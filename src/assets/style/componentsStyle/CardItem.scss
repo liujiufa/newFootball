@@ -35,6 +35,8 @@
         overflow: hidden;
         border-radius: 10px;
         width: 100%;
+        background: url(../../image/NFTBgImg.jpg) no-repeat center center / 100% 100%;
+
 
         .pending {
             position: absolute;
@@ -83,6 +85,17 @@
         font-size: 14px;
         color: #FFFFFF;
         margin-top: 10px;
+        height: 84px;
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        color: #FFFFFF;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
 
         .decorate {
             flex-shrink: 0;
@@ -94,14 +107,15 @@
         }
 
         .computingPower {
-            margin: 18px auto 30px;
+            // margin: 18px auto 30px;
             width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 20px;
 
             .title {
-                width: 32px;
+                width: 43px;
                 font-family: 'PingFang SC';
                 font-style: normal;
                 font-weight: 400;
@@ -110,7 +124,7 @@
             }
 
             .value {
-                width: 60px;
+                width: 46px;
                 font-family: 'PingFang SC';
                 font-style: normal;
                 font-weight: 400;
@@ -122,7 +136,7 @@
             .shareBox {
                 display: flex;
                 align-items: center;
-                margin: 0px 10px;
+                margin: 0px 5px;
                 height: 12px;
                 flex: auto;
                 background: rgba(255, 255, 255, 0.1);
@@ -147,11 +161,56 @@
             }
         }
 
+        // 小屏
+        .shareBox1 {
+            display: flex;
+            align-items: center;
+            margin: 0px 5px;
+            height: 12px;
+            flex: auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+
+
+            .shareValue {
+                height: 12px;
+                background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+                border-radius: 8px;
+                font-family: 'DIN';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 12px;
+                letter-spacing: 0.08em;
+                color: #FFFFFF;
+                text-align: right;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+            }
+        }
+
         .box {
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 22px;
+            color: #FFFFFF;
+
+            .priceFlex {
+                >span {
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 22px;
+                    color: #FFFFFF;
+                }
+            }
         }
 
     }
@@ -178,4 +237,40 @@
     }
 
 
+}
+
+@media screen and (max-width:1024px) {
+    .CardItem .price {
+        .computingPower {
+            margin-bottom: 0px !important;
+
+        }
+
+        .shareBox1 {
+            margin: 12px 0px;
+        }
+    }
+}
+
+@media screen and (max-width:425px) {
+    .CardItemLinearBorder .buyBtn {
+        margin: 20px auto 0;
+    }
+}
+
+@media screen and (max-width:375px) {
+    .CardItem {
+        padding: 12px;
+        .price .computingPower .title {
+            font-size: 14px;
+        }
+    }
+
+    .CardItem .price .computingPower .value {
+        font-size: 14px;
+    }
+
+    .CardItem .price .box .priceFlex>span {
+        font-size: 14px;
+    }
 }

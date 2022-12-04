@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { getBurnUserInfo } from '../API/index'
+import { getBurnUserInfo, userDrawAward, userCancelDrawAward } from '../API/index'
 import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
 import { Contracts } from '../web3';
@@ -18,7 +18,7 @@ import ConfirmDestruct from '../components/ConfirmDestruct'
 import DonationRecord from '../components/DonationRecord'
 import GetRecord from '../components/GetRecord'
 import SBLIcon from '../assets/image/SBLTokens.png'
-import BNBIcon from '../assets/image/BNBTokens.png'
+import BNBIcon from '../assets/image/BNBIcon.svg'
 import RecordIcon from '../assets/image/record.png'
 import desIcon from '../assets/image/desIcon.png'
 
@@ -50,57 +50,63 @@ function DestructFund() {
   const [balance1, setBalance1] = useState('0')
   // TO SBL
   const [toSBL, setToSBL] = useState('0')
+  // 最小额度
+  const [minBurn, setMinBurn] = useState('0')
   // SBL授权
   const [ApproveValue, setApproveValue] = useState('0')
-  const [burnToEarnValue, setBurnToEarnValue] = useState('0')
   // 基金额度
   const [burnLimitValue, setBurnLimitValue] = useState('0')
-  const [inputValue, setInputValue] = useState((parseFloat(toSBL) * 0.05) / parseFloat(burnLimitValue) * 0.1)
-
-  // 领取销毁奖励
-  const getBurnToEarn = () => {
-
-  }
+  const [inputValue, setInputValue] = useState(0)
 
   const changeFun = (e: any) => {
-    let value = e.target.value
+    let value = e.target.value.replace(/^[^1-9]+|[^0-9]/g, '')
+    // let value = e.target.value.toString()
     // if (parseFloat(value) >= (parseFloat(toSBL) / parseFloat(burnLimitValue) * 0.1) && value <= parseFloat(balance1) && value <= parseFloat(toSBL) * 0.5) {
-    if (value > 0) {
-      setInputValue(parseFloat(value))
-    } else {
-
-    }
+    // setInputValue(parseFloat(value))
+    setInputValue(value)
   }
-  const maxFun = (num: string) => {
-    if (parseFloat(num) > parseFloat(balance1)) {
+
+  const maxFun = (num: number) => {
+    if (num > parseFloat(balance1)) {
       setInputValue(parseFloat(balance1))
     } else {
-      setInputValue(parseFloat(num))
+      setInputValue(num)
     }
   }
-  const conBurnFun = () => {
-    setConBurn(true)
-  }
 
+  const conBurnFun = () => {
+    if (parseFloat(burnLimitValue) <= 0) {
+      return addMessage(t('Insufficient amount of destruction fund'))
+    }
+    if (inputValue <= Math.floor(parseInt(toSBL) * 0.05) && inputValue >= parseInt(minBurn)) {
+      setConBurn(true)
+    } else {
+      return addMessage(t('Please enter the correct value'))
+    }
+  }
 
   // 授权
   function ApproveFun() {
     if (!web3React.account) {
       return addMessage(t('Please connect Wallet'))
     }
+    if (parseFloat(burnLimitValue) <= 0) {
+      return addMessage(t('Insufficient amount of destruction fund'))
+    }
+    if (inputValue < parseFloat(minBurn) || inputValue > Math.floor(parseInt(toSBL) * 0.05)) {
+      return addMessage(t('Please enter the correct value'))
+    }
     showLoding(true)
-    Contracts.example.toSBL(web3React.account as string, inputValue).then((res: any) => {
-      let value = new BigNumber(res).div(10 ** 18).toString()
-      Contracts.example.approve1(web3React.account as string, contractAddress.DstructFund, value).then(() => {
-        Contracts.example.Tokenapprove(web3React.account as string, contractAddress.DstructFund).then((res: any) => {
-          setApproveValue(new BigNumber(res).div(10 ** 18).toString())
-        }).finally(() => {
-          showLoding(false)
-        })
+    Contracts.example.approve1(web3React.account as string, contractAddress.BurnFund, `${inputValue}`).then(() => {
+      Contracts.example.Tokenapprove(web3React.account as string, contractAddress.BurnFund).then((res: any) => {
+        setApproveValue(new BigNumber(res).div(10 ** 18).toString())
+      }).finally(() => {
+        showLoding(false)
       })
+    }).finally(() => {
+      showLoding(false)
     })
   }
-
 
   // 销毁
   const burnFun = (num: number) => {
@@ -108,28 +114,66 @@ function DestructFund() {
     if (!web3React.account) {
       return addMessage(t('Please connect Wallet'))
     }
-    if (num <= 0) {
-      return addMessage('请输入正确的值')
-    }
     showLoding(true)
     Contracts.example.burnToEarn(web3React.account as string, num).then(() => {
       // addMessage(t('Authorization succeeded'))
       console.log('销毁成功');
-
       setConBurn(false)
       setBurnSuccess(true)
     }).finally(() => {
       showLoding(false)
     })
   }
-
+  // 领取销毁奖励
+  function Receive(type: number, id: number, amount: number) {
+    console.log(type, id, amount);
+    if (!web3React.account) {
+      return addMessage(t('Please connect Wallet'))
+    }
+    if (new BigNumber(amount).lte(0)) {
+      return addMessage(t('No collectable quantity'))
+    }
+    userDrawAward({
+      type, id
+    }).then((res: any) => {
+      console.log(res);
+      if (res.data && web3React.account) {
+        showLoding(true)
+        Contracts.example.getBurnFundAward(web3React.account as string, res.data).then((res: any) => {
+          addMessage(t('Receive success'))
+          if (state.token && web3React.account) {
+            getBurnUserInfo().then(res => {
+              setDrawBurnRecord(res.data)
+              console.log(res.data, "获取销毁奖励")
+            })
+          }
+        }, (err: any) => {
+          if (err.code === 4001) {
+            userCancelDrawAward({ type, id }).then(() => {
+              addMessage(t('Cancellation received successfully'))
+            })
+          }
+        }).finally(() => {
+          showLoding(false)
+        })
+      } else {
+        addMessage(res.msg)
+      }
+    })
+  }
   useEffect(() => {
     if (state.token && web3React.account) {
       getBurnUserInfo().then(res => {
         setDrawBurnRecord(res.data)
-        console.log(res.data, "获取销毁奖励领取记录")
+        console.log(res.data, "获取销毁奖励")
       })
-      Contracts.example.Tokenapprove(web3React.account, contractAddress.DstructFund).then((res: any) => {
+
+      let time = setInterval(() => {
+        getBurnUserInfo().then(res => {
+          setDrawBurnRecord(res.data)
+        })
+      }, 3000)
+      Contracts.example.Tokenapprove(web3React.account, contractAddress.BurnFund).then((res: any) => {
         setApproveValue(new BigNumber(res).div(10 ** 18).toString())
         console.log(new BigNumber(res).div(10 ** 18).toString(), '授权额度');
       })
@@ -139,67 +183,82 @@ function DestructFund() {
       })
       /* 查询销毁基金 */
       Contracts.example.burnLimit(web3React.account).then((res: any) => {
+        console.log(res, '销毁基金额度');
         let value = new BigNumber(res).div(10 ** 18).toString()
         setBurnLimitValue(value)
         // toSBL
         Contracts.example.toSBL(web3React.account as string, parseFloat(value)).then((res: any) => {
-          setToSBL(new BigNumber(res).div(10 ** 18).toString())
+          let toSBLValue = new BigNumber(res).div(10 ** 18).toString()
+          setToSBL(toSBLValue)
         })
       })
-      console.log(parseFloat(getBit(parseFloat(toSBL) / parseFloat(burnLimitValue) * 0.1, 4)), 'nihao');
-      // setInputValue(parseFloat(getBit(parseFloat(toSBL) / parseFloat(burnLimitValue) * 0.1, 4)))
+      /* 查询最小销毁 */
+      Contracts.example.minToBurn(web3React.account).then((res: any) => {
+        let value = new BigNumber(res).div(10 ** 18).toString()
+        Contracts.example.toSBL(web3React.account as string, parseFloat(value)).then((res: any) => {
+          let toSBLValue = new BigNumber(res).div(10 ** 18).toString()
+          console.log(toSBLValue, '最小销毁额度');
+
+          setMinBurn(`${parseInt(toSBLValue) + 1}`)
+          setInputValue(parseInt(toSBLValue) + 1)
+
+        })
+      })
+      return () => {
+        clearInterval(time)
+      }
     }
-  }, [state.token])
+  }, [state.token, web3React.account])
 
 
   return (
     <div>
       <div className="DestructFund">
         <div className="SwapTitle">
-          SBL銷毀
+          {t("SBL destroyed")}
         </div>
         <div className="NodeDesc">
-          SBL採用通縮治理模型，將賣出滑點全部打入銷毀基金池，作為對用戶銷毀SBL的獎勵。用戶銷毀SBL，將獲得2倍價值的BNB獎勵，獎勵將在2,592,000個區塊內釋放完畢。每次捐贈後，等待28,800個區塊可以再次捐贈。
+          {t("SBL Des")}
         </div>
-
         <div className="Content">
           {/* 銷毀參與 */}
           <div className="DestructJoin">
-            <div className="title">销毁参与</div>
-            <div className="DestructValue">銷毀基金額度：<span>{NumSplic(burnLimitValue, 4)} BNB</span></div>
-            <div className="subTitle">當前最大可銷毀{NumSplic(`${parseInt(toSBL) * 0.05}`, 4)}SBL，最小須銷毀{NumSplic(`${(parseFloat(toSBL) * 0.05) / parseFloat(burnLimitValue) * 0.1}`, 4)} SBL <img onClick={() => { setDestructDes(!destructDes) }} src={desIcon} alt="" /></div>
+            <div className="title">{t("Burn")}</div>
+            <div className="DestructValue">{t("Destruction Fund Quota")}：<span>{NumSplic(burnLimitValue, 4)} BNB</span></div>
+            <div className="subTitle">{t("destructTip", { price1: Math.floor(parseInt(toSBL) * 0.05), price2: parseInt(minBurn) })}<img onClick={() => { setDestructDes(!destructDes) }} src={desIcon} alt="" /></div>
             <div className="inputBox">
-              <input type="number" value={inputValue} onChange={(e) => { changeFun(e) }} />
-              <div className="maxBtn" onClick={() => { maxFun(getBit(parseInt(toSBL) * 0.05, 4)) }}>max</div>
+              <input value={inputValue} onChange={(e) => { changeFun(e) }} />
+              <div className="maxBtn" onClick={() => { maxFun(Math.floor(parseInt(toSBL) * 0.05)) }}>max</div>
               <div className="coinBox"><img src={SBLIcon} alt="" /> SBL</div>
             </div>
-            <div className="Balance">餘額：{NumSplic(balance1, 4)} SBL</div>
-            {parseFloat(ApproveValue) > 0 ? <div className="DestructBtn Btn flex" onClick={() => { conBurnFun() }}>銷毀</div> : <div className="DestructBtn Btn flex" onClick={() => { ApproveFun() }}>授权</div>}
+            <div className="Balance">{t("Balance")}：{NumSplic(balance1, 4)} SBL</div>
+            {parseFloat(ApproveValue) > inputValue ? (Math.floor(parseInt(toSBL) * 0.05) < parseInt(minBurn) ? <div className="DestructBtn Btn DestructBtning flex" onClick={() => { addMessage(t("Currently cannot be destroyed")) }}>{t("Destroy")}</div> : <div className="DestructBtn Btn  flex" onClick={() => { conBurnFun() }}>{t("Destroy")}</div>) : <div className="DestructBtn Btn flex" onClick={() => { ApproveFun() }}>{t("Approve")}</div>}
             <div className="DestructRecord" onClick={() => { setDonationRecord(!donationRecord) }}>
-              銷毀記錄<img src={RecordIcon} alt="" />
+              {t("Destroy records")}<img src={RecordIcon} alt="" />
             </div>
           </div>
           {/* 銷毀獎勵 */}
-          {drawBurnRecord?.dataId && <div className="DestructReward">
-            <div className="title">銷毀獎勵</div>
-            <div className="rewardValue">獎勵金額：{drawBurnRecord?.awardAmount} {drawBurnRecord?.coinName}</div>
-            <div className="toFreed">待釋放：{drawBurnRecord?.treatAmount} {drawBurnRecord?.coinName}</div>
+          {drawBurnRecord?.awardAmount && <div className="DestructReward">
+            <div className="title">{t("Destruction Rewards")}</div>
+            <div className="rewardValue">{t("Award amount")}：{NumSplic(`${drawBurnRecord?.awardAmount}`, 8)} {drawBurnRecord?.coinName}</div>
+            <div className="toFreed">{t("To be released")}：{NumSplic(`${drawBurnRecord?.treatAmount}`, 8)} {drawBurnRecord?.coinName}</div>
             <div className="process">
-              <div className="Freed">進程：</div>
+              <div className="Freed">{t("Process")}：</div>
               <div className="processBox">
-                <div className="processBar" style={{ width: `${(drawBurnRecord?.treatAmount * 100) / (drawBurnRecord?.awardAmount * 100)}` }}></div>
+                <div className="processBar" style={{ width: `${Math.floor(((drawBurnRecord?.awardAmount) - (drawBurnRecord?.treatAmount)) / (drawBurnRecord?.awardAmount) * 100)}%` }}></div>
               </div>
-              <div className="value">{(drawBurnRecord?.treatAmount * 100) / (drawBurnRecord?.awardAmount * 100) * 100}%</div>
+              <div className="value">{Math.floor(((drawBurnRecord?.awardAmount) - (drawBurnRecord?.treatAmount)) / (drawBurnRecord?.awardAmount) * 100)}%</div>
             </div>
             <div className="inputBox">
-              <input type="number" value={drawBurnRecord?.amount} readOnly={true} />
+              <input type="number" className='destructInput' value={`${NumSplic(`${drawBurnRecord?.amount}`, 8)}`} readOnly={true} />
               <div className="coinBox"><img src={BNBIcon} alt="" /> BNB</div>
             </div>
-            <div className="getBtn Btn flex">領取</div>
+            <div className="getBtn Btn flex" onClick={() => { Receive(5, drawBurnRecord?.dataId as number, drawBurnRecord?.amount as number) }}>{t("Harvest")}</div>
             <div className="getRecord" onClick={() => { setGetRecord(!getRecord) }}>
-              領取記錄 <img src={RecordIcon} alt="" />
+              {t("Pick up record")} <img src={RecordIcon} alt="" />
             </div>
-          </div>}
+          </div>
+          }
         </div>
 
       </div>

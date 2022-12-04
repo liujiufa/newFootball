@@ -2,8 +2,10 @@
 import React from 'react'
 import { Modal } from 'antd';
 import '../assets/style/componentsStyle/DestructSucceed.scss'
+import { useTranslation } from 'react-i18next';
 
 function DestructSucceed(props: any) {
+  let { t } = useTranslation()
   return (
     <>
       <Modal visible={props.showModal}
@@ -15,12 +17,12 @@ function DestructSucceed(props: any) {
         onCancel={() => { props.close() }}
       >
 
-        <p className='title'>恭喜，銷毀成功！</p>
+        <p className='title'>{t("Congratulations, the burn was successful!")}</p>
         <div className='box'>
-          <p className='zifujg'>28,800個區塊後可再次銷毀。</p>
+          <p className='zifujg'>{t("28,800 blocks are required to burn again.")}</p>
         </div>
 
-        <span>点击任意地方离开</span>
+        <span>{t("clickLeave")}</span>
       </Modal>
     </>
   )

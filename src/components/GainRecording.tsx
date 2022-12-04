@@ -13,7 +13,7 @@ interface propsType {
   type: number,
   close: Function
 }
-const type = ['奖励发放', '奖励发放', '奖励发放', 'Claim2', '奖励发放']
+const type = [t('Distribution'), t('Distribution'), t('Distribution'), t('Claim2'), t('Distribution')]
 function GainRecording(props: propsType) {
   let state = useSelector<stateType, stateType>(state => state);
   let [recordData, setrecordData] = useState([])

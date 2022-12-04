@@ -2,9 +2,11 @@
 import React from 'react'
 import { Modal } from 'antd';
 import '../assets/style/componentsStyle/ConfirmExchange.scss'
-import BNBIcon from '../assets/image/BNBTokens.png'
+import BNBIcon from '../assets/image/BNBIcon.svg'
 import SBLIcon from '../assets/image/SBLTokens.png'
+import { useTranslation } from 'react-i18next';
 function ConfirmExchange(props: any) {
+    let { t } = useTranslation()
     return (
         <>
             <Modal visible={props.showModal}
@@ -15,11 +17,11 @@ function ConfirmExchange(props: any) {
                 footer={null}
                 onCancel={() => props.close()}
             >
-                <p className='title'>確認兌換嗎</p>
+                <p className='title'>{t("Are you sure you want to exchange?")}</p>
 
-                <div className="confirmBtn flex" onClick={() => { props.swapFun() }}>確認</div>
+                <div className="confirmBtn flex" onClick={() => { props.swapFun() }}>{t("Confirm")}</div>
 
-                <span>点击任意地方离开</span>
+                <span>{t("clickLeave")}</span>
             </Modal>
         </>
     )

@@ -19,6 +19,7 @@
     "crypto-js": "^4.1.1",
     "https-browserify": "^1.0.0",
     "i18next": "^21.8.2",
+    "lodash": "^4.17.21",
     "os-browserify": "^0.3.0",
     "react": "^17.0.2",
     "react-app-rewired": "^2.2.1",
@@ -29,7 +30,7 @@
     "react-scripts": "5.0.0",
     "redux": "^4.1.2",
     "redux-saga": "^1.1.3",
-    "sockjs-client": "^1.6.0",
+    "sockjs-client": "^1.5.1",
     "stompjs": "^2.3.3",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
@@ -44,7 +45,8 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "webpack": "webpack --version"
   },
   "eslintConfig": {
     "extends": [
@@ -68,16 +70,20 @@
     "@types/big.js": "^6.1.3",
     "@types/crypto-js": "^4.1.1",
     "@types/jest": "^27.4.0",
+    "@types/lodash": "^4.14.191",
     "@types/node": "^16.11.25",
+    "@types/pubsub-js": "^1.8.3",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
     "@types/sockjs-client": "^1.5.1",
     "@types/stompjs": "^2.3.5",
     "@types/styled-components": "^5.1.22",
     "buffer": "^6.0.3",
-    "crypto-browserify": "^3.12.0",
+    "less": "^4.1.3",
+    "less-loader": "^11.1.0",
     "node-sass": "^7.0.1",
     "process": "^0.11.10",
-    "sass-loader": "^12.6.0"
+    "sass-loader": "^12.6.0",
+    "webpack-cli": "^5.0.0"
   }
 }

@@ -6,6 +6,8 @@ import { Contracts } from '../web3'
 // import Tips from "../components/Tips"
 import { useTranslation } from 'react-i18next'
 import { isApprove, addMessage, showLoding, AddrHandle } from '../utils/tool'
+import { stateType } from '../store/reducer'
+
 import PurchaseBox from "../components/PurchaseBox"
 import BlindBoxImg from '../assets/image/BlindBoxImg.png'
 import ContractsImg from '../assets/image/Contracts.svg'
@@ -14,9 +16,11 @@ import '../assets/style/BlindBox.scss'
 import '../assets/style/RaceBoxModal.scss'
 import '../assets/style/PurchaseBox.scss'
 import copy from 'copy-to-clipboard';
-import { NumSplic } from '../utils/tool'
-import { contractAddress } from "../config"
+import { NumSplic, getWebsocketData } from '../utils/tool'
+import { contractAddress, socketUrl } from "../config"
 import BigNumber from 'big.js'
+import { useViewport } from "../components/viewportContext"
+import { useSelector } from "react-redux"
 
 export interface BoxBaseType {
   id: number
@@ -29,6 +33,8 @@ export interface BoxBaseType {
 }
 
 function BlindBox() {
+  const state = useSelector<stateType, stateType>(state => state)
+  const { width } = useViewport()
   const web3React = useWeb3React()
   let { t } = useTranslation()
   const [showRaceBoxModal, setShowRaceBoxModal] = useState(false)
@@ -36,8 +42,7 @@ function BlindBox() {
   /* 盲盒基本配置 */
   const [BoxBase, setBoxBase] = useState<BoxBaseType[]>([])
   const [buyBoxIndex, setBuyBoxIndex] = useState(0)
-  /* 授权额度 */
-  const [approveValue, setApproveValue] = useState('0')
+  const [BNBPrice, setBNBPrice] = useState(0)
   // const [showCardSynthesis, setshowCardSynthesis] = useState(true)
   /* 购买成功回调 */
   function buySuccess() {
@@ -54,42 +59,25 @@ function BlindBox() {
     setShowRaceBoxModal(true)
   }
 
-  function approveFun() {
-    if (!web3React.account) {
-      return addMessage(t('Please connect Wallet'))
-    }
-    showLoding(true)
-    Contracts.example.approve(web3React.account, contractAddress.BlindBox).then(() => {
-      Contracts.example.Tokenapprove(web3React.account as string, contractAddress.BlindBox).then((res: any) => {
-        setApproveValue(new BigNumber(res).div(10 ** 18).toString())
-      }).finally(() => {
-        showLoding(false)
-      })
-    })
-  }
   useEffect(() => {
-    if (web3React.account) {
+    if (web3React.account && state.token) {
       /* 查询盲盒基本配置 */
       getBoxBase().then(res => {
         console.log(res.data);
-        let data = res.data.map((item: any) => {
+        res.data.map((item: any) => {
+          setBNBPrice(item?.price)
           Contracts.example.toSBL(web3React.account as string, item?.price).then((res: any) => {
             let value = new BigNumber(res).div(10 ** 18).toString()
             setBoxBase([{ ...item, price: value }])
           })
         })
       })
-    }
-  }, [web3React.account])
-  useEffect(() => {
-    if (web3React.account) {
-      /* 查询用户授权 */
-      Contracts.example.Tokenapprove(web3React.account, contractAddress.BlindBox).then((res: any) => {
-        setApproveValue(new BigNumber(res).div(10 ** 18).toString())
-        // console.log(new BigNumber(res).div(10 ** 18).toString(),"授权额度")
+      // 推送
+      getWebsocketData(socketUrl, `/topic/noOpenEgg/${web3React.account}`, (data: any) => {
+        console.log(data, '推送数据')
       })
     }
-  }, [web3React.account])
+  }, [web3React.account, state.token])
   return (
     <div>
       <div className="Edition-Center">
@@ -114,7 +102,7 @@ function BlindBox() {
               }
             </div>
             <div className="CopyAddr" onClick={copyFun}>
-              盲盒
+              {t('Case')}
               <span>{t('Contract')}</span>
               <span>{AddrHandle('0x86C94d3F18D0cb355916705EeDB0bB4329C23b41', 12, 6)}</span>
               <div className="division"></div>
@@ -131,15 +119,17 @@ function BlindBox() {
               BoxBase.slice(0, 1).map((item, index) => <div key={item.id} className="Row">
                 <div className="BuyRow">
                   <div className="buyInfo">
-                    {/* <div className="BuyName">{index === 0 ? 'IGO':t('Sell')}</div> */}
-                    <div className="price">{t('price')}:{NumSplic(item.price + '', 6)} {item.coinName}/{t('pricer')}</div>
+                    <div className="price">{t('price')}:{Math.floor(item.price * 100 + 1) / 100} {item.coinName}
+                      {/* {width > 768 && <span>(~{NumSplic(`${BNBPrice}`, 4)} BNB)/{t('pricer')}</span>} */}
+                    </div>
+                    <span>(~{NumSplic(`${BNBPrice}`, 4)} BNB)/{t('pricer')}</span>
+
                     {
                       index === 0 && <div className="price">{t('Total')}:{item.totalNum}</div>
                     }
-                    {/* <div className="price">{t('Total')}:{item.totalNum}</div> */}
                   </div>
                   {
-                    <div className="BuyBtn linear-gradient pointer" onClick={() => { buyBox(index) }}>{t('BuyBtn')}</div>
+                    <div className="BuyBtn linear-gradient pointer flex" onClick={() => { buyBox(index) }}>{t('BuyBtn')}</div>
                   }
                 </div>
                 {
@@ -165,7 +155,7 @@ function BlindBox() {
                 </div>
                 <div className="ProInfo">
                   <div className="InfoNum">70%</div>
-                  <div className="InfoName">普通</div>
+                  <div className="InfoName">{t("Normal")}</div>
                 </div>
               </div>
               <div className="proItem" style={{ marginLeft: 45 }}>
@@ -174,7 +164,7 @@ function BlindBox() {
                 </div>
                 <div className="ProInfo">
                   <div className="InfoNum">20%</div>
-                  <div className="InfoName">良好</div>
+                  <div className="InfoName">{t("Good")}</div>
                 </div>
               </div>
               <div className="proItem" style={{ marginLeft: 45 }}>
@@ -183,7 +173,7 @@ function BlindBox() {
                 </div>
                 <div className="ProInfo">
                   <div className="InfoNum">10%</div>
-                  <div className="InfoName">優秀</div>
+                  <div className="InfoName">{t("Outstanding")}</div>
                 </div>
               </div>
             </div>

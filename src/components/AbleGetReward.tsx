@@ -2,9 +2,12 @@
 import React from 'react'
 import { Modal } from 'antd';
 import '../assets/style/componentsStyle/ConfirmExchange.scss'
-import BNBIcon from '../assets/image/BNBTokens.png'
+import BNBIcon from '../assets/image/BNBIcon.svg'
 import SBLIcon from '../assets/image/SBLTokens.png'
+import { NumSplic } from '../utils/tool';
+import { useTranslation } from 'react-i18next';
 function AbleGetReward(props: any) {
+    let { t } = useTranslation()
     return (
         <>
             <Modal visible={props.showModal}
@@ -15,11 +18,11 @@ function AbleGetReward(props: any) {
                 footer={null}
                 onCancel={() => { props.close() }}
             >
-                <p className='title'>可領取金額</p>
-                <div className="valueBox flex">{props.data} SBL </div>
-                <div className="confirmBtn flex">確認</div>
+                <p className='title'>{t("Receivable amount")}</p>
+                <div className="valueBox flex">{NumSplic(props.data, 8)} SBL </div>
+                <div className="confirmBtn flex" onClick={() => { props.getFun(3, props.dataId, props.data) }}>{t("Confirm")}</div>
 
-                <span>点击任意地方离开</span>
+                <span>{t("clickLeave")}</span>
             </Modal>
         </>
     )

@@ -22,7 +22,14 @@
                 /* identical to box height */
                 text-align: center;
                 color: #FFFFFF;
-                margin-bottom: 50px;
+                margin-bottom: 20px;
+            }
+
+            .titleTip {
+                font-weight: 500;
+                font-size: 18px;
+                margin-bottom: 30px;
+                color: #DB2DCF;
             }
 
             .Box {
@@ -75,14 +82,53 @@
                     }
 
                     .toApproveBtn {
-                        font-family: 'PingFang SC';
-                        font-style: normal;
-                        font-weight: 400;
-                        font-size: 14px;
-                        line-height: 20px;
-                        /* 紫色 */
-                        color: #DB2DCF;
+                        box-sizing: content-box;
+                        border: 0;
+                        padding: 1px;
+                        background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+                        border-radius: 6px;
+
+                        div {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 100%;
+                            height: 100%;
+                            font-family: 'PingFang SC';
+                            font-style: normal;
+                            font-weight: 400;
+                            font-size: 14px;
+                            /* 紫色 */
+                            color: #DB2DCF;
+                            background: #1d1e44;
+                            border-radius: 6px;
+
+                        }
                     }
+
+                    // .toApproveBtn {
+                    //     position: relative;
+                    //     color: #db2dcf;
+                    //     background: linear-gradient(90deg, #4eadf5 0%, #db2dcf 100%);
+                    //     box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+                    //     border-radius: 6px;
+                    //     border: 0;
+
+                    //     div {
+                    //         position: absolute;
+                    //         // justify-content: center;
+                    //         margin: auto;
+                    //         border-radius: 6px;
+                    //         line-height: 34px;
+                    //         left: 0;
+                    //         top: 0;
+                    //         right: 0;
+                    //         bottom: 0;
+                    //         width: 74px;
+                    //         height: 34px;
+                    //         background: #1d1e44;
+                    //     }
+                    // }
 
 
                 }
@@ -101,6 +147,23 @@
                         border: 1px solid rgba(255, 255, 255, 0.1);
                         border-radius: 10px;
 
+                        .minBox {
+                            width: 60px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+
+                            .value {
+                                font-family: 'PingFang SC';
+                                font-style: normal;
+                                font-weight: 700;
+                                font-size: 24px;
+                                line-height: 34px;
+                                /* identical to box height */
+                                color: #FFFFFF;
+                            }
+                        }
+
                         .value {
                             font-family: 'PingFang SC';
                             font-style: normal;
@@ -112,18 +175,20 @@
                         }
 
                         .coinName {
+                            display: flex;
+                            align-items: center;
                             font-family: 'DIN';
                             font-style: normal;
-                            font-weight: 500;
-                            font-size: 14px;
+                            font-weight: 700;
+                            font-size: 16px;
                             /* identical to box height */
                             letter-spacing: 0.08em;
                             color: #FFFFFF;
-                            display: flex;
-                            align-items: center;
 
                             img {
                                 margin-right: 4px;
+                                width: 20px;
+                                height: 20px;
                             }
                         }
                     }
@@ -225,5 +290,48 @@
             background: #434477;
             border-radius: 5px;
         }
+    }
+}
+
+@media screen and (max-width:470px) {
+    .AddLiquidityModal .ant-modal-content {
+        padding: 20px 18px;
+
+        .ant-modal-body {
+            .title {
+                margin-bottom: 40px;
+            }
+
+            .Box {
+                height: auto;
+
+                >div {
+                    display: block;
+
+                    .balance {
+                        word-break: break-all;
+
+                    }
+
+                    .rightBox {
+                        width: 100%;
+                        margin-top: 20px;
+                    }
+
+                    .approveBtn {
+                        width: 100%;
+                    }
+                }
+
+                // .coinBox .valueBox {
+                //     padding: 16px 12px;
+                // }
+            }
+
+            .toSupplyBtn {
+                margin-top: 40px;
+            }
+        }
+
     }
 }

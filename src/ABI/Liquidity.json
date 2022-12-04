@@ -39,6 +39,18 @@
       {
         "indexed": false,
         "internalType": "uint256",
+        "name": "BNBAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "SBLAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
         "name": "lpTokenAmount",
         "type": "uint256"
       }
@@ -200,7 +212,13 @@
       }
     ],
     "name": "addLiquidity",
-    "outputs": [],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "payable",
     "type": "function"
   },
@@ -373,6 +391,25 @@
     "inputs": [
       {
         "internalType": "uint256",
+        "name": "amountIn",
+        "type": "uint256"
+      }
+    ],
+    "name": "querySBLAmountOut",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
         "name": "typeNum",
         "type": "uint256"
       },
@@ -472,6 +509,32 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_pairAdd",
+        "type": "address"
+      }
+    ],
+    "name": "updatePairAdd",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_routerAdd",
+        "type": "address"
+      }
+    ],
+    "name": "updateRouterAdd",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {

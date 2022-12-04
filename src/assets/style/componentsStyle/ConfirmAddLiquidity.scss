@@ -43,6 +43,8 @@
 
                     img {
                         margin-right: 5px;
+                        width: 14px;
+                        height: 14px;
                     }
                 }
 
@@ -123,5 +125,10 @@
             }
 
         }
+    }
+}
+@media screen  and (max-width:425px){
+    .ConfirmAddLiquidity .ant-modal-content{
+        padding: 20px 18px;
     }
 }

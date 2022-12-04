@@ -6,8 +6,10 @@ import { stateType } from '../store/reducer'
 import { getBurnRecord } from '../API/index'
 import { dateFormat } from "../utils/tool";
 import "../assets/style/componentsStyle/DonationRecord.scss";
+import { useTranslation } from "react-i18next";
 const { Column } = Table;
 function DonationRecord(props: any) {
+  let { t } = useTranslation()
   let state = useSelector<stateType, stateType>(state => state);
   let [donationRecord, setDonationRecord] = useState([])
 
@@ -31,7 +33,7 @@ function DonationRecord(props: any) {
         footer={null}
         onCancel={() => props.close()}
       >
-        <p className="title"> 銷毀記錄 </p>
+        <p className="title"> {t("Destroy records")} </p>
         <Table
           dataSource={donationRecord}
           pagination={false}
@@ -39,7 +41,7 @@ function DonationRecord(props: any) {
           scroll={{ y: 260 }}
         >
           <Column
-            title="時間"
+            title={t("Time")}
             width={140}
             render={(item) => (
               <>
@@ -49,7 +51,7 @@ function DonationRecord(props: any) {
             )}
           />
           <Column
-            title="銷毀金額SBL"
+            title={t("Burn amount SBL")}
             render={(item) => (
               <>
                 <div>{item.burnAmount}</div>
@@ -57,7 +59,7 @@ function DonationRecord(props: any) {
             )}
           />
           <Column
-            title="獎勵BNB"
+            title={t("Reward BNB")}
             width={140}
             className='rewardBNB'
             render={(item) => (
@@ -67,7 +69,7 @@ function DonationRecord(props: any) {
             )}
           />
         </Table>
-        <span>點擊任意地方關閉</span>
+        <span>{t("clickLeave")}</span>
       </Modal>
     </>
   );

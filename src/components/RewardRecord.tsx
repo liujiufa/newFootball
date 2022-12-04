@@ -7,16 +7,20 @@ import { stateType } from '../store/reducer'
 import { getUserAccountDetail } from '../API/index'
 import { dateFormat } from '../utils/tool'
 import "../assets/style/componentsStyle/DonationRecord.scss";
+import { useTranslation } from "react-i18next";
 const { Column } = Table;
 function GetRecord(props: any) {
+  let { t } = useTranslation()
   let state = useSelector<stateType, stateType>(state => state);
   const [rewardRecordList, setRewardRecordList] = useState([])
   const web3React = useWeb3React()
 
   useEffect(() => {
-    getUserAccountDetail(3).then((res) => {
-      setRewardRecordList(res.data)
-    })
+    if (state.token) {
+      getUserAccountDetail(3).then((res) => {
+        setRewardRecordList(res.data)
+      })
+    }
   }, [state.token, web3React.account, props.showModal])
   return (
     <>
@@ -29,7 +33,7 @@ function GetRecord(props: any) {
         footer={null}
         onCancel={() => props.close()}
       >
-        <p className="title"> 領取記錄 </p>
+        <p className="title"> {t("Pick up record")} </p>
         <Table
           dataSource={rewardRecordList}
           pagination={false}
@@ -37,7 +41,7 @@ function GetRecord(props: any) {
           scroll={{ y: 260 }}
         >
           <Column
-            title="時間"
+            title={t("Time")}
             width={140}
             render={(item) => (
               <>
@@ -46,7 +50,7 @@ function GetRecord(props: any) {
             )}
           />
           <Column
-            title="金額"
+            title={t("Amount")}
             render={(item) => (
               <>
                 <div>{item.amount}</div>
@@ -54,16 +58,16 @@ function GetRecord(props: any) {
             )}
           />
           <Column
-            title="類型"
+            title={t("Type")}
             width={140}
             render={(item) => (
               <>
-                <div>獎勵領取</div>
+                <div>{t("claim")}</div>
               </>
             )}
           />
         </Table>
-        <span>點擊任意地方關閉</span>
+        <span>{t("clickLeave")}</span>
       </Modal>
     </>
   );

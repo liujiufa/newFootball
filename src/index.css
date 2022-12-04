@@ -132,7 +132,7 @@ input:focus, select:focus, textarea:focus {
 
 @media (max-width:425px) {
   .Edition-Center {
-    padding: 0px 15px;
+    padding: 0px 12px;
   }
 }
 
@@ -202,24 +202,52 @@ body::-webkit-scrollbar-thumb {
   display: none !important;
 }
 
-.ant-modal {
+/* .ant-modal {
   max-height: calc(100vh - 84px);
   margin: 64px auto 20px !important;
   pointer-events: auto !important;
-}
+} */
 
 @media (max-width:768px) {
   .ant-modal {
     overflow: auto;
   }
 
-  .ant-modal span {
+  /* 小屏合成 */
+  /* .ant-modal span {
     display: none;
-  }
+  } */
 }
 
 .flex {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.spanRotate {
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transition: transform .5s;
+}
+
+.spanReset {
+  transform: rotate(0deg);
+  -webkit-transform: rotate(0deg);
+  transition: transform .5s;
+}
+
+.swiper-slide-active {
+  z-index: 9999;
+}
+
+/* 设置预览图样式 */
+@media screen and (max-width:425px) {
+  .ant-image-preview-img {
+    transform: scale3d(1.4, 1.5, 1) rotate(0deg) !important;
+  }
+
+  .ant-image-preview-mask {
+    background-color: rgba(0, 0, 0) !important;
+  }
 }

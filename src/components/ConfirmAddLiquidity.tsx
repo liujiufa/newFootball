@@ -7,19 +7,31 @@ import { NumSplic } from '../utils/tool'
 import BigNumber from 'big.js'
 
 import '../assets/style/componentsStyle/ConfirmAddLiquidity.scss'
-import BNBIcon from '../assets/image/BNB.png'
+import BNBIcon from '../assets/image/BNBIcon.svg'
 import SBLIcon from '../assets/image/SBL.png'
 import tipIcon from '../assets/image/tipIcon.png'
+import { useTranslation } from 'react-i18next';
 const typeObj = { '0.2': 1, '0.5': 2, '1': 3, '2.5': 4, '8': 5 }
 function ConfirmAddLiquidity(props: any) {
+    const { t } = useTranslation()
     const web3React = useWeb3React()
     // ToSBL
     const [toSBL, setToSBL] = useState('0')
+    const [oneToSBL, setOneToSBL] = useState('0')
+    const [oneToBNB, setToBNB] = useState('0')
     useEffect(() => {
         if (web3React.account) {
             // toSBL
-            Contracts.example.toSBL(web3React.account as string, props.data).then((res: any) => {
+            Contracts.example.toLiquiditySBL(web3React.account as string, props.data).then((res: any) => {
                 setToSBL(new BigNumber(res).div(10 ** 18).toString())
+            })
+            //1BNB=> toSBL
+            Contracts.example.toLiquiditySBL(web3React.account as string, 1).then((res: any) => {
+                setOneToSBL(new BigNumber(res).div(10 ** 18).toString())
+            })
+            //1SBL=> toBNB
+            Contracts.example.toLiquidityBNB(web3React.account as string, 1).then((res: any) => {
+                setToBNB(new BigNumber(res).div(10 ** 18).toString())
             })
         }
     }, [web3React.account, props.showModal])
@@ -33,30 +45,30 @@ function ConfirmAddLiquidity(props: any) {
                 footer={null}
                 onCancel={() => { props.close() }}
             >
-                <p className='title'>添加流動性</p>
+                <p className='title'>{t("Add liquidity")}</p>
 
                 <div className="box">
-                    <div className="subTitle">入金 BNB</div>
+                    <div className="subTitle">{t("Deposit BNB")}</div>
                     <div className="value"><img src={BNBIcon} alt="" />{props.data}</div>
                 </div>
                 <div className="box">
-                    <div className="subTitle">入金 SBL</div>
+                    <div className="subTitle">{t("Deposit SBL")}</div>
                     <div className="value"><img src={SBLIcon} alt="" />{NumSplic(toSBL, 4)}</div>
                 </div>
                 <div className="box">
-                    <div className="subTitle">匯率</div>
+                    <div className="subTitle">{t("Exchange rate")}</div>
                     <div className="radioValue">
-                        <div className="radio">1 SBL = {NumSplic(`${props.data / parseFloat(toSBL)}`, 10)} BNB </div>
-                        <div className="radio">1 BNB = {NumSplic(`${parseFloat(toSBL) / props.data}`, 4)} SBL</div>
+                        <div className="radio">1 SBL = {NumSplic(oneToBNB, 10)} BNB </div>
+                        <div className="radio">1 BNB = {NumSplic(oneToSBL, 10)} SBL</div>
                     </div>
                 </div>
                 <div className="tip">
                     <img src={tipIcon} alt="" />
-                    匯率根據SWAP實時價格預估
+                    {t("The exchange rate is estimated based on SWAP real-time price.")}
                 </div>
 
-                <div className="toSupplyBtn flex" onClick={() => { props.addFun(typeObj[props.data]) }}>確認供應</div>
-                <span>点击任意地方离开</span>
+                <div className="toSupplyBtn flex" onClick={() => { props.addFun(typeObj[props.data]) }}>{t("Confirm supply")}</div>
+                <span>{t("clickLeave")}</span>
             </Modal>
         </>
     )

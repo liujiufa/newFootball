@@ -43,7 +43,7 @@
 
     .active {
       color: #db2dcf;
-      font-weight: 700;
+      // font-weight: 700;
     }
 
     .Lang {
@@ -189,7 +189,7 @@
 }
 
 .DropItem {
-  width: 80px;
+  width: 100px;
 }
 
 .ant-dropdown-menu {
@@ -203,7 +203,7 @@
   width: 100%;
   height: 46px;
   background: linear-gradient(180deg, #47047C 0%, #440576 0.01%, #2A0E41 100%);
-  z-index: 999999999;
+  z-index: 999;
   align-items: center;
 
   .MenuItem {
