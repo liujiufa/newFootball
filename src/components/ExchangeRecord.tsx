@@ -6,9 +6,11 @@ import { stateType } from '../store/reducer'
 import { getExchangeRecord, getMbaUseRecord } from '../API/index'
 import { dateFormat } from "../utils/tool";
 import '../assets/style/componentsStyle/DonationRecord.scss'
+import { useTranslation } from 'react-i18next';
 const { Column } = Table;
-const ojb: any = { '1': { title: '使用記錄', time: '時間', item1: '徽章ID', item2: 'MBA消耗' }, '2': { title: '兌換記錄', time: '時間', item1: 'SBL的消耗', item2: 'MBA獲得' }, }
 function ExchangeRecord(props: any) {
+    let { t } = useTranslation()
+    const ojb: any = { '1': { title: t('Usage record'), time: t('Time'), item1: t('Badge ID'), item2: t('MBA cost') }, '2': { title: t('Convert record'), time: t('Time'), item1: t('SBL cost'), item2: t('MBA get') }, }
     let state = useSelector<stateType, stateType>(state => state);
     let [donationRecord, setDonationRecord] = useState([])
 
@@ -73,7 +75,7 @@ function ExchangeRecord(props: any) {
                         )}
                     />
                 </Table>
-                <span>點擊任意地方關閉</span>
+                <span>{t("clickLeave")}</span>
             </Modal>
         </>
     )

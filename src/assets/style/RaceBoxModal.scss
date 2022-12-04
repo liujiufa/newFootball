@@ -1,5 +1,6 @@
 .RaceBoxModal {
-    height: 393px;
+
+    // height: 393px;
     .ant-modal-content {
         box-shadow: none;
         background: #1d1e44;
@@ -17,7 +18,23 @@
                 width: 235px;
                 height: 235px;
             }
-            .buyNum{
+
+            .Label {
+                font-weight: 400;
+                font-size: 16px;
+                color: #FFFFFF;
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+                display: flex;
+                align-items: left;
+                margin-right: 25px;
+                font-weight: 400;
+                font-size: 16px;
+                // margin-bottom: 30px;
+            }
+
+            .buyNum {
                 font-weight: 400;
                 font-size: 16px;
                 color: #FFFFFF;
@@ -26,36 +43,42 @@
                 margin: 0 auto;
                 display: flex;
                 align-items: center;
-                .Label{
+
+                .Label {
                     margin-right: 25px;
                     font-weight: 400;
                     font-size: 16px;
                 }
-                input{
-                    flex:1;
+
+                input {
+                    flex: 1;
                     border: 1px solid rgba(255, 255, 255, 0.1);
                     border-radius: 10px;
                     background: #171833;
                     height: 37px;
-                    margin:0 10px;
+                    margin: 0 10px;
                     width: 142px;
                     text-align: center;
                 }
             }
-            .payamount{
+
+            .payamount {
                 width: 300px;
                 font-weight: 400;
                 font-size: 16px;
                 color: #FFFFFF;
                 margin-top: 30px;
             }
+
             .Tip {
                 // width: 285px;
-                height: 22px;
+                // height: 22px;
                 margin-top: 30px;
                 font-size: 16px;
                 color: #fff;
+                // word-break: break-all;
             }
+
             .Verify {
                 // width: 76px;
                 padding: 0 15px;
@@ -66,7 +89,8 @@
                 color: #fff;
                 border: none;
             }
-            span{
+
+            span {
                 width: 100%;
                 text-align: center;
                 position: absolute;
@@ -82,4 +106,13 @@
 
 
 
+}
+
+@media screen and (max-width:425px) {
+    .RaceBoxModal .ant-modal-content .ant-modal-body .Label{
+        margin-bottom: 12px;
+    }
+    .RaceBoxModal .ant-modal-content .ant-modal-body .Verify{
+        margin-top: 20px;
+    }
 }

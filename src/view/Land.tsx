@@ -4,28 +4,44 @@ import { useTranslation } from 'react-i18next'
 import { Pagination } from 'antd';
 import NoData from '../components/NoData'
 import LandCard, { LandUserCard } from '../components/LandCard'
-import { getLandUserBeneficial, getLandUserCardList, getUserInfo, getLandUserList } from '../API'
+import { getLandUserBeneficial, getLandUserCardList, getUserInfo, getLandUserList, claimLand, userDrawAward, userCancelDrawAward } from '../API'
 import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
 import { useWeb3React } from '@web3-react/core'
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Contracts } from "../web3";
+import { showLoding, addMessage, NumSplic } from '../utils/tool';
+import Slide from "../components/Slide";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import SellCardDetails from '../components/SellCardDetails'
+import Tips from '../components/Tips'
+import BigNumber from 'big.js'
+import Banner from '../components/LandSwiper'
 import DropDown from '../components/DropDown'
 import LandCardDetails from '../components/LandCardDetails'
 import LandRewardRecord from '../components/LandRewardRecord'
-import "swiper/css";
-import "swiper/css/pagination";
 import '../assets/style/Swap.scss'
 import '../assets/style/Land.scss'
 import ClaimSuccess from '../components/ClaimSuccess'
 // import MyDealRecord from '../components/MyDealRecord'
 import SBLIcon from '../assets/image/SBLTokens.png'
-import landSwiper from '../assets/image/landSwiper1.png'
+
 import myTerritory from '../assets/image/landProcess/myTerritory.png'
 import landApply from '../assets/image/landProcess/landApply.png'
 import myRight from '../assets/image/landProcess/myRight.png'
 import myTerritoryActive from '../assets/image/landProcess/myTerritoryActive.png'
 import landApplyActive from '../assets/image/landProcess/landApplyActive.png'
 import myRightActive from '../assets/image/landProcess/myRightActive.png'
+
+import myTerritoryEN from '../assets/image/landProcessEN/myTerritory.png'
+import landApplyEN from '../assets/image/landProcessEN/landApply.png'
+import myRightEN from '../assets/image/landProcessEN/myRight.png'
+import myTerritoryActiveEN from '../assets/image/landProcessEN/myTerritoryActive.png'
+import landApplyActiveEN from '../assets/image/landProcessEN/landApplyActive.png'
+import myRightActiveEN from '../assets/image/landProcessEN/myRightActive.png'
+
 import RecordIcon from '../assets/image/record.png'
 import helpIcon from '../assets/image/helpIcon.png'
 
@@ -35,38 +51,29 @@ const LevelMap = [
     value: 0
   },
   {
-    key: 'Uncommon',
+    key: 'Outstanding',
     value: 1
   },
   {
-    key: 'Outstanding',
+    key: 'Rare',
     value: 2
   },
   {
-    key: 'Rare',
+    key: 'Perfect',
     value: 3
   },
   {
-    key: 'Perfect',
+    key: 'Epic',
     value: 4
   },
   {
-    key: 'Epic',
+    key: 'Legend',
     value: 5
-  },
-  {
-    key: '传奇',
-    value: 6
   },
 ]
 
-const landObj = [
-  { id: 1, title: '优秀品质土地', subTitle: '申领资格：合成良好徽章NFT', img: landSwiper, count: 0 },
-  { id: 2, title: '稀有品质土地', subTitle: '申领资格：合成优秀徽章NFT', img: landSwiper, count: 0 },
-  { id: 3, title: '良品品质土地', subTitle: '申领资格：合成稀有徽章NFT', img: landSwiper, count: 0 },
-  { id: 4, title: '史诗品质土地', subTitle: '申领资格：合成良品徽章NFT', img: landSwiper, count: 0 },
-  { id: 5, title: '传奇品质土地', subTitle: '申领资格：合成史诗徽章NFT', img: landSwiper, count: 0 },]
-const LevelObj = { 0: '普通', 1: '领主', 2: '城主', 3: '市长', 4: '州长', 5: '议长' }
+
+
 interface UserBeneficialType {
   amount: number,
   amountString: string,
@@ -88,10 +95,25 @@ interface landObjType {
   count: string
 }
 
+const tabObj = {
+  "zh": [landApply, myTerritory, myRight, landApplyActive, myTerritoryActive, myRightActive],
+  "en": [landApplyEN, myTerritoryEN, myRightEN, landApplyActiveEN, myTerritoryActiveEN, myRightActiveEN],
+}
+
 function Land() {
   let state = useSelector<stateType, stateType>(state => state);
   const web3React = useWeb3React()
-  let { t } = useTranslation()
+  let { t, i18n } = useTranslation()
+  console.log(i18n);
+
+  const LevelObj = { 0: t('Not active'), 1: t('Lord'), 2: t('Castellan'), 3: t('Mayor'), 4: t('Governor'), 5: t('Speaker') }
+  const landObj = [
+    { id: 1, count: 0 },
+    { id: 2, count: 0 },
+    { id: 3, count: 0 },
+    { id: 4, count: 0 },
+    { id: 5, count: 0 },
+  ]
   let [tabActive, setTabActive] = useState('1')
   let [totalNum, SetTotalNum] = useState(0)
   // 我的封号
@@ -117,6 +139,12 @@ function Land() {
   let [landApplicationNum, setLandApplicationNum] = useState(0)
   // 我的领地
   let [landUserCard, setLandUserCard] = useState<LandUserCard[]>([])
+  // 土地申领成功
+  let [ClaimSuccessModal, setClaimSuccessModal] = useState(false)
+  /* 创建订单弹窗控制 */
+  let [showCreateOrder, setShowCreateOrder] = useState(false)
+  /* 创建订单成功弹窗控制 */
+  let [showCreateOrderSuccess, setShowCreateOrderSuccess] = useState(false)
 
   // 奖励记录
   const rewardRecordFun = (index: number) => {
@@ -133,6 +161,93 @@ function Land() {
     setCardDetialIndex(index)
     setUserCardDetail(true)
   }
+  function createOrderFun(level: number) {
+    setUserCardDetail(false)
+    setShowCreateOrder(true)
+
+  }
+
+  function CreateOrderSuccess() {
+    setShowCreateOrder(false)
+    setShowCreateOrderSuccess(true)
+    if (state.token && web3React.account) {
+      // 土地申领
+      getLandUserList().then(res => {
+        console.log(res.data, '初始化土地申领1')
+        const list = landObj.map((item: any, index: any) => {
+          let newOptions = res.data.filter((v: any) => item.id == v.level)[0];
+          return ({
+            ...item,
+            count: newOptions?.landCount || item.count
+          })
+        })
+        console.log(list, '初始化土地申领2');
+        setLandApplication(list)
+        setLandApplicationNum(res.data.reduce((sum: any, item: any) => sum + item.landCount, 0))
+      })
+    }
+  }
+
+  // 申领土地
+  const applyLandFun = () => {
+    if (state.token) {
+      claimLand().then((res) => {
+        console.log(res);
+        showLoding(true)
+        Contracts.example.ApplyLand(web3React.account as string, res.data).then((res: any) => {
+          console.log(res);
+          // 土地申领
+          // getLandUserList().then(res => {
+          //   console.log(res);
+          //   const list = landObj.map((item: any, index: any) => {
+          //     let newOptions = res.data.filter((v: any) => item.id == v.level)[0];
+          //     return ({
+          //       ...item,
+          //       count: newOptions?.landCount || item.count
+          //     })
+          //   })
+          //   console.log(list, '土地申领');
+          //   setLandApplication(list)
+          //   setLandApplicationNum(res.data.reduce((sum: any, item: any) => sum + item.landCount, 0))
+          // })
+          setClaimSuccessModal(true)
+        }).finally(() => {
+          showLoding(false)
+        })
+      })
+    }
+  }
+  // 领取
+  function Receive(type: number, id: number, amount: number) {
+    console.log(type, id, amount);
+    if (!web3React.account) {
+      return addMessage(t('Please connect Wallet'))
+    }
+    if (new BigNumber(amount).lte(0)) {
+      return addMessage(t('No collectable quantity'))
+    }
+    userDrawAward({
+      type, id
+    }).then((res: any) => {
+      console.log(res);
+      if (res.data && web3React.account) {
+        showLoding(true)
+        Contracts.example.getLandAward(web3React.account as string, res.data).then((res: any) => {
+          addMessage(t('Receive success'))
+        }, (err: any) => {
+          if (err.code === 4001) {
+            userCancelDrawAward({ type, id }).then(() => {
+              addMessage(t('Cancellation received successfully'))
+            })
+          }
+        }).finally(() => {
+          showLoding(false)
+        })
+      } else {
+        addMessage(res.msg)
+      }
+    })
+  }
 
   useEffect(() => {
     if (state.token && web3React.account && tabActive === '2') {
@@ -144,38 +259,37 @@ function Land() {
         userAddress: web3React.account
       }
       ).then(res => {
-        console.log(res.data, "我的领地")
-        setLandUserCard(res.data)
+        console.log(res.data.list, "我的领地")
+        setLandUserCard(res.data.list)
         SetTotalNum(res.data.size)
       })
+
     }
-  }, [state.token, web3React.account, level, page, tabActive])
+  }, [state.token, web3React.account, level, page, tabActive, showCreateOrderSuccess])
 
   useEffect(() => {
     if (state.token && web3React.account && tabActive === '1') {
       // 土地申领
       getLandUserList().then(res => {
-        console.log(res.data, "获取土地申领数据")
+        console.log(res.data, '初始化土地申领1')
         const list = landObj.map((item: any, index: any) => {
-          let newOptions = res.data.filter((v: any) => item.level == v.id)[0];
-            return ({
-              ...item,
-              count: newOptions?.landCount || item.count
+          let newOptions = res.data.filter((v: any) => item.id == v.level)[0];
+          return ({
+            ...item,
+            count: newOptions?.landCount || item.count
           })
         })
-
-        landObj.map((item: any, index: number) => {
-
-        })
-        // setLandApplication()
+        console.log(list, '初始化土地申领2');
+        setLandApplication(list)
         setLandApplicationNum(res.data.reduce((sum: any, item: any) => sum + item.landCount, 0))
       })
     }
+
     if (state.token) {
       // 我的封号
       getUserInfo().then(res => {
         console.log(res.data, "我的封号")
-        setUserLevel(res.data.levlel)
+        setUserLevel(res.data.level)
       })
     }
 
@@ -186,50 +300,51 @@ function Land() {
         setUserBeneficial(res.data)
       })
     }
-  }, [state.token, web3React.account, tabActive])
+
+    // if (state.token && web3React.account && tabActive === '1') {
+    //   let time = setInterval(() => {
+    //     // 土地申领
+    //     getLandUserList().then(res => {
+    //       setLandApplicationNum(res.data.reduce((sum: any, item: any) => sum + item.landCount, 0))
+    //     })
+    //   }, 5000)
+    //   return () => {
+    //     clearInterval(time)
+    //   }
+    // }
+  }, [state.token, web3React.account, tabActive, landApplicationNum, ClaimSuccessModal])
 
   return (
     <div>
       <div className="Land">
         <div className="SwapTitle">
-          NFT - 土地
+          NFT - {t("Land")}
         </div>
-        <div className="processState">
+        {/* <div className="processState">
           <div className="imgBox" onClick={() => { setTabActive('1') }}><img src={tabActive === '1' ? landApplyActive : landApply} alt="" /></div>
           <div className="imgBox" onClick={() => { setTabActive('2') }}><img src={tabActive === '2' ? myTerritoryActive : myTerritory} alt="" /></div>
           <div className="imgBox" onClick={() => { setTabActive('3') }}><img src={tabActive === '3' ? myRightActive : myRight} alt="" /></div>
+        </div> */}
+        <div className="processState">
+          <div className="imgBox" onClick={() => { setTabActive('1') }}><img src={tabActive === '1' ? tabObj[i18n.language][3] : tabObj[i18n.language][0]} alt="" /></div>
+          <div className="imgBox" onClick={() => { setTabActive('2') }}><img src={tabActive === '2' ? tabObj[i18n.language][4] : tabObj[i18n.language][1]} alt="" /></div>
+          <div className="imgBox" onClick={() => { setTabActive('3') }}><img src={tabActive === '3' ? tabObj[i18n.language][5] : tabObj[i18n.language][2]} alt="" /></div>
         </div>
+        {/* <div className="processState">
+          <div className="imgBox" onClick={() => { setTabActive('1') }}><img src={tabActive === '1' ? (i18n.language === "zh" ? landApplyActive : landApplyActiveEN) : (i18n.language === "zh" ? landApply : landApplyEN)} alt="" /></div>
+          <div className="imgBox" onClick={() => { setTabActive('2') }}><img src={tabActive === '2' ? (i18n.language === "zh" ? myTerritoryActive : myTerritoryActiveEN) : (i18n.language === "zh" ? myTerritory : myTerritoryEN)} alt="" /></div>
+          <div className="imgBox" onClick={() => { setTabActive('3') }}><img src={tabActive === '3' ? (i18n.language === "zh" ? myRightActive : myRightActiveEN) : (i18n.language === "zh" ? myRight : myRightEN)} alt="" /></div>
+        </div> */}
         {/* 1.土地申领 */}
         {
           tabActive === '1' && <div className="Content">
             <div className="LandDesc">
-              土地是Space Ball 生態中最有價值的NFT，發行數量有限，是生態中最稀缺的資源。Space Ball 將對早期參與生態交互的用戶進行土地免費空投，用戶參與徽章NFT的合成，即可獲得土地申領權限。持有土地並激活后，可以享受土地分紅和土地服務獎，共享生態發展收益。
+              {t("LandDes")}
             </div>
             {/* 轮播图 */}
-            <Swiper
-              style={{ width: "1200px", display: "flex" }}
-              slidesPerView={3}
-              spaceBetween={30}
-              centeredSlides={true}
-              loop={true}
-              loopFillGroupWithBlank={true}
-              className="mySwiper"
-              id="swiper-nft-pc"
-              slideToClickedSlide
-              onSlideChangeTransitionEnd={(s) => {
-                // if (landObj[s.realIndex]?.type && landObj[s.realIndex]?.url) {
-                //   // setNftType(nftIdo[s.realIndex]?.type)
-                //   // setInfoImg(nftIdo[s.realIndex]?.url)
-                // }
-              }}
-            >
-              {
-                landObj.map((item, idx) => <SwiperSlide style={{ width: "20%", height: "500px", background: "#FFF" }}>
-                  <div ><img src={item.img} alt="" /></div>
-                </SwiperSlide>)
-              }
-            </Swiper>
-            {landApplicationNum > 0 ? <div className="applyBtn flex">申请({landApplicationNum})</div> : <div className="toApplyBtn flex">申请</div>}
+
+            <Slide landObj={landObj} />
+            {landApplicationNum > 0 ? <div className="applyBtn flex" onClick={() => { applyLandFun() }}>{t("Claim")}({landApplicationNum})</div> : <div className="toApplyBtn flex">{t("Claim")}</div>}
           </div>
         }
         {/* 2.我的领地 */}
@@ -238,17 +353,17 @@ function Land() {
             <>
               <div className="screen">
                 <div className="title">
-                  {userLevel >= 0 && <>我的封號：<div className="myTitle flex">{LevelObj[userLevel]}</div></>}
+                  {userLevel >= 0 && <>{t("My title")}：<div className="myTitle flex">{LevelObj[userLevel]}</div></>}
                 </div>
                 <div className="DropDownGroup">
                   <DropDown Map={LevelMap} change={SetLevel} staetIndex={level}></DropDown>
                 </div>
               </div>
-              {/* 盲盒 */}
+              {/* 我的领地 */}
               {
                 landUserCard.length > 0 ? <>
                   <div className="CardList">
-                    {landUserCard.map((item, index) => <LandCard key={item.id} Index={index} cardInfo={item} showDetail={showDetailFun}></LandCard>)}
+                    {landUserCard.map((item, index) => <LandCard userLevel={userLevel} key={item.id} Index={index} cardInfo={item} showDetail={showDetailFun}></LandCard>)}
                   </div>
                 </> : <>
                   <NoData></NoData>
@@ -264,46 +379,46 @@ function Land() {
         {
           tabActive === '3' && <div className="Content">
             {userBeneficial.length > 0 && <div className="myLandRightBox">
-              <div className="myTitle" onClick={() => { setLandDetailDes(true) }}>我的封號：{LevelObj[userLevel]}<img src={helpIcon}></img> </div>
+              <div className="myTitle" onClick={() => { setLandDetailDes(true) }}>{t("My title")}：{LevelObj[userLevel]}<img src={helpIcon}></img> </div>
               {/* 我的权益 */}
               <div className="RewardBox">
 
                 <div className="landService">
-                  <div className="title">土地服務獎</div>
+                  <div className="title">{t("Land service income")}</div>
                   <div className="allReward">
                     <div className='allRewardBox'>
-                      <div className="allRewardTitle">纍計收益：</div>
-                      <div className="allRewardValue">{userBeneficial[0]?.totalAmount} {userBeneficial[0]?.coinName}</div>
+                      <div className="allRewardTitle">{t("Cumulative income")}：</div>
+                      <div className="allRewardValue">{NumSplic(`${userBeneficial[0]?.totalAmount}`, 4)} {userBeneficial[0]?.coinName}</div>
                     </div>
                     <div className="btnBox"><div></div></div>
                   </div>
                   <div className="valueBox">
                     <div className="box">
-                      <div className="value">{userBeneficial[0]?.amount}</div>
+                      <div className="value">{NumSplic(`${userBeneficial[0]?.amount}`, 4)}</div>
                       <div className="coinName"><img src={SBLIcon} alt="" /> {userBeneficial[0]?.coinName}</div>
                     </div>
-                    <div className="btnBox"><div className="getBtn flex">領取</div></div>
+                    <div className="btnBox"><div className="getBtn flex" onClick={() => { Receive(2, userBeneficial[0]?.id, userBeneficial[0]?.amount) }}>{t("Harvest")}</div></div>
                   </div>
-                  <div className="rewardRecord" onClick={() => { rewardRecordFun(2) }}>獎勵記錄<img src={RecordIcon} alt="" /></div>
+                  <div className="rewardRecord" onClick={() => { rewardRecordFun(2) }}>{t("Records2")}<img src={RecordIcon} alt="" /></div>
                 </div>
 
                 <div className="landShare">
-                  <div className="title">土地分紅</div>
+                  <div className="title">{t("Land dividend")}</div>
                   <div className="allReward">
                     <div className='allRewardBox'>
-                      <div className="allRewardTitle">纍計收益：</div>
-                      <div className="allRewardValue">{userBeneficial[1]?.totalAmount} {userBeneficial[1]?.coinName}</div>
+                      <div className="allRewardTitle">{t("Cumulative income")}：</div>
+                      <div className="allRewardValue">{NumSplic(`${userBeneficial[1]?.totalAmount}`, 4)} {userBeneficial[1]?.coinName}</div>
                     </div>
                     <div className="btnBox"><div></div></div>
                   </div>
                   <div className="valueBox">
                     <div className="box">
-                      <div className="value">{userBeneficial[1]?.amount}</div>
+                      <div className="value">{NumSplic(`${userBeneficial[1]?.amount}`, 4)}</div>
                       <div className="coinName"><img src={SBLIcon} alt="" /> {userBeneficial[1]?.coinName}</div>
                     </div>
-                    <div className="btnBox"><div className="getBtn flex">領取</div></div>
+                    <div className="btnBox"><div className="getBtn flex" onClick={() => { Receive(4, userBeneficial[1]?.id, userBeneficial[1]?.amount) }}>{t("Harvest")}</div></div>
                   </div>
-                  <div className="rewardRecord" onClick={() => { rewardRecordFun(4) }}>獎勵記錄<img src={RecordIcon} alt="" /></div>
+                  <div className="rewardRecord" onClick={() => { rewardRecordFun(4) }}>{t("Records2")}<img src={RecordIcon} alt="" /></div>
                 </div>
 
               </div>
@@ -312,14 +427,20 @@ function Land() {
         }
 
       </div>
+      {/* 挂卖成功 */}
+      <Tips isShow={showCreateOrderSuccess} title={t('List successfully')} subTitle={t('List to the market successfully')} enterFun={() => setShowCreateOrderSuccess(false)} close={() => setShowCreateOrderSuccess(false)}></Tips>
       {/* 申领成功 */}
-      <ClaimSuccess showModal={false}></ClaimSuccess>
+      {landApplication.length > 0 && <ClaimSuccess data={landApplication} showModal={ClaimSuccessModal} close={() => { setClaimSuccessModal(false) }}></ClaimSuccess>}
       {/* 土地详情 */}
-      {landUserCard[cardDetialIndex] && <LandCardDetails userLevel={userLevel} CardInfo={landUserCard[cardDetialIndex]} showModal={userCardDetail} close={() => setUserCardDetail(false)}></LandCardDetails>}
+      {landUserCard[cardDetialIndex] && <LandCardDetails showCreateOrder={createOrderFun} userLevel={userLevel} CardInfo={landUserCard[cardDetialIndex]} showModal={userCardDetail} close={() => setUserCardDetail(false)}></LandCardDetails>}
       {/* 土地详情说明 */}
       <LandDetailDes showModal={landDetailDes} close={() => setLandDetailDes(false)}></LandDetailDes>
       {/* 奖励记录(土地服务费、土地分红) */}
-      {landRewardRecordId && <LandRewardRecord id={landRewardRecordId} showModal={landRewardRecord}></LandRewardRecord>}
+      {landRewardRecordId && <LandRewardRecord id={landRewardRecordId} showModal={landRewardRecord} close={() => { setLandRewardRecord(false) }}></LandRewardRecord>}
+      {/* 土地挂卖 */}
+      {
+        landUserCard.length > 0 && landUserCard[cardDetialIndex] && <SellCardDetails userLevel={userLevel} isShow={showCreateOrder} CardInfo={landUserCard[cardDetialIndex]} CreateOrderSuccess={CreateOrderSuccess} close={() => setShowCreateOrder(false)} type="CreateOrder"></SellCardDetails>
+      }
     </div >
   )
 }

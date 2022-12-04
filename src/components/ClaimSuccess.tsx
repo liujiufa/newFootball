@@ -2,9 +2,11 @@
 import React from 'react'
 import { Modal } from 'antd';
 import '../assets/style/componentsStyle/ConfirmExchange.scss'
-import BNBIcon from '../assets/image/BNBTokens.png'
+import BNBIcon from '../assets/image/BNBIcon.svg'
 import SBLIcon from '../assets/image/SBLTokens.png'
+import { useTranslation } from 'react-i18next';
 function ClaimSuccess(props: any) {
+    let { t } = useTranslation()
     return (
         <>
             <Modal visible={props.showModal}
@@ -13,12 +15,19 @@ function ClaimSuccess(props: any) {
                 width={'418px'}
                 closable={false}
                 footer={null}
+                onCancel={() => { props.close() }}
             >
-                <p className='title'>申領成功</p>
-                <div className="tip">優秀土地2  傳奇土地2  稀有土地2  </div>
-                <div className="confirmBtn flex">確認</div>
+                <p className='title'>{t("Mint successfully")}</p>
+                <div className="tip">
+                    {props.data.map((item: any, index: any) => {
+                        if (item.count > 0) {
+                            return `${item.title}${item.count} `
+                        }
+                    })}
+                </div>
+                <div className="confirmBtn flex" onClick={() => { props.close() }}>{t("Confirm")}</div>
 
-                <span>点击任意地方离开</span>
+                <span>{t("clickLeave")}</span>
             </Modal>
         </>
     )

@@ -43,6 +43,8 @@
             }
         }
 
+
+
         .addLiquidity {
             width: 118px;
             height: 36px;
@@ -114,12 +116,14 @@
 
                         .img1 {
                             z-index: 2;
+                            width: 14px;
+                            height: 14px;
                         }
 
                         .img2 {
                             position: absolute;
                             left: 7px;
-
+                            
                         }
 
                     }
@@ -187,5 +191,15 @@
         line-height: 20px;
         /* identical to box height */
         color: #FFFFFF;
+    }
+}
+
+@media screen and (max-width:425px) {
+    .LiquidityBox {
+        padding: 0px 12px;
+
+        .content {
+            // margin-top: 50px;
+        }
     }
 }

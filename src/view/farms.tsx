@@ -2,7 +2,7 @@ import React from 'react'
 import '../assets/style/farms.scss'
 import { useTranslation } from "react-i18next";
 import FarmsItem from '../components/FarmsItem'
-import BNBToken from '../assets/image/BNBToken.png'
+import BNBToken from '../assets/image/BNBIcon.svg'
 import SBLTokenIcon from '../assets/image/SBLTokenIcon.png'
 import MBAToken from '../assets/image/MBAToken.png'
 import USDCIcon from '../assets/image/USDCIcon.png'

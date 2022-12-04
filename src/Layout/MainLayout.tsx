@@ -35,9 +35,9 @@ const MainLayout: React.FC = () => {
       }
     },
     {
-      name: t("Invitation"),
+      name: "SWAP",
       Fun: () => {
-        navigate("/Invitation");
+        window.open("https://pancake.kiemtienonline360.com/#/swap")
       }
     },
     {
@@ -53,7 +53,13 @@ const MainLayout: React.FC = () => {
       Fun: () => {
         navigate("/Farms");
       }
-    }
+    },
+    {
+      name: t("Invitation"),
+      Fun: () => {
+        navigate("/Invitation");
+      }
+    },
   ]
   // 底部NFT菜单
   const NFTSubMenuList = [
@@ -64,25 +70,43 @@ const MainLayout: React.FC = () => {
       }
     },
     {
+      name: t('Land'),
+      Fun: () => {
+        navigate("/Land");
+      }
+    },
+    {
       name: t("Pledge"),
-      Fun: noOpen
+      Fun: () => {
+        navigate("/Pledge");
+      }
     },
   ]
   // 底部SBL菜单
   const SBLSubMenuList = [
     {
-      name: t("Node Coinage"),
+      name: t("Liquidity"),
+      Fun: () => {
+        navigate("/Liquidity");
+      }
+    },
+    {
+      name: t('Burn fund'),
+      Fun: () => {
+        navigate("/DestructFund");
+      }
+    },
+    {
+      name: t('Coinage'),
       Fun: () => {
         navigate("/Node");
       }
     },
     {
-      name: t("Donation"),
-      Fun: noOpen
-    },
-    {
-      name: t("Liquidity"),
-      Fun: noOpen
+      name: t('MBA Convert'),
+      Fun: () => {
+        navigate("/MBASwap");
+      }
     },
   ]
   function getparent(triggerNode: any) {
@@ -145,7 +169,7 @@ const MainLayout: React.FC = () => {
           type: "divider",
         },
         {
-          label: <div className="DropItem">土地</div>,
+          label: <div className="DropItem">{t('Land')}</div>,
           key: "/Land",
         },
         {
@@ -154,6 +178,24 @@ const MainLayout: React.FC = () => {
         {
           label: <div className="DropItem">{t("Pledge")}</div>,
           key: "/Pledge",
+        },
+      ]}
+    />
+  );
+  const ecologyMenu = (
+    <Menu
+      // onClick={goNft}
+      items={[
+        {
+          label: <div className="DropItem">{t("Guess")}</div>,
+          key: "/NFT",
+        },
+        {
+          type: "divider",
+        },
+        {
+          label: <div className="DropItem">{t("Games")}</div>,
+          key: "/Land",
         },
       ]}
     />
@@ -173,26 +215,27 @@ const MainLayout: React.FC = () => {
           type: "divider",
         },
         {
-          label: <div className="DropItem">銷毀基金</div>,
+          label: <div className="DropItem">{t('Burn fund')}</div>,
           key: "/DestructFund",
         },
         {
           type: "divider",
         },
         {
-          label: <div className="DropItem">鑄幣節點</div>,
+          label: <div className="DropItem">{t('Coinage')}</div>,
           key: "/Node",
         },
         {
           type: "divider",
         },
         {
-          label: <div className="DropItem">MBA兌換</div>,
+          label: <div className="DropItem">{t('MBA Convert')}</div>,
           key: "/MBASwap",
         },
       ]}
     />
   );
+  // 更多
   const SecondaryOther = (
     <Menu>
       <Menu.Item key="6" onClick={noOpen}>
@@ -204,10 +247,18 @@ const MainLayout: React.FC = () => {
       <Menu.Item
         key="4"
         onClick={() => {
-          navigate("/Node");
+          navigate("/Swap");
         }}
       >
-        {t("SBL Governance")}
+        {t("Swap")}
+      </Menu.Item>
+      <Menu.Item
+        key="7"
+        onClick={() => {
+          window.open("https://pancake.kiemtienonline360.com/#/swap")
+        }}
+      >
+        SWAP
       </Menu.Item>
       <Menu.Item
         key="6"
@@ -230,6 +281,12 @@ const MainLayout: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   function menuActive(Path: string) {
+    // if (Path === "/NFT" && (location.pathname === "/NFT" || location.pathname === "/Pledge" || location.pathname === "/Land")) {
+    //   return "MenuItem pointer active";
+    // }
+    if (Path === "/NFT") {
+      return "MenuItem pointer"
+    }
     if (Path === location.pathname) {
       return "MenuItem pointer active";
     } else {
@@ -266,14 +323,47 @@ const MainLayout: React.FC = () => {
       >
         {t("BlindBox")}
       </Menu.Item>
-      <Menu.Item
+
+      {/* <Menu.Item
         key="2"
         onClick={() => {
           navigate("/Swap");
         }}
       >
         {t("Swap")}
-      </Menu.Item>
+      </Menu.Item> */}
+
+      <Menu.SubMenu title={t("SBL Governance")}>
+        <Menu.Item
+          onClick={() => {
+            navigate("/Liquidity");
+          }}
+        >
+          {t("Liquidity")}
+        </Menu.Item>
+        <Menu.Item
+          onClick={() => {
+            navigate("/DestructFund");
+          }}
+        >
+          {t('Burn fund')}
+        </Menu.Item>
+        <Menu.Item
+          onClick={() => {
+            navigate("/Node");
+          }}
+        >
+          {t('Coinage')}
+        </Menu.Item>
+        <Menu.Item
+          onClick={() => {
+            navigate("/MBASwap");
+          }}
+        >
+          {t('MBA Convert')}
+        </Menu.Item>
+      </Menu.SubMenu>
+
       <Menu.SubMenu title="NFT">
         <Menu.Item
           onClick={() => {
@@ -287,13 +377,10 @@ const MainLayout: React.FC = () => {
             navigate("/Land");
           }}
         >
-          土地
+          {t('Land')}
         </Menu.Item>
         <Menu.Item onClick={noOpen}>{t("Pledge")}</Menu.Item>
       </Menu.SubMenu>
-      {/* <Menu.Item key="3" onClick={() =>{navigate('/NFT')}}>
-                NFT
-            </Menu.Item> */}
       <Menu.Item key="6" onClick={noOpen}>
         {t("Guess")}
       </Menu.Item>
@@ -330,14 +417,6 @@ const MainLayout: React.FC = () => {
     <Layout className="layout">
       <Header style={{ position: "fixed", zIndex: 999, width: "100%" }}>
         <div className="Header-Edition-Center HeaderNav">
-          {/* <Dropdown
-            overlay={HeadMenu}
-            getPopupContainer={getparent}
-            trigger={["click"]}
-          >
-            <img className="MobileHeadMenu" src={logo} alt="" />
-          </Dropdown> */}
-          {/* <img className="MobileHeadMenu" src={logo} alt="" /> */}
           <img
             className="HeadMenu"
             src={logo}
@@ -346,6 +425,8 @@ const MainLayout: React.FC = () => {
             }}
             alt=""
           />
+
+          {/* 小屏 */}
           <div className="MenuList Secondary">
             <div
               className={menuActive("/")}
@@ -363,14 +444,17 @@ const MainLayout: React.FC = () => {
             >
               {t("BlindBox")}
             </div>
-            <div
-              className={menuActive("/Swap")}
-              onClick={() => {
-                navigate("/Swap");
-              }}
+            <Dropdown
+              overlay={SBLMenu}
+              placement="bottom"
+              overlayClassName="LangDropDown"
+              trigger={["click"]}
+              arrow={{ pointAtCenter: true }}
             >
-              {t("Swap")}
-            </div>
+              <div className={menuActive("/SBL")}>{t("SBL Governance")}</div>
+            </Dropdown>
+
+
             <Dropdown
               overlay={NftMenu}
               placement="bottom"
@@ -388,9 +472,10 @@ const MainLayout: React.FC = () => {
               arrow={{ pointAtCenter: true }}
             >
               <div className={menuActive("")}>...</div>
-
             </Dropdown>
           </div>
+
+          {/* 大屏 */}
           <div className="MenuList LargeScreen">
             <div
               className={menuActive("/")}
@@ -408,29 +493,6 @@ const MainLayout: React.FC = () => {
             >
               {t("BlindBox")}
             </div>
-            <div
-              className={menuActive("/Swap")}
-              onClick={() => {
-                navigate("/Swap");
-              }}
-            >
-              {t("Swap")}
-            </div>
-            <Dropdown
-              overlay={NftMenu}
-              placement="bottom"
-              overlayClassName="LangDropDown"
-              trigger={["click"]}
-              arrow={{ pointAtCenter: true }}
-            >
-              <div className={menuActive("/NFT")}>NFT</div>
-            </Dropdown>
-            <div className={menuActive("/Guess")} onClick={noOpen}>
-              {t("Guess")}
-            </div>
-            <div className={menuActive("/Games")} onClick={noOpen}>
-              {t("Games")}
-            </div>
             <Dropdown
               overlay={SBLMenu}
               placement="bottom"
@@ -440,14 +502,49 @@ const MainLayout: React.FC = () => {
             >
               <div className={menuActive("/SBL")}>{t("SBL Governance")}</div>
             </Dropdown>
-            {/* <div
-              className={menuActive("/SBL")}
+            <Dropdown
+              overlay={NftMenu}
+              placement="bottom"
+              overlayClassName="LangDropDown"
+              trigger={["click"]}
+              arrow={{ pointAtCenter: true }}
+            >
+              <div className={menuActive("/NFT")}>NFT</div>
+            </Dropdown>
+            <div
+              className={menuActive("/Swap")}
               onClick={() => {
-                navigate("/SBL");
+                navigate("/Swap");
               }}
             >
-              {t("SBL Governance")}
+              {t("Swap")}
+            </div>
+            <div
+              className='MenuItem pointer'
+              onClick={() => {
+                window.open("https://pancake.kiemtienonline360.com/#/swap")
+              }}
+            >
+              SWAP
+            </div>
+
+            <Dropdown
+              overlay={ecologyMenu}
+              placement="bottom"
+              overlayClassName="LangDropDown"
+              trigger={["click"]}
+              arrow={{ pointAtCenter: true }}
+            >
+              <div className={menuActive("/Ecology")}>{t('Ecology')}</div>
+            </Dropdown>
+
+            {/* <div className={menuActive("/Guess")} onClick={noOpen}>
+              {t("Guess")}
+            </div>
+            <div className={menuActive("/Games")} onClick={noOpen}>
+              {t("Games")}
             </div> */}
+
             <div
               className={menuActive("/farms")}
               onClick={() => {
@@ -606,9 +703,9 @@ const MainLayout: React.FC = () => {
         </div>
       }
       <div className="FootMenu">
-        <div className="MenuItem flexCenter" onClick={() => {
+        {/* <div className="MenuItem flexCenter" onClick={() => {
           navigate("/");
-        }}>{t("Home")}</div>
+        }}>{t("Home")}</div> */}
         <div className="division"></div>
         <div className="MenuItem flexCenter" onClick={() => {
           navigate("/BlindBox");
@@ -617,10 +714,11 @@ const MainLayout: React.FC = () => {
         {/* <div className="MenuItem flexCenter" onClick={() => {
           navigate("/Swap");
         }}>{t("Swap")}</div> */}
-        <div className="MenuItem flexCenter" onClick={showSBLOther}>SBL</div>
-        <div className="division"></div>
         <div className="MenuItem flexCenter" onClick={showNftOther}>NFT</div>
         <div className="division"></div>
+        <div className="MenuItem flexCenter" onClick={showSBLOther}>SBL</div>
+        <div className="division"></div>
+
         <div className="MenuItem flexCenter" onClick={showOther}>
           <div className="other flexCenter">
             ···

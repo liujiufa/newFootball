@@ -7,8 +7,11 @@ import { useWeb3React } from '@web3-react/core'
 import { Contracts } from '../web3';
 import BigNumber from 'big.js'
 import '../assets/style/componentsStyle/ConfirmDestruct.scss'
+import { NumSplic } from '../utils/tool';
+import { useTranslation } from 'react-i18next';
 
 function ConfirmDestruct(props: any) {
+  let { t } = useTranslation()
   let state = useSelector<stateType, stateType>(state => state);
   const [BNBValue, setBNBValue] = useState('0')
   const web3React = useWeb3React()
@@ -30,12 +33,11 @@ function ConfirmDestruct(props: any) {
         onCancel={() => { props.close() }}
       >
 
-        <p className='title'>銷毀</p>
+        <p className='title'>{t("Burn")}</p>
         <div className='box'>
-          <p className='zifujg'>此次銷毀消耗{props.data} SBL
-            您將獲得 {BNBValue} BNB 的銷毀獎勵。</p>
+          <p className='zifujg'>{t("BurnTip", { price1: props.data, price2: NumSplic(BNBValue, 8) })}</p>
         </div>
-        <div className="ConfirmBtn flex" onClick={() => { props.BurnFun(parseFloat(props.data)) }}>確定</div>
+        <div className="ConfirmBtn flex" onClick={() => { props.BurnFun(parseFloat(props.data)) }}>{t("Confirm")}</div>
       </Modal>
     </>
   )

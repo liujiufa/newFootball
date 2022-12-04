@@ -17,11 +17,22 @@
     margin: 1px;
 
     .CardImg {
+        position: relative;
         background: #171833;
         border: 1px solid rgba(255, 255, 255, 0.1);
         overflow: hidden;
         border-radius: 10px;
         width: 100%;
+
+        .cardBg {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            z-index: 99;
+            display: flex;
+            align-items: center;
+        }
 
         img {
             width: 100%;
@@ -36,11 +47,30 @@
     }
 
     .cardId {
-        color: #FFFFFF;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 16px;
+        font-family: 'PingFang SC';
+        font-style: normal;
         font-weight: 400;
         font-size: 14px;
-        text-align: center;
-        margin-top: 10px;
+        line-height: 20px;
+        color: rgba(255, 255, 255, 0.85);
+
+        .cardTip {
+            word-break: break-all;
+            flex: auto;
+        }
+
+        .toActiveBtn {
+            flex-basis: 120px;
+            height: 36px;
+            background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+            border-radius: 6px;
+            margin-left: 12px;
+            padding: 0px 12px;
+        }
     }
 
     .openBtn {
@@ -98,5 +128,21 @@
         font-weight: 400;
         font-size: 14px;
         margin: 22px auto 0;
+    }
+}
+
+@media screen and (max-width:1024px) {
+    .CardItem {
+        padding: 12px;
+        .cardId {
+            flex-direction: column;
+            align-items: center;
+
+            .toActiveBtn {
+                margin: 12px 0px 0px;
+                flex-basis: 30px;
+                padding: 0px 30px;
+            }
+        }
     }
 }

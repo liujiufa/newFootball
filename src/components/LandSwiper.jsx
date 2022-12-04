@@ -1,77 +1,161 @@
-
-import React from 'react'
-import { Layout } from 'antd'
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, EffectCreative } from "swiper";
-import landSwiper1 from '../assets/image/landSwiper1.png'
-import landSwiper2 from '../assets/image/landSwiper2.png'
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
+import React, { Component } from 'react';
 import '../assets/style/componentsStyle/LandSwiper.scss'
 
+import banner1 from '../assets/image/landSwiper1.png'
+import banner2 from '../assets/image/landSwiper1.png'
+import banner3 from '../assets/image/landSwiper1.png'
+import banner4 from '../assets/image/landSwiper1.png'
 
-const SwiperTestPage = () => {
-    const bannerImg = [
-        { color: "black" },
-        { color: "blue" },
-        { color: "red" },
-        { color: "green" },
-        { color: "yellow" },
-        { color: "blue" },
-        { color: "black" },
-        { color: "#ccc" },
-    ]
 
-    return (
-        <Layout style={{ backgroundColor: '#ccc' }}>
-            <div>
+import Swiper from 'swiper';
 
-                <Swiper
-                    pagination={{
-                        dynamicBullets: true,//设置小圆点是否要两头小，中间最大
-                        clickable: true,//设置是否可以点击
-                    }}
-                    loop={true}//设置循环轮播
-                    className="mySwiper"
-                    spaceBetween={-150}//设置堆叠轮播，item之间叠的距离
-                    slidesPerView={5}//设置显示的数量
-                    navigation={true}//modules上加了同时要设置为true，才显示
-                    modules={[Navigation, Pagination, EffectCreative]}
-                    grabCursor={true}
-                    effect={"creative"}//modules上加了同时要设置
-                    creativeEffect={{
-                        prev: {
-                            //这里是设置当前item的前一项的具体属性
-                            translate: [-150, 0, 0],//偏移量
-                            scale: 0.8,//缩放量
-                            opacity: 0.8,//透明度
-                            shadow: true,//是否加阴影
-                        },
-                        next: {
-                            //这里是设置当前item的后一项的具体属性，同上面
-                            translate: [150, 0, 0],
-                            scale: 0.8,
-                            opacity: 0.8,
-                            shadow: true,
-                        },
-                        limitProgress: 2,//显示五个堆叠的最重要的这个属性，后面依次以前面属性等比配置
-                        shadowPerProgress: true,//是否等比配置透明度
-                    }}
-                >
-                    {bannerImg.map((item, index) => (
-                        <SwiperSlide key={index} style={{ width: 300 }}>
-                            <div
-                                style={{ backgroundColor: item.color, width: 300, height: 300 }}
-                            ></div>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
+class Banner extends Component {
+
+    constructor(props) {
+
+        super(props)
+
+        this.state = {
+
+            bannerImg: [banner1, banner2, banner3]
+
+        }
+
+    }
+
+    componentDidMount() {
+
+        this.swiper = new Swiper('.banner', {
+
+            watchSlidesProgress: true,
+
+            loopedSlides: 7,
+
+            autoplay: {
+
+                delay: 1000
+
+            },
+
+            loop: true,
+
+            pagination: {
+
+                el: '.page',
+
+                clickable: true
+
+            },
+
+            navigation: {
+
+                nextEl: '.swiper-button-next',
+
+                prevEl: '.swiper-button-prev',
+
+            },
+
+            on: {
+
+                progress: function (progress) {
+
+                    for (let i = 0; i < this.slides.length; i++) {
+
+                        console.log(this.slides)
+
+                        console.log(this.slides.length)
+
+                        var slide = this.slides.eq(i);
+
+                        var slideProgress = this.slides[i].progress;
+
+                        if (Math.abs(slideProgress) > 1) {
+
+                            var modify = (Math.abs(slideProgress) - 1) * 0.4 + 1;
+
+                        }
+
+                        let translate = slideProgress * modify * 950 + 'px';
+
+                        let scale = 1 - Math.abs(slideProgress) / 5;
+
+                        let zIndex = 999 - Math.abs(Math.round(10 * slideProgress));
+
+                        slide.transform('translateX(' + translate + ') scale(' + scale + ')');
+
+                        slide.css('zIndex', zIndex);
+
+                        slide.css('opacity', 1);
+
+                        if (Math.abs(slideProgress) > 3) {
+
+                            slide.css('opacity', 0);
+
+                        }
+
+                    }
+
+                },
+
+                setTransition: function (transition) {
+
+                    for (var i = 0; i < this.slides.length; i++) {
+
+                        var slide = this.slides.eq(i)
+
+                        slide.transition(transition);
+
+                    }
+
+
+
+                }
+
+            }
+
+        })
+
+    }
+
+    render() {
+
+        let { bannerImg } = this.state;
+
+        let $bannerimg = bannerImg && bannerImg.map((v, i) => {
+
+            return <div key={i} className='swiper-slide'>
+
+                <img src={v} alt="" />
+
             </div>
 
+        })
 
-        </Layout>
-    )
+        return (
+
+            <div className='banner swiper-container'>
+
+                <div className='swiper-wrapper wrap'>
+
+                    {$bannerimg}
+
+                </div>
+
+                <div className='page swiper-pagination'></div>
+
+                <div className='btn'>
+
+                    <div className='swiper-button-prev'></div>
+
+                    <div className='swiper-button-next'></div>
+
+                </div>
+
+            </div>
+
+        )
+
+    }
 
 }
-export default SwiperTestPage;
+export default Banner;

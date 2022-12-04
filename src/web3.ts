@@ -12,8 +12,8 @@ interface contractType {
     [propName: string]: Contract;
 }
 export const ChainId = {
-    BSC: 97,
-    // BSC: 56,
+    // BSC: 97,
+    BSC: 56,
 }
 //切换链
 const SCAN_ADDRESS = {
@@ -22,16 +22,16 @@ const SCAN_ADDRESS = {
 //配置连接链的信息
 const networkConf = {
     [ChainId.BSC]: {
-        chainId: '0x61',
-        // chainId: '0x38',
+        // chainId: '0x61',
+        chainId: '0x38',
         chainName: 'BSC',
         nativeCurrency: {
             name: 'BNB',
             symbol: 'BNB',
             decimals: 18,
         },
-        // rpcUrls: ['https://bsc-dataseed.binance.org/'],
-        rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545/'],
+        rpcUrls: ['https://bsc-dataseed.binance.org/'],
+        // rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545/'],
         blockExplorerUrls: [SCAN_ADDRESS[ChainId.BSC]],
     }
 }
@@ -151,8 +151,8 @@ export class Contracts {
     }
     //查询授权
     Tokenapprove(addr: string, toaddr: string) {
-        console.log(addr, toaddr);
         this.verification('Token')
+        console.log(addr, toaddr, this.contract.Token);
         return this.contract.Token?.methods.allowance(addr, toaddr).call({ from: addr })
     }
     //授权1
@@ -164,15 +164,19 @@ export class Contracts {
     //授权2
     approve1(addr: string, toaddr: string, amount: string) {
         this.verification('Token')
-        var amounted = Web3.utils.toWei(`${parseFloat(amount) * 2}`, "ether")
+        var amounted = Web3.utils.toWei(`${parseFloat(amount) * 100}`, "ether")
+        // var amounted = Web3.utils.toBN("99999999999999999999999999999999")
         console.log(addr, toaddr);
         return this.contract.Token?.methods.approve(toaddr, amounted).send({ from: addr })
     }
-    //授权SBL
-    // approveSBL(addr: string, toaddr: string) {
+    // //转账
+    // transfer(addr: string, toaddr: string, amount: number) {
+    //     BigNumber.NE = -40
+    //     BigNumber.PE = 40
+    //     let num = new BigNumber(amount).times(10 ** 18).toString()
     //     this.verification('Token')
-    //     var amount = Web3.utils.toBN("1000000")
-    //     return this.contract.Token?.methods.approve(toaddr, amount).send({ from: addr })
+    //     console.log(addr, toaddr, num);
+    //     return this.contract.Token?.methods.transfer(toaddr, num).send({ from: addr })
     // }
     //购买盲盒
     buyBox(addr: string, data: string, payableAmount: number,) {
@@ -182,6 +186,7 @@ export class Contracts {
         this.verification('BlindBox')
         return this.contract.BlindBox?.methods.buyBox(data).send({ from: addr })
     }
+
     //购买盲盒
     OpenBox(addr: string, data: string) {
         this.verification('BlindBox')
@@ -191,6 +196,11 @@ export class Contracts {
     ownerOf(addr: string, tokenId: string) {
         this.verification('NFT')
         return this.contract.NFT?.methods.ownerOf(tokenId).call({ from: addr })
+    }
+    //查询土地归属
+    ownerLandOf(addr: string, tokenId: string) {
+        this.verification('LandNFT')
+        return this.contract.LandNFT?.methods.ownerOf(tokenId).call({ from: addr })
     }
     //创建订单
     createOrder(addr: string, tokenId: string, price: number | string, payToken: string, nftAddr: string) {
@@ -207,7 +217,7 @@ export class Contracts {
         this.verification('EXChangeNFT')
         return this.contract.EXChangeNFT?.methods.cancelOrder('0x' + orderId).send({ from: addr })
     }
-    //购买订单
+    //创建订单
     takeOrder(addr: string, orderId: string, price: number) {
         this.verification('EXChangeNFT')
         BigNumber.NE = -40
@@ -222,6 +232,11 @@ export class Contracts {
         this.verification('NFT')
         return this.contract.NFT?.methods.setApprovalForAll(toAddr, isApprova).send({ from: addr })
     }
+    //授权所有土地NFT
+    setLandApprovalForAll(addr: string, toAddr: string, isApprova: boolean) {
+        this.verification('LandNFT')
+        return this.contract.LandNFT?.methods.setApprovalForAll(toAddr, isApprova).send({ from: addr })
+    }
 
     //判断NFT授权
     isApprovedForAll(addr: string, toAddr: string) {
@@ -235,7 +250,8 @@ export class Contracts {
         BigNumber.PE = 40
         let num = new BigNumber(payableAmount).times(10 ** 18).toString()
         this.verification('Merge')
-        return this.contract.Merge?.methods.toSynthesis(data).send({ from: addr, value: num })
+        console.log(data, '合成');
+        return this.contract.Merge?.methods.toSynthesis(data).send({ from: addr })
     }
     //购买节点
     buyNode(addr: string, data: string, payableAmount: number) {
@@ -245,11 +261,7 @@ export class Contracts {
         this.verification('Node')
         return this.contract.Node?.methods.buyNode(data).send({ from: addr, value: num })
     }
-    //领取收益
-    getAward(addr: string, data: string, type: number) {
-        this.verification('Node')
-        return this.contract.Node?.methods.getAward(data, type).send({ from: addr })
-    }
+
     //节点退还
     quitNode(addr: string, data: string) {
         this.verification('Node')
@@ -264,20 +276,28 @@ export class Contracts {
         return this.web3.eth.getBalance(addr)
     }
 
-
-
     // 2.0
     // 添加流动性
     addLiquidity(addr: string, type: number, type1: number) {
         console.log(addr, type, type1);
-
+        let obj = { 0.2: 0.1, 0.5: 0.2, 1: 0.3, 2.5: 0.4, 8: 0.5 }
         this.verification('Liquidity')
         BigNumber.NE = -40
         BigNumber.PE = 40
-        let num = new BigNumber(type * 2).times(10 ** 18).toString()
-        console.log(this.contract.Liquidity, 'Liquidity');
+        let num = new BigNumber(obj[type]).times(10 ** 18).toString()
+        console.log(this.contract.Liquidity, 'Liquidity', num);
         return this.contract.Liquidity?.methods.addLiquidity(type1).send({ from: addr, value: num })
     }
+    // 添加流动性
+    // addLiquidity1(addr: string, type: number, type1: number) {
+    //     console.log(addr, type, type1);
+    //     this.verification('Liquidity')
+    //     BigNumber.NE = -40
+    //     BigNumber.PE = 40
+    //     let num = new BigNumber(type).times(10 ** 18).toString()
+    //     console.log(this.contract.Liquidity, 'Liquidity', num);
+    //     return this.contract.Liquidity?.methods.addLiquidity(type1).call({ from: addr, value: num })
+    // }
     // 移除流动性
     removeLiquidity(addr: string, typeNum: number, times: number) {
         this.verification('Liquidity')
@@ -287,21 +307,30 @@ export class Contracts {
         // let timesed = new BigNumber(times).times(10 ** 18).toString()
         return this.contract.Liquidity?.methods.removeLiquidity(typeNum, times).send({ from: addr })
     }
-    // 转SBL
-    toSBL(addr: string, amount: number,) {
-        BigNumber.NE = -40
-        BigNumber.PE = 40
-        let num = new BigNumber(amount).times(10 ** 18).toString()
-        this.verification('Liquidity')
-        return this.contract.Liquidity?.methods.queryAmountOut(num).call({ from: addr })
-    }
-    // 转BNB
+    // // 转SBL
+    // toSBL(addr: string, amount: number,) {
+    //     BigNumber.NE = -40
+    //     BigNumber.PE = 40
+    //     let num = new BigNumber(amount).times(10 ** 18).toString()
+    //     this.verification('Liquidity')
+    //     console.log(num);
+    //     return this.contract.Liquidity?.methods.queryAmountOut(num).call({ from: addr })
+    // }
+    // 转BNB(非流动性)
     toBNB(addr: string, amount: number,) {
         BigNumber.NE = -40
         BigNumber.PE = 40
         let num = new BigNumber(amount).times(10 ** 18).toString()
         this.verification('BurnFund')
         return this.contract.BurnFund?.methods.queryAmountOut(num).call({ from: addr })
+    }
+    // 转BNB(流动性)
+    toLiquidityBNB(addr: string, amount: number,) {
+        BigNumber.NE = -40
+        BigNumber.PE = 40
+        let num = new BigNumber(amount).times(10 ** 18).toString()
+        this.verification('Liquidity')
+        return this.contract.Liquidity?.methods.queryAmountOut(num).call({ from: addr })
     }
     // 销毁奖励
     burnToEarn(addr: string, amount: number,) {
@@ -319,6 +348,14 @@ export class Contracts {
         this.verification('BurnFund')
         return this.contract.BurnFund?.methods.burnLimit().call({ from: addr })
     }
+    // 销毁基金
+    minToBurn(addr: string) {
+        // BigNumber.NE = -40
+        // BigNumber.PE = 40
+        // let num = new BigNumber(amount).times(10 ** 18).toString()
+        this.verification('BurnFund')
+        return this.contract.BurnFund?.methods.minToBurn().call({ from: addr })
+    }
     // 领取销毁奖励
     withdrawReward(addr: string) {
         this.verification('BurnFund')
@@ -328,35 +365,87 @@ export class Contracts {
     stake(addr: string, tokenId: string) {
         console.log(tokenId);
 
-        this.verification('Stake')
-        return this.contract.Stake?.methods.stake(tokenId).send({ from: addr })
+        this.verification('Pledge')
+        return this.contract.Pledge?.methods.stake(tokenId).send({ from: addr })
     }
     // 取消质押
     unstake(addr: string, tokenId: string) {
-        this.verification('Stake')
-        return this.contract.Stake?.methods.unstake(tokenId).send({ from: addr })
+        this.verification('Pledge')
+        return this.contract.Pledge?.methods.unstake(tokenId).send({ from: addr })
     }
     // 兑换MBA
     improveHashRate(addr: string, amount: number) {
         BigNumber.NE = -40
         BigNumber.PE = 40
         let num = new BigNumber(amount).times(10 ** 18).toString()
-        this.verification('Stake')
-        return this.contract.Stake?.methods.improveHashRate(num).send({ from: addr })
+        this.verification('Pledge')
+        return this.contract.Pledge?.methods.improveHashRate(num).send({ from: addr })
     }
-
 
     //质押授权
     approvePledge(addr: string, toaddr: string) {
         this.verification('NFT')
         return this.contract.NFT?.methods.allowance(addr, toaddr).call({ from: addr })
     }
-
     //查询质押授权
     ApprovePledgeFun(addr: string, toaddr: string) {
         this.verification('NFT')
         var amount = Web3.utils.toBN("99999999999999999999999999999999")
         return this.contract.NFT?.methods.approve(toaddr, amount).send({ from: addr })
     }
+    //土地申领
+    ApplyLand(addr: string, data: string) {
+        this.verification('LandNFT')
+        return this.contract.LandNFT?.methods.mint(data).send({ from: addr })
+    }
+    //领取收益
+    getPledgeAward(addr: string, data: string) {
+        this.verification('Pledge')
+        return this.contract.Pledge?.methods.withdrawReward(data).send({ from: addr })
+    }
+    //领取土地收益
+    getLandAward(addr: string, data: string) {
+        this.verification('LandReward')
+        return this.contract.LandReward?.methods.withdrawReward(data).send({ from: addr })
+    }
+    //领取销毁收益
+    getBurnFundAward(addr: string, data: string) {
+        this.verification('BurnFund')
+        return this.contract.BurnFund?.methods.withdrawReward(data).send({ from: addr })
+    }
+    //转SBL(非流动性)
+    toSBL(addr: string, amount: number,) {
+        BigNumber.NE = -40
+        BigNumber.PE = 40
+        let num = new BigNumber(amount).times(10 ** 18).toString()
+        this.verification('BurnFund')
+        console.log(num);
+        return this.contract.BurnFund?.methods.querySBLAmountOut(num).call({ from: addr })
+    }
+    //转SBL(流动性)
+    toLiquiditySBL(addr: string, amount: number,) {
+        BigNumber.NE = -40
+        BigNumber.PE = 40
+        let num = new BigNumber(amount).times(10 ** 18).toString()
+        this.verification('Liquidity')
+        console.log(num);
+        return this.contract.Liquidity?.methods.querySBLAmountOut(num).call({ from: addr })
+    }
+    //领取节点收益
+    getNodeAward(addr: string, data: string, type: number) {
+        this.verification('Node')
+        return this.contract.Node?.methods.getAward(data, type).send({ from: addr })
+    }
+    //领取邀请收益
+    getInviteReward(addr: string, data: string) {
+        this.verification('InviteReward')
+        return this.contract.InviteReward?.methods.withdrawReward(data).send({ from: addr })
+    }
+    //SBL总供应量
+    totalSupply(addr: string) {
+        this.verification('Token')
+        return this.contract.Token?.methods.totalSupply().call({ from: addr })
+    }
+    // 捐赠销毁总量
 
 }

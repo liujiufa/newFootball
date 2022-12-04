@@ -4,8 +4,10 @@ import { Modal, Table } from "antd";
 import { AddrHandle } from "../utils/tool";
 
 import "../assets/style/componentsStyle/DonationRecord.scss";
+import { useTranslation } from "react-i18next";
 const { Column } = Table;
 function GetRecord(props: any) {
+  let { t } = useTranslation()
 
   return (
     <>
@@ -18,7 +20,7 @@ function GetRecord(props: any) {
         footer={null}
         onCancel={() => props.close()}
       >
-        <p className="title" style={{ marginBottom: '20px' }}> 邀請列表 </p>
+        <p className="title" style={{ marginBottom: '20px' }}> {t("Invitation list")} </p>
         <Table
           showHeader={false}
           dataSource={props.data}
@@ -36,7 +38,7 @@ function GetRecord(props: any) {
           />
 
         </Table>
-        <span>點擊任意地方關閉</span>
+        <span>{t("clickLeave")}</span>
       </Modal>
     </>
   );

@@ -3,9 +3,10 @@ import orderRecord from '../assets/image/orderRecord.png'
 import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
 import PutParticulars from '../components/PutParticulars'
+import LandPutParticulars from '../components/LandPutParticulars'
 import { useWeb3React } from '@web3-react/core'
 import Tips from '../components/Tips'
-import { getOrderList } from '../API'
+import { getOrderList, getUserInfo } from '../API'
 import { addMessage } from '../utils/tool'
 import DropDown from '../components/DropDown'
 import CardItem from '../components/CardItem'
@@ -20,7 +21,7 @@ import { Contracts } from "../web3";
 import BigNumber from 'big.js'
 import '../assets/style/Swap.scss'
 import MarketDealing from '../components/MarketDealing'
-
+// 徽章等级
 const LevelMap = [
   {
     key: 'pmap',
@@ -51,6 +52,33 @@ const LevelMap = [
     value: 6
   }
 ]
+// 土地等级
+const LandLevelMap = [
+  {
+    key: 'pmap',
+    value: 0
+  },
+  {
+    key: 'Outstanding',
+    value: 1
+  },
+  {
+    key: 'Rare',
+    value: 2
+  },
+  {
+    key: 'Perfect',
+    value: 3
+  },
+  {
+    key: 'Epic',
+    value: 4
+  },
+  {
+    key: 'Legend',
+    value: 5
+  }
+]
 const typeMap = [
   {
     key: 'All the types',
@@ -71,7 +99,11 @@ const typeMap = [
   {
     key: 'Astra Badge',
     value: 4
-  }
+  },
+  // {
+  //   key: '土地',
+  //   value: 5
+  // }
 ]
 const sortMap = [
   {
@@ -85,6 +117,34 @@ const sortMap = [
   {
     key: 'Highest Price',
     value: 3
+  }
+]
+const sortLandMap = [
+  {
+    key: 'Recent Time',
+    value: 1
+  },
+  {
+    key: 'Lowest Price',
+    value: 2
+  },
+  {
+    key: 'Highest Price',
+    value: 3
+  }
+]
+const MyMap = [
+  {
+    key: 'All',
+    value: 0
+  },
+  {
+    key: 'Badge',
+    value: 1
+  },
+  {
+    key: 'Land',
+    value: 2
   }
 ]
 export interface orderInfoType {
@@ -104,6 +164,7 @@ export interface orderInfoType {
   userAddress: string
   basePower: number
   currentPower: number
+  isActivation: number
 }
 function Swap() {
   let { t } = useTranslation()
@@ -115,16 +176,26 @@ function Swap() {
   let [page, SetPage] = useState(1)
   /* 筛选排序 */
   let [sort, SetSort] = useState(1)
+  /* 筛选排序 */
+  let [sortLand, SetLandSort] = useState(1)
   /* 类型筛选 */
   let [type, SetType] = useState(0)
   /* 等级筛选 */
   let [level, SetLevel] = useState(0)
+  /* 土地等级筛选 */
+  let [LandLevel, SetLandLevel] = useState(0)
   /* 用户订单类型筛选 */
   let [usertype, SetUsertype] = useState(0)
   /* 用户订单等级筛选 */
   let [userlevel, SetUserlevel] = useState(0)
   /* tab */
   let [TabIndex, SetTabIndex] = useState(0)
+  /* 类型 */
+  let [cardType, SetCardType] = useState(1)
+  // 我的封号
+  let [userLevel, setUserLevel] = useState(0)
+  /* 我的类型 */
+  let [cardMyType, SetCardMyType] = useState(0)
   /* 徽章详情弹窗控制 */
   let [showCardDetail, setShowCardDetail] = useState(false)
   /* 确认购买弹窗控制 */
@@ -148,26 +219,50 @@ function Swap() {
   useEffect(() => {
     setShowCancelOrder(false)
   }, [web3React.account])
+
+  // 徽章
   useEffect(() => {
-    if (TabIndex === 0 && state.token && web3React.account) {
+    if (cardType === 1 && TabIndex === 0 && state.token && web3React.account) {
       getOrderList({
+        cardType: cardType,
         currentPage: page,
         level: level,
         pageSize: 12,
         type: type,
         sortType: sort
+        // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
       }).then(res => {
-        console.log(res, "交易场订单")
+        console.log(res.data.list, '徽章列表')
         setOrderList(res.data.list)
         SetTotalNum(res.data.size)
       })
     }
-  }, [page, sort, type, level, TabIndex, state.token, web3React.account])
-
-
+  }, [page, sort, type, level, TabIndex, state.token, web3React.account, cardType])
+  // 土地
   useEffect(() => {
-    if (TabIndex === 1 && state.token && web3React.account) {
+    console.log('tudi');
+
+    if (cardType === 2 && TabIndex === 1 && state.token && web3React.account) {
       getOrderList({
+        cardType: cardType,
+        currentPage: page,
+        level: LandLevel,
+        pageSize: 12,
+        type: type,
+        sortType: sortLand
+        // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
+      }).then(res => {
+        console.log(res.data.list, '土地列表')
+        setOrderList(res.data.list)
+        SetTotalNum(res.data.size)
+      })
+    }
+  }, [page, LandLevel, sortLand, TabIndex, state.token, web3React.account, cardType])
+  // 我的
+  useEffect(() => {
+    if (TabIndex === 2 && state.token && web3React.account) {
+      getOrderList({
+        cardType: cardMyType,
         currentPage: page,
         level: userlevel,
         pageSize: 12,
@@ -180,13 +275,12 @@ function Swap() {
         SetTotalNum(res.data.size)
       })
     }
-  }, [page, sort, usertype, userlevel, TabIndex, state.token, web3React.account])
+  }, [page, usertype, userlevel, TabIndex, state.token, web3React.account, cardMyType])
+
   function onChange(pageNumber: number) {
     SetPage(pageNumber)
     console.log('Page: ', pageNumber);
   }
-
-
   function buy(index: number) {
     console.log(orderList[index].userAddress === web3React.account?.toLocaleLowerCase())
     if (orderList[index].userAddress === web3React.account?.toLocaleLowerCase()) {
@@ -196,9 +290,6 @@ function Swap() {
     setShowEnterBuy(true)
   }
 
-
-
-
   function Cancel(index: number) {
     setOrderInfo(userOrderList[index])
     setShowCancelOrder(true)
@@ -206,6 +297,7 @@ function Swap() {
   function CancelSuccess() {
     setShowCancelOrder(false)
     getOrderList({
+      cardType: cardType,
       currentPage: page,
       level: userlevel,
       pageSize: 12,
@@ -233,6 +325,16 @@ function Swap() {
     setShowCardDetail(true)
   }
 
+  useEffect(() => {
+    if (state.token) {
+      // 我的封号
+      getUserInfo().then(res => {
+        console.log(res.data, "我的封号")
+        setUserLevel(res.data.level)
+      })
+    }
+  }, [state.token, web3React.account])
+
 
   return (
     <div>
@@ -241,7 +343,11 @@ function Swap() {
         <MyDealRecord isShow={showOrderRecord} close={() => { setShowOrderRecord(false) }} ></MyDealRecord>
         {/* 徽章详情 */}
         {
-          orderInfo && <PutParticulars isShow={showCardDetail} OrderInfo={orderInfo} close={() => setShowCardDetail(false)} ></PutParticulars>
+          orderInfo && orderInfo.cardType !== 5 && <PutParticulars isShow={showCardDetail} OrderInfo={orderInfo} close={() => setShowCardDetail(false)} ></PutParticulars>
+        }
+        {/* 土地详情 */}
+        {
+          orderInfo && orderInfo.cardType === 5 && <LandPutParticulars userLevel={userLevel} isShow={showCardDetail} OrderInfo={orderInfo} close={() => setShowCardDetail(false)} ></LandPutParticulars>
         }
         {/* 取消挂卖成功 */}
         <Tips isShow={showCancelSuccess} title={t('Cancellation succeeded')} subTitle={t('Cancel tips')} enterFun={() => setShowCancelSuccess(false)} close={() => setShowCancelSuccess(false)}></Tips>
@@ -261,8 +367,9 @@ function Swap() {
         </div>
         <div className="screen">
           <div className="Tabs">
-            <div className={TabIndex === 0 ? 'activeTab linear-gradient' : 'invalidTab'} onClick={() => { changeTab(0) }}>{t('Ssy')}</div>
-            <div className={TabIndex === 1 ? 'activeTab linear-gradient' : 'invalidTab'} onClick={() => { changeTab(1) }}>{t('Swd')}</div>
+            <div className={TabIndex === 0 ? 'activeTab linear-gradient' : 'invalidTab'} onClick={() => { changeTab(0); SetCardType(1) }}>{t("Badge")}</div>
+            <div className={TabIndex === 1 ? 'activeTab linear-gradient' : 'invalidTab'} onClick={() => { changeTab(1); SetCardType(2) }}>{t("Land")}</div>
+            <div className={TabIndex === 2 ? 'activeTab linear-gradient' : 'invalidTab'} onClick={() => { changeTab(2); SetCardType(0) }}>{t('Swd')}</div>
           </div>
           {
             TabIndex === 0 && <div className="DropDownGroup">
@@ -273,15 +380,21 @@ function Swap() {
           }
           {
             TabIndex === 1 && <div className="DropDownGroup">
+              <DropDown Map={LandLevelMap} change={SetLandLevel} ></DropDown>
+              <DropDown Map={sortLandMap} change={SetLandSort}></DropDown>
+            </div>
+          }
+          {
+            TabIndex === 2 && <div className="DropDownGroup">
               <img src={orderRecord} alt="" onClick={() => { setShowOrderRecord(true) }} />
-              <DropDown Map={LevelMap} change={SetUserlevel} ></DropDown>
-              <DropDown Map={typeMap} change={SetUsertype}></DropDown>
+              <DropDown Map={MyMap} change={SetCardMyType} ></DropDown>
+              {/* <DropDown Map={typeMap} change={SetUsertype}></DropDown> */}
             </div>
           }
         </div>
         {
           TabIndex === 0 && <>
-            {/* 交易场所有列表 */}
+            {/* 交易场订单列表 */}
             {
               orderList.length !== 0 ? <>
                 <div className="CardList">
@@ -297,6 +410,23 @@ function Swap() {
         }
         {
           TabIndex === 1 && <>
+            {/* 交易场土地列表 */}
+            {
+              orderList.length !== 0 ? <>
+                <div className="CardList">
+                  {
+                    orderList.map((item, index) => <CardItem key={item.id} type="commodity" orderInfo={item} showCardDetail={() => { ShowCardDetailFun(index, 'swap') }} buy={() => buy(index)}></CardItem>)
+                  }
+                </div>
+              </> : <>
+                <NoData></NoData>
+              </>
+            }
+          </>
+        }
+
+        {
+          TabIndex === 2 && <>
             {/* 交易场我的列表 */}
             {
               userOrderList.length !== 0 ? <>
@@ -312,6 +442,7 @@ function Swap() {
 
           </>
         }
+
         {/* 交易场数据合个人交易场数据共用一个分页器 */}
         <div className="Pagination">
           <Pagination style={{ margin: "auto" }} showQuickJumper defaultCurrent={page} defaultPageSize={12} hideOnSinglePage showSizeChanger={false} total={totalNum} onChange={onChange} />

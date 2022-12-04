@@ -2,12 +2,14 @@
 import React from 'react'
 import { Modal } from 'antd';
 import '../assets/style/componentsStyle/ConfirmRmLiquidity.scss'
-import BNBIcon from '../assets/image/BNB.png'
-import bigBNBIcon from '../assets/image/BNBTokens.png'
+import BNBIcon from '../assets/image/BNBIcon.svg'
+import bigBNBIcon from '../assets/image/BNBIcon.svg'
 import SBLIcon from '../assets/image/SBL.png'
 import bigSBLIcon from '../assets/image/SBLTokens.png'
 import tipIcon from '../assets/image/tipIcon.png'
+import { useTranslation } from 'react-i18next';
 function ConfirmRmLiquidity(props: any) {
+    const { t } = useTranslation()
     return (
         <>
             <Modal visible={props.showModal}
@@ -18,7 +20,7 @@ function ConfirmRmLiquidity(props: any) {
                 footer={null}
                 onCancel={() => { props.close() }}
             >
-                <p className='title'>移除流動性</p>
+                <p className='title'>{t("remove liquidity")}</p>
                 <div className="coinBox">
                     <div className="coinsValue">{props.data.currencyPair} BNB</div>
                     <div className="coinsIcon">
@@ -27,9 +29,9 @@ function ConfirmRmLiquidity(props: any) {
                     </div>
                 </div>
                 <div className="tip">
-                    移除流動性後，您將可能失去獲得獎勵資格
+                    {t("After withdrawing liquidity, you may lose eligibility for rewards")}
                 </div>
-                <div className="subTitle">您將獲得：</div>
+                <div className="subTitle">{t("You will get")}：</div>
                 <div className="box">
                     <div className="itemTitle">BNB</div>
                     <div className="value"><img src={BNBIcon} alt="" />{props.data.hostAmount}</div>
@@ -39,9 +41,9 @@ function ConfirmRmLiquidity(props: any) {
                     <div className="value"><img src={SBLIcon} alt="" />{props.data.tokenAmount}</div>
                 </div>
 
-                <div className="toRemoveBtn flex" onClick={() => { props.rmFun() }}>確認移除</div>
+                <div className="toRemoveBtn flex" onClick={() => { props.rmFun() }}>{t("Confirm removal")}</div>
 
-                <span>点击任意地方离开</span>
+                <span>{t("clickLeave")}</span>
             </Modal>
         </>
     )

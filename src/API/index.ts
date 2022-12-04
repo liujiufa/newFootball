@@ -76,6 +76,8 @@ interface compoundCardType {
 }
 /* 合成 */
 export function compoundCard(data: compoundCardType) {
+    console.log(data, '后台合成');
+
     return axois.request({
         url: `/user/cCardUser/compoundCard`,
         method: 'post',
@@ -96,10 +98,13 @@ interface getUserOrderType {
     pageSize: number,
     type?: number,
     sortType?: number,
-    userAddress?: string
+    userAddress?: string,
+    cardType?: number
 }
 /* 获取交易场列表 */
 export function getOrderList(data: getUserOrderType) {
+    console.log(data);
+
     return axois.request({
         url: `/user/cCardOrder/getOrderList`,
         method: 'post',
@@ -332,10 +337,21 @@ export function getPledgeCardUserInfo(data: getPledgeCardUserInfo) {
 }
 // 提升算力
 export function promotePower(data: any) {
+    console.log(data, '提升算力');
     return axois.request({
         url: `/user/mMbaUser/promotePower`,
         method: 'post',
         data
+    })
+}
+// 申领土地
+export function claimLand() {
+    return axois.request({
+        url: `/user/lLandUser/claimLand`,
+        method: 'post',
+        data: {
+            Encrypt: true
+        }
     })
 }
 // 获取个人信息
@@ -363,6 +379,13 @@ export function getPledgeCardUserData() {
 export function getUserLpList() {
     return axois.request({
         url: `/user/uUserLp/getUserLpList`,
+        method: 'get'
+    })
+}
+// 获取提升算力所需MBA
+export function getPromotePowerNum() {
+    return axois.request({
+        url: `/user/mMbaUser/getPromotePowerNum`,
         method: 'get'
     })
 }

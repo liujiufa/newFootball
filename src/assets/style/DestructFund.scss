@@ -2,7 +2,7 @@
     max-width: 1200px;
     margin: auto;
     width: 100%;
-
+    padding: 0px 40px;
 
     .SwapTitle {
         margin-top: 60px;
@@ -21,21 +21,24 @@
         font-family: 'PingFang SC';
         font-style: normal;
         font-weight: 400;
-        font-size: 20px;
-        line-height: 28px;
+        font-size: 18px;
+        line-height: 25px;
+        color: #FFFFFF;
 
-        color: rgba(255, 255, 255, 0.8);
-
-
-        @media (max-width:768px) {
-            padding: 20px 16px;
-        }
     }
 
     .Content {
         margin: 70px auto 60px;
         display: flex;
         justify-content: space-between;
+
+        .DestructJoin {
+            margin-right: 20px;
+        }
+
+        .DestructReward {
+            margin-left: 20px;
+        }
 
         >div {
             padding: 30px 55px;
@@ -59,22 +62,36 @@
             .DestructValue,
             .rewardValue,
             .toFreed {
+                display: flex;
+                align-items: center;
                 font-family: 'PingFang SC';
                 font-style: normal;
                 font-weight: 400;
                 font-size: 18px;
-                line-height: 25px;
+                // line-height: 25px;
                 color: #FFFFFF;
                 margin-bottom: 25px;
 
                 >span {
-                    font-family: 'PingFang SC';
+                    // font-family: 'PingFang SC';
+                    // font-style: normal;
+                    // font-weight: 400;
+                    // font-size: 18px;
+                    // line-height: 25px;
+                    // color: #DB2DCF;
+                    font-family: 'DIN';
                     font-style: normal;
-                    font-weight: 400;
-                    font-size: 18px;
-                    line-height: 25px;
-                    color: #DB2DCF;
+                    font-weight: 700;
+                    font-size: 26px;
+                    line-height: 32px;
+                    /* identical to box height */
+                    letter-spacing: 0.08em;
+                    color: #00FF94;
                 }
+            }
+
+            .DestructValue {
+                color: #00FF94;
             }
 
             .subTitle {
@@ -132,7 +149,7 @@
             }
 
             .inputBox {
-                padding: 16px 30px;
+                padding: 16px 18px;
                 background: #171833;
                 border: 1px solid rgba(255, 255, 255, 0.1);
                 border-radius: 10px;
@@ -140,8 +157,14 @@
                 justify-content: space-between;
                 align-items: center;
 
+                .destructInput {
+                    width: 100%;
+                    margin: 0px 12px 0px 0px;
+
+                }
+
                 input {
-                    width: 70px;
+                    width: 110px;
                     background: #171833;
                     color: #FFFFFF;
                     padding: 0;
@@ -205,6 +228,8 @@
 
                     img {
                         margin-right: 8px;
+                        width: 26px;
+                        height: 26px;
                     }
                 }
             }
@@ -238,6 +263,10 @@
 
             }
 
+            .DestructBtning {
+                background: rgba(255, 255, 255, 0.2);
+            }
+
             .getRecord,
             .DestructRecord {
                 font-family: 'PingFang SC';
@@ -257,5 +286,55 @@
                 }
             }
         }
+    }
+}
+
+@media screen and (max-width:1024px) {
+    .DestructFund .Content>div {
+        padding: 30px 20px;
+
+        .Btn {
+            width: 100%;
+        }
+    }
+
+}
+
+@media screen and (max-width:768px) {
+    .DestructFund .Content {
+        margin: 70px auto 60px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
+
+
+        >div {
+            margin: 0px !important;
+
+            &:last-child {
+                margin-top: 20px !important;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:425px) {
+    .DestructFund .Content>div .inputBox input {
+        width: 100px;
+    }
+
+    .DestructFund {
+        padding: 0px 20px;
+    }
+}
+
+@media screen and (max-width:375px) {
+    .DestructFund {
+        padding: 0px 20px;
+    }
+
+    .DestructFund .Content>div .inputBox {
+        padding: 16px 12px;
     }
 }

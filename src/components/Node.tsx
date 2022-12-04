@@ -86,19 +86,12 @@ export default function Node() {
                 getNodeBase().then(res => {
                     setNodeBase(res.data)
                 })
-            }, 5000)
+            }, 3000)
             return () => {
                 clearInterval(Time)
             }
         }
     }, [state.token])
-    function approve() {
-        if (web3React.account) {
-            Contracts.example.approve(web3React.account, contractAddress.Node).then((res: any) => {
-
-            })
-        }
-    }
     async function buyNode() {
         if (web3React.account && NodeBase) {
             if (NodeBase.currentNodeBase.isBuy === 0) {
@@ -116,6 +109,9 @@ export default function Node() {
                 console.log("购买节点加密", res)
                 if (res.data) {
                     Contracts.example.buyNode(web3React.account as string, res.data, NodeBase!.currentNodeBase.price).then(() => {
+                        getNodeBase().then(res => {
+                            setNodeBase(res.data)
+                        })
                     }, (error: any) => {
                         cancelBuyNodeBase({
                             id: NodeBase!.currentNodeBase.id,
@@ -123,9 +119,10 @@ export default function Node() {
                         }).then(res => {
                             console.log("用户取消")
                         })
-                    }).finally(() => {
-                        showLoding(false)
                     })
+                        .finally(() => {
+                            showLoding(false)
+                        })
                 } else {
                     addMessage(res.msg)
                     showLoding(false)
@@ -176,22 +173,26 @@ export default function Node() {
         }
     }
     return (
-        <div className='nodeApplication'>
-            <div className="RewardLabel">
-                {t('Node application')}
-            </div>
-            <div className="row">
-                {
-                    NodeBase && <div className="RewardItem">
-                        <div className="NodeTips">
-                            <div>
-                                {t('Current node application')}:
-                            </div>
-                            {
-                                t('PayBNBForSBL', { BNBNum: NodeBase.currentNodeBase.price, SBLNum: NodeBase.currentNodeBase.awardNum })
-                            }
-                        </div>
-                        {/* <div className="progressRow">
+        <>
+            {
+                NodeBase && <div className='nodeApplication' >
+                    <div className="RewardLabel">
+                        {t('Node application')}
+                    </div>
+
+                    <div className="row">
+                        {
+                            NodeBase &&
+                            <div className="RewardItem">
+                                <div className="NodeTips">
+                                    <div>
+                                        {t('Current node application')}:
+                                    </div>
+                                    {
+                                        t('PayBNBForSBL', { BNBNum: NodeBase.currentNodeBase.price, SBLNum: NodeBase.currentNodeBase.awardNum })
+                                    }
+                                </div>
+                                {/* <div className="progressRow">
                             <div className="progressLabel">
                                 {t('Progress')}：
                             </div>
@@ -199,68 +200,23 @@ export default function Node() {
                                 <div className="progressValue" style={{ width: NodeBase.currentNodeBase.alreadyBuyNum + NodeBase.currentNodeBase.systemBuyNum > 99 ? '99%' : NodeBase.currentNodeBase.alreadyBuyNum + NodeBase.currentNodeBase.systemBuyNum + '%' }}></div>
                             </div>
                         </div> */}
-                        <div className={NodeBase.currentNodeBase.isBuy ? "applyBtn flexCenter" : "applyBtn invalid flexCenter"} onClick={buyNode}>{t('Application')}</div>
-                        <span className="record" onClick={() => { setshowApplyRecord(true) }}>{t('Record2')} <img src={record} alt="" /></span>
-                    </div>
-                }
-
-            </div>
-            {/* {
-                NodeRecord.length > 0 && <div className="RewardLabel">
-                    {t('Node Coinage')}
-                </div>
-            } */}
-
-            {/* <div className="row">
-                {
-                    NodeRecord.map((item) => <div className="RewardItem" key={item.id}>
-                        <div className="NodeTips">
-                            {t('Total coinage')}:<span className="important">{item.totalAwardNum} {item.coinName}</span>
-                        </div>
-                        <div className="NodeTips">
-                            {t('Amount to be minted')}:<span className="important">{item.stayAwardNum} {item.coinName}</span>
-                        </div>
-                        <div className="progressRow">
-                            <div className="progressLabel">
-                                {t('Progress')}:
+                                <div className={NodeBase.currentNodeBase.isBuy ? "applyBtn flexCenter" : "applyBtn invalid flexCenter"} onClick={buyNode}>{t('Application')}</div>
+                                <span className="record" onClick={() => { setshowApplyRecord(true) }}>{t('Record2')} <img src={record} alt="" /></span>
                             </div>
-                            <div className="progress">
-                                <div className="progressValue" style={{ width: item.currentDay / item.backDay * 100 + '%' }}></div>
-                            </div>
-                            <div className="progressInrt">（{item.backDay}D）</div>
-                        </div>
-                        <div className="rewardNumRow">
-                            <div className="rewardNum">{item.stayDrawNum}</div>
-                            <div className="TokenInfo"><img src={SBLToken} alt="" />{item.coinName}</div>
-                        </div>
-                        {
-                            item.isReturn === 1 ? <>
-                                <div className="BtnRow">
-                                    <div className="receiveNodeBtn flexCenter" onClick={receive}>{t('Claim')}</div>
-                                    <div className="returnBtn flexCenter" onClick={() => { returnFun(item.id, item.retainTokenNum) }}>{t('Refund')}</div>
-                                </div>
-                            </> : <>
-                                <div className="applyBtn flexCenter" onClick={receive}>{t('Claim')}</div>
-                            </>
                         }
 
-                        <div className="NodeTips">
-                            {t('My coinage level')}: {t(nodeAccelerate[MaxLevel])} <img className={heavyLoad ? "imgRotate" : ""} onClick={getMaxLevel} src={Refresh} alt="" />
-                        </div>
-                        <span className="record" onClick={() => { setNodeRules(true) }}>{t('Coinage mechanism')} <img src={record} alt="" /></span>
-                        <span className="record" onClick={() => { ShowProfitFun(item.id) }}>{t('Records')} <img src={record} alt="" /></span>
                     </div>
-                    )
-                }
-            </div> */}
-            {/* 铸币节点申请记录 */}
-            <GoldRecord isShow={showApplyRecord} close={() => { setshowApplyRecord(false) }}></GoldRecord>
-            {/* 铸币节点收益记录 */}
-            <GlodJdSy isShow={showProfit} id={ProfitId} close={() => { setShowProfit(false) }}></GlodJdSy>
-            {/* 铸币节点奖励机制 */}
-            <GlodMechanism isShow={nodeRules} close={() => { setNodeRules(false) }}></GlodMechanism>
-            {/* 节点介绍 */}
-            <NodeIntr isShow={nodeIntr} close={() => { setNodeIntr(false) }}></NodeIntr>
-        </div>
+
+                    {/* 铸币节点申请记录 */}
+                    <GoldRecord isShow={showApplyRecord} close={() => { setshowApplyRecord(false) }}></GoldRecord>
+                    {/* 铸币节点收益记录 */}
+                    <GlodJdSy isShow={showProfit} id={ProfitId} close={() => { setShowProfit(false) }}></GlodJdSy>
+                    {/* 铸币节点奖励机制 */}
+                    <GlodMechanism isShow={nodeRules} close={() => { setNodeRules(false) }}></GlodMechanism>
+                    {/* 节点介绍 */}
+                    <NodeIntr isShow={nodeIntr} close={() => { setNodeIntr(false) }}></NodeIntr>
+                </div>
+            }
+        </>
     )
 }

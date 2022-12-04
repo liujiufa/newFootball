@@ -2,9 +2,11 @@
 import React from 'react'
 import { Modal } from 'antd';
 import '../assets/style/componentsStyle/SuccessRmLiquidity.scss'
-import BNBIcon from '../assets/image/BNBTokens.png'
+import BNBIcon from '../assets/image/BNBIcon.svg'
 import SBLIcon from '../assets/image/SBLTokens.png'
+import { useTranslation } from 'react-i18next';
 function SuccessRmLiquidity(props: any) {
+    const { t } = useTranslation()
     return (
         <>
             <Modal visible={props.showModal}
@@ -13,14 +15,15 @@ function SuccessRmLiquidity(props: any) {
                 width={'459px'}
                 closable={false}
                 footer={null}
+                onCancel={() => { props.close() }}
             >
-                <p className='title'>移除成功</p>
+                <p className='title'>{t("Removed successfully")}</p>
 
-                <div className="tip">已成功移除流動性！</div>
+                <div className="tip">{t("Liquidity successfully removed")}！</div>
 
-                <div className="confirmBtn flex">確認</div>
+                <div className="confirmBtn flex" onClick={() => { props.close() }}>{t("Confirm")}</div>
 
-                <span>点击任意地方离开</span>
+                <span>{t("clickLeave")}</span>
             </Modal>
         </>
     )

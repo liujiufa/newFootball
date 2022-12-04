@@ -2,9 +2,11 @@
 import React from 'react'
 import { Modal } from 'antd';
 import '../assets/style/componentsStyle/ConfirmExchange.scss'
-import BNBIcon from '../assets/image/BNBTokens.png'
+import BNBIcon from '../assets/image/BNBIcon.svg'
 import SBLIcon from '../assets/image/SBLTokens.png'
+import { useTranslation } from 'react-i18next';
 function CancelPledge(props: any) {
+    let { t } = useTranslation()
     return (
         <>
             <Modal visible={props.showModal}
@@ -15,11 +17,11 @@ function CancelPledge(props: any) {
                 footer={null}
                 onCancel={() => { props.close() }}
             >
-                <p className='title'>取消質押</p>
-                <div className="tip">確認取消質押嗎?</div>
-                <div className="confirmBtn flex" onClick={() => { props.CancelFun(props.tokenId) }}>確認</div>
+                <p className='title'>{t("Cancel stake")}</p>
+                <div className="tip">{t("Confirm to cancel the stake")}?</div>
+                <div className="confirmBtn flex" onClick={() => { props.CancelFun(props.tokenId) }}>{t("Confirm")}</div>
 
-                <span>点击任意地方离开</span>
+                <span>{t("clickLeave")}</span>
             </Modal>
         </>
     )

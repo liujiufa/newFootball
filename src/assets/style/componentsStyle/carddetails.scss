@@ -24,7 +24,7 @@
 
     .title {
       font-size: 24px;
-      margin: 30px auto 20px;
+      margin: 25px auto 15px;
       text-align: center;
       color: #fff;
       box-shadow: 0;
@@ -32,13 +32,15 @@
 
     .hzimg {
       position: relative;
-      width: 150px;
-      height: 150px;
+      max-width: 337px;
+      max-height: 337px;
+      width: 100%;
       background: #171833;
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 10px;
       margin: 0 auto;
       overflow: hidden;
+
 
       .pending {
         position: absolute;
@@ -57,9 +59,21 @@
       }
     }
 
+    .p1,
+    .p2 {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .kpdetails {
+        margin: 0;
+      }
+    }
+
     .kpdetails {
-      min-height: 20px;
-      margin-top: 20px;
+      min-height: 15px;
+      margin-top: 15px;
       padding: 0 30px;
       color: #fff;
       font-size: 14px;
@@ -102,6 +116,13 @@
         box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
         border-radius: 6px;
         border: 0;
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        /* identical to box height */
+        color: #FFFFFF;
 
         div {
           position: absolute;
@@ -150,6 +171,27 @@
       font-size: 12px;
       line-height: 17px;
       color: #DB2DCF;
+    }
+  }
+}
+
+@media screen and (max-width:425px) {
+  .Card {
+    .ant-modal-body {
+      padding:0px 12px;
+
+      .kpdetails {
+        padding: 0px;
+      }
+
+      .butm {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      .title {
+        margin-top: 20px;
+      }
     }
   }
 }

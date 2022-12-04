@@ -104,23 +104,74 @@ export function dateFormat(fmt: string, date: Date) {
     }
     return fmt;
 }
-// export function debounce(tarFun:Function, delay:number, immed:boolean) {
-// 	let timer:number|null = null
-// 	let immeBool = immed
-// 	return function () {
-//         let Arguments=arguments
-// 		const _that = this
-// 		if (timer) {
-// 			clearTimeout(timer)
-// 		}
-// 		if (immeBool) {
-// 			immeBool = false
-// 			tarFun.apply(_that, arguments)
-// 		} else {
-// 			timer = window.setTimeout(() => {
-// 				timer = null
-// 				tarFun.apply(_that, Arguments)
-// 			}, delay)
-// 		}
-// 	}
+export function getFullNum(num: number) {
+    //处理非数字
+    if (isNaN(num)) { return num };
+
+    //处理不需要转换的数字
+    var str = '' + num;
+    if (!/e/i.test(str)) { return num; };
+
+    return (num).toFixed(18).replace(/\.?0+$/, "");
+}
+
+//订阅数据send模式
+// function initWebSocket(url: string, subscribe: string, sendUrl: string, callback: () => void) {
+//     let stompClient = null;
+//     let sendTimer
+//     let socket = new SockJS(url);
+//     stompClient = Stomp.over(socket);
+//     stompClient.connect({}, () => {
+//         stompClient.subscribe(subscribe, (data) => {
+//             var resdata = JSON.parse(data.body)
+//             callback(resdata)
+//         })
+//         sendTimer = setInterval(() => {
+//             stompClient.send(sendUrl,
+//                 {},
+//                 JSON.stringify({ sender: '', chatType: 'JOIN' }),
+//             )
+//         }, 2000)
+//     }, function () {
+//     });
+//     stompClient.ws.onclose = function () {
+//     };
+//     return { stompClient, sendTimer }
+// }
+
+// function getWebsocketData(url: string, subscribe: string, callback: () => void) {
+//     var stompClient = null;
+//     var socket = new SockJS(url);
+//     stompClient = Stomp.over(socket);
+//     stompClient.connect({}, function () {
+//         stompClient.subscribe(subscribe, function (data) {
+//             callback(JSON.parse(data.body))
+//         })
+
+//     }, function () {
+//     });
+//     stompClient.ws.onclose = function () {
+//     };
+//     return stompClient
+// }
+
+// export function debounce(tarFun: Function, delay: number, immed: boolean) {
+//     let timer: number | null = null
+//     let immeBool = immed
+//     return function () {
+//         let Arguments = arguments
+//         const _that = this
+//         if (timer) {
+//             clearTimeout(timer)
+//         }
+//         if (immeBool) {
+//             immeBool = false
+//             tarFun.apply(_that, arguments)
+//         } else {
+//             timer = window.setTimeout(() => {
+//                 timer = null
+//                 tarFun.apply(_that, Arguments)
+//             }, delay)
+//         }
+//     }
 // }

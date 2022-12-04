@@ -2,8 +2,10 @@
 import React from 'react'
 import { Modal } from 'antd';
 import '../assets/style/componentsStyle/DestructSucceed.scss'
+import { useTranslation } from 'react-i18next';
 
 function DestructSucceed(props: any) {
+  let { t } = useTranslation()
   return (
     <>
       <Modal visible={props.showModal}
@@ -14,11 +16,12 @@ function DestructSucceed(props: any) {
         footer={null}
         onCancel={() => { props.close() }}
       >
-
-        <p className='SwapSuccessTitle'>兌換MBA成功！</p>
-
-
-        <span>点击任意地方离开</span>
+        <br />
+        <br />
+        <p className='SwapSuccessTitle'>{t("Exchange MBA success!")}</p>
+        <br />
+        <br />
+        <span>{t("clickLeave")}</span>
       </Modal>
     </>
   )

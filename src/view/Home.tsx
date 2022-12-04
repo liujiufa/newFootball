@@ -3,7 +3,8 @@ import { useTranslation } from "react-i18next";
 import "../assets/style/Home.scss";
 import { Carousel } from "antd";
 import { useNavigate } from "react-router-dom";
-
+import { stateType } from '../store/reducer'
+import { Contracts } from '../web3'
 import shou from "../assets/image/shou.png";
 import home1 from "../assets/image/home1.png";
 import home2 from "../assets/image/home2.png";
@@ -44,14 +45,22 @@ import fel2 from "../assets/image/fel2.png";
 import fel3 from "../assets/image/fel3.png";
 import fel4 from "../assets/image/fel4.png";
 import zi1 from "../assets/image/zi1.png";
+import zi2 from "../assets/image/zi2.png";
+import zi3 from "../assets/image/zi3.png";
+import zi4 from "../assets/image/zi4.png";
 import bzt1 from "../assets/image/bzt1.png";
 import bzt2 from "../assets/image/bzt2.png";
 import { addMessage } from "../utils/tool";
 import BScroll from "@better-scroll/core";
 import { request } from "http";
 import { url } from "inspector";
-
+import { useSelector } from "react-redux";
+import { useWeb3React } from "@web3-react/core";
+import { contractAddress } from "../config";
+import BigNumber from 'big.js'
 function Home() {
+  const web3React = useWeb3React()
+  let state = useSelector<stateType, stateType>(state => state);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -301,6 +310,8 @@ function Home() {
   let [isfea, setisfea] = useState(true);
   let [isfen, setisfen] = useState(true);
   let [isnum, setnum] = useState("01");
+  const [totalSupply, setTotalSupply] = useState('0')
+  const [allBalance, setAllBalance] = useState('0')
 
   function getlbox(name: any): void {
     console.log(name);
@@ -308,10 +319,30 @@ function Home() {
       return navigate("/Swap");
     }
     if (name === "Coinage") {
-      return navigate("/SBL");
+      return navigate("/Node");
+    }
+    if (name === "Staking") {
+      return navigate("/Pledge");
+    }
+    if (name === "Donation") {
+      return navigate("/DestructFund");
     }
     addMessage(t("Coming Soon"));
   }
+
+  useEffect(() => {
+    if (web3React.account && state.token) {
+      Contracts.example.totalSupply(web3React.account).then((res: any) => {
+        // console.log(res);
+        setTotalSupply(new BigNumber(res).div(10 ** 18).toString())
+      })
+      Contracts.example.balanceOf(contractAddress.DestructBalance).then((res: any) => {
+        // console.log(res);
+        setAllBalance(new BigNumber(res).div(10 ** 18).toString())
+      })
+    }
+  }, [state.token, web3React.account])
+
   return (
     <div className="bj">
       <div className="space">
@@ -325,6 +356,7 @@ function Home() {
       </div>
 
       <div className="group">
+        {/* 盲盒宝箱 */}
         <div>
           <div className="case">
             <div className="title">
@@ -342,7 +374,7 @@ function Home() {
             </div>
           </div>
         </div>
-
+        {/* 应用生态 */}
         <div>
           <div className="ecol">
             <div className="title">
@@ -367,6 +399,7 @@ function Home() {
           </div>
         </div>
       </div>
+      {/* 特色板块 */}
       <div className="feans">
         <div className="title">
           <div className="bei">{t("FEATURED FUNCTIONS")}</div>
@@ -404,16 +437,16 @@ function Home() {
 
                 <div className="kai" onClick={() => setisfea(true)}>
                   <Carousel autoplay dots={false}>
-                    <div className="kaibox">
+                    <div className="kaibox myImgAuto1">
                       <img src={fel4} alt="" />
                     </div>
-                    <div className="kaibox">
+                    <div className="kaibox myImgAuto2">
                       <img src={fel3} alt="" />
                     </div>
-                    <div className="kaibox">
+                    <div className="kaibox myImgAuto3">
                       <img src={fel2} alt="" />
                     </div>
-                    <div className="kaibox">
+                    <div className="kaibox myImgAuto4">
                       <img src={fel1} alt="" />
                     </div>
                   </Carousel>
@@ -424,28 +457,56 @@ function Home() {
 
           <div className="fenright">
             {isfen ? (
-              <div className="kai" onClick={() => setisfen(false)}>
-                <img src={zi1} alt="" />
-                <div className="Badge">{t("Sports Center")}</div>
+              <div className="kai myAuto" onClick={() => setisfen(false)}>
+                <Carousel autoplay dots={false}>
+                  <div className="kaibox">
+                    <img src={zi1} alt="" />
+                  </div>
+                  <div className="kaibox">
+                    <img src={zi2} alt="" />
+                  </div>
+                  <div className="kaibox">
+                    <img src={zi3} alt="" />
+                  </div>
+                  <div className="kaibox">
+                    <img src={zi4} alt="" />
+                  </div>
+                </Carousel>
+                {/* <img src={zi1} alt="" /> */}
+                <div className="Badge">{t("Land NFT")}</div>
               </div>
             ) : (
               <div className="ribox">
                 <div className="gunbox">
-                  <div className="tit">{t("Sports Center")}</div>
+                  <div className="tit">{t("Land NFT")}</div>
                   <div className="nei">{t("jointly build")}</div>
                   <div
                     className="btn"
                     onClick={() =>
-                      navigate("Invitation", { state: { id: "sds" } })
+                      navigate("/Land")
                     }
                   >
                     {t("VIEW LAND")}
                   </div>
                 </div>
 
-                <div className="kai" onClick={() => setisfen(true)}>
-                  <div>
-                    <img src={zi1} alt="" />
+                <div className="kai myAuto" onClick={() => setisfen(true)}>
+                  <div className="">
+                    <Carousel autoplay dots={false}>
+                      <div className="kaibox">
+                        <img src={zi1} alt="" />
+                      </div>
+                      <div className="kaibox">
+                        <img src={zi2} alt="" />
+                      </div>
+                      <div className="kaibox">
+                        <img src={zi3} alt="" />
+                      </div>
+                      <div className="kaibox">
+                        <img src={zi4} alt="" />
+                      </div>
+                    </Carousel>
+                    {/* <img src={zi1} alt="" /> */}
                   </div>
                 </div>
               </div>
@@ -465,6 +526,16 @@ function Home() {
             <div className="stone">{t("Space Ball adopts a")}</div>
             <div className="stone">{t("SBL is Space Ball's")}</div>
             <img src={i18n.language === "zh" ? bzt2 : bzt1} alt="" />
+
+            <div className="box">
+              <div className="destructAll">
+                {t("SBL destroyed")}：<span>{Number(allBalance).toLocaleString()}</span>
+              </div>
+              <div className="provideAll">
+                {t("SBL total supply")}：<span>{Number(totalSupply).toLocaleString()}</span>
+              </div>
+            </div>
+
           </div>
         </div>
         <div className="fsbtm"></div>

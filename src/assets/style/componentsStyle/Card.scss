@@ -46,6 +46,9 @@
                 align-items: center;
 
                 .shareValue {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
                     height: 100%;
                     background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
                     border-radius: 8px;
@@ -53,10 +56,10 @@
                     font-style: normal;
                     font-weight: 500;
                     font-size: 12px;
-                    line-height: 15px;
                     letter-spacing: 0.08em;
                     color: #FFFFFF;
                     text-align: right;
+                    line-height: 1;
                 }
             }
 
@@ -73,6 +76,7 @@
             overflow: hidden;
             border-radius: 10px;
             width: 100%;
+            background: url(../../image/NFTBgImg.jpg) no-repeat center center/100% 100%;
 
             img {
                 width: 100%;
@@ -149,6 +153,26 @@
             font-weight: 400;
             font-size: 14px;
             margin: 22px auto 0;
+        }
+    }
+}
+
+@media screen and (max-width:1024px) {
+    .Card .CardItem {
+        padding: 12px;
+.cardId{
+    margin-bottom: 12px;
+}
+        .share {
+            margin-top: 12px;
+
+            .addBtn {
+                width: 30px;
+
+                img {
+                    width: 20px;
+                }
+            }
         }
     }
 }

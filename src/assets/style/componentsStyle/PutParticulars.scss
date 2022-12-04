@@ -21,28 +21,54 @@
     box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
 
     .title {
-      font-size: 24px;
+      font-size: 20px;
       text-align: center;
       color: #fff;
       box-shadow: 0;
     }
 
     .hzimg {
-      width: 150px;
-      height: 150px;
+      position: relative;
+      max-width: 337px;
+      max-height: 337px;
       background: #171833;
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 10px;
       margin: 0 auto;
       overflow: hidden;
 
+      .pending {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        color: #D533D1;
+      }
+
       img {
         width: 100%;
       }
     }
 
-    .kpdetails {
+    .p1,
+    .p2 {
       margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .kpdetails {
+        margin: 0;
+      }
+    }
+
+    .kpdetails {
+      min-height: 15px;
+      margin-top: 15px;
       color: #fff;
       font-size: 14px;
 
@@ -87,5 +113,21 @@
       line-height: 17px;
       color: #DB2DCF;
     }
+  }
+}
+
+@media screen and (max-width:425px) {
+  .PutParticulars {
+    padding: 12px !important;
+  }
+}
+
+@media screen and (max-width:375px) {
+  .PutParticulars {
+    padding: 12px !important;
+  }
+
+  .PutParticulars .ant-modal-body .hzimg {
+    // max-width: ;
   }
 }

@@ -65,10 +65,14 @@
                         position: absolute;
                         left: 17px;
                         z-index: 1;
+                        width: 26px;
+                        height: 26px;
                     }
 
                     .img1 {
                         z-index: 2;
+                        width: 26px;
+                        height: 26px;
                     }
                 }
             }
@@ -130,5 +134,11 @@
             }
 
         }
+    }
+}
+
+@media screen and (max-width:425px) {
+    .SuccessAddLiquidity .ant-modal-content {
+        padding: 20px 18px;
     }
 }

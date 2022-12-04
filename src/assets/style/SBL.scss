@@ -2,6 +2,8 @@
     max-width: 1200px;
     margin: auto;
     width: 100%;
+    padding: 0px 40px;
+
 
     .SwapTitle {
         margin-top: 60px;
@@ -17,8 +19,11 @@
         border-radius: 19px;
         box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
         text-align: left;
+        font-family: 'PingFang SC';
+        font-style: normal;
         font-weight: 400;
-        font-size: 14px;
+        font-size: 18px;
+        line-height: 25px;
         color: #FFFFFF;
 
         @media (max-width:768px) {
@@ -30,6 +35,14 @@
         margin: 70px auto 60px;
         display: flex;
         justify-content: space-between;
+
+        .nodeApplication {
+            margin-right: 20px;
+        }
+
+        .DestructReward {
+            margin-left: 20px;
+        }
 
         >div {
             padding: 30px 55px;
@@ -104,7 +117,7 @@
                 }
 
                 .Freed {
-                    width: 42px;
+                    width: 65px;
                 }
 
                 .value {
@@ -199,6 +212,8 @@
 
                     img {
                         margin-right: 8px;
+                        width: 26px;
+                        height: 26px;
                     }
                 }
             }
@@ -247,6 +262,9 @@
             }
 
             .getRecord {
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 font-family: 'PingFang SC';
                 font-style: normal;
                 font-weight: 400;
@@ -265,4 +283,42 @@
         }
     }
 
+}
+
+@media screen and (max-width:1024px) {
+    .Node .Content>div {
+        padding: 30px 20px;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .Node {
+        .NodeDesc {
+            margin: 30px auto;
+        }
+
+        .Content {
+            margin: 30px auto 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            >div {
+                padding: 30px 20px;
+                margin: 0px 0px 20px 0px !important;
+            }
+
+
+        }
+    }
+}
+
+@media screen and (max-width:425px) {
+    .Node {
+        padding: 0 12px;
+
+        .NodeDesc {
+            padding: 20px 0px;
+        }
+    }
 }

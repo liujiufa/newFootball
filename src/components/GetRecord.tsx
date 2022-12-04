@@ -6,9 +6,11 @@ import { stateType } from '../store/reducer'
 import { getDrawBurnRecord } from '../API/index'
 import { dateFormat } from "../utils/tool";
 import "../assets/style/componentsStyle/DonationRecord.scss";
+import { useTranslation } from "react-i18next";
 const { Column } = Table;
 const typeObj = { '3': '收益领取' }
 function GetRecord(props: any) {
+  let { t } = useTranslation()
   let state = useSelector<stateType, stateType>(state => state);
   // 获取销毁奖励领取记录
   let [drawBurnRecord, setDrawBurnRecord] = useState([])
@@ -32,7 +34,7 @@ function GetRecord(props: any) {
         footer={null}
         onCancel={() => { props.close() }}
       >
-        <p className="title"> 領取記錄 </p>
+        <p className="title"> {t("Pick up record")} </p>
         <Table
           dataSource={drawBurnRecord}
           pagination={false}
@@ -40,7 +42,7 @@ function GetRecord(props: any) {
           scroll={{ y: 260 }}
         >
           <Column
-            title="時間"
+            title={t("Time")}
             width={140}
             render={(item) => (
               <>
@@ -49,15 +51,15 @@ function GetRecord(props: any) {
             )}
           />
           <Column
-            title="金額BNB"
+            title={t("Amount BNB")}
             render={(item) => (
               <>
-                <div>{item.amount}</div>
+                <div>{item.amountString}</div>
               </>
             )}
           />
           <Column
-            title="類型"
+            title={t("Type")}
             width={140}
             render={(item) => (
               <>
@@ -66,7 +68,7 @@ function GetRecord(props: any) {
             )}
           />
         </Table>
-        <span>點擊任意地方關閉</span>
+        <span>{t("clickLeave")}</span>
       </Modal>
     </>
   );
