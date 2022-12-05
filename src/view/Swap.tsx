@@ -7,7 +7,7 @@ import LandPutParticulars from '../components/LandPutParticulars'
 import { useWeb3React } from '@web3-react/core'
 import Tips from '../components/Tips'
 import { getOrderList, getUserInfo } from '../API'
-import { addMessage } from '../utils/tool'
+import { addMessage, initWebSocket } from '../utils/tool'
 import DropDown from '../components/DropDown'
 import CardItem from '../components/CardItem'
 import NoData from '../components/NoData'
@@ -18,6 +18,7 @@ import CancelPurchase from '../components/CancelPurchase'
 import MyDealRecord from '../components/MyDealRecord'
 import { Pagination } from 'antd';
 import { Contracts } from "../web3";
+import { socketUrl } from '../config'
 import BigNumber from 'big.js'
 import '../assets/style/Swap.scss'
 import MarketDealing from '../components/MarketDealing'
@@ -236,6 +237,24 @@ function Swap() {
         setOrderList(res.data.list)
         SetTotalNum(res.data.size)
       })
+      // 推送
+      let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getOrderList/${web3React.account}`, `/getOrderList/${web3React.account}`,
+        {
+          cardType: cardType,
+          currentPage: page,
+          level: level,
+          pageSize: 12,
+          type: type,
+          sortType: sort
+          // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
+        }, (data: any) => {
+          setOrderList(data.list)
+          SetTotalNum(data.size)
+        })
+      return () => {
+        stompClient.disconnect()
+        clearInterval(sendTimer)
+      }
     }
   }, [page, sort, type, level, TabIndex, state.token, web3React.account, cardType])
   // 土地
@@ -256,6 +275,24 @@ function Swap() {
         setOrderList(res.data.list)
         SetTotalNum(res.data.size)
       })
+      // 推送
+      let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getOrderList/${web3React.account}`, `/getOrderList/${web3React.account}`,
+        {
+          cardType: cardType,
+          currentPage: page,
+          level: LandLevel,
+          pageSize: 12,
+          type: type,
+          sortType: sortLand
+          // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
+        }, (data: any) => {
+          setOrderList(data.list)
+          SetTotalNum(data.size)
+        })
+      return () => {
+        stompClient.disconnect()
+        clearInterval(sendTimer)
+      }
     }
   }, [page, LandLevel, sortLand, TabIndex, state.token, web3React.account, cardType])
   // 我的
@@ -274,6 +311,24 @@ function Swap() {
         setUserOrderList(res.data.list)
         SetTotalNum(res.data.size)
       })
+      // 推送
+      let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getOrderList/${web3React.account}`, `/getOrderList/${web3React.account}`,
+        {
+          cardType: cardMyType,
+          currentPage: page,
+          level: userlevel,
+          pageSize: 12,
+          type: usertype,
+          userAddress: web3React.account
+          // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
+        }, (data: any) => {
+          setUserOrderList(data.list)
+          SetTotalNum(data.size)
+        })
+      return () => {
+        stompClient.disconnect()
+        clearInterval(sendTimer)
+      }
     }
   }, [page, usertype, userlevel, TabIndex, state.token, web3React.account, cardMyType])
 

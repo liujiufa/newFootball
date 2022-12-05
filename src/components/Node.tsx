@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Contracts } from '../web3'
 import { useTranslation } from 'react-i18next'
 import { useWeb3React } from '@web3-react/core'
@@ -47,7 +47,8 @@ interface ApplyRecordType {
     id: number,
 }
 const nodeAccelerate = ['My tier1', 'nodeAccelerate1', 'nodeAccelerate2', 'nodeAccelerate3', 'nodeAccelerate4', 'nodeAccelerate5', 'nodeAccelerate6', 'nodeAccelerate7']
-export default function Node() {
+export default function Node(props: any) {
+    const timeoutRef = useRef(0)
     let { t } = useTranslation()
     const web3React = useWeb3React()
     let state = useSelector<stateType, stateType>(state => state);
@@ -91,6 +92,9 @@ export default function Node() {
                 clearInterval(Time)
             }
         }
+        return () => {
+            clearTimeout(timeoutRef.current)
+        }
     }, [state.token])
     async function buyNode() {
         if (web3React.account && NodeBase) {
@@ -109,9 +113,10 @@ export default function Node() {
                 console.log("购买节点加密", res)
                 if (res.data) {
                     Contracts.example.buyNode(web3React.account as string, res.data, NodeBase!.currentNodeBase.price).then(() => {
-                        getNodeBase().then(res => {
-                            setNodeBase(res.data)
-                        })
+                        timeoutRef.current = window.setTimeout(() => {
+                            props.getFun()
+
+                        }, 5000);
                     }, (error: any) => {
                         cancelBuyNodeBase({
                             id: NodeBase!.currentNodeBase.id,

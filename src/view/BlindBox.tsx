@@ -16,8 +16,8 @@ import '../assets/style/BlindBox.scss'
 import '../assets/style/RaceBoxModal.scss'
 import '../assets/style/PurchaseBox.scss'
 import copy from 'copy-to-clipboard';
-import { NumSplic, getWebsocketData } from '../utils/tool'
-import { contractAddress, socketUrl } from "../config"
+import { NumSplic, } from '../utils/tool'
+
 import BigNumber from 'big.js'
 import { useViewport } from "../components/viewportContext"
 import { useSelector } from "react-redux"
@@ -72,10 +72,7 @@ function BlindBox() {
           })
         })
       })
-      // 推送
-      getWebsocketData(socketUrl, `/topic/noOpenEgg/${web3React.account}`, (data: any) => {
-        console.log(data, '推送数据')
-      })
+
     }
   }, [web3React.account, state.token])
   return (

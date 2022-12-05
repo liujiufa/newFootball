@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   getUserReferee,
   getHomeLand,
@@ -142,6 +142,7 @@ export default function Invitation() {
   let [MaxLevel, setMaxLevel] = useState(0);
   let [showObtainMethod, setShowObtainMethod] = useState(false);
   const web3React = useWeb3React();
+  const timeoutRef = useRef(0);
   //   console.log(TabIndex, "TabIndex");
   useEffect(() => {
     if (state.token) {
@@ -162,6 +163,9 @@ export default function Invitation() {
         console.log(res);
         setLandData(res.data);
       });
+    }
+    return () => {
+      clearTimeout(timeoutRef.current)
     }
   }, [state.token]);
   let [touteid] = useState(location.state);
@@ -229,12 +233,19 @@ export default function Invitation() {
           .then(
             (res: any) => {
               addMessage(t('Receive success'))
-              getUserAccountList().then((res) => {
-                setRewardData(res.data);
-              });
-              getCardUserMaxLevelInfo().then((res) => {
-                setMaxLevel(res.data);
-              });
+              timeoutRef.current = window.setTimeout(() => {
+                // getUserAccountList().then((res) => {
+                //   setRewardData(res.data);
+                // });
+                getCardUserMaxLevelInfo().then((res) => {
+                  setMaxLevel(res.data);
+                });
+                getRefereeUserAccount().then((res) => {
+                  console.log(res.data, '邀请奖励');
+                  setRewardData(res.data);
+                });
+              }, 5000);
+
             },
             (err: any) => {
               if (err.code === 4001) {

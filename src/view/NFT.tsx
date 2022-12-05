@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef, useCallback } from "react"
 import '../assets/style/componentsStyle/carddetails.scss'
 import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
@@ -15,13 +15,14 @@ import PledgeSuccess from '../components/PledgeSuccess'
 import NoData from '../components/NoData'
 import Merge from '../components/Merge'
 import { useViewport } from '../components/viewportContext'
-import { addMessage, showLoding } from '../utils/tool'
+import { addMessage, showLoding, getWebsocketData, initWebSocket } from '../utils/tool'
 import { Pagination } from 'antd';
 import '../assets/style/componentsStyle/AddFlow.scss'
 import SelMerge from "../components/SelMerge"
 import ImprovePowerSuccess from "../components/ImprovePowerSuccess"
 import ImproveComputingPower from "../components/ImproveComputingPower"
 import { useTranslation } from 'react-i18next'
+import { socketUrl } from "../config"
 // 挂卖详情
 import PutParticulars from '../components/PutParticulars'
 // 合成成功
@@ -95,6 +96,8 @@ const typeMap = [
     value: 4
   }
 ]
+// var level: number = 0
+
 function NFT() {
   let { t } = useTranslation()
   let state = useSelector<stateType, stateType>(state => state);
@@ -103,6 +106,8 @@ function NFT() {
   let [TabIndex, SetTabIndex] = useState(0)
   /* 类型筛选 */
   let [type, SetType] = useState(0)
+  let levelRef = useRef<number>(0)
+  let funRef = useRef()
   /* 等级筛选 */
   let [level, SetLevel] = useState(0)
   /* 分页总条数 */
@@ -237,18 +242,31 @@ function NFT() {
         setuserBox(res.data)
       })
 
-      let time = setInterval(() => {
-        getBoxUserInfo().then(res => {
-          setuserBox(res.data)
-        })
-      }, 3000)
+      // let time = setInterval(() => {
+      //   getBoxUserInfo().then(res => {
+      //     setuserBox(res.data)
+      //   })
+      // }, 3000)
+      // 推送
+      // getWebsocketData(socketUrl, `/topic/noOpenEgg/${web3React.account}`, (data: any) => {
+      //   console.log(data, '推送数据')
+      // })
+      const { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/noOpenEgg/${web3React.account}`, `/noOpenEgg/${web3React.account}`, {}, (data: any) => {
+        console.log(data, '推送数据')
+        setuserBox(data)
+      })
       return () => {
-        clearInterval(time)
+        stompClient.disconnect()
+        clearInterval(sendTimer)
       }
+    } else {
+      setuserBox([])
     }
+
   }, [state.token, web3React.account, TabIndex])
 
   useEffect(() => {
+    let fun: any
     if (state.token && web3React.account && TabIndex === 0) {
       getUserCard({
         currentPage: page,
@@ -265,16 +283,37 @@ function NFT() {
         console.log(res.data, 'MBA值')
         setMBAValue(res.data)
       })
+      // 推送
+      let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getCardUserInfo/${web3React.account}`, `/getCardUserInfo/${web3React.account}`,
+        {
+          currentPage: page,
+          level: level,
+          pageSize: 12,
+          type: type,
+          userAddress: web3React.account
+        }, (data: any) => {
+          console.log(data, '推送用户卡牌数据')
+          setuserCard(data.list)
+          SetTotalNum(data.size)
+        })
+      return () => {
+        stompClient.disconnect()
+        clearInterval(sendTimer)
+      }
     } else {
       setuserCard([])
     }
-  }, [state.token, web3React.account, type, level, page, TabIndex, improvePowerSuccess])
+  }, [state.token, web3React.account, level, type, page, TabIndex])
 
   useEffect(() => {
     setshowCardSynthesis(false)
     setShowCreateOrder(false)
-    // 切换账号
-    setShowMergeSuccess(false)
+
+    if (web3React.account && state.token) {
+    } else {
+      // 切换账号
+      setShowMergeSuccess(false)
+    }
   }, [web3React.account, state.token])
 
   return (
@@ -328,7 +367,11 @@ function NFT() {
           </div>
           {
             TabIndex === 0 && <div className="DropDownGroup">
-              <DropDown Map={LevelMap} change={SetLevel} staetIndex={level}></DropDown>
+              <DropDown Map={LevelMap} change={
+                (num: number) => {
+                  SetLevel(num)
+                }
+              } staetIndex={level}></DropDown>
               <DropDown Map={typeMap} change={SetType} staetIndex={type}></DropDown>
             </div>
           }

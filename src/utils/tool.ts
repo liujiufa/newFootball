@@ -118,7 +118,8 @@ export function getFullNum(num: number) {
 }
 
 //订阅数据send模式
-export function initWebSocket(url: string, subscribe: string, sendUrl: string, callback: any) {
+export function initWebSocket(url: string, subscribe: string, sendUrl: string, data: any, callback: any,) {
+    console.log(data, 'data');
     let stompClient: any;
     let sendTimer
     let socket = new SockJS(url);
@@ -129,9 +130,10 @@ export function initWebSocket(url: string, subscribe: string, sendUrl: string, c
             callback(resdata)
         })
         sendTimer = setInterval(() => {
+            console.log(data);
             stompClient.send(sendUrl,
-                {},
-                JSON.stringify({ sender: '', chatType: 'JOIN' }),
+                { 'Content-Type': 'application/json;charset=UTF-8' },
+                JSON.stringify({ ...data }),
             )
         }, 2000)
     }, function () {
@@ -148,7 +150,6 @@ export function getWebsocketData(url: string, subscribe: string, callback: any) 
     stompClient.connect({}, function () {
         stompClient.subscribe(subscribe, function (data: any) {
             console.log(data.body);
-
             callback(JSON.parse(data.body))
         })
 

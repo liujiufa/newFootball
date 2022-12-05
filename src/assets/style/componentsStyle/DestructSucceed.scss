@@ -5,6 +5,10 @@
 
   .ant-modal-content {
     box-shadow: none;
+    background: #1d1e44 !important;
+    border-radius: 20px;
+
+
   }
 
   .ant-modal-header {
@@ -13,9 +17,10 @@
 
   .ant-modal-body {
     position: relative;
-    background: #1d1e44;
+    background: #1d1e44 !important;
     // box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
     padding: 0;
+    border-radius: 20px;
 
     .title {
       font-size: 24px;

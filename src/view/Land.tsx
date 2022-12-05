@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import LandDetailDes from '../components/LandDetailDes'
 import { useTranslation } from 'react-i18next'
 import { Pagination } from 'antd';
@@ -101,6 +101,7 @@ const tabObj = {
 }
 
 function Land() {
+  const timeoutRef = useRef(0)
   let state = useSelector<stateType, stateType>(state => state);
   const web3React = useWeb3React()
   let { t, i18n } = useTranslation()
@@ -108,11 +109,11 @@ function Land() {
 
   const LevelObj = { 0: t('Not active'), 1: t('Lord'), 2: t('Castellan'), 3: t('Mayor'), 4: t('Governor'), 5: t('Speaker') }
   const landObj = [
-    { id: 1, count: 0 },
-    { id: 2, count: 0 },
-    { id: 3, count: 0 },
-    { id: 4, count: 0 },
-    { id: 5, count: 0 },
+    { id: 1, title: t("Outstanding quality land"), count: 0 },
+    { id: 2, title: t("Rare quality land"), count: 0 },
+    { id: 3, title: t("Perfect quality land"), count: 0 },
+    { id: 4, title: t("Epic quality land"), count: 0 },
+    { id: 5, title: t("Legendary quality land"), count: 0 },
   ]
   let [tabActive, setTabActive] = useState('1')
   let [totalNum, SetTotalNum] = useState(0)
@@ -133,6 +134,8 @@ function Land() {
   let [landDetailDes, setLandDetailDes] = useState(false)
   //  土地申领
   let [landApplication, setLandApplication] = useState<landObjType[]>([])
+  //  土地申领成功
+  let [landApplication1, setLandApplication1] = useState<landObjType[]>([])
   // 我的权益
   let [userBeneficial, setUserBeneficial] = useState<UserBeneficialType[]>([])
   //  土地申领数量
@@ -183,6 +186,7 @@ function Land() {
         })
         console.log(list, '初始化土地申领2');
         setLandApplication(list)
+        setLandApplication1(list)
         setLandApplicationNum(res.data.reduce((sum: any, item: any) => sum + item.landCount, 0))
       })
     }
@@ -197,19 +201,21 @@ function Land() {
         Contracts.example.ApplyLand(web3React.account as string, res.data).then((res: any) => {
           console.log(res);
           // 土地申领
-          // getLandUserList().then(res => {
-          //   console.log(res);
-          //   const list = landObj.map((item: any, index: any) => {
-          //     let newOptions = res.data.filter((v: any) => item.id == v.level)[0];
-          //     return ({
-          //       ...item,
-          //       count: newOptions?.landCount || item.count
-          //     })
-          //   })
-          //   console.log(list, '土地申领');
-          //   setLandApplication(list)
-          //   setLandApplicationNum(res.data.reduce((sum: any, item: any) => sum + item.landCount, 0))
-          // })
+          timeoutRef.current = window.setTimeout(() => {
+            getLandUserList().then(res => {
+              console.log(res);
+              const list = landObj.map((item: any, index: any) => {
+                let newOptions = res.data.filter((v: any) => item.id == v.level)[0];
+                return ({
+                  ...item,
+                  count: newOptions?.landCount || item.count
+                })
+              })
+              console.log(list, '土地申领');
+              setLandApplication(list)
+              setLandApplicationNum(res.data.reduce((sum: any, item: any) => sum + item.landCount, 0))
+            })
+          }, 5000);
           setClaimSuccessModal(true)
         }).finally(() => {
           showLoding(false)
@@ -234,6 +240,17 @@ function Land() {
         showLoding(true)
         Contracts.example.getLandAward(web3React.account as string, res.data).then((res: any) => {
           addMessage(t('Receive success'))
+          timeoutRef.current = window.setTimeout(() => {
+            // 我的权益
+            getLandUserBeneficial().then(res => {
+              console.log(res.data, "我的权益")
+              setUserBeneficial(res.data)
+            })
+            getUserInfo().then(res => {
+              console.log(res.data, "我的封号")
+              setUserLevel(res.data.level)
+            })
+          }, 5000);
         }, (err: any) => {
           if (err.code === 4001) {
             userCancelDrawAward({ type, id }).then(() => {
@@ -281,6 +298,7 @@ function Land() {
         })
         console.log(list, '初始化土地申领2');
         setLandApplication(list)
+        setLandApplication1(list)
         setLandApplicationNum(res.data.reduce((sum: any, item: any) => sum + item.landCount, 0))
       })
     }
@@ -312,6 +330,9 @@ function Land() {
     //     clearInterval(time)
     //   }
     // }
+    return () => {
+      clearTimeout(timeoutRef.current)
+    }
   }, [state.token, web3React.account, tabActive, landApplicationNum, ClaimSuccessModal])
 
   return (
@@ -404,7 +425,7 @@ function Land() {
                   <div className="valueBox">
                     <div className="box">
                       <div className="value">{NumSplic(`${userBeneficial[1]?.amount}`, 4)}</div>
-                      <div className="coinName"><img src={SBLIcon} alt="" /> {userBeneficial[1]?.coinName}</div>
+                      <div className="coinName"><img src={SBLIcon} alt="" /> {userBeneficial[1]?.coinName || 'SBL'}</div>
                     </div>
                     <div className="btnBox"><div className="getBtn flex" onClick={() => { Receive(4, userBeneficial[1]?.id, userBeneficial[1]?.amount) }}>{t("Harvest")}</div></div>
                   </div>
@@ -420,7 +441,7 @@ function Land() {
       {/* 挂卖成功 */}
       <Tips isShow={showCreateOrderSuccess} title={t('List successfully')} subTitle={t('List to the market successfully')} enterFun={() => setShowCreateOrderSuccess(false)} close={() => setShowCreateOrderSuccess(false)}></Tips>
       {/* 申领成功 */}
-      {landApplication.length > 0 && <ClaimSuccess data={landApplication} showModal={ClaimSuccessModal} close={() => { setClaimSuccessModal(false) }}></ClaimSuccess>}
+      {landApplication1.length > 0 && <ClaimSuccess data={landApplication1} showModal={ClaimSuccessModal} close={() => { setClaimSuccessModal(false) }}></ClaimSuccess>}
       {/* 土地详情 */}
       {landUserCard[cardDetialIndex] && <LandCardDetails showCreateOrder={createOrderFun} userLevel={userLevel} CardInfo={landUserCard[cardDetialIndex]} showModal={userCardDetail} close={() => setUserCardDetail(false)}></LandCardDetails>}
       {/* 土地详情说明 */}

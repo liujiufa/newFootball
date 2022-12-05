@@ -16,8 +16,9 @@ import { useViewport } from '../components/viewportContext'
 import { Pagination } from 'antd';
 import '../assets/style/componentsStyle/AddFlow.scss'
 import { useTranslation } from 'react-i18next'
-import { showLoding, addMessage, NumSplic, } from "../utils/tool";
+import { showLoding, addMessage, NumSplic, getWebsocketData, initWebSocket } from "../utils/tool";
 import { Contracts } from "../web3";
+import { socketUrl } from "../config";
 import BigNumber from 'big.js'
 import '../assets/style/componentsStyle/AddFluidOk.scss'
 import RewardRecord from '../components/RewardRecord'
@@ -166,8 +167,24 @@ function Pledge() {
         setuserCard(res.data.list)
         SetTotalNum(res.data.size)
       })
-    }
+      // 推送
+      let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getPledgeCardUserInfo/${web3React.account}`, `/getPledgeCardUserInfo/${web3React.account}`,
+        {
+          currentPage: page,
+          pageSize: 12,
+          userAddress: web3React.account
+        }, (data: any) => {
+          console.log(data, '用户徽章')
+          setImproveComputingPowerValue(data.promotePowerNum)
+          setuserCard(data.list)
+          SetTotalNum(data.size)
+        })
+      return () => {
+        stompClient.disconnect()
+        clearInterval(sendTimer)
+      }
 
+    }
   }, [state.token, web3React.account, page, totalNum, improvePowerSuccess, cancelPledgeSuccess])
   useEffect(() => {
     if (state.token && web3React.account) {
@@ -175,7 +192,18 @@ function Pledge() {
         console.log(res.data, "获取用户质押上方数据")
         SetPledgeData(res.data)
       })
+      // 推送
+      let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getPledgeCardUserData/${web3React.account}`, `/getPledgeCardUserData/${web3React.account}`,
+        {}, (data: any) => {
+          console.log(data, '获取用户质押上方数据')
+          SetPledgeData(data)
+        })
       setGetPage(false)
+      return () => {
+        stompClient.disconnect()
+        clearInterval(sendTimer)
+      }
+
     }
   }, [state.token, web3React.account])
   return (

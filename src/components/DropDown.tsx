@@ -13,6 +13,7 @@ interface DropDownPropsType {
 }
 function DropDown(props: any) {
   let { t } = useTranslation()
+  // let [Index, setIndex] = useState(props.staetIndex || 0)
   let [Index, setIndex] = useState(props.staetIndex || 0)
   const { Map } = props
   function change(value: number, index: number) {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Reward from '../components/Reward'
 import Node from '../components/Node'
 import { useTranslation } from 'react-i18next'
@@ -65,6 +65,8 @@ function SBL() {
   let [nodeRules, setNodeRules] = useState(false)
   /* 节点介绍 */
   let [nodeIntr, setNodeIntr] = useState(false)
+  const timeoutRef = useRef(0);
+
 
   function ShowProfitFun(id: number) {
     console.log(id)
@@ -113,6 +115,12 @@ function SBL() {
         showLoding(true)
         Contracts.example.getNodeAward(web3React.account as string, res.data, type).then((res: any) => {
           addMessage(t('Receive success'))
+          timeoutRef.current = window.setTimeout(() => {
+            getNodeUserList().then(res => {
+              setNodeRecord(res.data)
+              console.log(res.data, '节点奖励');
+            })
+          }, 5000);
         }, (err: any) => {
           if (err.code === 4001) {
             userCancelDrawAward({ type, id }).then(() => {
@@ -127,30 +135,37 @@ function SBL() {
       }
     })
   }
+  const getFun = () => {
+    if (state.token) {
+      getNodeUserList().then(res => {
+        setNodeRecord(res.data)
+        console.log(res.data, '节点奖励');
+      })
+    }
+  }
 
   useEffect(() => {
     if (state.token) {
       getNodeUserList().then(res => {
         setNodeRecord(res.data)
         console.log(res.data, '节点奖励');
-
       })
       getNodeBase().then(res => {
         setNodeBase(res.data)
       })
-      getCardUserMaxLevelInfo().then(res => {
-        setMaxLevel(res.data)
-      })
-      let Time = window.setInterval(() => {
-        getNodeUserList().then(res => {
-          setNodeRecord(res.data)
-        })
-        getNodeBase().then(res => {
-          setNodeBase(res.data)
-        })
-      }, 5000)
+      // getCardUserMaxLevelInfo().then(res => {
+      //   setMaxLevel(res.data)
+      // })
+      // let Time = window.setInterval(() => {
+      //   getNodeUserList().then(res => {
+      //     setNodeRecord(res.data)
+      //   })
+      //   getNodeBase().then(res => {
+      //     setNodeBase(res.data)
+      //   })
+      // }, 5000)
       return () => {
-        clearInterval(Time)
+        clearTimeout(timeoutRef.current)
       }
     }
   }, [state.token])
@@ -167,7 +182,7 @@ function SBL() {
         </div>
         <div className="Content">
           {/* 節點申請 */}
-          <Node></Node>
+          <Node getFun={() => { getFun() }}></Node>
           {/* 銷毀獎勵 */}
           {NodeRecord.map((item) => <div key={item.id} className="DestructReward">
             <div className="title">{t("Node reward")}</div>
@@ -207,7 +222,7 @@ function SBL() {
       {/* 节点收益记录 */}
       <GlodJdSy isShow={showProfit} id={ProfitId} close={() => { setShowProfit(false) }}></GlodJdSy>
 
-    </div>
+    </div >
   )
 }
 export default React.memo(SBL)

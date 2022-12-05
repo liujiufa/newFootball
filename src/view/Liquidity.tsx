@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
 import { useWeb3React } from '@web3-react/core'
 import { getUserLpList } from '../API/index'
-import { dateFormat, showLoding } from '../utils/tool'
+import { dateFormat, showLoding, getWebsocketData, initWebSocket } from '../utils/tool'
 import { useLocation } from 'react-router-dom';
+import { socketUrl } from '../config';
 import BigNumber from 'big.js'
 import '../assets/style/Liquidity.scss'
 import AddLiquidityModal from '../components/AddLiquidityModal'
@@ -19,6 +20,7 @@ import switchIcon from '../assets/image/dropDownIcon.png'
 import { Contracts } from '../web3';
 import Web3 from 'web3';
 import { addMessage } from '../utils/tool';
+import { isNamedTupleMember } from 'typescript';
 interface UserLpListType {
     addTxId: string,
     cancelTxId: string,
@@ -65,6 +67,7 @@ export default function Liquidity() {
     const [balance1, setBalance1] = useState('0')
     // ToSBL
     const [toSBL, setToSBL] = useState('0')
+    const [oepnCardList, setOepnCardList] = useState<number[]>([])
     const [cardLevel] = useState<any>(location.state)
     // 移除流动性值
     const [reLiquidityValue, setRmLiquidityValue] = useState({ type: 0, num: 0, currencyPair: 0, hostAmount: 0, tokenAmount: 0, })
@@ -77,13 +80,16 @@ export default function Liquidity() {
     }
     // 打开相应流动性列表
     const openFun = (key: number) => {
-        userLpList.map((item) => {
-            if (item.id === key) {
-                item.close = !item.close
-            }
-        })
+        let list = oepnCardList;
+        const flag = list.some(item=> Number(item) === Number(key))
+        if(flag) {
+            list = list.filter(item=> Number(item) !== Number(key))
+        } else {
+            list = [...list, key]
+        }
         setTime(time + 1)
-        setUserLpList(userLpList)
+        setOepnCardList(list)
+        // setOepnCardList
     }
     // 添加流动性
     const addLiquidityFun = (type: number) => {
@@ -136,37 +142,62 @@ export default function Liquidity() {
         }
     }
 
+    
+
+    const init = useCallback(
+        () => {
+            if (state.token && web3React.account) {
+                // 我的流动性列表
+                let list: any[] = []
+                getUserLpList().then((res: any) => {
+                    console.log(res.data, "我的流动性列表")
+                    list = res.data.map((item: any) => {
+                        return item
+                    })
+                })
+                // 推送
+                let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getUserLpList/${web3React.account}`, `/getUserLpList/${web3React.account}`,
+                    {}, (data: any) => {
+                        console.log(data, userLpList, '获取用户LP数据')
+                        setUserLpList(data.map((item: any) => {
+                            return item
+                        }))
+                    })
+                /* 查询BNB余额 */
+                Contracts.example.getBalance(web3React.account).then((res: any) => {
+                    setBalance(new BigNumber(res).div(10 ** 18).toString())
+                })
+                /* 查询SBL余额 */
+                Contracts.example.balanceOf(web3React.account).then((res: any) => {
+                    setBalance1(new BigNumber(res).div(10 ** 18).toString())
+                })
+                // toSBL
+                Contracts.example.toLiquiditySBL(web3React.account as string, addLiquidityValue).then((res: any) => {
+                    setToSBL(new BigNumber(res).div(10 ** 18).toString())
+                })
+                return () => {
+                    stompClient.disconnect()
+                    clearInterval(sendTimer)
+                }
+            }
+        },
+        [userLpList, state.token, web3React.account],
+    )
+
+
     useEffect(() => {
         if (state.token && web3React.account) {
-            // 我的流动性列表
-            getUserLpList().then((res: any) => {
-                console.log(res.data, "我的流动性列表")
-                setUserLpList(res.data.map((item: any) => {
-                    return { ...item, close: false }
-                }))
-            })
-            // let time = setInterval(() => {
-            //     getUserLpList().then((res: any) => {
-            //         setUserLpList(res.data.map((item: any) => {
-            //             return { ...item, close: false }
-            //         }))
-            //     })
-            // }, 3000)
-            // return () => {
-            //     clearInterval(time)
+            init()
+        }
+        return () => {
+            // if (subCardList) {
+            //     subCardList.stompClient.disconnect()
+            //     clearInterval(subCardList.sendTimer)
             // }
-            /* 查询BNB余额 */
-            Contracts.example.getBalance(web3React.account).then((res: any) => {
-                setBalance(new BigNumber(res).div(10 ** 18).toString())
-            })
-            /* 查询SBL余额 */
-            Contracts.example.balanceOf(web3React.account).then((res: any) => {
-                setBalance1(new BigNumber(res).div(10 ** 18).toString())
-            })
-            // toSBL
-            Contracts.example.toLiquiditySBL(web3React.account as string, addLiquidityValue).then((res: any) => {
-                setToSBL(new BigNumber(res).div(10 ** 18).toString())
-            })
+            // if (subCompose) {
+            //     subCompose.stompClient.disconnect()
+            //     clearInterval(subCompose.sendTimer)
+            // }
         }
     }, [state.token, web3React.account])
     useEffect(() => {
@@ -188,10 +219,10 @@ export default function Liquidity() {
                                     <div className="coinsvalue">{item?.hostAmount} BNB</div>
                                     <div className="rightBox">
                                         <div className="coinsIcon"><img className='img1' src={SBLIcon} alt="" /><img className='img2' src={BNBIcon} alt="" /></div>
-                                        <div className="closeIcon flex" onClick={() => { openFun(item.id) }}><img className={item?.close ? 'spanRotate' : 'spanReset'} src={switchIcon} alt="" /></div>
+                                        <div className="closeIcon flex" onClick={() => { openFun(item.id) }}><img className={ oepnCardList.some(option => Number(option) === Number(item?.id) ) ? 'spanRotate' : 'spanReset'} src={switchIcon} alt="" /></div>
                                     </div>
                                 </div>
-                                {item?.close && <div className="detailBox">
+                                {oepnCardList.some(option => Number(option) === Number(item?.id))  && <div className="detailBox">
                                     <div className="item">
                                         <div className="itemTitle">{t('Supply time')}</div>
                                         <div className="itemValue">{dateFormat('YYYY/mm/dd', new Date(item?.createTime))}</div>

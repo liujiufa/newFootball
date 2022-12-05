@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { getMbaUserInfo } from '../API/index'
 import { useSelector } from "react-redux";
@@ -29,6 +29,7 @@ interface GetMbaUserInfoType {
 }
 
 export default function MBASwap() {
+    const timeoutRef = useRef(0)
     const web3React = useWeb3React()
     // SBL余额
     const [balance1, setBalance1] = useState('0')
@@ -80,7 +81,6 @@ export default function MBASwap() {
                 showLoding(false)
             })
         })
-
     }
     // 兑换MBA
     const improveHashRate = () => {
@@ -94,6 +94,18 @@ export default function MBASwap() {
         Contracts.example.improveHashRate(web3React.account as string, inputValue).then((res: any) => {
             setConfirmExchange(false)
             setSwapSucceed(true)
+            timeoutRef.current = window.setTimeout(() => {
+                getMbaUserInfo().then(res => {
+                    setMbaUserInfo(res.data)
+                    console.log(res.data, "")
+                })
+                if (web3React.account) {
+                    Contracts.example.balanceOf(web3React.account).then((res: any) => {
+                        setBalance1(new BigNumber(res).div(10 ** 18).toString())
+                        console.log('SBL余额', new BigNumber(res).div(10 ** 18).toString());
+                    })
+                }
+            }, 5000);
         }).finally(() => {
             showLoding(false)
         })
@@ -119,8 +131,11 @@ export default function MBASwap() {
             })
             getMbaUserInfo().then(res => {
                 setMbaUserInfo(res.data)
-                console.log(res.data, "获取用户销毁奖励")
+                console.log(res.data, "")
             })
+            return () => {
+                clearTimeout(timeoutRef.current)
+            }
         }
     }, [state.token, web3React.account])
     return (

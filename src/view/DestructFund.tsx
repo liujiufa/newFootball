@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { getBurnUserInfo, userDrawAward, userCancelDrawAward } from '../API/index'
 import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
 import { Contracts } from '../web3';
 import { useWeb3React } from '@web3-react/core'
-import { NumSplic, showLoding, addMessage, getBit } from '../utils/tool';
-import { contractAddress } from "../config"
+import { NumSplic, showLoding, addMessage, getBit, initWebSocket } from '../utils/tool';
+import { contractAddress, socketUrl } from "../config"
 
 import BigNumber from 'big.js'
 
@@ -55,6 +55,7 @@ function DestructFund() {
   // SBL授权
   const [ApproveValue, setApproveValue] = useState('0')
   // 基金额度
+  const timeoutRef = useRef(0);
   const [burnLimitValue, setBurnLimitValue] = useState('0')
   const [inputValue, setInputValue] = useState(0)
 
@@ -142,10 +143,12 @@ function DestructFund() {
         Contracts.example.getBurnFundAward(web3React.account as string, res.data).then((res: any) => {
           addMessage(t('Receive success'))
           if (state.token && web3React.account) {
-            getBurnUserInfo().then(res => {
-              setDrawBurnRecord(res.data)
-              console.log(res.data, "获取销毁奖励")
-            })
+            timeoutRef.current = window.setTimeout(() => {
+              getBurnUserInfo().then(res => {
+                setDrawBurnRecord(res.data)
+                console.log(res.data, "获取销毁奖励")
+              })
+            }, 5000);
           }
         }, (err: any) => {
           if (err.code === 4001) {
@@ -168,11 +171,16 @@ function DestructFund() {
         console.log(res.data, "获取销毁奖励")
       })
 
-      let time = setInterval(() => {
-        getBurnUserInfo().then(res => {
-          setDrawBurnRecord(res.data)
+      // let time = setInterval(() => {
+      //   getBurnUserInfo().then(res => {
+      //     setDrawBurnRecord(res.data)
+      //   })
+      // }, 3000)
+      // 推送
+      let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getBurnUserInfo/${web3React.account}`, `/getBurnUserInfo/${web3React.account}`,
+        {}, (data: any) => {
+          setDrawBurnRecord(data)
         })
-      }, 3000)
       Contracts.example.Tokenapprove(web3React.account, contractAddress.BurnFund).then((res: any) => {
         setApproveValue(new BigNumber(res).div(10 ** 18).toString())
         console.log(new BigNumber(res).div(10 ** 18).toString(), '授权额度');
@@ -205,7 +213,9 @@ function DestructFund() {
         })
       })
       return () => {
-        clearInterval(time)
+        stompClient.disconnect()
+        clearInterval(sendTimer)
+        clearTimeout(timeoutRef.current);
       }
     }
   }, [state.token, web3React.account])
