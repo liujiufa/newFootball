@@ -15,7 +15,7 @@ import SuccessAddLiquidity from '../components/SuccessAddLiquidity'
 import SuccessRmLiquidity from '../components/SuccessRmLiquidity'
 import SBLIcon from '../assets/image/SBLToken.png'
 import BNBIcon from '../assets/image/BNBIcon.svg'
-import switchIcon from '../assets/image/switchIcon.png'
+import switchIcon from '../assets/image/dropDownIcon.png'
 import { Contracts } from '../web3';
 import Web3 from 'web3';
 import { addMessage } from '../utils/tool';
@@ -188,7 +188,7 @@ export default function Liquidity() {
                                     <div className="coinsvalue">{item?.hostAmount} BNB</div>
                                     <div className="rightBox">
                                         <div className="coinsIcon"><img className='img1' src={SBLIcon} alt="" /><img className='img2' src={BNBIcon} alt="" /></div>
-                                        <div className="closeIcon flex" onClick={() => { openFun(item.id) }}><img className={item?.close ? 'spanReset' : 'spanRotate'} src={switchIcon} alt="" /></div>
+                                        <div className="closeIcon flex" onClick={() => { openFun(item.id) }}><img className={item?.close ? 'spanRotate' : 'spanReset'} src={switchIcon} alt="" /></div>
                                     </div>
                                 </div>
                                 {item?.close && <div className="detailBox">

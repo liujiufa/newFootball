@@ -47,13 +47,15 @@
 
                     .img1 {
                         z-index: 2;
-                        width: 26px;
-                        height: 26px;
+                        width: 20px;
+                        height: 20px;
                     }
 
                     .img2 {
                         position: absolute;
-                        left: 17px;
+                        left: 10px;
+                        width: 20px;
+                        height: 20px;
                     }
                 }
             }
@@ -153,5 +155,10 @@
             }
 
         }
+    }
+}
+@media screen and (max-width:425px) {
+    .ConfirmRmLiquidity .ant-modal-content{
+        padding: 18px 12px; 
     }
 }

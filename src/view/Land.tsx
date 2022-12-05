@@ -320,21 +320,11 @@ function Land() {
         <div className="SwapTitle">
           NFT - {t("Land")}
         </div>
-        {/* <div className="processState">
-          <div className="imgBox" onClick={() => { setTabActive('1') }}><img src={tabActive === '1' ? landApplyActive : landApply} alt="" /></div>
-          <div className="imgBox" onClick={() => { setTabActive('2') }}><img src={tabActive === '2' ? myTerritoryActive : myTerritory} alt="" /></div>
-          <div className="imgBox" onClick={() => { setTabActive('3') }}><img src={tabActive === '3' ? myRightActive : myRight} alt="" /></div>
-        </div> */}
         <div className="processState">
           <div className="imgBox" onClick={() => { setTabActive('1') }}><img src={tabActive === '1' ? tabObj[i18n.language][3] : tabObj[i18n.language][0]} alt="" /></div>
           <div className="imgBox" onClick={() => { setTabActive('2') }}><img src={tabActive === '2' ? tabObj[i18n.language][4] : tabObj[i18n.language][1]} alt="" /></div>
           <div className="imgBox" onClick={() => { setTabActive('3') }}><img src={tabActive === '3' ? tabObj[i18n.language][5] : tabObj[i18n.language][2]} alt="" /></div>
         </div>
-        {/* <div className="processState">
-          <div className="imgBox" onClick={() => { setTabActive('1') }}><img src={tabActive === '1' ? (i18n.language === "zh" ? landApplyActive : landApplyActiveEN) : (i18n.language === "zh" ? landApply : landApplyEN)} alt="" /></div>
-          <div className="imgBox" onClick={() => { setTabActive('2') }}><img src={tabActive === '2' ? (i18n.language === "zh" ? myTerritoryActive : myTerritoryActiveEN) : (i18n.language === "zh" ? myTerritory : myTerritoryEN)} alt="" /></div>
-          <div className="imgBox" onClick={() => { setTabActive('3') }}><img src={tabActive === '3' ? (i18n.language === "zh" ? myRightActive : myRightActiveEN) : (i18n.language === "zh" ? myRight : myRightEN)} alt="" /></div>
-        </div> */}
         {/* 1.土地申领 */}
         {
           tabActive === '1' && <div className="Content">

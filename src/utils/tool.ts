@@ -1,5 +1,7 @@
 import dayjs from 'dayjs'
 import store from "../store";
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
 import { createAddMessageAction, createSetLodingAction } from '../store/actions'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import BigNumber from 'big.js'
@@ -116,44 +118,46 @@ export function getFullNum(num: number) {
 }
 
 //订阅数据send模式
-// function initWebSocket(url: string, subscribe: string, sendUrl: string, callback: () => void) {
-//     let stompClient = null;
-//     let sendTimer
-//     let socket = new SockJS(url);
-//     stompClient = Stomp.over(socket);
-//     stompClient.connect({}, () => {
-//         stompClient.subscribe(subscribe, (data) => {
-//             var resdata = JSON.parse(data.body)
-//             callback(resdata)
-//         })
-//         sendTimer = setInterval(() => {
-//             stompClient.send(sendUrl,
-//                 {},
-//                 JSON.stringify({ sender: '', chatType: 'JOIN' }),
-//             )
-//         }, 2000)
-//     }, function () {
-//     });
-//     stompClient.ws.onclose = function () {
-//     };
-//     return { stompClient, sendTimer }
-// }
+export function initWebSocket(url: string, subscribe: string, sendUrl: string, callback: any) {
+    let stompClient: any;
+    let sendTimer
+    let socket = new SockJS(url);
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, () => {
+        stompClient.subscribe(subscribe, (data: any) => {
+            var resdata = JSON.parse(data.body)
+            callback(resdata)
+        })
+        sendTimer = setInterval(() => {
+            stompClient.send(sendUrl,
+                {},
+                JSON.stringify({ sender: '', chatType: 'JOIN' }),
+            )
+        }, 2000)
+    }, function () {
+    });
+    stompClient.ws.onclose = function () {
+    };
+    return { stompClient, sendTimer }
+}
+export function getWebsocketData(url: string, subscribe: string, callback: any) {
+    console.log(url, subscribe);
+    var stompClient: any;
+    var socket = new SockJS(url);
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function () {
+        stompClient.subscribe(subscribe, function (data: any) {
+            console.log(data.body);
 
-// function getWebsocketData(url: string, subscribe: string, callback: () => void) {
-//     var stompClient = null;
-//     var socket = new SockJS(url);
-//     stompClient = Stomp.over(socket);
-//     stompClient.connect({}, function () {
-//         stompClient.subscribe(subscribe, function (data) {
-//             callback(JSON.parse(data.body))
-//         })
+            callback(JSON.parse(data.body))
+        })
 
-//     }, function () {
-//     });
-//     stompClient.ws.onclose = function () {
-//     };
-//     return stompClient
-// }
+    }, function () {
+    });
+    stompClient.ws.onclose = function () {
+    };
+    return stompClient
+}
 
 // export function debounce(tarFun: Function, delay: number, immed: boolean) {
 //     let timer: number | null = null

@@ -6,6 +6,8 @@ import { Contracts } from '../web3'
 // import Tips from "../components/Tips"
 import { useTranslation } from 'react-i18next'
 import { isApprove, addMessage, showLoding, AddrHandle } from '../utils/tool'
+import { stateType } from '../store/reducer'
+
 import PurchaseBox from "../components/PurchaseBox"
 import BlindBoxImg from '../assets/image/BlindBoxImg.png'
 import ContractsImg from '../assets/image/Contracts.svg'
@@ -14,10 +16,11 @@ import '../assets/style/BlindBox.scss'
 import '../assets/style/RaceBoxModal.scss'
 import '../assets/style/PurchaseBox.scss'
 import copy from 'copy-to-clipboard';
-import { NumSplic } from '../utils/tool'
-import { contractAddress } from "../config"
+import { NumSplic, getWebsocketData } from '../utils/tool'
+import { contractAddress, socketUrl } from "../config"
 import BigNumber from 'big.js'
 import { useViewport } from "../components/viewportContext"
+import { useSelector } from "react-redux"
 
 export interface BoxBaseType {
   id: number
@@ -30,6 +33,7 @@ export interface BoxBaseType {
 }
 
 function BlindBox() {
+  const state = useSelector<stateType, stateType>(state => state)
   const { width } = useViewport()
   const web3React = useWeb3React()
   let { t } = useTranslation()
@@ -56,7 +60,7 @@ function BlindBox() {
   }
 
   useEffect(() => {
-    if (web3React.account) {
+    if (web3React.account && state.token) {
       /* 查询盲盒基本配置 */
       getBoxBase().then(res => {
         console.log(res.data);
@@ -68,8 +72,12 @@ function BlindBox() {
           })
         })
       })
+      // 推送
+      getWebsocketData(socketUrl, `/topic/noOpenEgg/${web3React.account}`, (data: any) => {
+        console.log(data, '推送数据')
+      })
     }
-  }, [web3React.account])
+  }, [web3React.account, state.token])
   return (
     <div>
       <div className="Edition-Center">

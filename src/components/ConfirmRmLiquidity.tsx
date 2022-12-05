@@ -20,7 +20,7 @@ function ConfirmRmLiquidity(props: any) {
                 footer={null}
                 onCancel={() => { props.close() }}
             >
-                <p className='title'>{t("remove liquidity")}</p>
+                <p className='title'>{t("Remove liquidity")}</p>
                 <div className="coinBox">
                     <div className="coinsValue">{props.data.currencyPair} BNB</div>
                     <div className="coinsIcon">

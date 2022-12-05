@@ -18,7 +18,7 @@
 
     .content {
         padding: 60px 0;
-        margin-top: 150px;
+        margin-top: 100px;
         width: 100%;
         max-width: 413px;
         background: #1F2045;
@@ -104,7 +104,7 @@
                 }
 
                 .rightBox {
-                    width: 40px;
+                    width: 60px;
                     display: flex;
                     justify-content: space-between;
 
@@ -116,14 +116,16 @@
 
                         .img1 {
                             z-index: 2;
-                            width: 14px;
-                            height: 14px;
+                            width: 20px;
+                            height: 20px;
                         }
 
                         .img2 {
                             position: absolute;
-                            left: 7px;
-                            
+                            left: 10px;
+                            width: 20px;
+                            height: 20px;
+
                         }
 
                     }

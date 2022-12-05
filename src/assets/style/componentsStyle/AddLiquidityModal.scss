@@ -187,8 +187,8 @@
 
                             img {
                                 margin-right: 4px;
-                                width: 26px;
-                                height: 26px;
+                                width: 20px;
+                                height: 20px;
                             }
                         }
                     }
@@ -293,7 +293,7 @@
     }
 }
 
-@media screen and (max-width:425px) {
+@media screen and (max-width:470px) {
     .AddLiquidityModal .ant-modal-content {
         padding: 20px 18px;
 

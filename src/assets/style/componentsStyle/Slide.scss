@@ -1,6 +1,37 @@
 .slideBox {
   margin-top: 60px;
 
+  .leftIcon {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 50px;
+    height: 50px;
+    z-index: 100;
+    >span{
+      width: 30px;
+      height: 30px;
+      >svg{
+        width: 100%;
+      }
+    }
+  }
+  .rightIcon {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 50px;
+    height: 50px;
+    z-index: 100;
+    >span{
+      width: 30px;
+      height: 30px;
+      >svg{
+        width: 100%;
+      }
+    }
+  }
+
   /*  去掉图片低测默认的3像素空白缝隙*/
   table {
     border-collapse: collapse;
@@ -285,7 +316,7 @@
       width: 350px;
 
       .one {
-        transform: translateX(-200px) scale(0.9);
+        transform: translateX(-200px) scale(0.8);
       }
 
       .two {
@@ -301,7 +332,7 @@
       }
 
       .five {
-        transform: translateX(200px) scale(0.9);
+        transform: translateX(200px) scale(0.8);
       }
 
       li {
@@ -310,6 +341,7 @@
     }
   }
 }
+
 @media screen and (max-width:768px) {
   .slideBox {
     display: flex;
