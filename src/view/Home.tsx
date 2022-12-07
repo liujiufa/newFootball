@@ -5,20 +5,6 @@ import { Carousel } from "antd";
 import { useNavigate } from "react-router-dom";
 import { stateType } from '../store/reducer'
 import { Contracts } from '../web3'
-import shou from "../assets/image/shou.png";
-import home1 from "../assets/image/home1.png";
-import home2 from "../assets/image/home2.png";
-import home3 from "../assets/image/home3.png";
-import home4 from "../assets/image/home4.png";
-import home5 from "../assets/image/home5.png";
-import home6 from "../assets/image/home6.png";
-import fz1 from "../assets/image/fz1.png";
-import Group from "../assets/image/Group.png";
-import GroupEn from "../assets/image/GroupEn.png";
-import zoobox from "../assets/image/zoobox.png";
-import zooboxEn from "../assets/image/zooboxEn.png";
-import titimg1 from "../assets/image/titimg1.png";
-import titimg2 from "../assets/image/titimg2.png";
 import bt1 from "../assets/image/bt1.png";
 import bt2 from "../assets/image/bt2.png";
 import bt3 from "../assets/image/bt3.png";

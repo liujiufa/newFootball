@@ -314,6 +314,8 @@ interface getUserLandCardType {
 }
 // 获取用户土地卡牌
 export function getLandUserCardList(data: getUserLandCardType) {
+    console.log(data);
+    
     return axois.request({
         url: `/user/lLandUser/getLandUserCardList`,
         method: 'post',

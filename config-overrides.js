@@ -1,4 +1,7 @@
 const webpack = require('webpack');
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
+const { injectBabelPlugin } = require('react-app-rewired');
 
 module.exports = function override(config) {
     const fallback = config.resolve.fallback || {};
@@ -18,5 +21,8 @@ module.exports = function override(config) {
             Buffer: ['buffer', 'Buffer']
         })
     ])
+    config = injectBabelPlugin(['import', { libraryName: 'antd', libraryDirectory: 'es', style: 'css' }], config);
     return config;
 }
+
+

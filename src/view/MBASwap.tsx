@@ -15,7 +15,7 @@ import ConfirmExchange from '../components/ConfirmExchange'
 import ExchangeRecord from '../components/ExchangeRecord'
 import SBLIcon from '../assets/image/SBLTokens.png'
 import bigSBLIcon from '../assets/image/SBLTokenIcon.png'
-import recordIcon from '../assets/image/recordIcon.png'
+import recordIcon from '../assets/image/record.png'
 import MBAToken from '../assets/image/MBAToken.png'
 interface GetMbaUserInfoType {
     amount: number,

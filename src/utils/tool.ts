@@ -119,7 +119,6 @@ export function getFullNum(num: number) {
 
 //订阅数据send模式
 export function initWebSocket(url: string, subscribe: string, sendUrl: string, data: any, callback: any,) {
-    console.log(data, 'data');
     let stompClient: any;
     let sendTimer
     let socket = new SockJS(url);
@@ -130,7 +129,6 @@ export function initWebSocket(url: string, subscribe: string, sendUrl: string, d
             callback(resdata)
         })
         sendTimer = setInterval(() => {
-            console.log(data);
             stompClient.send(sendUrl,
                 { 'Content-Type': 'application/json;charset=UTF-8' },
                 JSON.stringify({ ...data }),

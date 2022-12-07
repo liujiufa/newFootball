@@ -81,15 +81,14 @@ export default function Liquidity() {
     // 打开相应流动性列表
     const openFun = (key: number) => {
         let list = oepnCardList;
-        const flag = list.some(item=> Number(item) === Number(key))
-        if(flag) {
-            list = list.filter(item=> Number(item) !== Number(key))
+        const flag = list.some(item => Number(item) === Number(key))
+        if (flag) {
+            list = list.filter(item => Number(item) !== Number(key))
         } else {
             list = [...list, key]
         }
-        setTime(time + 1)
+        // setTime(time + 1)
         setOepnCardList(list)
-        // setOepnCardList
     }
     // 添加流动性
     const addLiquidityFun = (type: number) => {
@@ -142,62 +141,42 @@ export default function Liquidity() {
         }
     }
 
-    
-
-    const init = useCallback(
-        () => {
-            if (state.token && web3React.account) {
-                // 我的流动性列表
-                let list: any[] = []
-                getUserLpList().then((res: any) => {
-                    console.log(res.data, "我的流动性列表")
-                    list = res.data.map((item: any) => {
-                        return item
-                    })
-                })
-                // 推送
-                let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getUserLpList/${web3React.account}`, `/getUserLpList/${web3React.account}`,
-                    {}, (data: any) => {
-                        console.log(data, userLpList, '获取用户LP数据')
-                        setUserLpList(data.map((item: any) => {
-                            return item
-                        }))
-                    })
-                /* 查询BNB余额 */
-                Contracts.example.getBalance(web3React.account).then((res: any) => {
-                    setBalance(new BigNumber(res).div(10 ** 18).toString())
-                })
-                /* 查询SBL余额 */
-                Contracts.example.balanceOf(web3React.account).then((res: any) => {
-                    setBalance1(new BigNumber(res).div(10 ** 18).toString())
-                })
-                // toSBL
-                Contracts.example.toLiquiditySBL(web3React.account as string, addLiquidityValue).then((res: any) => {
-                    setToSBL(new BigNumber(res).div(10 ** 18).toString())
-                })
-                return () => {
-                    stompClient.disconnect()
-                    clearInterval(sendTimer)
-                }
-            }
-        },
-        [userLpList, state.token, web3React.account],
-    )
-
 
     useEffect(() => {
         if (state.token && web3React.account) {
-            init()
-        }
-        return () => {
-            // if (subCardList) {
-            //     subCardList.stompClient.disconnect()
-            //     clearInterval(subCardList.sendTimer)
-            // }
-            // if (subCompose) {
-            //     subCompose.stompClient.disconnect()
-            //     clearInterval(subCompose.sendTimer)
-            // }
+            // 我的流动性列表
+            let list: any[] = []
+            getUserLpList().then((res: any) => {
+                console.log(res.data, "我的流动性列表")
+                list = res.data.map((item: any) => {
+                    return item
+                })
+                setUserLpList(list)
+            })
+            // 推送
+            let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getUserLpList/${web3React.account}`, `/getUserLpList/${web3React.account}`,
+                {}, (data: any) => {
+                    console.log(data, userLpList, '获取用户LP数据')
+                    setUserLpList(data.map((item: any) => {
+                        return item
+                    }))
+                })
+            /* 查询BNB余额 */
+            Contracts.example.getBalance(web3React.account).then((res: any) => {
+                setBalance(new BigNumber(res).div(10 ** 18).toString())
+            })
+            /* 查询SBL余额 */
+            Contracts.example.balanceOf(web3React.account).then((res: any) => {
+                setBalance1(new BigNumber(res).div(10 ** 18).toString())
+            })
+            // toSBL
+            Contracts.example.toLiquiditySBL(web3React.account as string, addLiquidityValue).then((res: any) => {
+                setToSBL(new BigNumber(res).div(10 ** 18).toString())
+            })
+            return () => {
+                stompClient.disconnect()
+                clearInterval(sendTimer)
+            }
         }
     }, [state.token, web3React.account])
     useEffect(() => {
@@ -219,10 +198,10 @@ export default function Liquidity() {
                                     <div className="coinsvalue">{item?.hostAmount} BNB</div>
                                     <div className="rightBox">
                                         <div className="coinsIcon"><img className='img1' src={SBLIcon} alt="" /><img className='img2' src={BNBIcon} alt="" /></div>
-                                        <div className="closeIcon flex" onClick={() => { openFun(item.id) }}><img className={ oepnCardList.some(option => Number(option) === Number(item?.id) ) ? 'spanRotate' : 'spanReset'} src={switchIcon} alt="" /></div>
+                                        <div className="closeIcon flex" onClick={() => { openFun(item.id) }}><img className={oepnCardList.some(option => Number(option) === Number(item?.id)) ? 'spanRotate' : 'spanReset'} src={switchIcon} alt="" /></div>
                                     </div>
                                 </div>
-                                {oepnCardList.some(option => Number(option) === Number(item?.id))  && <div className="detailBox">
+                                {oepnCardList.some(option => Number(option) === Number(item?.id)) && <div className="detailBox">
                                     <div className="item">
                                         <div className="itemTitle">{t('Supply time')}</div>
                                         <div className="itemValue">{dateFormat('YYYY/mm/dd', new Date(item?.createTime))}</div>

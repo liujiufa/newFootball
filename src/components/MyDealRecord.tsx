@@ -1,39 +1,39 @@
 // SBL/我的交易记录
-import React,{useEffect , useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next'
 import { Modal, Table } from "antd";
-import {getOrderStateList} from '../API'
-import {dateFormat} from '../utils/tool'
-import {useSelector} from "react-redux";
-import {stateType} from '../store/reducer'
+import { getOrderStateList } from '../API'
+import { dateFormat } from '../utils/tool'
+import { useSelector } from "react-redux";
+import { stateType } from '../store/reducer'
 import "../assets/style/componentsStyle/MyDealRecord.scss";
-const status=['Put shelf','revoke','Sold','purchase']
-const type = ['','Perseus Badge','Khaos Badge','Gaea Badge','Astra Badge']
-const level = ['','Common','Uncommon','Outstanding','Rare','Perfect','Epic']
+const status = ['Put shelf', 'revoke', 'Sold', 'purchase']
+const type = ['', 'Perseus Badge', 'Khaos Badge', 'Gaea Badge', 'Astra Badge','Land']
+const level = ['', 'Common', 'Uncommon', 'Outstanding', 'Rare', 'Perfect', 'Epic']
 const { Column } = Table;
-interface propsType{
+interface propsType {
   isShow: boolean,
-  close:Function
+  close: Function
 }
-function MyDealRecord(props:propsType) {
+function MyDealRecord(props: propsType) {
   let { t } = useTranslation()
-  let state = useSelector<stateType,stateType>(state => state);
-  let [tableData,setTableData] = useState([])
-  useEffect(()=>{
-    if(state.token && props.isShow){
-      getOrderStateList().then(res=>{
+  let state = useSelector<stateType, stateType>(state => state);
+  let [tableData, setTableData] = useState([])
+  useEffect(() => {
+    if (state.token && props.isShow) {
+      getOrderStateList().then(res => {
         setTableData(res.data)
-        console.log(res.data,"交易记录")
+        console.log(res.data, "交易记录")
       })
     }
-  },[state.token,props.isShow])
-  
+  }, [state.token, props.isShow])
+
   return (
     <>
       <Modal
         visible={props.isShow}
         className="MyDealRecord"
-        onCancel={()=>props.close()}
+        onCancel={() => props.close()}
         centered
         width={"886px"}
         closable={false}
@@ -49,13 +49,13 @@ function MyDealRecord(props:propsType) {
           dataSource={tableData}
           pagination={false}
           rowKey="id"
-          scroll={{ y: 260 ,x:'auto'}}
+          scroll={{ y: 260, x: 'auto' }}
         >
           <Column
             title={t('Time')}
             render={(item) => (
               <>
-                <div>{dateFormat('YYYY-mm-dd HH:MM',new Date(item.createTime))}</div>
+                <div>{dateFormat('YYYY-mm-dd HH:MM', new Date(item.createTime))}</div>
               </>
             )}
           />

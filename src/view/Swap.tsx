@@ -7,7 +7,7 @@ import LandPutParticulars from '../components/LandPutParticulars'
 import { useWeb3React } from '@web3-react/core'
 import Tips from '../components/Tips'
 import { getOrderList, getUserInfo } from '../API'
-import { addMessage, initWebSocket } from '../utils/tool'
+import { addMessage, initWebSocket, showLoding } from '../utils/tool'
 import DropDown from '../components/DropDown'
 import CardItem from '../components/CardItem'
 import NoData from '../components/NoData'
@@ -18,7 +18,7 @@ import CancelPurchase from '../components/CancelPurchase'
 import MyDealRecord from '../components/MyDealRecord'
 import { Pagination } from 'antd';
 import { Contracts } from "../web3";
-import { socketUrl } from '../config'
+import { socketUrl, contractAddress } from '../config'
 import BigNumber from 'big.js'
 import '../assets/style/Swap.scss'
 import MarketDealing from '../components/MarketDealing'
@@ -215,7 +215,26 @@ function Swap() {
   let [orderList, setOrderList] = useState<orderInfoType[]>([])
   /* 用户订单列表 */
   let [userOrderList, setUserOrderList] = useState<orderInfoType[]>([])
+  // SBL授权
+  const [ApproveValue, setApproveValue] = useState('0')
+  // 授权
+  function ApproveFun(num: number) {
+    console.log(num);
 
+    if (!web3React.account) {
+      return addMessage(t('Please connect Wallet'))
+    }
+    showLoding(true)
+    Contracts.example.approve1(web3React.account as string, contractAddress.EXChangeNFT, `${num}`).then(() => {
+      Contracts.example.Tokenapprove(web3React.account as string, contractAddress.EXChangeNFT).then((res: any) => {
+        setApproveValue(new BigNumber(res).div(10 ** 18).toString())
+      }).finally(() => {
+        showLoding(false)
+      })
+    }).finally(() => {
+      showLoding(false)
+    })
+  }
 
   useEffect(() => {
     setShowCancelOrder(false)
@@ -390,6 +409,15 @@ function Swap() {
     }
   }, [state.token, web3React.account])
 
+  useEffect(() => {
+    // 查询授权
+    if (web3React.account) {
+      Contracts.example.Tokenapprove(web3React.account as string, contractAddress.EXChangeNFT).then((res: any) => {
+        setApproveValue(new BigNumber(res).div(10 ** 18).toString())
+      })
+    }
+  }, [web3React.account])
+
 
   return (
     <div>
@@ -454,7 +482,7 @@ function Swap() {
               orderList.length !== 0 ? <>
                 <div className="CardList">
                   {
-                    orderList.map((item, index) => <CardItem key={item.id} type="commodity" orderInfo={item} showCardDetail={() => { ShowCardDetailFun(index, 'swap') }} buy={() => buy(index)}></CardItem>)
+                    orderList.map((item, index) => <CardItem ApproveValue={ApproveValue} approveFun={ApproveFun} key={item.id} type="commodity" orderInfo={item} showCardDetail={() => { ShowCardDetailFun(index, 'swap') }} buy={() => buy(index)}></CardItem>)
                   }
                 </div>
               </> : <>
@@ -470,7 +498,7 @@ function Swap() {
               orderList.length !== 0 ? <>
                 <div className="CardList">
                   {
-                    orderList.map((item, index) => <CardItem key={item.id} type="commodity" orderInfo={item} showCardDetail={() => { ShowCardDetailFun(index, 'swap') }} buy={() => buy(index)}></CardItem>)
+                    orderList.map((item, index) => <CardItem ApproveValue={ApproveValue} approveFun={ApproveFun} key={item.id} type="commodity" orderInfo={item} showCardDetail={() => { ShowCardDetailFun(index, 'swap') }} buy={() => buy(index)}></CardItem>)
                   }
                 </div>
               </> : <>

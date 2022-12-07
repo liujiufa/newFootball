@@ -34,7 +34,7 @@ function LandCard(props: LandUserCardPropsType) {
     5: [t('Legend'), t('add LP with value of 16 BNB'), t('LandServiceIncome5'), t('LandDividend')]
   }
   const navigate = useNavigate()
-  console.log(props.cardInfo, props.userLevel, '激活');
+  // console.log(props.cardInfo, props.userLevel, '激活');
 
   const activeFun = () => {
     navigate('/Liquidity', { state: { cardLevel: props.cardInfo.cardLevel as number } })

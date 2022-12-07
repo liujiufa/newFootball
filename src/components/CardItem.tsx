@@ -15,7 +15,9 @@ interface CardInfo {
   type: string
   showCardDetail: Function,
   buy?: Function,
-  CancelOrder?: Function
+  CancelOrder?: Function,
+  approveFun?: Function
+  ApproveValue?: string
 }
 function CardItem(props: CardInfo) {
   let { t } = useTranslation()
@@ -117,12 +119,11 @@ function CardItem(props: CardInfo) {
             </div>
           </>
         }
-
       </div>
       {/* ！：调用函数时忽略 undefined 类型 */}
       {
         props.type === "goods" ? <div className="buyBtn linear-gradient" onClick={() => props.CancelOrder!()}>{t('Cancel')}</div>
-          : (parseFloat(ApproveValue) > props.orderInfo.price ? <div className="buyBtn linear-gradient" onClick={() => { props.buy!() }}>{t('buy')}</div> : <div className="buyBtn linear-gradient" onClick={() => { ApproveFun() }}>{t("Approve")}</div>)
+          : (parseFloat(props.ApproveValue as string) > props.orderInfo.price ? <div className="buyBtn linear-gradient" onClick={() => { props.buy!() }}>{t('buy')}</div> : <div className="buyBtn linear-gradient" onClick={() => { props.approveFun!(props.orderInfo.price) }}>{t("Approve")}</div>)
         // : <div className="buyBtn linear-gradient" onClick={() => { props.buy!() }}>{t('buy')}</div>
       }
     </div >

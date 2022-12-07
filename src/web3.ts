@@ -92,7 +92,6 @@ export const useConnectWallet = () => {
                     // window.ethereum.on('message', message => {
                     //     console.log('message', message)
                     // })
-
                 }
             })
                 .catch((error) => {
@@ -381,13 +380,12 @@ export class Contracts {
         this.verification('Pledge')
         return this.contract.Pledge?.methods.improveHashRate(num).send({ from: addr })
     }
-
-    //质押授权
+    //查询质押授权
     approvePledge(addr: string, toaddr: string) {
         this.verification('NFT')
         return this.contract.NFT?.methods.allowance(addr, toaddr).call({ from: addr })
     }
-    //查询质押授权
+    //质押授权
     ApprovePledgeFun(addr: string, toaddr: string) {
         this.verification('NFT')
         var amount = Web3.utils.toBN("99999999999999999999999999999999")
@@ -446,6 +444,4 @@ export class Contracts {
         this.verification('Token')
         return this.contract.Token?.methods.totalSupply().call({ from: addr })
     }
-    // 捐赠销毁总量
-
 }

@@ -51,7 +51,7 @@ const LevelMap = [
     value: 0
   },
   {
-    key: 'Outstanding',
+    key: 'Excellent',
     value: 1
   },
   {
@@ -59,7 +59,7 @@ const LevelMap = [
     value: 2
   },
   {
-    key: 'Perfect',
+    key: 'Good',
     value: 3
   },
   {
@@ -169,26 +169,46 @@ function Land() {
     setShowCreateOrder(true)
 
   }
-
+  // 挂卖成功
   function CreateOrderSuccess() {
     setShowCreateOrder(false)
     setShowCreateOrderSuccess(true)
     if (state.token && web3React.account) {
       // 土地申领
-      getLandUserList().then(res => {
-        console.log(res.data, '初始化土地申领1')
-        const list = landObj.map((item: any, index: any) => {
-          let newOptions = res.data.filter((v: any) => item.id == v.level)[0];
-          return ({
-            ...item,
-            count: newOptions?.landCount || item.count
-          })
+      // getLandUserList().then(res => {
+      //   console.log(res.data, '初始化土地申领1')
+      //   const list = landObj.map((item: any, index: any) => {
+      //     let newOptions = res.data.filter((v: any) => item.id == v.level)[0];
+      //     return ({
+      //       ...item,
+      //       count: newOptions?.landCount || item.count
+      //     })
+      //   })
+      //   console.log(list, '初始化土地申领2');
+      //   setLandApplication(list)
+      //   setLandApplication1(list)
+      //   setLandApplicationNum(res.data.reduce((sum: any, item: any) => sum + item.landCount, 0))
+      // })
+      timeoutRef.current = window.setTimeout(() => {
+        // 我的封号
+        getUserInfo().then(res => {
+          console.log(res.data, "我的封号")
+          setUserLevel(res.data.level)
         })
-        console.log(list, '初始化土地申领2');
-        setLandApplication(list)
-        setLandApplication1(list)
-        setLandApplicationNum(res.data.reduce((sum: any, item: any) => sum + item.landCount, 0))
-      })
+        // 我的领地
+        getLandUserCardList({
+          currentPage: page,
+          level: level,
+          pageSize: 12,
+          userAddress: web3React.account as string
+        }
+        ).then(res => {
+          console.log(res.data.list, "我的领地")
+          setLandUserCard(res.data.list)
+          SetTotalNum(res.data.size)
+        })
+      }, 5000);
+
     }
   }
 
@@ -318,22 +338,10 @@ function Land() {
         setUserBeneficial(res.data)
       })
     }
-
-    // if (state.token && web3React.account && tabActive === '1') {
-    //   let time = setInterval(() => {
-    //     // 土地申领
-    //     getLandUserList().then(res => {
-    //       setLandApplicationNum(res.data.reduce((sum: any, item: any) => sum + item.landCount, 0))
-    //     })
-    //   }, 5000)
-    //   return () => {
-    //     clearInterval(time)
-    //   }
+    // return () => {
+    //   clearTimeout(timeoutRef.current)
     // }
-    return () => {
-      clearTimeout(timeoutRef.current)
-    }
-  }, [state.token, web3React.account, tabActive, landApplicationNum, ClaimSuccessModal])
+  }, [state.token, web3React.account, tabActive, landApplicationNum])
 
   return (
     <div>
