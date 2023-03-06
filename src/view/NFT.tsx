@@ -256,7 +256,11 @@ function NFT() {
         setuserBox(data)
       })
       return () => {
-        stompClient.disconnect()
+        try {
+          stompClient.disconnect()
+        } catch {
+
+        }
         clearInterval(sendTimer)
       }
     } else {
@@ -297,7 +301,11 @@ function NFT() {
           SetTotalNum(data.size)
         })
       return () => {
-        stompClient.disconnect()
+        try {
+          stompClient.disconnect()
+        } catch {
+
+        }
         clearInterval(sendTimer)
       }
     } else {

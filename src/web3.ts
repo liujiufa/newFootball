@@ -30,6 +30,7 @@ const networkConf = {
             symbol: 'BNB',
             decimals: 18,
         },
+        // rpcUrls: ['https://bsc-dataseed2.binance.org'],
         // rpcUrls: ['https://bsc-dataseed.binance.org/'],
         rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545/'],
         blockExplorerUrls: [SCAN_ADDRESS[ChainId.BSC]],
@@ -120,7 +121,6 @@ export const useConnectWallet = () => {
             // 切换网络后，尝试连接
             // !active && connectWallet(injected, ChainId.BSC)
         })
-        // eslint-disable-next-line
     }, [])
     return connectWallet
 }
@@ -139,8 +139,6 @@ export class Contracts {
         if (!this.contract[contractName]) {
             this.contract[contractName] = new this.web3.eth.Contract(abiObj[contractName], contractAddress[contractName])
         }
-        console.log(this.contract[contractName], 'heyue');
-
     }
     //合约的方法
     //查询余额
@@ -185,7 +183,6 @@ export class Contracts {
         this.verification('BlindBox')
         return this.contract.BlindBox?.methods.buyBox(data).send({ from: addr })
     }
-
     //购买盲盒
     OpenBox(addr: string, data: string) {
         this.verification('BlindBox')

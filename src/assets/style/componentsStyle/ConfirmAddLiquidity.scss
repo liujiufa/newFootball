@@ -1,8 +1,8 @@
 .ConfirmAddLiquidity {
     .ant-modal-content {
         padding: 30px 40px;
-        background: #1D1E44;
-        box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+        background: #EFFFF7;
+        box-shadow: 15px 16px 0px #5C5E5D, inset 0px 0px 4px rgba(0, 0, 0, 0.1);
         border-radius: 19px;
 
         .ant-modal-body {
@@ -21,7 +21,7 @@
                 line-height: 34px;
                 /* identical to box height */
                 text-align: center;
-                color: #FFFFFF;
+                color: rgba(0, 0, 0, 0.8);
                 margin-bottom: 50px;
             }
 
@@ -35,7 +35,7 @@
                 font-weight: 400;
                 font-size: 14px;
                 line-height: 20px;
-                color: #FFFFFF;
+                color: rgba(0, 0, 0, 0.8);
 
                 .value {
                     display: flex;
@@ -57,7 +57,7 @@
                     /* identical to box height */
                     text-align: right;
                     letter-spacing: 0.08em;
-                    color: #FFFFFF;
+                    color: rgba(0, 0, 0, 0.8);
 
                     .radio {
                         margin-bottom: 10px;
@@ -74,10 +74,12 @@
                 line-height: 17px;
                 /* identical to box height */
                 letter-spacing: 0.08em;
-                color: #FFFFFF;
+                color: rgba(0, 0, 0, 0.8);
 
                 img {
-                    margin-right: 10px;
+                    width: 20px;
+                    height: 20px;
+                    margin-right: 5px;
                 }
             }
 
@@ -93,14 +95,13 @@
                 font-size: 14px;
                 line-height: 20px;
                 /* identical to box height */
-                color: #FFFFFF;
+                color: rgba(0, 0, 0, 0.8);
                 margin-top: 21px;
             }
 
             .toSupplyBtn {
-                width: 270px;
-                height: 36px;
-                background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+                padding: 14px 30px;
+                background: url(../../image/btnBg.png) no-repeat center / 100% 100%;
                 border-radius: 6px;
                 font-family: 'PingFang SC';
                 font-style: normal;
@@ -127,8 +128,9 @@
         }
     }
 }
-@media screen  and (max-width:425px){
-    .ConfirmAddLiquidity .ant-modal-content{
+
+@media screen and (max-width:425px) {
+    .ConfirmAddLiquidity .ant-modal-content {
         padding: 20px 18px;
     }
 }

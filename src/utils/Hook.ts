@@ -34,7 +34,11 @@ export function useSoket(url: string, subscribe: string, sendUrl: string, callba
         }
         return () => {
             if (stompClient && stompClient.connected) {
-                stompClient.disconnect()
+                try {
+                    stompClient.disconnect()
+                } catch {
+
+                }
                 clearInterval(Time)
             }
         }

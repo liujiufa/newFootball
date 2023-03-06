@@ -93,7 +93,6 @@ export default function Liquidity() {
     // 添加流动性
     const addLiquidityFun = (type: number) => {
         console.log(balance, toSBL, balance1, type);
-
         // if (addLiquidityValue > parseFloat(balance) || parseFloat(toSBL) > parseFloat(balance1)) {
         //     return addMessage('余额不足')
         // }
@@ -104,7 +103,6 @@ export default function Liquidity() {
                 setConLiquidityModal(false)
                 setSuccessAddLiquidity(true)
                 Contracts.example.web3.eth.getTransactionReceipt(res.transactionHash).then((res: any) => {
-
                     let value = Web3.utils.fromWei("0x" + res.logs[res.logs.length - 1].data.slice(res.logs[res.logs.length - 1].data.length - 64), "ether")
                     console.log(value, '11111111111111');
                     setCoinPairValue(value)
@@ -174,7 +172,11 @@ export default function Liquidity() {
                 setToSBL(new BigNumber(res).div(10 ** 18).toString())
             })
             return () => {
-                stompClient.disconnect()
+                try {
+                    stompClient.disconnect()
+                } catch {
+
+                }
                 clearInterval(sendTimer)
             }
         }

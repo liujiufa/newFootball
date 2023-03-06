@@ -23,7 +23,7 @@ function SuccessRmLiquidity(props: any) {
 
                 <div className="confirmBtn flex" onClick={() => { props.close() }}>{t("Confirm")}</div>
 
-                <span>{t("clickLeave")}</span>
+                {/* <span>{t("clickLeave")}</span> */}
             </Modal>
         </>
     )

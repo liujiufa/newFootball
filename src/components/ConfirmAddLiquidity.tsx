@@ -68,7 +68,7 @@ function ConfirmAddLiquidity(props: any) {
                 </div>
 
                 <div className="toSupplyBtn flex" onClick={() => { props.addFun(typeObj[props.data]) }}>{t("Confirm supply")}</div>
-                <span>{t("clickLeave")}</span>
+                {/* <span>{t("clickLeave")}</span> */}
             </Modal>
         </>
     )

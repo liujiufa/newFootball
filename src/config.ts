@@ -11,9 +11,9 @@ import LandNFT from './ABI/LandNFT.json';
 import LandReward from './ABI/LandDistribute.json';
 import InviteReward from './ABI/InviteReward.json';
 // export let baseUrl: string = 'http://192.168.2.111:10000';
-export let baseUrl: string = 'http://47.107.116.172:10000';
-export let socketUrl: string = 'http://47.107.116.172:8912/endpointWisely';
-// export let baseUrl: string = 'http://spaceballgames.com:10000';
+// export let baseUrl: string = 'http://47.107.116.172:10000';
+export let socketUrl: string = 'http://spaceballgames.com:8912/endpointWisely';
+export let baseUrl: string = 'http://spaceballgames.com:10000';
 interface abiObjType {
     [propName: string]: any;
 }
@@ -83,6 +83,18 @@ export const contractAddress: contractAddressType = {
     // "LandNFT": "0x35E47C402cc1636113A92eAf58De4e57aE815dc7",
     // "LandReward": "0x126DE7AFd2ec25b2862D92ff2808d5C3A8A525c0",
     // "InviteReward": "0x48A8Da71dDC32c1E4CDBf8614365660AfA87C8ae",
-    // 销毁账号
-    "DestructBalance": "0x000000000000000000000000000000000000dEaD"
+    // main-v2
+    // "Token": "0xA013e36C78BA39Ff6bE4781f0f2FBF935f6BA05A",
+    // "BlindBox": "0x2Aae476e9FD0D2d754CAe57feFD0fD715beC240E",
+    // "EXChangeNFT": "0x04186601465763266a467Cb1dad093AFA15d1633",
+    // "NFT": "0x86C94d3F18D0cb355916705EeDB0bB4329C23b41",
+    // "Merge": "0x0f41B63F4C0a8407e3c7C15911e4250448D082Ea",
+    // "Node": "0xBf6785844b21dd08ce60c9942f25f07F8147e48A",
+    // "Liquidity": "0x0928af9cba5ba210e50D6C39798292933eD4354d",
+    // "BurnFund": "0x117915D1aAE6362ab05481359a424fD87EcBA242",
+    // "Pledge": "0xCF79A74B2B7bfD559607cdcd570fA7A3fd53Bf46",
+    // "LandNFT": "0xA73E03be16BD52981C7BAc941F17173Dd0F1A295",
+    // "LandReward": "0x77304E26879387903C639661F92DF10E037dEC00",
+    // "InviteReward": "0x689f6Eae90f3367A18aCa5F72390E4d20B50594A",
+    // "DestructBalance": "0x000000000000000000000000000000000000dEaD"
 }

@@ -43,7 +43,7 @@ function ConfirmRmLiquidity(props: any) {
 
                 <div className="toRemoveBtn flex" onClick={() => { props.rmFun() }}>{t("Confirm removal")}</div>
 
-                <span>{t("clickLeave")}</span>
+                {/* <span>{t("clickLeave")}</span> */}
             </Modal>
         </>
     )

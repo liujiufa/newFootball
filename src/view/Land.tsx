@@ -397,7 +397,7 @@ function Land() {
         {/* 3.我的权益 */}
         {
           tabActive === '3' && <div className="Content">
-            {userBeneficial.length > 0 && <div className="myLandRightBox">
+            <div className="myLandRightBox">
               <div className="myTitle" onClick={() => { setLandDetailDes(true) }}>{t("My title")}：{LevelObj[userLevel]}<img src={helpIcon}></img> </div>
               {/* 我的权益 */}
               <div className="RewardBox">
@@ -407,14 +407,14 @@ function Land() {
                   <div className="allReward">
                     <div className='allRewardBox'>
                       <div className="allRewardTitle">{t("Cumulative income")}：</div>
-                      <div className="allRewardValue">{NumSplic(`${userBeneficial[0]?.totalAmount}`, 4)} {userBeneficial[0]?.coinName}</div>
+                      <div className="allRewardValue">{NumSplic(`${userBeneficial[0]?.totalAmount}`, 4) || "0"} {userBeneficial[0]?.coinName || "SBL"}</div>
                     </div>
                     <div className="btnBox"><div></div></div>
                   </div>
                   <div className="valueBox">
                     <div className="box">
-                      <div className="value">{NumSplic(`${userBeneficial[0]?.amount}`, 4)}</div>
-                      <div className="coinName"><img src={SBLIcon} alt="" /> {userBeneficial[0]?.coinName}</div>
+                      <div className="value">{NumSplic(`${userBeneficial[0]?.amount}`, 4) || "0"}</div>
+                      <div className="coinName"><img src={SBLIcon} alt="" /> {userBeneficial[0]?.coinName || "SBL"}</div>
                     </div>
                     <div className="btnBox"><div className="getBtn flex" onClick={() => { Receive(2, userBeneficial[0]?.id, userBeneficial[0]?.amount) }}>{t("Harvest")}</div></div>
                   </div>
@@ -426,13 +426,13 @@ function Land() {
                   <div className="allReward">
                     <div className='allRewardBox'>
                       <div className="allRewardTitle">{t("Cumulative income")}：</div>
-                      <div className="allRewardValue">{NumSplic(`${userBeneficial[1]?.totalAmount}`, 4)} {userBeneficial[1]?.coinName}</div>
+                      <div className="allRewardValue">{NumSplic(`${userBeneficial[1]?.totalAmount}`, 4) || "0"} {userBeneficial[1]?.coinName||"SBL"}</div>
                     </div>
                     <div className="btnBox"><div></div></div>
                   </div>
                   <div className="valueBox">
                     <div className="box">
-                      <div className="value">{NumSplic(`${userBeneficial[1]?.amount}`, 4)}</div>
+                      <div className="value">{NumSplic(`${userBeneficial[1]?.amount}`, 4) || "0"}</div>
                       <div className="coinName"><img src={SBLIcon} alt="" /> {userBeneficial[1]?.coinName || 'SBL'}</div>
                     </div>
                     <div className="btnBox"><div className="getBtn flex" onClick={() => { Receive(4, userBeneficial[1]?.id, userBeneficial[1]?.amount) }}>{t("Harvest")}</div></div>
@@ -441,7 +441,7 @@ function Land() {
                 </div>
 
               </div>
-            </div>}
+            </div>
           </div>
         }
 

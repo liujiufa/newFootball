@@ -205,7 +205,7 @@ function AddLiquidityModal(props: any) {
                 </div>
                 {parseFloat(ApproveValue) > parseFloat(toSBL) ? <div className="toSupplyBtn flex" onClick={() => { confirmApplyFun() }}>{t("Supply")}</div> : <div className="supplyBtn flex">{t("Supply")}</div>}
 
-                <span>{t("clickLeave")}</span>
+                {/* <span>{t("clickLeave")}</span> */}
             </Modal >
         </>
     )

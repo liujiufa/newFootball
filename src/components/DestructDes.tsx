@@ -23,7 +23,7 @@ function DestructDesRule(props: any) {
           <p className='zifujg'>{t("BurnRule2")}</p>
           <p className='zifujg'>{t("BurnRule3")}</p>
         </div>
-        <span>{t("clickLeave")}</span>
+        {/* <span>{t("clickLeave")}</span> */}
       </Modal>
     </>
   )

@@ -1,8 +1,8 @@
 .SuccessAddLiquidity {
     .ant-modal-content {
         padding: 30px 40px;
-        background: #1D1E44;
-        box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+        background: #EFFFF7;
+        box-shadow: 15px 16px 0px #5C5E5D, inset 0px 0px 4px rgba(0, 0, 0, 0.1);
         border-radius: 19px;
 
         .ant-modal-body {
@@ -21,7 +21,7 @@
                 line-height: 34px;
                 /* identical to box height */
                 text-align: center;
-                color: #FFFFFF;
+                color: #000;
                 margin-bottom: 50px;
             }
 
@@ -38,7 +38,7 @@
                 line-height: 20px;
                 /* identical to box height */
                 text-align: left;
-                color: #FFFFFF;
+                color: #000;
                 margin-bottom: 6px;
             }
 
@@ -50,7 +50,7 @@
                 font-size: 40px;
                 line-height: 49px;
                 /* identical to box height */
-                color: #FFFFFF;
+                color: #14FD87;
                 display: flex;
                 margin-bottom: 18px;
 
@@ -86,7 +86,7 @@
                 /* identical to box height */
                 text-align: left;
                 letter-spacing: 0.08em;
-                color: #FFFFFF;
+                color: rgba(0, 0, 0, 0.6);
             }
 
 

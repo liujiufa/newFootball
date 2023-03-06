@@ -271,7 +271,11 @@ function Swap() {
           SetTotalNum(data.size)
         })
       return () => {
-        stompClient.disconnect()
+        try {
+          stompClient.disconnect()
+        } catch {
+
+        }
         clearInterval(sendTimer)
       }
     }
@@ -309,7 +313,9 @@ function Swap() {
           SetTotalNum(data.size)
         })
       return () => {
-        stompClient.disconnect()
+        try { stompClient.disconnect() } catch {
+
+        }
         clearInterval(sendTimer)
       }
     }
@@ -345,7 +351,11 @@ function Swap() {
           SetTotalNum(data.size)
         })
       return () => {
-        stompClient.disconnect()
+        try {
+          stompClient.disconnect()
+        } catch {
+
+        }
         clearInterval(sendTimer)
       }
     }

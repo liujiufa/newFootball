@@ -180,7 +180,11 @@ function Pledge() {
           SetTotalNum(data.size)
         })
       return () => {
-        stompClient.disconnect()
+        try {
+          stompClient.disconnect()
+        } catch {
+
+        }
         clearInterval(sendTimer)
       }
 
@@ -200,7 +204,11 @@ function Pledge() {
         })
       setGetPage(false)
       return () => {
-        stompClient.disconnect()
+        try {
+          stompClient.disconnect()
+        } catch {
+
+        }
         clearInterval(sendTimer)
       }
 

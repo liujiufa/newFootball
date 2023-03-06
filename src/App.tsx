@@ -37,7 +37,6 @@ const MessageBox = styled.div`
   @media screen and (max-width:967px) {
     right: 0 !important;
   }
-  
 `
 // function GetQueryString(name:string): string | null{
 //   var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");

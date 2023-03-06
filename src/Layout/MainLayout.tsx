@@ -12,7 +12,7 @@ import Email from "../assets/image/Email.svg";
 import Telegram from "../assets/image/Telegram.svg";
 import Discord from "../assets/image/Discord.svg";
 import Twitter from "../assets/image/Twitter.svg";
-import Lang from "../assets/image/Lang.png";
+import Lang from "../assets/image/Lang.svg";
 import "../assets/style/layout.scss";
 import { Menu, Dropdown } from "antd";
 const { Header, Content, Footer } = Layout;
@@ -37,7 +37,8 @@ const MainLayout: React.FC = () => {
     {
       name: "SWAP",
       Fun: () => {
-        window.open("https://pancake.kiemtienonline360.com/#/swap")
+        window.open("https://pancakeswap.finance/swap?outputCurrency=0xA013e36C78BA39Ff6bE4781f0f2FBF935f6BA05A")
+        // window.open("https://pancake.kiemtienonline360.com/#/swap")
       }
     },
     {
@@ -255,7 +256,7 @@ const MainLayout: React.FC = () => {
       <Menu.Item
         key="7"
         onClick={() => {
-          window.open("https://pancake.kiemtienonline360.com/#/swap")
+          window.open("https://pancakeswap.finance/swap?outputCurrency=0xA013e36C78BA39Ff6bE4781f0f2FBF935f6BA05A")
         }}
       >
         SWAP
@@ -414,7 +415,7 @@ const MainLayout: React.FC = () => {
     </Menu>
   );
   return (
-    <Layout className="layout">
+    <Layout>
       <Header style={{ position: "fixed", zIndex: 999, width: "100%" }}>
         <div className="Header-Edition-Center HeaderNav">
           <img
@@ -522,7 +523,7 @@ const MainLayout: React.FC = () => {
             <div
               className='MenuItem pointer'
               onClick={() => {
-                window.open("https://pancake.kiemtienonline360.com/#/swap")
+                window.open("https://pancakeswap.finance/swap?outputCurrency=0xA013e36C78BA39Ff6bE4781f0f2FBF935f6BA05A")
               }}
             >
               SWAP
@@ -570,7 +571,7 @@ const MainLayout: React.FC = () => {
             >
               <div className="Lang">
                 <img style={{ width: "24px" }} src={Lang} alt="" />
-                {/* {i18n.language === "zh" ? "繁" : "English"} */}
+                {i18n.language === "zh" ? "繁" : "EN"}
               </div>
             </Dropdown>
             {web3React.active ? (
@@ -582,7 +583,7 @@ const MainLayout: React.FC = () => {
             ) : (
               <>
                 <div
-                  className="Connect linear-gradient pointer"
+                  className="toConnect linear-gradient pointer flexCenter"
                   onClick={() => {
                     Connect(injected, ChainId.BSC);
                   }}
@@ -629,6 +630,8 @@ const MainLayout: React.FC = () => {
         style={{ marginTop: 64, position: "relative", zIndex: 10 }}
       >
         <Outlet />
+        <div className="bg1"></div>
+        <div className="bg2"></div>
       </Content>
       <Footer>
         <div className="footerLink">

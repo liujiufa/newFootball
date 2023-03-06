@@ -66,10 +66,15 @@ function BlindBox() {
         console.log(res.data);
         res.data.map((item: any) => {
           setBNBPrice(item?.price)
-          Contracts.example.toSBL(web3React.account as string, item?.price).then((res: any) => {
-            let value = new BigNumber(res).div(10 ** 18).toString()
-            setBoxBase([{ ...item, price: value }])
-          })
+          setBoxBase([{ ...item, price: 5000 }])
+          // try {
+          //   Contracts.example.toSBL(web3React.account as string, item?.price).then((res: any) => {
+          //     let value = new BigNumber(res).div(10 ** 18).toString()
+          //     setBoxBase([{ ...item, price: value }])
+          //   })
+          // } catch {
+
+          // }
         })
       })
 
@@ -116,7 +121,8 @@ function BlindBox() {
               BoxBase.slice(0, 1).map((item, index) => <div key={item.id} className="Row">
                 <div className="BuyRow">
                   <div className="buyInfo">
-                    <div className="price">{t('price')}:{Math.floor(item.price * 100 + 1) / 100} {item.coinName}
+                    {/* <div className="price">{t('price')}:{Math.floor(item.price * 100 + 1) / 100} {item.coinName} */}
+                    <div className="price">{t('price')}:{Math.floor(item.price * 100) / 100} {item.coinName}
                       {/* {width > 768 && <span>(~{NumSplic(`${BNBPrice}`, 4)} BNB)/{t('pricer')}</span>} */}
                     </div>
                     <span>(~{NumSplic(`${BNBPrice}`, 4)} BNB)/{t('pricer')}</span>
@@ -151,7 +157,7 @@ function BlindBox() {
                   <div className="DRadius" style={{ background: '#CFCFCF' }}></div>
                 </div>
                 <div className="ProInfo">
-                  <div className="InfoNum">70%</div>
+                  <div className="InfoNum">60%</div>
                   <div className="InfoName">{t("Normal")}</div>
                 </div>
               </div>
@@ -160,7 +166,7 @@ function BlindBox() {
                   <div className="DRadius" style={{ background: '#4469EA' }}></div>
                 </div>
                 <div className="ProInfo">
-                  <div className="InfoNum">20%</div>
+                  <div className="InfoNum">25%</div>
                   <div className="InfoName">{t("Good")}</div>
                 </div>
               </div>
@@ -169,7 +175,7 @@ function BlindBox() {
                   <div className="DRadius" style={{ background: '#7644EA' }}></div>
                 </div>
                 <div className="ProInfo">
-                  <div className="InfoNum">10%</div>
+                  <div className="InfoNum">15%</div>
                   <div className="InfoName">{t("Outstanding")}</div>
                 </div>
               </div>

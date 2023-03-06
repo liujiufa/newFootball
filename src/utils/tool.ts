@@ -75,9 +75,11 @@ export function getBit(value: number, bit = 5) {
 export function numberDivision() {
 
 }
+
 export function showLoding(isShow: boolean) {
     store.dispatch(createSetLodingAction(isShow))
 }
+
 export function addMessage(msg: string) {
     store.dispatch(createAddMessageAction({
         message: msg,

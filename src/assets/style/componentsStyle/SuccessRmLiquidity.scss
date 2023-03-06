@@ -1,8 +1,8 @@
 .SuccessRmLiquidity {
     .ant-modal-content {
         padding: 30px 40px;
-        background: #1D1E44;
-        box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+        background: #EFFFF7;
+        box-shadow: 15px 16px 0px #5C5E5D, inset 0px 0px 4px rgba(0, 0, 0, 0.1);
         border-radius: 19px;
 
         .ant-modal-body {
@@ -21,7 +21,7 @@
                 line-height: 34px;
                 /* identical to box height */
                 text-align: center;
-                color: #FFFFFF;
+                color: #000000;
             }
 
             .tip {
@@ -32,14 +32,14 @@
                 line-height: 19px;
                 text-align: center;
                 letter-spacing: 0.08em;
-                color: #FFFFFF;
+                color: rgba(0, 0, 0, 0.7);
             }
 
             .confirmBtn {
                 margin: 50px auto 0px;
                 width: 76px;
                 height: 36px;
-                background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+                background: url(../../image/btnBg.png) no-repeat  center / 100% 100%;
                 border-radius: 6px;
                 font-family: 'PingFang SC';
                 font-style: normal;

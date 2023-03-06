@@ -267,27 +267,27 @@ export default function Invitation() {
       <div className="SwapTitle">{t("Invitation")}</div>
       <div className="Invitation">
 
-        {rewardData && <div className="itemBox">
+        <div className="itemBox">
           <div className="itemTitle">{t("Referral Rewards")}</div>
           <div className="allRewardBox">
             <div className="allReward">
-              <span>{t("Cumulative rewards")}：</span><span>{NumSplic(`${rewardData.totalAmount}`, 4)} {rewardData.coinName}</span>
+              <span>{t("Cumulative rewards")}：</span><span>{NumSplic(`${rewardData?.totalAmount}`, 4) || "0"} {rewardData?.coinName || "SBL"}</span>
             </div>
             <div className="getBox"></div>
           </div>
           <div className="inputBox">
             <div className="inputValue">
-              <span className="inputValueStyle">{NumSplic(`${rewardData.amountString}`, 4)}</span>
+              <span className="inputValueStyle">{NumSplic(`${rewardData?.amountString}`, 4) || "0"}</span>
               <span>
-                <img src={SBLToken} alt="" />{rewardData.coinName}
+                <img src={SBLToken} alt="" />{rewardData?.coinName || "SBL"}
               </span>
             </div>
             <div className="getBox"><div className="getBtn flex" onClick={() => Receive(1, rewardData?.id as number, `${rewardData?.amount}`)}>{t("Harvest")}</div></div>
           </div>
           <div className="rewardRecord" onClick={() => ShowRevenueRecordFun(1)}>{t("Records2")}<img src={record} alt="" /></div>
-        </div>}
+        </div>
 
-        {web3React.account && <div className="itemBox">
+        <div className="itemBox">
           <div className="itemTitle">{t("Send your invite link")}</div>
           <div className="itemTip">{t("copyLink")}</div>
           <div className="addressBox">
@@ -296,14 +296,14 @@ export default function Invitation() {
               {window.location.origin +
                 window.location.pathname +
                 "?address=" +
-                AddrHandle(web3React.account)}
+                AddrHandle(web3React.account as string)}
             </div>
             <div className="devideLine"></div>
             <div className="copyBtn" onClick={invitation}><img src={copyIcon} alt="" /></div>
           </div>
           {/* <div className="inviteListBtn" onClick={() => { setInviteModal(true) }}>邀請列表({InvitationData ? 0 : (InvitationData?.list.length - 1)}) <img src={inviteListIcon} alt="" /></div> */}
           <div className="inviteListBtn" onClick={() => { setInviteModal(true) }}>{t("Invitation list")}({InvitationData?.list.length}) <img src={inviteListIcon} alt="" /></div>
-        </div>}
+        </div>
       </div>
       {/* 奖励记录 */}
       <GainRecording

@@ -213,7 +213,11 @@ function DestructFund() {
         })
       })
       return () => {
-        stompClient.disconnect()
+        try {
+          stompClient.disconnect()
+        } catch {
+
+        }
         clearInterval(sendTimer)
         clearTimeout(timeoutRef.current);
       }
@@ -248,19 +252,26 @@ function DestructFund() {
             </div>
           </div>
           {/* 銷毀獎勵 */}
-          {drawBurnRecord?.awardAmount && <div className="DestructReward">
+          <div className="DestructReward">
             <div className="title">{t("Destruction Rewards")}</div>
-            <div className="rewardValue">{t("Award amount")}：{NumSplic(`${drawBurnRecord?.awardAmount}`, 8)} {drawBurnRecord?.coinName}</div>
-            <div className="toFreed">{t("To be released")}：{NumSplic(`${drawBurnRecord?.treatAmount}`, 8)} {drawBurnRecord?.coinName}</div>
-            <div className="process">
+            <div className="rewardValue">{t("Award amount")}：{NumSplic(`${drawBurnRecord?.awardAmount}`, 8) || "0"} {drawBurnRecord?.coinName || "SBL"}</div>
+            <div className="toFreed">{t("To be released")}：{NumSplic(`${drawBurnRecord?.treatAmount}`, 8) || "0"} {drawBurnRecord?.coinName || "SBL"}</div>
+            {drawBurnRecord ? <div className="process">
               <div className="Freed">{t("Process")}：</div>
               <div className="processBox">
-                <div className="processBar" style={{ width: `${Math.floor(((drawBurnRecord?.awardAmount) - (drawBurnRecord?.treatAmount)) / (drawBurnRecord?.awardAmount) * 100)}%` }}></div>
+                <div className="processBar" style={{ width: `${Math.floor(((drawBurnRecord!.awardAmount) - (drawBurnRecord!.treatAmount)) / (drawBurnRecord!.awardAmount) * 100)}%` }}></div>
               </div>
-              <div className="value">{Math.floor(((drawBurnRecord?.awardAmount) - (drawBurnRecord?.treatAmount)) / (drawBurnRecord?.awardAmount) * 100)}%</div>
-            </div>
+              <div className="value">{Math.floor(((drawBurnRecord!.awardAmount) - (drawBurnRecord!.treatAmount)) / (drawBurnRecord!.awardAmount) * 100)}%</div>
+            </div> :
+              <div className="process">
+                <div className="Freed">{t("Process")}：</div>
+                <div className="processBox">
+                  <div className="processBar" style={{ width: `0%` }}></div>
+                </div>
+                <div className="value">0%</div>
+              </div>}
             <div className="inputBox">
-              <input type="number" className='destructInput' value={`${NumSplic(`${drawBurnRecord?.amount}`, 8)}`} readOnly={true} />
+              <input type="number" className='destructInput' value={`${NumSplic(`${drawBurnRecord?.amount}`, 8) || 0}`} readOnly={true} />
               <div className="coinBox"><img src={BNBIcon} alt="" /> BNB</div>
             </div>
             <div className="getBtn Btn flex" onClick={() => { Receive(5, drawBurnRecord?.dataId as number, drawBurnRecord?.amount as number) }}>{t("Harvest")}</div>
@@ -268,7 +279,6 @@ function DestructFund() {
               {t("Pick up record")} <img src={RecordIcon} alt="" />
             </div>
           </div>
-          }
         </div>
 
       </div>

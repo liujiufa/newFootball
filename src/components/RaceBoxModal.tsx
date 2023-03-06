@@ -154,7 +154,8 @@ function RaceBoxModal(props: RaceBoxModalPropsType) {
           }} alt="" />
         </div>
 
-        <div className='Tip'>{t('Tip')}{Math.floor(totalPrice * 100 + 1) / 100}{props.BoxInfo.coinName}</div>
+        <div className='Tip'>{t('Tip')}{Math.floor(totalPrice * 100) / 100}{props.BoxInfo.coinName}</div>
+        {/* <div className='Tip'>{t('Tip')}{Math.floor(totalPrice * 100 + 1) / 100}{props.BoxInfo.coinName}</div> */}
         {(parseFloat(approveValue) > 0) ? <button className='Verify' onClick={Buy}>{t('Verify')}</button> : <button className='Verify' onClick={() => ApproveFun()}>{t("Approve")}</button>}
       </Modal>
     </>

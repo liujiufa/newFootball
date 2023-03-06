@@ -1,7 +1,45 @@
 .ant-layout-header {
-  background: rgba(255, 255, 255, 0.06) !important;
+  background: linear-gradient(270deg, #5BDFFA 9.37%, #35E1D7 45.72%, #3DDBB2 77.82%, #14FD87 100%) !important;
   backdrop-filter: blur(18px);
   padding: 0 !important;
+}
+
+.ant-layout-footer {
+
+  background: linear-gradient(90deg, #16FC8C 0%, #53E1EE 100%) !important;
+  backdrop-filter: blur(70px);
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 0px;
+  z-index: 999;
+}
+
+.MainContent {
+  position: relative;
+  overflow: hidden;
+
+  .bg1 {
+    width: 40vw;
+    height: 90vh;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    transform: translate(-50%, 0%);
+    background: linear-gradient(22.41deg, rgba(80, 227, 233, 0.2) 11.64%, rgba(29, 252, 175, 0.2) 24.61%, rgba(42, 243, 171, 0.2) 35.35%, rgba(22, 252, 139, 0.2) 54.59%);
+    filter: blur(143.003px);
+    z-index: -1;
+  }
+
+  .bg2 {
+    width: 40vw;
+    height: 90vh;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    transform: translate(50%, 50%);
+    background: linear-gradient(345.64deg, rgba(77, 228, 229, 0.3) 12.26%, rgba(39, 245, 167, 0.3) 41.28%, rgba(21, 253, 137, 0.3) 84.62%);
+    filter: blur(324.18px);
+    z-index: -1;
+  }
 }
 
 .Header-Edition-Center {
@@ -30,15 +68,24 @@
   }
 
   .MenuList {
+    width: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-around;
 
     .MenuItem {
-      color: #ffffff;
+      // color: #ffffff;
+      // font-weight: 400;
+      // font-size: 16px;
+      // margin-left: 50px;
+      // line-height: 1.2;
+      font-family: 'IMPACT' !important;
+      font-style: normal;
       font-weight: 400;
       font-size: 16px;
-      margin-left: 50px;
-      line-height: 1.2;
+      line-height: 20px;
+      /* identical to box height */
+      color: #000000;
     }
 
     .active {
@@ -47,11 +94,14 @@
     }
 
     .Lang {
-      margin-left: 42px;
-      color: #ffffff;
-      font-weight: 400;
+      display: flex;
+      align-items: center;
+      font-family: 'DIN';
+      font-style: normal;
+      font-weight: 500;
       font-size: 16px;
-      line-height: 1.2;
+      line-height: 19px;
+      color: #000000;
 
       img {
         margin-right: 5px;
@@ -65,6 +115,19 @@
       border-radius: 6px;
       line-height: 1.2;
       margin-left: 63px;
+    }
+
+    .toConnect {
+      padding: 12px 33px;
+      background: url(../image/connectBg.png) 100% 100% no-repeat;
+      font-family: 'Impact';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 17px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #000000;
     }
   }
 
@@ -122,9 +185,14 @@
   }
 
   .SOCIAL {
-    color: #ffffff;
+    font-family: 'DIN';
+    font-style: normal;
     font-weight: 700;
     font-size: 16px;
+    line-height: 20px;
+    /* identical to box height */
+    letter-spacing: 0.08em;
+    color: #000000;
     display: flex;
     align-items: center;
   }
@@ -133,15 +201,24 @@
     margin-left: 25px;
     display: flex;
     align-items: center;
+    font-family: 'DIN';
+    font-style: normal;
     font-weight: 500;
     font-size: 16px;
-    color: rgba(255, 255, 255, 0.8);
+    line-height: 19px;
+    letter-spacing: 0.08em;
+    color: #000000;
     letter-spacing: 0.08em;
 
-    a {
+
+    span {
+      font-family: 'DIN';
+      font-style: normal;
       font-weight: 500;
       font-size: 16px;
-      color: rgba(255, 255, 255, 0.8);
+      line-height: 19px;
+      letter-spacing: 0.08em;
+      color: #000000;
       letter-spacing: 0.08em;
     }
 

@@ -21,7 +21,6 @@ module.exports = function override(config) {
             Buffer: ['buffer', 'Buffer']
         })
     ])
-    config = injectBabelPlugin(['import', { libraryName: 'antd', libraryDirectory: 'es', style: 'css' }], config);
     return config;
 }
 

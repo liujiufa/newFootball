@@ -1,10 +1,11 @@
 .DestructDesRule {
-  background: #1d1e44;
-  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+  background: #EFFFF7;
+  box-shadow: 15px 16px 0px #5C5E5D, inset 0px 0px 4px rgba(0, 0, 0, 0.1);
   border-radius: 19px;
 
   .ant-modal-content {
     box-shadow: none;
+    background: transparent
   }
 
   .ant-modal-header {
@@ -13,7 +14,7 @@
 
   .ant-modal-body {
     position: relative;
-    background: #1d1e44;
+    // background: #1d1e44;
     // box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
     padding: 0;
 
@@ -22,7 +23,7 @@
       margin: auto;
       margin-top: 30px;
       text-align: center;
-      color: #fff;
+      color: #000000;
       box-shadow: 0;
     }
 
@@ -38,7 +39,7 @@
         padding-right: 30px;
         margin-bottom: 0;
         font-size: 16px;
-        color: #fff;
+        color: rgba(0, 0, 0, 0.8);
         text-align: left;
       }
     }
