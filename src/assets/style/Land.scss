@@ -6,9 +6,13 @@
 
     .SwapTitle {
         margin-top: 60px;
-        color: #FFFFFF;
-        font-weight: 700;
-        font-size: 24px;
+        font-family: 'Impact';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 60px;
+        line-height: 73px;
+
+        color: rgba(0, 0, 0, 0.8);
         text-align: center;
     }
 
@@ -26,13 +30,12 @@
         max-width: 1200px;
         margin: auto;
         width: 100%;
-        box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
         font-family: 'PingFang SC';
         font-style: normal;
         font-weight: 400;
         font-size: 20px;
         line-height: 28px;
-        color: rgba(255, 255, 255, 0.8);
+        color: rgba(0, 0, 0, 0.8);
 
 
         @media (max-width:768px) {
@@ -98,13 +101,13 @@
                 font-weight: 400;
                 font-size: 20px;
                 /* identical to box height */
-                color: #FFFFFF;
+                color: #000;
 
                 .myTitle {
                     width: 68px;
                     height: 32px;
-                    background: rgba(213, 51, 209, 0.3);
-                    border: 1px solid rgba(213, 51, 209, 0.8);
+                    background: rgba(20, 253, 135, 0.3);
+                    border: 1px solid #14FD87;
                     border-radius: 23px;
                 }
             }

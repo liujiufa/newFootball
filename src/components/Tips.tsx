@@ -24,7 +24,7 @@ interface TipsPropsType{
       >
           <p className='title'>{props.title}</p>
           <p className='zifujg'>{props.subTitle}</p>
-        <span>{t('Click anywhere to close')}</span>
+        {/* <span>{t('Click anywhere to close')}</span> */}
         <button className='btm' onClick={()=>props.enterFun()}>{t('Verify')}</button>
       </Modal></>
   )

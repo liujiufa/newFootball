@@ -1,15 +1,15 @@
 .DonationRecord,
 .ExchangeRecord {
-  background: #1d1e44;
-  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 19px;
+  // background: #1d1e44;
+  // box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+  // border-radius: 19px;
   // height: 424px;
   padding-left: 30px;
   padding-right: 32px;
 
   .ant-modal-content {
     box-shadow: none;
-    background: #1d1e44;
+    // background: #1d1e44;
     margin-bottom: 30px;
   }
 
@@ -19,7 +19,7 @@
 
   .ant-modal-body {
     position: relative;
-    background: #1d1e44;
+    // background: #1d1e44;
     padding: 0;
 
     .title {
@@ -27,7 +27,7 @@
       margin: auto;
       margin-top: 30px;
       text-align: center;
-      color: #fff;
+      // color: #fff;
       box-shadow: 0;
     }
 
@@ -44,7 +44,7 @@
     }
 
     .ant-table {
-      background: #1d1e44;
+      background: transparent;
     }
 
     .ant-table-wrapper {
@@ -62,8 +62,8 @@
 
       th {
         font-size: 14px;
-        background: #1d1e44;
-        color: rgba(255, 255, 255, 0.8);
+        background: transparent;
+        color: rgba(0, 0, 0, 0.8);
         border: 0;
         text-align: center;
       }
@@ -81,17 +81,17 @@
   }
 
   .ant-table-tbody {
-    border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
 
     tr {
       font-size: 14px;
-      background: #1d1e44;
-      color: #fff;
+      // background: #1d1e44;
+      color: #000;
 
       // border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 
       td {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         text-align: center;
       }
 
@@ -101,9 +101,15 @@
       }
 
       .ant-table-cell-row-hover {
-        background: #1d1e44 !important;
+        background: transparent !important;
       }
+
     }
+  }
+
+  .ant-table-tbody>tr.ant-table-placeholder:hover>td {
+    background: transparent;
+
   }
 
   //表格体的滚动条设置
@@ -114,13 +120,13 @@
 
     //滚动条里面的小方块，能上下左右移动（取决于是垂直滚动条还是水平滚动条）
     &::-webkit-scrollbar-thumb {
-      background: #5b5c83;
+      background: #14FD87;
       border-radius: 9px;
     }
 
     //滚动条的轨道（里面装有thumb）滚动槽
     &::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.1);
       border-radius: 9px;
     }
   }

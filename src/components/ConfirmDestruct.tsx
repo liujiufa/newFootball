@@ -37,7 +37,7 @@ function ConfirmDestruct(props: any) {
         <div className='box'>
           <p className='zifujg'>{t("BurnTip", { price1: props.data, price2: NumSplic(BNBValue, 8) })}</p>
         </div>
-        <div className="ConfirmBtn flex" onClick={() => { props.BurnFun(parseFloat(props.data)) }}>{t("Confirm")}</div>
+        <div className="Btn flex" onClick={() => { props.BurnFun(parseFloat(props.data)) }}>{t("Confirm")}</div>
       </Modal>
     </>
   )

@@ -59,21 +59,12 @@ function SBL() {
   let [MaxLevel, setMaxLevel] = useState(0)
   /* 铸币节点奖励记录id */
   let [ProfitId, setProfitId] = useState(-1)
-  /* 加载状态 */
-  let [heavyLoad, setHeavyLoad] = useState(false)
-  /* 节点奖励机制 */
-  let [nodeRules, setNodeRules] = useState(false)
-  /* 节点介绍 */
-  let [nodeIntr, setNodeIntr] = useState(false)
   const timeoutRef = useRef(0);
-
-
   function ShowProfitFun(id: number) {
     console.log(id)
     setProfitId(id)
     setShowProfit(true)
   }
-
   /* 退还 */
   function returnFun(id: number, amount: number) {
     if (new BigNumber(amount).lte(0)) {
@@ -153,17 +144,6 @@ function SBL() {
       getNodeBase().then(res => {
         setNodeBase(res.data)
       })
-      // getCardUserMaxLevelInfo().then(res => {
-      //   setMaxLevel(res.data)
-      // })
-      // let Time = window.setInterval(() => {
-      //   getNodeUserList().then(res => {
-      //     setNodeRecord(res.data)
-      //   })
-      //   getNodeBase().then(res => {
-      //     setNodeBase(res.data)
-      //   })
-      // }, 5000)
       return () => {
         clearTimeout(timeoutRef.current)
       }
@@ -217,11 +197,8 @@ function SBL() {
         </div>
 
       </div>
-      {/* 收益记录(代替) */}
-      <RewardRecord showModal={false}></RewardRecord>
       {/* 节点收益记录 */}
       <GlodJdSy isShow={showProfit} id={ProfitId} close={() => { setShowProfit(false) }}></GlodJdSy>
-
     </div >
   )
 }

@@ -22,7 +22,7 @@ function DestructSucceed(props: any) {
           <p className='zifujg'>{t("28,800 blocks are required to burn again.")}</p>
         </div>
 
-        <span>{t("clickLeave")}</span>
+        {/* <span>{t("clickLeave")}</span> */}
       </Modal>
     </>
   )

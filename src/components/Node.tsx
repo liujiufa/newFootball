@@ -46,7 +46,6 @@ interface NodeRecordType {
 interface ApplyRecordType {
     id: number,
 }
-const nodeAccelerate = ['My tier1', 'nodeAccelerate1', 'nodeAccelerate2', 'nodeAccelerate3', 'nodeAccelerate4', 'nodeAccelerate5', 'nodeAccelerate6', 'nodeAccelerate7']
 export default function Node(props: any) {
     const timeoutRef = useRef(0)
     let { t } = useTranslation()
@@ -56,19 +55,10 @@ export default function Node(props: any) {
     let [NodeRecord, setNodeRecord] = useState<NodeRecordType[]>([])
     /* 铸币节点申请记录弹窗 */
     let [showApplyRecord, setshowApplyRecord] = useState(false)
-    /* 铸币节点奖励记录弹窗 */
-    let [showProfit, setShowProfit] = useState(false)
     /* 用户最高等级 */
     let [MaxLevel, setMaxLevel] = useState(0)
     /* 铸币节点奖励记录id */
     let [ProfitId, setProfitId] = useState(-1)
-    /* 加载状态 */
-    let [heavyLoad, setHeavyLoad] = useState(false)
-    /* 节点奖励机制 */
-    let [nodeRules, setNodeRules] = useState(false)
-    /* 节点介绍 */
-    let [nodeIntr, setNodeIntr] = useState(false)
-
     useEffect(() => {
         if (state.token) {
             getNodeUserList().then(res => {
@@ -137,46 +127,6 @@ export default function Node(props: any) {
             })
         }
     }
-    /* 显示节点奖励记录弹窗 */
-    function ShowProfitFun(id: number) {
-        console.log(id)
-        setProfitId(id)
-        setShowProfit(true)
-    }
-    function getMaxLevel() {
-        setHeavyLoad(true)
-        setTimeout(() => {
-            setHeavyLoad(false)
-        }, 1000)
-        getCardUserMaxLevelInfo().then(res => {
-            setMaxLevel(res.data)
-        })
-    }
-    /* 领取 */
-    function receive() {
-        addMessage(t('Not opened yet'))
-    }
-    /* 退还 */
-    function returnFun(id: number, amount: number) {
-        if (new BigNumber(amount).lte(0)) {
-            addMessage(t('Insufficient recoverable amount'))
-        }
-        if (web3React.account) {
-            showLoding(true)
-            nodeReturned({ id, userAddress: web3React.account }).then(res => {
-                if (res.data) {
-                    Contracts.example.quitNode(web3React.account as string, res.data).then((res: any) => {
-                    }).finally(() => {
-                        showLoding(false)
-                    })
-                } else {
-                    showLoding(false)
-                }
-            }, () => {
-                showLoding(false)
-            })
-        }
-    }
     return (
         <>
             {
@@ -197,29 +147,13 @@ export default function Node(props: any) {
                                         t('PayBNBForSBL', { BNBNum: NodeBase.currentNodeBase.price, SBLNum: NodeBase.currentNodeBase.awardNum })
                                     }
                                 </div>
-                                {/* <div className="progressRow">
-                            <div className="progressLabel">
-                                {t('Progress')}：
-                            </div>
-                            <div className="progress">
-                                <div className="progressValue" style={{ width: NodeBase.currentNodeBase.alreadyBuyNum + NodeBase.currentNodeBase.systemBuyNum > 99 ? '99%' : NodeBase.currentNodeBase.alreadyBuyNum + NodeBase.currentNodeBase.systemBuyNum + '%' }}></div>
-                            </div>
-                        </div> */}
                                 <div className={NodeBase.currentNodeBase.isBuy ? "applyBtn flexCenter" : "applyBtn invalid flexCenter"} onClick={buyNode}>{t('Application')}</div>
                                 <span className="record" onClick={() => { setshowApplyRecord(true) }}>{t('Record2')} <img src={record} alt="" /></span>
                             </div>
                         }
-
                     </div>
-
                     {/* 铸币节点申请记录 */}
                     <GoldRecord isShow={showApplyRecord} close={() => { setshowApplyRecord(false) }}></GoldRecord>
-                    {/* 铸币节点收益记录 */}
-                    <GlodJdSy isShow={showProfit} id={ProfitId} close={() => { setShowProfit(false) }}></GlodJdSy>
-                    {/* 铸币节点奖励机制 */}
-                    <GlodMechanism isShow={nodeRules} close={() => { setNodeRules(false) }}></GlodMechanism>
-                    {/* 节点介绍 */}
-                    <NodeIntr isShow={nodeIntr} close={() => { setNodeIntr(false) }}></NodeIntr>
                 </div>
             }
         </>

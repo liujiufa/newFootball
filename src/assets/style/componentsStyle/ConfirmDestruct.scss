@@ -1,12 +1,12 @@
 .ConfirmDestruct {
-  background: #1d1e44;
-  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+  background: #EFFFF7;
+  box-shadow: 16px 16px 0px #5C5E5D, inset 0px 0px 4px rgba(0, 0, 0, 0.1);
   border-radius: 19px;
 
-  .ant-modal-content {
-    box-shadow: none;
-    background: #1d1e44;
-  }
+  // .ant-modal-content {
+  //   box-shadow: none;
+  //   background: #1d1e44;
+  // }
 
   .ant-modal-header {
     display: none;
@@ -14,7 +14,7 @@
 
   .ant-modal-body {
     position: relative;
-    background: #1d1e44;
+    // background: #1d1e44;
     // box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
     padding: 0;
 
@@ -23,27 +23,29 @@
       margin: auto;
       margin-top: 30px;
       text-align: center;
-      color: #fff;
+      color: #000;
       box-shadow: 0;
+
     }
 
     .box {
       padding: 0px 100px;
+      word-break: break-all;
 
       .zifujg {
         width: 100%;
         margin-top: 8px;
         line-height: 22px;
         font-size: 16px;
-        color: #fff;
+        color: rgba(0, 0, 0, 0.7);
       }
     }
 
-    .ConfirmBtn {
+    .Btn {
       margin: 30px auto;
       width: 76px;
       height: 36px;
-      background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+      background: url(../../image/btnBg.png) no-repeat center / 100% 100%;
       border-radius: 6px;
       font-family: 'PingFang SC';
       font-style: normal;
@@ -53,5 +55,11 @@
       /* identical to box height */
       color: #FFFFFF;
     }
+  }
+}
+
+@media (max-width:425px) {
+  .ConfirmDestruct .ant-modal-body .box {
+    padding: 0px 18px;
   }
 }

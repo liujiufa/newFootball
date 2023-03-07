@@ -1,11 +1,11 @@
 .DestructSucceed {
-  background: #1d1e44;
-  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 19px;
+  // background: #1d1e44;
+  // box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+  // border-radius: 19px;
 
   .ant-modal-content {
     box-shadow: none;
-    background: #1d1e44 !important;
+    // background: #1d1e44 !important;
     border-radius: 20px;
 
 
@@ -17,7 +17,7 @@
 
   .ant-modal-body {
     position: relative;
-    background: #1d1e44 !important;
+    // background: #1d1e44 !important;
     // box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
     padding: 0;
     border-radius: 20px;
@@ -27,7 +27,7 @@
       margin: auto;
       margin-top: 30px;
       text-align: center;
-      color: #fff;
+      // color: #fff;
       box-shadow: 0;
     }
 
@@ -55,7 +55,7 @@
         font-size: 16px;
         line-height: 19px;
         letter-spacing: 0.08em;
-        color: #FFFFFF;
+        color: rgba(0, 0, 0, 0.6);
         text-align: center;
       }
     }

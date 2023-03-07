@@ -141,15 +141,10 @@ function NFT() {
   let [MergeRes, setMergeRes] = useState<OpenResType | null>(null)
   // 提升算力值数据
   let [computingPower, setComputingPower] = useState(0)
-  // 提升算力成功
-  let [improvePowerSuccess, setImprovePowerSuccess] = useState(false)
   // 提升算力值弹窗
   let [iproveComputingPower, setImproveComputingPower] = useState(false)
   // MBA
   const [MBAValue, setMBAValue] = useState('0')
-  // 提升算力值值
-  let [iproveComputingPowerValue, setImproveComputingPowerValue] = useState('0')
-
   function showDetial(index: number) {
     setCardDetialIndex(index)
     setShowCardDetail(true)
@@ -354,12 +349,6 @@ function NFT() {
       {
         width < 1024 && <SelMerge isShow={showCardSynthesis && showSelCard} CardInfo={userCard[cardDetialIndex]} EnterSelCard={EnterSelCard} close={() => { setshowSelCard(false); setshowCardSynthesis(false) }}></SelMerge>
       }
-      {/* 提升算力值 */}
-      {userCard[computingPower] && <ImproveComputingPower successFun={() => { setImprovePowerSuccess(true) }} value={MBAValue} data={userCard[computingPower]} showModal={iproveComputingPower} close={() => { setImproveComputingPower(false) }}></ImproveComputingPower>}
-
-
-      {/* 提升算力成功 */}
-      <ImprovePowerSuccess showModal={improvePowerSuccess} close={() => { setImprovePowerSuccess(false) }}></ImprovePowerSuccess>
       <div className="Edition-Center">
         <div className="SwapTitle">
           {t('stock')}
@@ -369,55 +358,30 @@ function NFT() {
           MergeRes && <ComSucceed isShow={showMergeSuccess} CardInfo={MergeRes as OpenResType} close={() => { setShowMergeSuccess(false) }}></ComSucceed>
         }
         <div className="screen">
-          <div className="Tabs">
-            <div className={TabIndex === 0 ? 'activeTab linear-gradient' : 'invalidTab'} onClick={() => { SetTabIndex(0) }}>{t('Card')}</div>
-            <div className={TabIndex === 1 ? 'activeTab linear-gradient' : 'invalidTab'} onClick={() => { SetTabIndex(1) }}>{t('BlindBox')}</div>
+          <div className="DropDownGroup">
+            <DropDown Map={LevelMap} change={
+              (num: number) => {
+                SetLevel(num)
+              }
+            } staetIndex={level}></DropDown>
+            <DropDown Map={typeMap} change={SetType} staetIndex={type}></DropDown>
           </div>
-          {
-            TabIndex === 0 && <div className="DropDownGroup">
-              <DropDown Map={LevelMap} change={
-                (num: number) => {
-                  SetLevel(num)
-                }
-              } staetIndex={level}></DropDown>
-              <DropDown Map={typeMap} change={SetType} staetIndex={type}></DropDown>
-            </div>
-          }
-
         </div>
+        {/* 徽章徽章 */}
         {
-          TabIndex === 0 ? <>
-            {/* 徽章徽章 */}
-            {
-              userCard.length !== 0 ? <>
-                <div className="CardList">
-                  {
-                    userCard.map((item, index) => <Card key={item.id} Index={index} cardInfo={item} showDetia={showDetial} changeFun={ImproveComputingPowerFun}></Card>)
-                  }
-                </div>
-              </> : <>
-                <NoData></NoData>
-              </>
-            }
-            <div className="Pagination">
-              <Pagination style={{ margin: "auto" }} showQuickJumper defaultCurrent={page} defaultPageSize={12} showSizeChanger={false} total={totalNum} onChange={onChange} />
+          userCard.length !== 0 ? <>
+            <div className="CardList">
+              {
+                userCard.map((item, index) => <Card key={item.id} Index={index} cardInfo={item} showDetia={showDetial} changeFun={ImproveComputingPowerFun}></Card>)
+              }
             </div>
           </> : <>
-            {/* 盲盒 */}
-            {
-              userBox.length !== 0 ? <>
-                <div className="CardList">
-                  {
-                    userBox.map((item) => <BlindBox openSuccess={openSuccess} key={item.id} BoxInfo={item}></BlindBox>)
-                  }
-                </div>
-              </> : <>
-                <NoData></NoData>
-              </>
-            }
-
+            <NoData></NoData>
           </>
         }
+        <div className="Pagination">
+          <Pagination style={{ margin: "auto" }} showQuickJumper defaultCurrent={page} defaultPageSize={12} showSizeChanger={false} total={totalNum} onChange={onChange} />
+        </div>
       </div>
     </div >
   )

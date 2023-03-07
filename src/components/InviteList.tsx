@@ -2,8 +2,8 @@
 import React from "react";
 import { Modal, Table } from "antd";
 import { AddrHandle } from "../utils/tool";
-
 import "../assets/style/componentsStyle/DonationRecord.scss";
+import invitationItem from '../assets/image/invitationItem.png'
 import { useTranslation } from "react-i18next";
 const { Column } = Table;
 function GetRecord(props: any) {
@@ -32,13 +32,13 @@ function GetRecord(props: any) {
             width={140}
             render={(item) => (
               <>
-                <div>{AddrHandle(item.userAddress, 6, 4, ".............")}</div>
+                <div>{AddrHandle(item.userAddress, 6, 4, ".............")} <img src={invitationItem} alt="" /></div>
               </>
             )}
           />
 
         </Table>
-        <span>{t("clickLeave")}</span>
+        {/* <span>{t("clickLeave")}</span> */}
       </Modal>
     </>
   );

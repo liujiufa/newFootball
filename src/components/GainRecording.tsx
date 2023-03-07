@@ -71,7 +71,7 @@ function GainRecording(props: propsType) {
             )}
           />
         </Table>
-        <span>{t('Click anywhere to close')}</span>
+        {/* <span>{t('Click anywhere to close')}</span> */}
       </Modal>
     </>
   );

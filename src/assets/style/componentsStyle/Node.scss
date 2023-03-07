@@ -9,7 +9,7 @@
         font-size: 24px;
         line-height: 29px;
         text-align: center;
-        color: #DB2DCF;
+        color: rgba(0, 0, 0, 0.8);
         margin-bottom: 30px;
     }
 
@@ -19,7 +19,7 @@
         font-weight: 400;
         font-size: 18px;
         line-height: 25px;
-        color: #FFFFFF;
+        color: #000;
         margin-bottom: 25px;
 
         >div {
@@ -28,7 +28,7 @@
             font-weight: 400;
             font-size: 18px;
             line-height: 25px;
-            color: #FFFFFF;
+            color: #000;
             margin-bottom: 12px;
         }
     }
@@ -44,11 +44,11 @@
 
     .applyBtn {
         // max-width: 316px;
-        height: 40px;
-        width: 100%;
-        background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+        width: 150px;
+        height: 48px;
+        // width: 100%;
+        background: url(../../image/btnBg.png) no-repeat center / 100% 100%;
         border-radius: 6px;
-        height: 36px;
         color: #FFFFFF;
         font-weight: 700;
         font-size: 14px;
@@ -68,7 +68,8 @@
         font-size: 12px;
         line-height: 17px;
         /* identical to box height */
-        color: #DB2DCF;
+        color: rgba(0, 0, 0, 0.6);
+
 
         img {
             margin-left: 5px;

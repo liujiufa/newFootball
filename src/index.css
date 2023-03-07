@@ -251,3 +251,9 @@ body::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0) !important;
   }
 }
+
+.ant-modal-centered .ant-modal {
+  background: #EFFFF7;
+  box-shadow: 16px 16px 0px #5C5E5D, inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 19px;
+}

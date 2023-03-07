@@ -103,12 +103,12 @@ const MainLayout: React.FC = () => {
         navigate("/Node");
       }
     },
-    {
-      name: t('MBA Convert'),
-      Fun: () => {
-        navigate("/MBASwap");
-      }
-    },
+    // {
+    //   name: t('MBA Convert'),
+    //   Fun: () => {
+    //     navigate("/MBASwap");
+    //   }
+    // },
   ]
   function getparent(triggerNode: any) {
     return triggerNode.parentNode;
@@ -226,13 +226,13 @@ const MainLayout: React.FC = () => {
           label: <div className="DropItem">{t('Coinage')}</div>,
           key: "/Node",
         },
-        {
-          type: "divider",
-        },
-        {
-          label: <div className="DropItem">{t('MBA Convert')}</div>,
-          key: "/MBASwap",
-        },
+        // {
+        //   type: "divider",
+        // },
+        // {
+        //   label: <div className="DropItem">{t('MBA Convert')}</div>,
+        //   key: "/MBASwap",
+        // },
       ]}
     />
   );
@@ -306,114 +306,114 @@ const MainLayout: React.FC = () => {
     setSubMenuList(SBLSubMenuList)
     setShowSubMenu(true)
   }
-  const HeadMenu = (
-    <Menu>
-      <Menu.Item
-        key="0"
-        onClick={() => {
-          navigate("/");
-        }}
-      >
-        {t("Home")}
-      </Menu.Item>
-      <Menu.Item
-        key="1"
-        onClick={() => {
-          navigate("/BlindBox");
-        }}
-      >
-        {t("BlindBox")}
-      </Menu.Item>
+  // const HeadMenu = (
+  //   <Menu>
+  //     <Menu.Item
+  //       key="0"
+  //       onClick={() => {
+  //         navigate("/");
+  //       }}
+  //     >
+  //       {t("Home")}
+  //     </Menu.Item>
+  //     <Menu.Item
+  //       key="1"
+  //       onClick={() => {
+  //         navigate("/BlindBox");
+  //       }}
+  //     >
+  //       {t("BlindBox")}
+  //     </Menu.Item>
 
-      {/* <Menu.Item
-        key="2"
-        onClick={() => {
-          navigate("/Swap");
-        }}
-      >
-        {t("Swap")}
-      </Menu.Item> */}
+  //     {/* <Menu.Item
+  //       key="2"
+  //       onClick={() => {
+  //         navigate("/Swap");
+  //       }}
+  //     >
+  //       {t("Swap")}
+  //     </Menu.Item> */}
 
-      <Menu.SubMenu title={t("SBL Governance")}>
-        <Menu.Item
-          onClick={() => {
-            navigate("/Liquidity");
-          }}
-        >
-          {t("Liquidity")}
-        </Menu.Item>
-        <Menu.Item
-          onClick={() => {
-            navigate("/DestructFund");
-          }}
-        >
-          {t('Burn fund')}
-        </Menu.Item>
-        <Menu.Item
-          onClick={() => {
-            navigate("/Node");
-          }}
-        >
-          {t('Coinage')}
-        </Menu.Item>
-        <Menu.Item
-          onClick={() => {
-            navigate("/MBASwap");
-          }}
-        >
-          {t('MBA Convert')}
-        </Menu.Item>
-      </Menu.SubMenu>
+  //     <Menu.SubMenu title={t("SBL Governance")}>
+  //       <Menu.Item
+  //         onClick={() => {
+  //           navigate("/Liquidity");
+  //         }}
+  //       >
+  //         {t("Liquidity")}
+  //       </Menu.Item>
+  //       <Menu.Item
+  //         onClick={() => {
+  //           navigate("/DestructFund");
+  //         }}
+  //       >
+  //         {t('Burn fund')}
+  //       </Menu.Item>
+  //       <Menu.Item
+  //         onClick={() => {
+  //           navigate("/Node");
+  //         }}
+  //       >
+  //         {t('Coinage')}
+  //       </Menu.Item>
+  //       <Menu.Item
+  //         onClick={() => {
+  //           navigate("/MBASwap");
+  //         }}
+  //       >
+  //         {t('MBA Convert')}
+  //       </Menu.Item>
+  //     </Menu.SubMenu>
 
-      <Menu.SubMenu title="NFT">
-        <Menu.Item
-          onClick={() => {
-            navigate("/NFT");
-          }}
-        >
-          {t("stock2")}
-        </Menu.Item>
-        <Menu.Item
-          onClick={() => {
-            navigate("/Land");
-          }}
-        >
-          {t('Land')}
-        </Menu.Item>
-        <Menu.Item onClick={noOpen}>{t("Pledge")}</Menu.Item>
-      </Menu.SubMenu>
-      <Menu.Item key="6" onClick={noOpen}>
-        {t("Guess")}
-      </Menu.Item>
-      <Menu.Item key="7" onClick={noOpen}>
-        {t("Games")}
-      </Menu.Item>
-      <Menu.Item
-        key="4"
-        onClick={() => {
-          navigate("/SBL");
-        }}
-      >
-        {t("SBL Governance")}
-      </Menu.Item>
-      <Menu.Item
-        key="8"
-        onClick={() => {
-          navigate("/farms");
-        }}
-      >
-        Farms
-      </Menu.Item>
-      <Menu.Item
-        key="5"
-        onClick={() => {
-          navigate("/Invitation");
-        }}
-      >
-        {t("Invitation")}
-      </Menu.Item>
-    </Menu>
-  );
+  //     <Menu.SubMenu title="NFT">
+  //       <Menu.Item
+  //         onClick={() => {
+  //           navigate("/NFT");
+  //         }}
+  //       >
+  //         {t("stock2")}
+  //       </Menu.Item>
+  //       <Menu.Item
+  //         onClick={() => {
+  //           navigate("/Land");
+  //         }}
+  //       >
+  //         {t('Land')}
+  //       </Menu.Item>
+  //       <Menu.Item onClick={noOpen}>{t("Pledge")}</Menu.Item>
+  //     </Menu.SubMenu>
+  //     <Menu.Item key="6" onClick={noOpen}>
+  //       {t("Guess")}
+  //     </Menu.Item>
+  //     <Menu.Item key="7" onClick={noOpen}>
+  //       {t("Games")}
+  //     </Menu.Item>
+  //     <Menu.Item
+  //       key="4"
+  //       onClick={() => {
+  //         navigate("/SBL");
+  //       }}
+  //     >
+  //       {t("SBL Governance")}
+  //     </Menu.Item>
+  //     <Menu.Item
+  //       key="8"
+  //       onClick={() => {
+  //         navigate("/farms");
+  //       }}
+  //     >
+  //       Farms
+  //     </Menu.Item>
+  //     <Menu.Item
+  //       key="5"
+  //       onClick={() => {
+  //         navigate("/Invitation");
+  //       }}
+  //     >
+  //       {t("Invitation")}
+  //     </Menu.Item>
+  //   </Menu>
+  // );
   return (
     <Layout>
       <Header style={{ position: "fixed", zIndex: 999, width: "100%" }}>
