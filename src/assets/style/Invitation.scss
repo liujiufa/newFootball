@@ -567,19 +567,15 @@
                 padding: 25px 0px;
             }
 
+            .myItems {
+                background: #D4F0E3;
+                border-bottom: 2px solid #014845;
+            }
+
             .content {
-                position: relative;
-                // overflow-y: auto;
-                // max-height: 400px;
-
-                .myItems {
-                    position: absolute;
-                    background: #D4F0E3;
-                    border-bottom: 2px solid #014845;
-                }
-
                 .itemsBox {
                     overflow-y: auto;
+                    max-height: 400px;
 
                     .oddItems {
                         background: #F3F3F3 !important;

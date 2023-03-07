@@ -67,56 +67,6 @@ interface rewardDataType {
   userAddress: string,
   userId: number
 }
-const tokenIcon: { [key: string]: string } = {
-  SBL: SBLToken,
-  BNB: BNBIcon,
-};
-const recommend = ["My tier1", "My tier2", "My tier3"];
-
-const teamreward = [
-  "My tier1",
-  "My tier1",
-  "My tier1",
-  "sports center1",
-  "sports center2",
-  "sports center3",
-  "sports center4",
-  "sports center5",
-];
-const level = [
-  {
-    text: "Outstanding",
-    color: "#43ADFF",
-  },
-  {
-    text: "Outstanding",
-    color: "#43ADFF",
-  },
-  {
-    text: "Outstanding",
-    color: "#43ADFF",
-  },
-  {
-    text: "Outstanding",
-    color: "#43ADFF",
-  },
-  {
-    text: "Rare",
-    color: "#B351FC",
-  },
-  {
-    text: "Perfect",
-    color: "#FF9547",
-  },
-  {
-    text: "Epic",
-    color: "#ED1C40",
-  },
-  {
-    text: "Legend",
-    color: "#FCDB40",
-  },
-];
 export default function Invitation() {
   let location = useLocation();
   //   console.log(location.state);
@@ -143,7 +93,7 @@ export default function Invitation() {
   let [rewardData, setRewardData] = useState<rewardDataType | null>(null);
   /* 用户最高等级 */
   let [MaxLevel, setMaxLevel] = useState(0);
-  let [showObtainMethod, setShowObtainMethod] = useState(false);
+  let [showJoinSuccess, setShowJoinSuccess] = useState(false);
   const web3React = useWeb3React();
   const timeoutRef = useRef(0);
   //   console.log(TabIndex, "TabIndex");
@@ -313,15 +263,15 @@ export default function Invitation() {
             <div className="item address">地址</div>
             <div className="item num">邀请数量</div>
           </div>
+          <div className="items myItems">
+            <div className="item rank">105</div>
+            <div className="item address">1111111111</div>
+            <div className="item num">5</div>
+          </div>
           <div className="content">
-            <div className="items myItems">
-              <div className="item rank">105</div>
-              <div className="item address">1111111111</div>
-              <div className="item num">5</div>
-            </div>
             <div className="itemsBox">
               <div className="items ">
-                <div className="item rank">105</div>
+                <div className="item rank">10</div>
                 <div className="item address">0xsdfdfuhdosadhudfgjvbncb546454872r2gefdhfdj</div>
                 <div className="item num">5</div>
               </div>
@@ -359,15 +309,22 @@ export default function Invitation() {
           </div>
         </div>
       </div>
+      {/* 成功参与 */}
+      <Modal
+        visible={true}
+        className='AddLiquidityModal'
+        centered
+        width={'383px'}
+        closable={false}
+        footer={null}
+        onCancel={() => { setShowJoinSuccess(false) }}>
+        <div className="box">
+          <div className="tip">
+            已成功参与节点，等待活动结束领取代币
+          </div>
+        </div>
+      </Modal>
 
-      {/* 奖励记录 */}
-      <GainRecording
-        isShow={ShowRevenueRecord}
-        type={RevenueType}
-        close={() => setShowRevenueRecord(false)}
-      ></GainRecording>
-      {/* 邀请列表 */}
-      <InviteList data={InvitationData?.list} showModal={inviteModal} close={() => setInviteModal(false)}></InviteList>
     </div >
   );
 }

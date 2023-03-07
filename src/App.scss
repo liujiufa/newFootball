@@ -75,13 +75,26 @@
 
     .ant-modal-content {
         background: transparent;
-        box-shadow:none;
-        .ant-modal-body .title{
+        box-shadow: none;
+
+        .ant-modal-body .title {
             color: #000000;
         }
-        .ant-modal-body .box .zifujg {
-            color: rgba(0, 0, 0, 0.6);
 
+        .ant-modal-body .box {
+            .zifujg {
+                color: rgba(0, 0, 0, 0.6);
+            }
+
+            .tip {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 25px;
+                color: #000000;
+                text-align: center;
+            }
         }
     }
 }
