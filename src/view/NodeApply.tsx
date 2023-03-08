@@ -15,15 +15,7 @@ import { useWeb3React } from "@web3-react/core";
 import { addMessage, AddrHandle, NumSplic, showLoding } from "../utils/tool";
 import { Contracts } from "../web3";
 import BigNumber from "big.js";
-import GainRecording from "../components/GainRecording";
-import InviteList from "../components/InviteList";
-import BNBIcon from "../assets/image/BNBIcon.svg";
-import SBLToken from "../assets/image/SBL.png";
 import copyIcon from "../assets/image/copyIcon.png";
-import mechanism from "../assets/image/mechanism.png";
-import Refresh from "../assets/image/Refresh.png";
-import record from "../assets/image/record.png";
-import inviteListIcon from "../assets/image/inviteListIcon.png";
 import ableInviteIcon from "../assets/image/ableInviteIcon.png";
 import nodeAction from "../assets/image/nodeAction.png";
 import rankIcon from "../assets/image/rankIcon.png";
@@ -143,83 +135,17 @@ export default function Invitation() {
       addMessage(t("Copy Success"));
     }
   }
-  function getMaxLevel(type: number) {
-    if (type === 0) {
-      setHeavyLoad(true);
-      setTimeout(() => {
-        setHeavyLoad(false);
-      }, 1000);
-    }
-    if (type === 1) {
-      setteamHeavyLoad(true);
-      setTimeout(() => {
-        setteamHeavyLoad(false);
-      }, 1000);
-    }
-    setTimeout(() => {
-      setHeavyLoad(false);
-    }, 1000);
-    getCardUserMaxLevelInfo().then((res) => {
-      setMaxLevel(res.data);
-    });
+  const BtnFun = () => {
+    return <div className="btn flexCenter">参与</div>
+    return <div className="btned flexCenter">已参与</div>
+    return <div className="btnEnd flexCenter">已结束</div>
   }
-  function ShowRevenueRecordFun(type: number) {
-    console.log(type);
-    setRevenueType(type);
-    setShowRevenueRecord(true);
-  }
-  function Receive(type: number, id: number, amount: string) {
-    if (!web3React.account) {
-      return addMessage(t("Please connect Wallet"));
-    }
-    if (new BigNumber(amount).lte(0)) {
-      return addMessage(t("No collectable quantity"));
-    }
-    userDrawAward({
-      type,
-      id,
-    }).then((res: any) => {
-      if (res.data) {
-        showLoding(true)
-        Contracts.example
-          .getInviteReward(web3React.account as string, res.data)
-          .then(
-            (res: any) => {
-              addMessage(t('Receive success'))
-              timeoutRef.current = window.setTimeout(() => {
-                // getUserAccountList().then((res) => {
-                //   setRewardData(res.data);
-                // });
-                getCardUserMaxLevelInfo().then((res) => {
-                  setMaxLevel(res.data);
-                });
-                getRefereeUserAccount().then((res) => {
-                  console.log(res.data, '邀请奖励');
-                  setRewardData(res.data);
-                });
-              }, 5000);
 
-            },
-            (err: any) => {
-              if (err.code === 4001) {
-                userCancelDrawAward({ type, id }).then((res) => {
-                  addMessage(t('Cancellation received successfully'))
-                });
-              }
-            }
-          ).finally(() => {
-            showLoding(false)
-          });
-      } else {
-        addMessage(res.msg);
-      }
-    });
-  }
+
   return (
     <div className="Edition-Center" id="NodeApply">
       <div className="SwapTitle">节点申请</div>
       <div className="subTitle">活动时间: 2022.04.05 18: 06-2022.05.05 18: 06</div>
-
       <div className="Invitation">
 
         <div className="itemBox">
@@ -248,11 +174,10 @@ export default function Invitation() {
           </div>
           <div className="bottomContent">
             <div className="price">支付 0.2BNB 瓜分100万枚MBAS</div>
-            <div className="btn flexCenter">参与</div>
+            <BtnFun></BtnFun>
           </div>
         </div>
       </div>
-
       <div className="nodeRank">
         <div className="nodeTitle">
           <img src={rankIcon} alt="" />创世节点排行
@@ -311,8 +236,8 @@ export default function Invitation() {
       </div>
       {/* 成功参与 */}
       <Modal
-        visible={true}
-        className='AddLiquidityModal'
+        visible={false}
+        className='nodeJoinModal'
         centered
         width={'383px'}
         closable={false}
@@ -321,6 +246,58 @@ export default function Invitation() {
         <div className="box">
           <div className="tip">
             已成功参与节点，等待活动结束领取代币
+          </div>
+        </div>
+      </Modal>
+      {/* 领取 */}
+      <Modal
+        visible={false}
+        className='nodeJoinModal getModal'
+        centered
+        width={'383px'}
+        closable={false}
+        footer={null}
+        onCancel={() => { setShowJoinSuccess(false) }}>
+        <div className="box">
+          <div className="title">领取</div>
+          <div className="tip">
+            当前节点申请已结束，恭喜您成功认购100MBAS,回退0151234BNB
+          </div>
+          <div className="confirm flexCenter">確認</div>
+        </div>
+      </Modal>
+      {/* 已结束 */}
+      <Modal
+        visible={false}
+        className='nodeJoinModal'
+        centered
+        width={'383px'}
+        closable={false}
+        footer={null}
+        onCancel={() => { setShowJoinSuccess(false) }}>
+        <div className="box">
+          <div className="tip">
+            当前节点申请已结束，您已成功领取100MBAS,回退0.151234BNB，<span> 查看</span>
+          </div>
+        </div>
+      </Modal>
+      {/* 规则 */}
+      <Modal
+        visible={false}
+        className='nodeJoinModal guide'
+        centered
+        width={'705px'}
+        closable={false}
+        footer={null}
+        onCancel={() => { setShowJoinSuccess(false) }}>
+        <div className="box">
+          <div className="title">节点申请</div>
+          <div className="tip">
+            1、所有参与竞选的用户，均可以0.1USDT/MBAS的价格瓜分100万枚MBAS，瓜分后若有BNB剩余，多余的BNB将会被退回。<br />
+            2、邀请好友参与竞选，根据直接邀请成功参与竞选的好友数量进行排行，排行前150名成为创世节点。<br />
+            3、排名1-50名创世节点，将额外获得1BNB的MBAS认购额度，并获赠5星土地；排名51-100名创世节点，将额外获得0.6BNB的MBAS认购额度，并获赠4星土地；排名101-150名创世节点，将额外获得0.3BNB的MBAS认购额度，并获赠3星土地;<br />
+            4、创世节点MBAS认购价格：0.1USDT/MBAS。<br />
+            5、创世节点激活任意等级土地，享有参与节点基金瓜分的权益。<br />
           </div>
         </div>
       </Modal>

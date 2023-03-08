@@ -17,6 +17,7 @@ import BNBIcon from '../assets/image/BNBIcon.svg'
 import addIcon from '../assets/image/addIcon.png'
 import SBLIcon from '../assets/image/SBL.png'
 import switchIcon from '../assets/image/dropDownIcon.png'
+import closeIcon from '../assets/image/closeIcon.png'
 import Web3 from 'web3';
 let landLevelObj = { 1: 0.2, 2: 0.5, 3: 1, 4: 2.5, 5: 8 }
 function AddLiquidityModal(props: any) {
@@ -164,6 +165,7 @@ function AddLiquidityModal(props: any) {
                 footer={null}
                 onCancel={() => { props.close() }}
             >
+                <img src={closeIcon} className="closeIcon" alt="" onClick={() => props.close()} />
                 <p className='title'>{t("Add liquidity")}</p>
                 <p className='titleTip'>{t("AddLand", { landType: landType[type] })}</p>
                 <div className='topBox Box'>

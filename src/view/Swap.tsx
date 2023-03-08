@@ -431,7 +431,7 @@ function Swap() {
 
   return (
     <div>
-      <div className="Edition-Center">
+      <div className="Edition-Center" id="Swap">
         {/* 交易记录 */}
         <MyDealRecord isShow={showOrderRecord} close={() => { setShowOrderRecord(false) }} ></MyDealRecord>
         {/* 徽章详情 */}

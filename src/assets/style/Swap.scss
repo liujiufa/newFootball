@@ -5,6 +5,7 @@
     font-weight: 400;
     font-size: 60px;
     line-height: 73px;
+
     color: rgba(0, 0, 0, 0.8);
     text-align: center;
 }
@@ -20,6 +21,39 @@
         margin-top: 20px;
     }
 
+    .Tabs {
+        display: flex;
+
+        >div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0px 24px;
+            height: 36px;
+            border-radius: 6px;
+            margin-right: 20px;
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 22px;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .activeTab {
+            font-weight: 700;
+            color: #FFFFFF;
+            background: url(../image/btnBg.png) no-repeat center / 100% 100%;
+        }
+
+        .invalidTab {
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            box-sizing: border-box;
+        }
+    }
+
     .DropDownGroup {
         display: flex;
         position: relative;
@@ -29,6 +63,12 @@
         .dropDown:first-child {
             margin: 0;
         }
+    }
+}
+
+#Swap {
+    .screen {
+        justify-content: space-between;
     }
 }
 

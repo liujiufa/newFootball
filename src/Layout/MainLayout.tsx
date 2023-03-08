@@ -528,6 +528,14 @@ const MainLayout: React.FC = () => {
             >
               SWAP
             </div>
+            <div
+              className='MenuItem pointer'
+              onClick={() => {
+
+              }}
+            >
+              节点
+            </div>
 
             <Dropdown
               overlay={ecologyMenu}
@@ -576,14 +584,14 @@ const MainLayout: React.FC = () => {
             </Dropdown>
             {web3React.active ? (
               <>
-                <div className="Connect linear-gradient pointer">
+                <div className="Connect  pointer">
                   {AddrHandle(web3React.account as string)}
                 </div>
               </>
             ) : (
               <>
                 <div
-                  className="toConnect linear-gradient pointer flexCenter"
+                  className="toConnect  pointer flexCenter"
                   onClick={() => {
                     Connect(injected, ChainId.BSC);
                   }}
@@ -606,14 +614,14 @@ const MainLayout: React.FC = () => {
             </Dropdown>
             {web3React.active ? (
               <>
-                <div className="Connect linear-gradient pointer">
+                <div className="Connect  pointer">
                   {AddrHandle(web3React.account as string)}
                 </div>
               </>
             ) : (
               <>
                 <div
-                  className="Connect linear-gradient pointer"
+                  className="toConnect  pointer"
                   onClick={() => {
                     Connect(injected, ChainId.BSC);
                   }}
@@ -701,7 +709,6 @@ const MainLayout: React.FC = () => {
             {
               subMenuList.map((item, index) => <div key={index} className="SubMenuItem" onClick={item.Fun}>{item.name}</div>)
             }
-
           </div>
         </div>
       }
@@ -728,6 +735,7 @@ const MainLayout: React.FC = () => {
           </div>
         </div>
       </div>
+      <div className="Mask" onClick={() => { }}></div>
     </Layout>
   );
 };

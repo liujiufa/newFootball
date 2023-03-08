@@ -16,6 +16,8 @@ const MBASwap = React.lazy(() => import('../view/MBASwap'));
 const Farms = React.lazy(() => import('../view/farms'));
 const Invitation = React.lazy(() => import('../view/Invitation'));
 const NodeApply = React.lazy(() => import('../view/NodeApply'));
+const NodeFund = React.lazy(() => import('../view/NodeFund'));
+const CreateNode = React.lazy(() => import('../view/CreateNode'));
 export default function Router() {
   return (
     <Suspense fallback={<PageLoding></PageLoding>}>
@@ -34,6 +36,8 @@ export default function Router() {
           <Route path="Farms" element={<Farms />}></Route>
           <Route path="Invitation" element={<Invitation />}></Route>
           <Route path="NodeApply" element={<NodeApply />}></Route>
+          <Route path="NodeFund" element={<NodeFund />}></Route>
+          <Route path="CreateNode" element={<CreateNode />}></Route>
         </Route>
         <Route path="/DeputyLayout" element={<DeputyLayout />}>
         </Route>

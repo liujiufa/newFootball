@@ -10,6 +10,8 @@ import '../assets/style/componentsStyle/ConfirmAddLiquidity.scss'
 import BNBIcon from '../assets/image/BNBIcon.svg'
 import SBLIcon from '../assets/image/SBL.png'
 import tipIcon from '../assets/image/tipIcon.png'
+import closeIcon from '../assets/image/closeIcon.png'
+
 import { useTranslation } from 'react-i18next';
 const typeObj = { '0.2': 1, '0.5': 2, '1': 3, '2.5': 4, '8': 5 }
 function ConfirmAddLiquidity(props: any) {
@@ -45,6 +47,7 @@ function ConfirmAddLiquidity(props: any) {
                 footer={null}
                 onCancel={() => { props.close() }}
             >
+                <img src={closeIcon} className="closeIcon" alt="" onClick={() => props.close()} />
                 <p className='title'>{t("Add liquidity")}</p>
 
                 <div className="box">

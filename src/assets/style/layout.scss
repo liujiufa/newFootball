@@ -115,11 +115,12 @@
       border-radius: 6px;
       line-height: 1.2;
       margin-left: 63px;
+      background: url(../image/connectBg.png) no-repeat center / 100% 100%;
     }
 
     .toConnect {
       padding: 12px 33px;
-      background: url(../image/connectBg.png) 100% 100% no-repeat;
+      background: url(../image/connectBg.png) no-repeat 100% 100% / 100% 100%;
       font-family: 'Impact';
       font-style: normal;
       font-weight: 400;
@@ -145,6 +146,8 @@
       border-radius: 6px;
       line-height: 1.2;
       margin-left: 10px;
+      background: url(../image/connectBg.png) no-repeat center / 100% 100%;
+
     }
   }
 
