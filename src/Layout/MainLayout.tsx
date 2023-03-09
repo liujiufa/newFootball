@@ -13,6 +13,9 @@ import Telegram from "../assets/image/Telegram.svg";
 import Discord from "../assets/image/Discord.svg";
 import Twitter from "../assets/image/Twitter.svg";
 import Lang from "../assets/image/Lang.svg";
+import MBASIcon1 from "../assets/image/MBASIcon1.png";
+import MBASIcon2 from "../assets/image/MBASIcon2.png";
+import MBASIcon0 from "../assets/image/MBASIcon0.png";
 import "../assets/style/layout.scss";
 import { Menu, Dropdown } from "antd";
 const { Header, Content, Footer } = Layout;
@@ -24,6 +27,7 @@ const MainLayout: React.FC = () => {
   let { t, i18n } = useTranslation();
   const web3React = useWeb3React();
   let [showSubMenu, setShowSubMenu] = useState(false);
+  let [showDropMenu, setShowDropMenu] = useState<any>('/MBAS');
   let [subMenuList, setSubMenuList] = useState<SubMenuItemType[]>([]);
   let Connect = useConnectWallet();
   // 底部更多菜单
@@ -282,9 +286,6 @@ const MainLayout: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   function menuActive(Path: string) {
-    // if (Path === "/NFT" && (location.pathname === "/NFT" || location.pathname === "/Pledge" || location.pathname === "/Land")) {
-    //   return "MenuItem pointer active";
-    // }
     if (Path === "/NFT") {
       return "MenuItem pointer"
     }
@@ -306,114 +307,16 @@ const MainLayout: React.FC = () => {
     setSubMenuList(SBLSubMenuList)
     setShowSubMenu(true)
   }
-  // const HeadMenu = (
-  //   <Menu>
-  //     <Menu.Item
-  //       key="0"
-  //       onClick={() => {
-  //         navigate("/");
-  //       }}
-  //     >
-  //       {t("Home")}
-  //     </Menu.Item>
-  //     <Menu.Item
-  //       key="1"
-  //       onClick={() => {
-  //         navigate("/BlindBox");
-  //       }}
-  //     >
-  //       {t("BlindBox")}
-  //     </Menu.Item>
+  // 下拉菜单
+  const dropMenuList = {
+    "/MBAS": [
+      { icon: MBASIcon0, title: "流動性", subtitle: '流動性流動性流動性' },
+      { icon: MBASIcon1, title: "鑄幣節點", subtitle: '流動性流動性流動性' },
+      { icon: MBASIcon2, title: "捐贈銷毀", subtitle: '流動性流動性流動性' },
+    ]
+  }
+  console.log(dropMenuList[showDropMenu]);
 
-  //     {/* <Menu.Item
-  //       key="2"
-  //       onClick={() => {
-  //         navigate("/Swap");
-  //       }}
-  //     >
-  //       {t("Swap")}
-  //     </Menu.Item> */}
-
-  //     <Menu.SubMenu title={t("SBL Governance")}>
-  //       <Menu.Item
-  //         onClick={() => {
-  //           navigate("/Liquidity");
-  //         }}
-  //       >
-  //         {t("Liquidity")}
-  //       </Menu.Item>
-  //       <Menu.Item
-  //         onClick={() => {
-  //           navigate("/DestructFund");
-  //         }}
-  //       >
-  //         {t('Burn fund')}
-  //       </Menu.Item>
-  //       <Menu.Item
-  //         onClick={() => {
-  //           navigate("/Node");
-  //         }}
-  //       >
-  //         {t('Coinage')}
-  //       </Menu.Item>
-  //       <Menu.Item
-  //         onClick={() => {
-  //           navigate("/MBASwap");
-  //         }}
-  //       >
-  //         {t('MBA Convert')}
-  //       </Menu.Item>
-  //     </Menu.SubMenu>
-
-  //     <Menu.SubMenu title="NFT">
-  //       <Menu.Item
-  //         onClick={() => {
-  //           navigate("/NFT");
-  //         }}
-  //       >
-  //         {t("stock2")}
-  //       </Menu.Item>
-  //       <Menu.Item
-  //         onClick={() => {
-  //           navigate("/Land");
-  //         }}
-  //       >
-  //         {t('Land')}
-  //       </Menu.Item>
-  //       <Menu.Item onClick={noOpen}>{t("Pledge")}</Menu.Item>
-  //     </Menu.SubMenu>
-  //     <Menu.Item key="6" onClick={noOpen}>
-  //       {t("Guess")}
-  //     </Menu.Item>
-  //     <Menu.Item key="7" onClick={noOpen}>
-  //       {t("Games")}
-  //     </Menu.Item>
-  //     <Menu.Item
-  //       key="4"
-  //       onClick={() => {
-  //         navigate("/SBL");
-  //       }}
-  //     >
-  //       {t("SBL Governance")}
-  //     </Menu.Item>
-  //     <Menu.Item
-  //       key="8"
-  //       onClick={() => {
-  //         navigate("/farms");
-  //       }}
-  //     >
-  //       Farms
-  //     </Menu.Item>
-  //     <Menu.Item
-  //       key="5"
-  //       onClick={() => {
-  //         navigate("/Invitation");
-  //       }}
-  //     >
-  //       {t("Invitation")}
-  //     </Menu.Item>
-  //   </Menu>
-  // );
   return (
     <Layout>
       <Header style={{ position: "fixed", zIndex: 999, width: "100%" }}>
@@ -632,6 +535,19 @@ const MainLayout: React.FC = () => {
             )}
           </div>
         </div>
+        <div className="dropMenuBox">
+          {/* {dropMenuList[showDropMenu].map((item: any, index: any) =>
+            <div className="item" key={index}>
+              <div className="left">
+                <img src={item.icon} alt="" />
+              </div>
+              <div className="right">
+                <div className="title">{item.title}</div>
+                <div className="subtitle">{item.subtitle}</div>
+              </div>
+            </div>
+          )} */}
+        </div>
       </Header>
       <Content
         className="MainContent"
@@ -713,28 +629,23 @@ const MainLayout: React.FC = () => {
         </div>
       }
       <div className="FootMenu">
-        {/* <div className="MenuItem flexCenter" onClick={() => {
-          navigate("/");
-        }}>{t("Home")}</div> */}
         <div className="division"></div>
         <div className="MenuItem flexCenter" onClick={() => {
           navigate("/BlindBox");
         }}>{t("BlindBox")}</div>
         <div className="division"></div>
-        {/* <div className="MenuItem flexCenter" onClick={() => {
-          navigate("/Swap");
-        }}>{t("Swap")}</div> */}
         <div className="MenuItem flexCenter" onClick={showNftOther}>NFT</div>
         <div className="division"></div>
         <div className="MenuItem flexCenter" onClick={showSBLOther}>SBL</div>
         <div className="division"></div>
-
         <div className="MenuItem flexCenter" onClick={showOther}>
           <div className="other flexCenter">
             ···
           </div>
         </div>
       </div>
+
+
       <div className="Mask" onClick={() => { }}></div>
     </Layout>
   );

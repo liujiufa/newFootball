@@ -441,4 +441,30 @@ export class Contracts {
         this.verification('Token')
         return this.contract.Token?.methods.totalSupply().call({ from: addr })
     }
+    //按钮状态
+    nodes(addr: string) {
+        this.verification('FundNode')
+        return this.contract.FundNode?.methods.nodes(addr).call({ from: addr })
+    }
+    //领取代币
+    claimMBAS(addr: string) {
+        this.verification('FundNode')
+        return this.contract.FundNode?.methods.claimMBAS().send({ from: addr })
+    }
+    //前150节点领取代币
+    claimExtraMBAS(data: string, addr: string, value: string) {
+        BigNumber.NE = -40
+        BigNumber.PE = 40
+        let num = new BigNumber(value).times(10 ** 18).toString()
+        this.verification('FundNode')
+        return this.contract.FundNode?.methods.claimExtraMBAS(data).send({ from: addr, value: num })
+    }
+    //参与节点
+    buyJoinNode(addr: string, referAddress: string) {
+        BigNumber.NE = -40
+        BigNumber.PE = 40
+        let num = new BigNumber(0.2).times(10 ** 18).toString()
+        this.verification('FundNode')
+        return this.contract.FundNode?.methods.buyNode(referAddress).send({ from: addr, value: num })
+    }
 }

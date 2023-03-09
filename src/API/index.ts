@@ -315,7 +315,7 @@ interface getUserLandCardType {
 // 获取用户土地卡牌
 export function getLandUserCardList(data: getUserLandCardType) {
     console.log(data);
-    
+
     return axois.request({
         url: `/user/lLandUser/getLandUserCardList`,
         method: 'post',
@@ -389,5 +389,34 @@ export function getPromotePowerNum() {
     return axois.request({
         url: `/user/mMbaUser/getPromotePowerNum`,
         method: 'get'
+    })
+}
+//获取节点招募配置
+export function getNodeEquityBase() {
+    return axois.request({
+        url: `/user/nNodeRecruitRecord/getNodeEquityBase`,
+        method: 'get'
+    })
+}
+//获取创世节点排行
+export function getRankingRecord(dataId: number) {
+    return axois.request({
+        url: `/user/nNodeRecruitRecord/getRankingRecord/${dataId}`,
+        method: 'get'
+    })
+}
+//获取创世节点配置
+export function nodeLand() {
+    return axois.request({
+        url: `/user/nNodeRecruitRecord/nodeLand`,
+        method: 'get'
+    })
+}
+//领取创世节点额度奖励
+export function drawNodeAward(data: any) {
+    return axois.request({
+        url: `/user/nNodeRecruitRecord/drawNodeAward`,
+        method: 'post',
+        data
     })
 }

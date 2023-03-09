@@ -10,10 +10,12 @@ import Pledge from './ABI/Stake.json';
 import LandNFT from './ABI/LandNFT.json';
 import LandReward from './ABI/LandDistribute.json';
 import InviteReward from './ABI/InviteReward.json';
+import FundNode from './ABI/FundNode.json';
 // export let baseUrl: string = 'http://192.168.2.111:10000';
 // export let baseUrl: string = 'http://47.107.116.172:10000';
 export let socketUrl: string = 'http://spaceballgames.com:8912/endpointWisely';
-export let baseUrl: string = 'http://spaceballgames.com:10000';
+// export let baseUrl: string = 'http://spaceballgames.com:10000';
+export let baseUrl: string = 'http://192.168.2.121:10000';
 interface abiObjType {
     [propName: string]: any;
 }
@@ -34,6 +36,7 @@ export const abiObj: abiObjType = {
     "LandNFT": LandNFT,
     "LandReward": LandReward,
     "InviteReward": InviteReward,
+    "FundNode": FundNode,
 
 }
 export const contractAddress: contractAddressType = {
@@ -58,7 +61,7 @@ export const contractAddress: contractAddressType = {
     // "LandNFT": "0xCb799cBa3D590d8552f9B287eCc1440efdf77345",
     // "LandReward": "0x729b20B99Dd45E93dE095F55280D175dE8105162"
     // v3
-    "Token": "0xa6B8C7E3C18E44811deC5b8E6784234f2e65ad36",
+    "Token": "0x77382cea8f8509b48A4dd7Ecb3F8F8ce7f7c446b",
     "BlindBox": "0x9B3924686D73be19b3E0939c5fA3698a396C8B52",
     "EXChangeNFT": "0x857884699Ced9C89574B21d4cb39cc4759DBF8Ac",
     "NFT": "0xdd233a8ecC074dBFb7d450ed028fD75D0d3c6140",
@@ -70,6 +73,7 @@ export const contractAddress: contractAddressType = {
     "LandNFT": "0x935b3507Cd65b9cbd303fD6cf4fba7dB66A47A54",
     "LandReward": "0x6025B7CABcb771125b594F0B4886Cc4f3fA1B54E",
     "InviteReward": "0xC0829F536B3F2657C1ABa9564C9d4682f9B559f7",
+    "FundNode": "0xDdE4Ae4D97c1e8C894eDa0e372880E2342e07b9f",
     // vmain
     // "Token": "0x6D867F8b8C9AedE716a31466817Bc4870802Ecac",
     // "BlindBox": "0xafc67D79dA728976cbF9BEAa1182eA92bD949E86",

@@ -426,7 +426,7 @@ function Land() {
                   <div className="allReward">
                     <div className='allRewardBox'>
                       <div className="allRewardTitle">{t("Cumulative income")}：</div>
-                      <div className="allRewardValue">{NumSplic(`${userBeneficial[1]?.totalAmount}`, 4) || "0"} {userBeneficial[1]?.coinName||"SBL"}</div>
+                      <div className="allRewardValue">{NumSplic(`${userBeneficial[1]?.totalAmount}`, 4) || "0"} {userBeneficial[1]?.coinName || "SBL"}</div>
                     </div>
                     <div className="btnBox"><div></div></div>
                   </div>

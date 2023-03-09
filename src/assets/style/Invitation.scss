@@ -827,7 +827,7 @@
                 flex-direction: column;
                 justify-content: space-between;
 
-                @media (max-width:) {}
+                // @media (max-width:) {}
 
                 .imgBox {
                     max-width: 333px;
@@ -866,6 +866,19 @@
                     line-height: 22px;
                     color: #FFFFFF;
                     background: url(../image/btnedBg.png) no-repeat center / 100% 100%;
+                    margin: 35px auto 0px;
+                }
+
+                .getBtnEnd {
+                    width: 127px;
+                    height: 48px;
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 16px;
+                    line-height: 22px;
+                    color: #FFFFFF;
+                    background: url(../image/btnEndBg.png) no-repeat center / 100% 100%;
                     margin: 35px auto 0px;
                 }
 
