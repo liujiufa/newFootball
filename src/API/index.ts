@@ -114,7 +114,7 @@ export function getOrderList(data: getUserOrderType) {
 /* 获取用户邀请列表 */
 export function getUserReferee() {
     return axois.request({
-        url: `/user/uUser/getUserReferee`,
+        url: `/user/uUserReferee/inviteData`,
         method: 'get',
     })
 }

@@ -36,8 +36,6 @@ function AddLiquidityModal(props: any) {
     // ToSBL
     const [toSBL, setToSBL] = useState('0')
     const [close, setClose] = useState(true)
-
-
     const handleCallback = useCallback(
         (e) => {
             setType(parseFloat(e.key))
@@ -49,7 +47,6 @@ function AddLiquidityModal(props: any) {
         },
         [type],
     )
-
     const items: MenuProps['items'] = [
         {
             label: <div className='dropValue'>0.2</div>,
@@ -111,22 +108,6 @@ function AddLiquidityModal(props: any) {
         props.nextFun(type)
     }
 
-    // const getLog = useCallback(
-    //     async () => {
-    //         const info = await Contracts.example.web3.eth.getTransactionReceipt("0x9d3408e67d1843f4da1688ded1d2a3d5f50f7f1715e1c6ff97d84f110d0a3ba7");
-    //         console.log("info", info)
-    //         console.log(Web3.utils.fromWei("0x" + info.logs[info.logs.length - 1].data.slice(info.logs[info.logs.length - 1].data.length - 64), "ether"))
-    //     },
-    //     [],
-    // )
-
-    // useEffect(() => {
-    //     if (web3React.account) {
-    //         getLog()
-    //     }
-    // }, [web3React])
-
-
     useEffect(() => {
         if (web3React.account) {
             /* 查询用户授权 */
@@ -181,14 +162,16 @@ function AddLiquidityModal(props: any) {
                                     <div className="minBox"><div className="value">{type}</div><img className={close ? 'spanReset' : 'spanRotate'} src={switchIcon} alt="" /> </div>
                                 </a>
                             </Dropdown>
-                            <div className="coinName"> <img src={BNBIcon} alt="" /> BNB</div>
+                            <div className="coinName"> <img src={BNBIcon} alt="" />BNB</div>
                         </div>
-                        <div className="rightBox">{web3React.account && <div className="approveBtn flex" >{t("Approved")}</div>} </div>
+                        {/* <div className="rightBox">{web3React.account && <div className="approveBtn flex" >{t("Approved")}</div>} </div> */}
                     </div>
+
                     <div className="balanceBox">
                         <div className="balance">{t("Balance")}：{NumSplic(balance, 4)}</div>
-                        {width > 425 && <div className="rightBox"></div>}
+                        {/* {width > 425 && <div className="rightBox"></div>} */}
                     </div>
+
                 </div>
                 <div className='midBox'>
                     <img src={addIcon} alt="" />
@@ -197,16 +180,20 @@ function AddLiquidityModal(props: any) {
                     <div className="coinBox">
                         <div className="valueBox">
                             <div className="value">{NumSplic(toSBL, 4)}</div>
-                            <div className="coinName"><img src={SBLIcon} alt="" /> SBL</div></div>
-                        <div className="rightBox">{parseFloat(ApproveValue) > parseFloat(toSBL) ? <div className="approveBtn flex">{t("Approved")}</div> : <div className="approveBtn toApproveBtn  flex" onClick={() => { ApproveFun() }}> <div>{t("Approved SBL")}</div> </div>}</div>
+                            <div className="coinName"><img src={SBLIcon} alt="" /> SBL</div>
+                        </div>
+                        {/* 
+                        <div className="rightBox">{parseFloat(ApproveValue) > parseFloat(toSBL) ? <div className="approveBtn flex">{t("Approved")}</div> : <div className="approveBtn toApproveBtn  flex" onClick={() => { ApproveFun() }}> <div>{t("Approved SBL")}</div> </div>}</div> 
+                        */}
                     </div>
                     <div className="balanceBox">
                         <div className="balance">{t("Balance")}：{NumSplic(balance1, 4)}</div>
-                        {width > 425 && <div className="rightBox"></div>}
+                        {/* {width > 425 && <div className="rightBox"></div>} */}
                     </div>
                 </div>
-                {parseFloat(ApproveValue) > parseFloat(toSBL) ? <div className="toSupplyBtn flex" onClick={() => { confirmApplyFun() }}>{t("Supply")}</div> : <div className="supplyBtn flex">{t("Supply")}</div>}
 
+                <div className="btnBox">{parseFloat(ApproveValue) <= parseFloat(toSBL) && <div className="approveBtn toApproveBtn  flex" onClick={() => { ApproveFun() }}> <div>{t("Approved SBL")}</div> </div>}</div>
+                {parseFloat(ApproveValue) > parseFloat(toSBL) ? <div className="toSupplyBtn flex" onClick={() => { confirmApplyFun() }}>{t("Supply")}</div> : <div className="supplyBtn flex">{t("Supply")}</div>}
                 {/* <span>{t("clickLeave")}</span> */}
             </Modal >
         </>

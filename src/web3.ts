@@ -32,7 +32,7 @@ const networkConf = {
         },
         // rpcUrls: ['https://bsc-dataseed2.binance.org'],
         // rpcUrls: ['https://bsc-dataseed.binance.org/'],
-        rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545/'],
+        rpcUrls: ['https://data-seed-prebsc-1-s3.binance.org:8545'],
         blockExplorerUrls: [SCAN_ADDRESS[ChainId.BSC]],
     }
 }
@@ -65,55 +65,13 @@ export const useConnectWallet = () => {
     const { activate, deactivate, active } = useWeb3React()
     const connectWallet = useCallback((connector: InjectedConnector, chainId: number) => {
         //切换到指定链
-        return changeNetwork(chainId).then(() => {
-            //调用连接方法
-            return activate(connector, undefined, true).then((e) => {
-                if (window.ethereum && window.ethereum.on) {
-                    // 监听钱包事件
-                    // const { ethereum } = window
-                    window.ethereum.on('accountsChanged', (accounts: string[]) => {
-                        if (accounts.length === 0) {
-                            // 无账号，则代表锁定了,主动断开
-                            deactivate()
-                        }
-                        // 账号改了，刷新网页
-                        // window.location.reload()
-                    })
+        return activate(connector, undefined, true).then((e) => {
+        }).catch(errr => {
+            changeNetwork(chainId).then(() => {
 
-                    window.ethereum.on('disconnect', () => {
-                        // 断开连接
-                        deactivate()
-                    })
-
-                    window.ethereum.on('disconnect', () => {
-                        // 断开连接
-                        deactivate()
-                    })
-
-                    // window.ethereum.on('message', message => {
-                    //     console.log('message', message)
-                    // })
-                }
             })
-                .catch((error) => {
-                    switch (true) {
-                        case error instanceof UnsupportedChainIdError:
-                            // console.log('链错了')
-                            break
-                        case error instanceof NoEthereumProviderError:
-                            // console.log('不是钱包环境')
-                            break
-                        case error instanceof UserRejectedRequestError:
-                            // console.log('用户拒绝连接钱包')
-                            break
-                        default:
-                        // console.log(error)
-                    }
-                })
         })
-        // eslint-disable-next-line
     }, [])
-
     useMemo(() => {
         // 首次尝试连接
         !active && connectWallet(injected, ChainId.BSC)
@@ -124,6 +82,7 @@ export const useConnectWallet = () => {
     }, [])
     return connectWallet
 }
+
 export class Contracts {
     //单例
     static example: Contracts
@@ -450,6 +409,26 @@ export class Contracts {
     claimMBAS(addr: string) {
         this.verification('FundNode')
         return this.contract.FundNode?.methods.claimMBAS().send({ from: addr })
+    }
+    //查询是否领取
+    claimedNode(addr: string) {
+        this.verification('FundNode')
+        return this.contract.FundNode?.methods.claimedNode(addr).call({ from: addr })
+    }
+    //查询创世节点是否认购
+    nodeReward(addr: string) {
+        this.verification('FundNode')
+        return this.contract.FundNode?.methods.nodeReward(addr).call({ from: addr })
+    }
+    //确定领取数据
+    queryClaimMBAS(addr: string) {
+        this.verification('FundNode')
+        return this.contract.FundNode?.methods.queryClaimMBAS(addr).call({ from: addr })
+    }
+    //创世节点确定领取数据
+    queryClaimExtraMBAS(value: string, addr: string) {
+        this.verification('FundNode')
+        return this.contract.FundNode?.methods.queryClaimExtraMBAS(value).call({ from: addr })
     }
     //前150节点领取代币
     claimExtraMBAS(data: string, addr: string, value: string) {

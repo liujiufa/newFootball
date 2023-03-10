@@ -13,9 +13,13 @@ import Telegram from "../assets/image/Telegram.svg";
 import Discord from "../assets/image/Discord.svg";
 import Twitter from "../assets/image/Twitter.svg";
 import Lang from "../assets/image/Lang.svg";
+import MBASGovernanceIcon0 from "../assets/image/MBASGovernanceIcon0.png";
+import MBASGovernanceIcon1 from "../assets/image/MBASGovernanceIcon1.png";
+import MBASGovernanceIcon2 from "../assets/image/MBASGovernanceIcon2.png";
+import MBASGovernanceIcon3 from "../assets/image/MBASGovernanceIcon3.png";
+import MBASIcon0 from "../assets/image/MBASIcon0.png";
 import MBASIcon1 from "../assets/image/MBASIcon1.png";
 import MBASIcon2 from "../assets/image/MBASIcon2.png";
-import MBASIcon0 from "../assets/image/MBASIcon0.png";
 import "../assets/style/layout.scss";
 import { Menu, Dropdown } from "antd";
 const { Header, Content, Footer } = Layout;
@@ -27,7 +31,7 @@ const MainLayout: React.FC = () => {
   let { t, i18n } = useTranslation();
   const web3React = useWeb3React();
   let [showSubMenu, setShowSubMenu] = useState(false);
-  let [showDropMenu, setShowDropMenu] = useState<any>('/MBAS');
+  let [showDropMenu, setShowDropMenu] = useState<any>();
   let [subMenuList, setSubMenuList] = useState<SubMenuItemType[]>([]);
   let Connect = useConnectWallet();
   // 底部更多菜单
@@ -309,13 +313,30 @@ const MainLayout: React.FC = () => {
   }
   // 下拉菜单
   const dropMenuList = {
+    "/MBASGovernance": [
+      { icon: MBASGovernanceIcon0, title: "流動性", subtitle: '添加流动性激活土地', path: '/Liquidity' },
+      { icon: MBASGovernanceIcon1, title: "鑄幣節點", subtitle: '根据MBAS销毁量获生态铸币权', path: '/Node' },
+      { icon: MBASGovernanceIcon2, title: "捐贈銷毀", subtitle: '销毁MBAS获得两倍BNB奖励', path: "/DestructFund" },
+      { icon: MBASGovernanceIcon3, title: "农场", subtitle: '质押LP获得生态激励', path: "/farms" },
+    ],
     "/MBAS": [
-      { icon: MBASIcon0, title: "流動性", subtitle: '流動性流動性流動性' },
-      { icon: MBASIcon1, title: "鑄幣節點", subtitle: '流動性流動性流動性' },
-      { icon: MBASIcon2, title: "捐贈銷毀", subtitle: '流動性流動性流動性' },
+      { icon: MBASIcon0, title: "节点申请", subtitle: '报名参与节点竞选', path: '/NodeApply' },
+      { icon: MBASIcon1, title: "创世节点", subtitle: '创世节点福利专区', path: '/CreateNode' },
+      { icon: MBASIcon2, title: "节点基金", subtitle: '节点基金收益领取', path: '/NodeFund' },
+    ],
+    "/NFT": [
+      { icon: MBASIcon0, title: "徽章", subtitle: '徽章查看個人精靈徽章', path: '/NFT' },
+      { icon: MBASIcon1, title: "土地", subtitle: '獲取土地分紅和服務獎', path: '/Land' },
+      { icon: MBASIcon2, title: "交易中心", subtitle: '自由買賣徽章土地', path: '/Swap' },
+      { icon: MBASIcon2, title: "質押", subtitle: '徽章質押獲得MBAS獎勵', path: '/Pledge' },
+      { icon: MBASIcon2, title: "合成", subtitle: '徽章合成解鎖更高權益', path: '/Synthesis' },
     ]
   }
-  console.log(dropMenuList[showDropMenu]);
+  // 导航
+  const navigateFun = (path: string) => {
+    navigate(path)
+    setShowDropMenu(null)
+  }
 
   return (
     <Layout>
@@ -348,6 +369,7 @@ const MainLayout: React.FC = () => {
             >
               {t("BlindBox")}
             </div>
+
             <Dropdown
               overlay={SBLMenu}
               placement="bottom"
@@ -358,7 +380,6 @@ const MainLayout: React.FC = () => {
               <div className={menuActive("/SBL")}>{t("SBL Governance")}</div>
             </Dropdown>
 
-
             <Dropdown
               overlay={NftMenu}
               placement="bottom"
@@ -368,6 +389,7 @@ const MainLayout: React.FC = () => {
             >
               <div className={menuActive("/NFT")}>NFT</div>
             </Dropdown>
+
             <Dropdown
               overlay={SecondaryOther}
               placement="bottom"
@@ -377,6 +399,7 @@ const MainLayout: React.FC = () => {
             >
               <div className={menuActive("")}>...</div>
             </Dropdown>
+
           </div>
 
           {/* 大屏 */}
@@ -384,7 +407,7 @@ const MainLayout: React.FC = () => {
             <div
               className={menuActive("/")}
               onClick={() => {
-                navigate("/");
+                navigateFun("/");
               }}
             >
               {t("Home")}
@@ -392,21 +415,28 @@ const MainLayout: React.FC = () => {
             <div
               className={menuActive("/BlindBox")}
               onClick={() => {
-                navigate("/BlindBox");
+                navigateFun("/BlindBox");
               }}
             >
               {t("BlindBox")}
             </div>
-            <Dropdown
-              overlay={SBLMenu}
-              placement="bottom"
-              overlayClassName="LangDropDown"
-              trigger={["click"]}
-              arrow={{ pointAtCenter: true }}
+            <div
+              className={menuActive("/SBL")}
+              onClick={() => {
+                setShowDropMenu("/MBASGovernance");
+              }}
             >
-              <div className={menuActive("/SBL")}>{t("SBL Governance")}</div>
-            </Dropdown>
-            <Dropdown
+              {t("SBL Governance")}
+            </div>
+            <div
+              className={menuActive("/NFT")}
+              onClick={() => {
+                setShowDropMenu("/NFT");
+              }}
+            >
+              NFT
+            </div>
+            {/* <Dropdown
               overlay={NftMenu}
               placement="bottom"
               overlayClassName="LangDropDown"
@@ -414,15 +444,17 @@ const MainLayout: React.FC = () => {
               arrow={{ pointAtCenter: true }}
             >
               <div className={menuActive("/NFT")}>NFT</div>
-            </Dropdown>
-            <div
+            </Dropdown> 
+            */}
+            {/* <div
               className={menuActive("/Swap")}
               onClick={() => {
-                navigate("/Swap");
+                navigateFun("/Swap");
               }}
             >
               {t("Swap")}
-            </div>
+            </div> 
+            */}
             <div
               className='MenuItem pointer'
               onClick={() => {
@@ -434,12 +466,11 @@ const MainLayout: React.FC = () => {
             <div
               className='MenuItem pointer'
               onClick={() => {
-
+                setShowDropMenu('/MBAS')
               }}
             >
-              节点
+              MBAS
             </div>
-
             <Dropdown
               overlay={ecologyMenu}
               placement="bottom"
@@ -449,18 +480,10 @@ const MainLayout: React.FC = () => {
             >
               <div className={menuActive("/Ecology")}>{t('Ecology')}</div>
             </Dropdown>
-
-            {/* <div className={menuActive("/Guess")} onClick={noOpen}>
-              {t("Guess")}
-            </div>
-            <div className={menuActive("/Games")} onClick={noOpen}>
-              {t("Games")}
-            </div> */}
-
             <div
               className={menuActive("/farms")}
               onClick={() => {
-                navigate("/farms");
+                navigateFun("/farms");
               }}
             >
               {t("Farms")}
@@ -468,7 +491,7 @@ const MainLayout: React.FC = () => {
             <div
               className={menuActive("/Invitation")}
               onClick={() => {
-                navigate("/Invitation");
+                navigateFun("/Invitation");
               }}
             >
               {t("Invitation")}
@@ -535,19 +558,22 @@ const MainLayout: React.FC = () => {
             )}
           </div>
         </div>
-        <div className="dropMenuBox">
-          {/* {dropMenuList[showDropMenu].map((item: any, index: any) =>
-            <div className="item" key={index}>
-              <div className="left">
-                <img src={item.icon} alt="" />
+        {showDropMenu && <div className="dropMenuBox">
+          <div className="menuContent">
+            {dropMenuList[showDropMenu].map((item: any, index: any) =>
+              <div className="item" key={index} onClick={() => { navigateFun(item.path) }}>
+                <div className="left">
+                  <img src={item.icon} alt="" />
+                </div>
+                <div className="right">
+                  <div className="title">{item.title}</div>
+                  <div className="subtitle">{item.subtitle}</div>
+                </div>
               </div>
-              <div className="right">
-                <div className="title">{item.title}</div>
-                <div className="subtitle">{item.subtitle}</div>
-              </div>
-            </div>
-          )} */}
-        </div>
+            )}
+            {dropMenuList[showDropMenu].lenght % 2 !== 0 && <div className="autoitem"></div>}
+          </div>
+        </div>}
       </Header>
       <Content
         className="MainContent"
@@ -644,10 +670,8 @@ const MainLayout: React.FC = () => {
           </div>
         </div>
       </div>
-
-
-      <div className="Mask" onClick={() => { }}></div>
-    </Layout>
+      {showDropMenu && <div className="Mask" onClick={() => { setShowDropMenu(null) }}></div>}
+    </Layout >
   );
 };
 export default MainLayout;

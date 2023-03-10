@@ -318,14 +318,14 @@ function Home() {
 
   useEffect(() => {
     if (web3React.account && state.token) {
-      Contracts.example.totalSupply(web3React.account).then((res: any) => {
-        // console.log(res);
-        setTotalSupply(new BigNumber(res).div(10 ** 18).toString())
-      })
-      Contracts.example.balanceOf(contractAddress.DestructBalance).then((res: any) => {
-        // console.log(res);
-        setAllBalance(new BigNumber(res).div(10 ** 18).toString())
-      })
+      // Contracts.example.totalSupply(web3React.account).then((res: any) => {
+      //   // console.log(res);
+      //   setTotalSupply(new BigNumber(res).div(10 ** 18).toString())
+      // })
+      // Contracts.example.balanceOf(contractAddress.DestructBalance).then((res: any) => {
+      //   // console.log(res);
+      //   setAllBalance(new BigNumber(res).div(10 ** 18).toString())
+      // })
     }
   }, [state.token, web3React.account])
 

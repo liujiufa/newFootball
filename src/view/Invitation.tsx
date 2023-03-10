@@ -35,11 +35,11 @@ interface InvitationItem {
   userAddress: string;
   id: number;
 }
-interface InvitationType {
-  list: InvitationItem[];
-  refereeAddress: string;
-  size: number;
-}
+// interface InvitationType {
+//   list: InvitationItem[];
+//   refereeAddress: string;
+//   size: number;
+// }
 interface refereeData {
   id: number;
   amount: number;
@@ -120,7 +120,7 @@ export default function Invitation() {
   let { t } = useTranslation();
   let state = useSelector<stateType, stateType>((state) => state);
   // 邀请列表数据
-  let [InvitationData, setInvitationTypeDate] = useState<InvitationType | null>(null);
+  let [InvitationData, setInvitationTypeDate] = useState<any>(null);
 
 
   let [landData, setLandData] = useState<landDataType | null>(null);
@@ -156,7 +156,7 @@ export default function Invitation() {
       });
       // 邀请列表
       getUserReferee().then((res) => {
-        console.log(res);
+        console.log(res, '邀请列表');
         setInvitationTypeDate(res.data);
       });
       getHomeLand().then((res) => {
@@ -302,7 +302,7 @@ export default function Invitation() {
             <div className="copyBtn" onClick={invitation}><img src={copyIcon} alt="" /></div>
           </div>
           {/* <div className="inviteListBtn" onClick={() => { setInviteModal(true) }}>邀請列表({InvitationData ? 0 : (InvitationData?.list.length - 1)}) <img src={inviteListIcon} alt="" /></div> */}
-          <div className="inviteListBtn" onClick={() => { setInviteModal(true) }}>{t("Invitation list")}({InvitationData?.list.length}) <img src={inviteListIcon} alt="" /></div>
+          <div className="inviteListBtn" onClick={() => { setInviteModal(true) }}>{t("Invitation list")}({InvitationData?.length}) <img src={inviteListIcon} alt="" /></div>
         </div>
       </div>
       {/* 奖励记录 */}
@@ -312,7 +312,7 @@ export default function Invitation() {
         close={() => setShowRevenueRecord(false)}
       ></GainRecording>
       {/* 邀请列表 */}
-      <InviteList data={InvitationData?.list} showModal={inviteModal} close={() => setInviteModal(false)}></InviteList>
+      <InviteList data={InvitationData} showModal={inviteModal} close={() => setInviteModal(false)}></InviteList>
     </div >
   );
 }

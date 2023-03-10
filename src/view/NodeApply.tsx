@@ -7,11 +7,13 @@ import { stateType } from "../store/reducer";
 import { useWeb3React } from "@web3-react/core";
 import { addMessage, AddrHandle, dateFormat, NumSplic, showLoding, GetQueryString } from "../utils/tool";
 import { Contracts } from "../web3";
+import { BlockUrl } from '../config'
 import BigNumber from "big.js";
 import copyIcon from "../assets/image/copyIcon.png";
 import ableInviteIcon from "../assets/image/ableInviteIcon.png";
 import nodeAction from "../assets/image/nodeAction.png";
 import rankIcon from "../assets/image/rankIcon.png";
+import closeIcon from "../assets/image/closeIcon.png";
 import copy from "copy-to-clipboard";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../assets/style/Invitation.scss";
@@ -67,7 +69,11 @@ export default function Invitation() {
   let [ShowMoreDetail, setShowMoreDetail] = useState(false);
   let [showJoinSuccess, setShowJoinSuccess] = useState(false);
   let [showGetSuccess, setShowGetSuccess] = useState(false);
+  let [ConfirmBuy, setConfirmBuy] = useState(false);
   let [BtnState, setBtnState] = useState(false);
+  let [isGetBtn, setIsGetBtn] = useState(false);
+  let [hashValue, setHashValue] = useState();
+  let [isGetValue, setIsGetValue] = useState<any>();
   const web3React = useWeb3React();
   useEffect(() => {
     if (state.token && web3React.account) {
@@ -76,18 +82,39 @@ export default function Invitation() {
         setNodeApplyData(res.data);
         getRankingRecord(res.data.id).then((res) => {
           console.log(res.data, 'rank');
+          let arr: any = [];
           res.data.map((item: any, index: number) => {
-            item = { rank: Number(index) + 1, ...item }
+            // item = { ...item, rank: Number(index) + 1 }
+            arr.push({ ...item, rank: Number(index) + 1 })
           })
-          setNodeRankData(res.data);
+          console.log(arr, '111');
+          setNodeRankData(arr);
         });
       });
+    }
+  }, [state.token]);
+
+  useEffect(() => {
+    if (state.token && web3React.account) {
       Contracts.example.nodes(web3React.account).then((res: any) => {
-        console.log(res, '按钮状态');
+        console.log(res, '是否参与');
         setBtnState(res)
+      })
+      Contracts.example.claimedNode(web3React.account).then((res: any) => {
+        console.log(res, '是否领取');
+        setIsGetBtn(res)
       })
     }
   }, [state.token]);
+
+  useEffect(() => {
+    if (state.token && web3React.account) {
+      Contracts.example.queryClaimMBAS(web3React.account).then((res: any) => {
+        console.log(res, '确认领取数据');
+        setIsGetValue(res)
+      })
+    }
+  }, [state.token, ConfirmBuy]);
 
   function invitation() {
     if (!web3React.account) {
@@ -114,6 +141,10 @@ export default function Invitation() {
             console.log(res, '购买end');
             showLoding(false)
             setShowJoinSuccess(true)
+            Contracts.example.nodes(web3React.account as string).then((res: any) => {
+              console.log(res, '是否参与');
+              setBtnState(res)
+            })
           }).finally(() =>
             showLoding(false)
           )
@@ -126,9 +157,16 @@ export default function Invitation() {
     if (web3React.account) {
       showLoding(true)
       Contracts.example.claimMBAS(web3React.account as string).then((res: any) => {
-        console.log(res);
+        console.log(res, "交易哈希");
         showLoding(false)
-        setShowGetSuccess(true)
+        addMessage("领取成功")
+        setHashValue(res.transactionHash)
+        setConfirmBuy(false)
+        // setShowGetSuccess(true)
+        Contracts.example.claimedNode(web3React.account as string).then((res: any) => {
+          console.log(res, '是否领取');
+          setIsGetBtn(res)
+        })
       }).finally(() =>
         showLoding(false)
       )
@@ -138,7 +176,11 @@ export default function Invitation() {
   const BtnFun = () => {
     if (NodeApplyData!.startTime > Date.now() || Date.now() > NodeApplyData!.endTime) {
       if (BtnState) {
-        return <div className="btn flexCenter" onClick={() => { getNode() }}>领取</div>
+        if (!isGetBtn) {
+          return <div className="btn flexCenter" onClick={() => { setConfirmBuy(true) }}>领取</div>
+        } else {
+          return <div className="btned flexCenter" onClick={() => { setShowGetSuccess(true) }}>已领取</div>
+        }
       } else {
         return <div className="btnEnd flexCenter">已结束</div>
       }
@@ -151,13 +193,11 @@ export default function Invitation() {
     }
   }
 
-
   return (
     <div className="Edition-Center" id="NodeApply">
       <div className="SwapTitle">节点申请</div>
       <div className="subTitle">活动时间: {dateFormat('YYYY.mm.dd HH:MM', new Date(NodeApplyData?.startTime || 0))}-{dateFormat('YYYY.mm.dd HH:MM', new Date(NodeApplyData?.endTime || 0))}</div>
       <div className="Invitation">
-
         <div className="itemBox">
           <div className="itemTip">
             节点申请介绍:支付0.2BNB参与节点竞选，共同瓜分100万枚MBAS。邀请好友参与，邀请排名前150名，成为创世节点，获得额外认购额度并获赠星级土地奖励，解锁身份特权。 <span onClick={() => { setShowMoreDetail(true) }}>查看更多</span></div>
@@ -199,8 +239,8 @@ export default function Invitation() {
             <div className="item num">邀请数量</div>
           </div>
 
-          {NodeRankData.lenght > 0 ? <>
-            {NodeRankData.fliter((item: any) => (web3React.account)?.toLowerCase() === (item?.userAddress).toLowerCase()).map((item: any) => <div className="items myItems">
+          {NodeRankData.length > 0 ? <>
+            {NodeRankData?.filter((item: any) => (web3React.account)?.toLowerCase() === (item?.userAddress).toLowerCase()).map((item: any) => <div className="items myItems">
               <div className="item rank">{item?.rank}</div>
               <div className="item address">{item?.userAddress}</div>
               <div className="item num">{item?.refereeCount}</div>
@@ -208,7 +248,7 @@ export default function Invitation() {
             <div className="content">
               <div className="itemsBox">
                 {NodeRankData.map((item: any, index: any) => <div key={index} className={index % 2 === 0 ? "items" : "oddItems items"}>
-                  <div className="item rank">{Number(index) + 1}</div>
+                  <div className="item rank">{item?.rank}</div>
                   <div className="item address">{item?.userAddress}</div>
                   <div className="item num">{item?.refereeCount}</div>
                 </div>)}
@@ -216,6 +256,15 @@ export default function Invitation() {
             </div>
           </> : <NoData></NoData>
           }
+          {/* <div className="content">
+            <div className="itemsBox">
+              {NodeRankData.map((item: any, index: any) => <div key={index} className={index % 2 === 0 ? "items" : "oddItems items"}>
+                <div className="item rank">{item?.rank}</div>
+                <div className="item address">{item?.userAddress}</div>
+                <div className="item num">{item?.refereeCount}</div>
+              </div>)}
+            </div>
+          </div> */}
         </div>
       </div>
       {/* 成功参与 */}
@@ -227,6 +276,7 @@ export default function Invitation() {
         closable={false}
         footer={null}
         onCancel={() => { setShowJoinSuccess(false) }}>
+        <img src={closeIcon} className="closeIcon" alt="" onClick={() => setShowJoinSuccess(false)} />
         <div className="box">
           <div className="tip">
             已成功参与节点，等待活动结束领取代币
@@ -234,24 +284,25 @@ export default function Invitation() {
         </div>
       </Modal>
       {/* 领取 */}
-      <Modal
-        visible={false}
+      {isGetValue && <Modal
+        visible={ConfirmBuy}
         className='nodeJoinModal getModal'
         centered
         width={'383px'}
         closable={false}
         footer={null}
-        onCancel={() => { setShowJoinSuccess(false) }}>
+        onCancel={() => { setConfirmBuy(false) }}>
+        <img src={closeIcon} className="closeIcon" alt="" onClick={() => setConfirmBuy(false)} />
         <div className="box">
           <div className="title">领取</div>
           <div className="tip">
-            当前节点申请已结束，恭喜您成功认购100MBAS,回退0151234BNB
+            当前节点申请已结束，恭喜您成功认购{isGetValue[0]}MBAS,回退{isGetValue[1]}BNB
           </div>
-          <div className="confirm flexCenter">確認</div>
+          <div className="confirm flexCenter" onClick={() => { getNode() }}>確認</div>
         </div>
-      </Modal>
-      {/* 已结束 */}
-      <Modal
+      </Modal>}
+      {/* 已领取 */}
+      {isGetValue && <Modal
         visible={showGetSuccess}
         className='nodeJoinModal'
         centered
@@ -259,12 +310,13 @@ export default function Invitation() {
         closable={false}
         footer={null}
         onCancel={() => { setShowGetSuccess(false) }}>
+        <img src={closeIcon} className="closeIcon" alt="" onClick={() => setShowGetSuccess(false)} />
         <div className="box">
           <div className="tip">
-            当前节点申请已结束，您已成功领取100MBAS,回退0.151234BNB，<span> 查看</span>
+            当前节点申请已结束，您已成功领取{isGetValue[0]}MBAS,回退{isGetValue[1]}BNB，<span onClick={() => { window.open(BlockUrl + hashValue) }}> 查看</span>
           </div>
         </div>
-      </Modal>
+      </Modal>}
       {/* 规则 */}
       <Modal
         visible={ShowMoreDetail}

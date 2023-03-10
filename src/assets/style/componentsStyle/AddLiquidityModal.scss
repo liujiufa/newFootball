@@ -33,7 +33,7 @@
             }
 
             .Box {
-                height: 100px;
+                // height: 100px;
                 width: 100%;
 
                 // balanceBox/coinBox
@@ -206,7 +206,7 @@
             }
 
             .midBox {
-                margin: 30px auto;
+                margin: 15px auto;
             }
 
             .supplyBtn {
@@ -233,7 +233,7 @@
                 line-height: 20px;
                 /* identical to box height */
                 color: #FFFFFF;
-                margin-top: 50px;
+                margin-top: 20px;
             }
 
             span {
@@ -331,7 +331,24 @@
             }
 
             .toSupplyBtn {
-                margin-top: 40px;
+                margin-top: 15px;
+            }
+
+            .btnBox {
+                border: 1px solid rgba(20, 253, 135, 0.6);
+                border-radius: 6px;
+
+                .toApproveBtn {
+                    margin: 20px auto 15px;
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 14px;
+                    line-height: 20px;
+                    /* identical to box height */
+                    color: #14FD87;
+                    padding: 10px 24px;
+                }
             }
         }
 

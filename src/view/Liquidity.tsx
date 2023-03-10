@@ -214,7 +214,8 @@ export default function Liquidity() {
                                     </div>
                                     <div className="rmBtn flex" onClick={() => { RmLiquidityFun(item?.type, item?.chainId, item?.currencyPair, item?.hostAmount, item?.tokenAmount) }}>{t("Remove")}</div>
                                 </div>}
-                            </div>)}
+                            </div>
+                            )}
                         </div>
                         :
                         <div className="content">
@@ -225,10 +226,8 @@ export default function Liquidity() {
                 }
                 {(userLpList.length > 0) && <div className="addLiquidityBtn flex" onClick={() => { setAddLiquidityModal(true) }}>{t("Add liquidity")}</div>}
             </div>
-
             <AddLiquidityModal Level={cardLevel?.cardLevel} showModal={addLiquidityModal} close={() => { setAddLiquidityModal(false) }} nextFun={openConfirmFun}></AddLiquidityModal>
             <ConfirmAddLiquidity data={addLiquidityValue} showModal={conLiquidityModal} close={() => setConLiquidityModal(false)} addFun={addLiquidityFun}></ConfirmAddLiquidity>
-
             {<ConfirmRmLiquidity data={reLiquidityValue} showModal={rmLiquidity} rmFun={rmLiquidityFun} close={() => { setRmLiquidity(false) }}></ConfirmRmLiquidity>}
             {<SuccessAddLiquidity data={coinPairValue} showModal={successAddLiquidity} close={() => setSuccessAddLiquidity(false)}></SuccessAddLiquidity>}
             <SuccessRmLiquidity showModal={successRmLiquidity} close={() => { setSuccessRmLiquidity(false) }}></SuccessRmLiquidity>
