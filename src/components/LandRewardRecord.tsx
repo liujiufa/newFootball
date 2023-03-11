@@ -69,7 +69,7 @@ function GetRecord(props: any) {
             )}
           />
         </Table>
-        <span>{t("clickLeave")}</span>
+        {/* <span>{t("clickLeave")}</span> */}
       </Modal>
     </>
   );

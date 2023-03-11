@@ -115,7 +115,7 @@ function Land() {
     { id: 4, title: t("Epic quality land"), count: 0 },
     { id: 5, title: t("Legendary quality land"), count: 0 },
   ]
-  let [tabActive, setTabActive] = useState('1')
+  let [tabActive, setTabActive] = useState('2')
   let [totalNum, SetTotalNum] = useState(0)
   // 我的封号
   let [userLevel, setUserLevel] = useState(0)
@@ -132,8 +132,6 @@ function Land() {
   let [landRewardRecordId, setLandRewardRecordId] = useState(0)
   // 控制土地详情说明
   let [landDetailDes, setLandDetailDes] = useState(false)
-  //  土地申领
-  let [landApplication, setLandApplication] = useState<landObjType[]>([])
   //  土地申领成功
   let [landApplication1, setLandApplication1] = useState<landObjType[]>([])
   // 我的权益
@@ -174,21 +172,6 @@ function Land() {
     setShowCreateOrder(false)
     setShowCreateOrderSuccess(true)
     if (state.token && web3React.account) {
-      // 土地申领
-      // getLandUserList().then(res => {
-      //   console.log(res.data, '初始化土地申领1')
-      //   const list = landObj.map((item: any, index: any) => {
-      //     let newOptions = res.data.filter((v: any) => item.id == v.level)[0];
-      //     return ({
-      //       ...item,
-      //       count: newOptions?.landCount || item.count
-      //     })
-      //   })
-      //   console.log(list, '初始化土地申领2');
-      //   setLandApplication(list)
-      //   setLandApplication1(list)
-      //   setLandApplicationNum(res.data.reduce((sum: any, item: any) => sum + item.landCount, 0))
-      // })
       timeoutRef.current = window.setTimeout(() => {
         // 我的封号
         getUserInfo().then(res => {
@@ -212,37 +195,6 @@ function Land() {
     }
   }
 
-  // 申领土地
-  const applyLandFun = () => {
-    if (state.token) {
-      claimLand().then((res) => {
-        console.log(res);
-        showLoding(true)
-        Contracts.example.ApplyLand(web3React.account as string, res.data).then((res: any) => {
-          console.log(res);
-          // 土地申领
-          timeoutRef.current = window.setTimeout(() => {
-            getLandUserList().then(res => {
-              console.log(res);
-              const list = landObj.map((item: any, index: any) => {
-                let newOptions = res.data.filter((v: any) => item.id == v.level)[0];
-                return ({
-                  ...item,
-                  count: newOptions?.landCount || item.count
-                })
-              })
-              console.log(list, '土地申领');
-              setLandApplication(list)
-              setLandApplicationNum(res.data.reduce((sum: any, item: any) => sum + item.landCount, 0))
-            })
-          }, 5000);
-          setClaimSuccessModal(true)
-        }).finally(() => {
-          showLoding(false)
-        })
-      })
-    }
-  }
   // 领取
   function Receive(type: number, id: number, amount: number) {
     console.log(type, id, amount);
@@ -305,24 +257,6 @@ function Land() {
   }, [state.token, web3React.account, level, page, tabActive, showCreateOrderSuccess])
 
   useEffect(() => {
-    if (state.token && web3React.account && tabActive === '1') {
-      // 土地申领
-      getLandUserList().then(res => {
-        console.log(res.data, '初始化土地申领1')
-        const list = landObj.map((item: any, index: any) => {
-          let newOptions = res.data.filter((v: any) => item.id == v.level)[0];
-          return ({
-            ...item,
-            count: newOptions?.landCount || item.count
-          })
-        })
-        console.log(list, '初始化土地申领2');
-        setLandApplication(list)
-        setLandApplication1(list)
-        setLandApplicationNum(res.data.reduce((sum: any, item: any) => sum + item.landCount, 0))
-      })
-    }
-
     if (state.token) {
       // 我的封号
       getUserInfo().then(res => {
@@ -330,7 +264,6 @@ function Land() {
         setUserLevel(res.data.level)
       })
     }
-
     if (state.token && web3React.account && tabActive === '3') {
       // 我的权益
       getLandUserBeneficial().then(res => {
@@ -338,9 +271,6 @@ function Land() {
         setUserBeneficial(res.data)
       })
     }
-    // return () => {
-    //   clearTimeout(timeoutRef.current)
-    // }
   }, [state.token, web3React.account, tabActive, landApplicationNum])
 
   return (
@@ -350,22 +280,9 @@ function Land() {
           NFT - {t("Land")}
         </div>
         <div className="processState">
-          <div className="imgBox" onClick={() => { setTabActive('1') }}><img src={tabActive === '1' ? tabObj[i18n.language][3] : tabObj[i18n.language][0]} alt="" /></div>
-          <div className="imgBox" onClick={() => { setTabActive('2') }}><img src={tabActive === '2' ? tabObj[i18n.language][4] : tabObj[i18n.language][1]} alt="" /></div>
+          <div className="imgBox imgBox1" onClick={() => { setTabActive('2') }}><img src={tabActive === '2' ? tabObj[i18n.language][4] : tabObj[i18n.language][1]} alt="" /></div>
           <div className="imgBox" onClick={() => { setTabActive('3') }}><img src={tabActive === '3' ? tabObj[i18n.language][5] : tabObj[i18n.language][2]} alt="" /></div>
         </div>
-        {/* 1.土地申领 */}
-        {
-          tabActive === '1' && <div className="Content">
-            <div className="LandDesc">
-              {t("LandDes")}
-            </div>
-            {/* 轮播图 */}
-
-            <Slide landObj={landObj} />
-            {landApplicationNum > 0 ? <div className="applyBtn flex" onClick={() => { applyLandFun() }}>{t("Claim")}({landApplicationNum})</div> : <div className="toApplyBtn flex">{t("Claim")}</div>}
-          </div>
-        }
         {/* 2.我的领地 */}
         {
           tabActive === '2' && <div className="Content">
@@ -407,14 +324,14 @@ function Land() {
                   <div className="allReward">
                     <div className='allRewardBox'>
                       <div className="allRewardTitle">{t("Cumulative income")}：</div>
-                      <div className="allRewardValue">{NumSplic(`${userBeneficial[0]?.totalAmount}`, 4) || "0"} {userBeneficial[0]?.coinName || "SBL"}</div>
+                      <div className="allRewardValue">{NumSplic(`${userBeneficial[0]?.totalAmount}`, 4) || "0"} {userBeneficial[0]?.coinName || "MBAS"}</div>
                     </div>
                     <div className="btnBox"><div></div></div>
                   </div>
                   <div className="valueBox">
                     <div className="box">
                       <div className="value">{NumSplic(`${userBeneficial[0]?.amount}`, 4) || "0"}</div>
-                      <div className="coinName"><img src={SBLIcon} alt="" /> {userBeneficial[0]?.coinName || "SBL"}</div>
+                      <div className="coinName"><img src={SBLIcon} alt="" /> {userBeneficial[0]?.coinName || "MBAS"}</div>
                     </div>
                     <div className="btnBox"><div className="getBtn flex" onClick={() => { Receive(2, userBeneficial[0]?.id, userBeneficial[0]?.amount) }}>{t("Harvest")}</div></div>
                   </div>
@@ -426,14 +343,14 @@ function Land() {
                   <div className="allReward">
                     <div className='allRewardBox'>
                       <div className="allRewardTitle">{t("Cumulative income")}：</div>
-                      <div className="allRewardValue">{NumSplic(`${userBeneficial[1]?.totalAmount}`, 4) || "0"} {userBeneficial[1]?.coinName || "SBL"}</div>
+                      <div className="allRewardValue">{NumSplic(`${userBeneficial[1]?.totalAmount}`, 4) || "0"} {userBeneficial[1]?.coinName || "MBAS"}</div>
                     </div>
                     <div className="btnBox"><div></div></div>
                   </div>
                   <div className="valueBox">
                     <div className="box">
                       <div className="value">{NumSplic(`${userBeneficial[1]?.amount}`, 4) || "0"}</div>
-                      <div className="coinName"><img src={SBLIcon} alt="" /> {userBeneficial[1]?.coinName || 'SBL'}</div>
+                      <div className="coinName"><img src={SBLIcon} alt="" /> {userBeneficial[1]?.coinName || 'MBAS'}</div>
                     </div>
                     <div className="btnBox"><div className="getBtn flex" onClick={() => { Receive(4, userBeneficial[1]?.id, userBeneficial[1]?.amount) }}>{t("Harvest")}</div></div>
                   </div>

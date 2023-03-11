@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
 import "../assets/style/componentsStyle/MyDealRecord.scss";
 const status = ['Put shelf', 'revoke', 'Sold', 'purchase']
-const type = ['', 'Perseus Badge', 'Khaos Badge', 'Gaea Badge', 'Astra Badge','Land']
+const type = ['', 'Perseus Badge', 'Khaos Badge', 'Gaea Badge', 'Astra Badge', 'Land']
 const level = ['', 'Common', 'Uncommon', 'Outstanding', 'Rare', 'Perfect', 'Epic']
 const { Column } = Table;
 interface propsType {

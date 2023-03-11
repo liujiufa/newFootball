@@ -26,21 +26,20 @@ function PutParticulars(props: PropsType) {
         closable={false}
         footer={null}
       >
-        <p className='title'>{t('Card Details')}</p>
+        <div className='title'>{t('Card Details')}</div>
         <div className='hzimg'>
           <Image src={props.OrderInfo.image}></Image>
         </div>
         <div className="p1">
-          <p className='kpdetails'>{t('Card Name')}:{i18n.language === 'zh' ? props.OrderInfo.zhCardName : props.OrderInfo.cardName}</p>
-          <p className='kpdetails'>{t('CardID')}:{props.OrderInfo.cardNo}</p>
+          <div className='kpdetails'>{t('Card Name')}:{i18n.language === 'zh' ? props.OrderInfo.zhCardName : props.OrderInfo.cardName}</div>
+          <div className='kpdetails'>{t('CardID')}:{props.OrderInfo.cardNo}</div>
         </div>
         <div className="p2">
-          <p className='kpdetails'>{t("Computing power")}:{props.OrderInfo.currentPower}/{props.OrderInfo.basePower}({Math.floor(props.OrderInfo.currentPower / props.OrderInfo.basePower * 100)})%</p>
-          <p className='kpdetails'>{t('CardLevel')}:{t(level[props.OrderInfo.cardLevel])}</p>
+          <div className='kpdetails'>{t("Computing power")}:{props.OrderInfo.currentPower}/{props.OrderInfo.basePower}({Math.floor(props.OrderInfo.currentPower / props.OrderInfo.basePower * 100)})%</div>
+          <div className='kpdetails'>{t('CardLevel')}:{t(level[props.OrderInfo.cardLevel])}</div>
         </div>
-        <p className='kpdetails'>{t('CardType')}:{t(cardClass[props.OrderInfo.cardType])}</p>
-        <p className='kpdetails'>{t('Introduction Card')}:{i18n.language === 'zh' ? props.OrderInfo.zhIntroduce : props.OrderInfo.introduce}</p>
-        <span>{t('Click anywhere to close')}</span>
+        <div className='kpdetails'>{t('CardType')}:{t(cardClass[props.OrderInfo.cardType])}</div>
+        <div className='kpdetails'>{t('Introduction Card')}:{i18n.language === 'zh' ? props.OrderInfo.zhIntroduce : props.OrderInfo.introduce}</div>
       </Modal>
     </>
   )

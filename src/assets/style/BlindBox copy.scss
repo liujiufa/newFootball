@@ -1,0 +1,222 @@
+.BlindBoxTitle {
+    margin-top: 100px;
+    color: #FFFFFF;
+    text-align: center;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.BlindBoxInfo {
+    margin-top: 70px;
+    display: flex;
+    align-items: center;
+
+    >div {
+        margin: 0 29px;
+    }
+
+    @media (max-width:426px) {
+        >div {
+            margin: 0;
+        }
+    }
+
+    .Info {
+        flex: 1;
+
+        .intr {
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .intrContent {
+            font-weight: 400;
+            font-size: 14px;
+            color: #FFFFFF;
+            margin-top: 10px;
+        }
+
+        .CopyAddr {
+            margin-top: 20px;
+            max-width: 306px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            display: flex;
+            padding: 10px;
+            align-items: center;
+            font-weight: 500;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            justify-content: space-between;
+            color: #FFFFFF;
+
+            .division {
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.46875) 53.12%, rgba(255, 255, 255, 0) 100%);
+                width: 1px;
+                height: 14px;
+            }
+
+            img {
+                width: 14px;
+                height: 14px;
+                flex-shrink: 0;
+            }
+        }
+
+        .BuyRow {
+            display: flex;
+            align-items: center;
+            margin-top: 40px;
+
+            .buyInfo {
+
+                // width:125px;
+                .BuyName {
+                    color: #FFFFFF;
+                    font-weight: 700;
+                    font-size: 14px;
+                    margin-bottom: 5px;
+                }
+
+                .price {
+                    color: #FFFFFF;
+                    font-weight: 400;
+                    font-size: 14px;
+                }
+                span {
+                    color: #FFFFFF;
+                    font-weight: 400;
+                    font-size: 14px;
+                }
+            }
+
+
+            .BuyBtn {
+                width: 100px;
+                height: 38px;
+                border-radius: 6px;
+                padding: 8px 16px;
+                color: #FFFFFF;
+                letter-spacing: 0.08em;
+                font-weight: 400;
+                font-size: 14px;
+                margin-left: 96px;
+            }
+
+            @media (max-width:375px) {
+                .BuyBtn {
+                    margin-left: 20px;
+                }
+            }
+        }
+
+        .PriceDesc {
+            color: #FFFFFF;
+            font-size: 12px;
+        }
+
+        .progress {
+            display: flex;
+            align-items: center;
+
+            .groove {
+                background: rgba(255, 255, 255, 0.23);
+                border-radius: 5px;
+                max-width: 272px;
+                width: 100%;
+                height: 12px;
+                overflow: hidden;
+                margin-right: 7px;
+
+                .Value {
+                    background: #7F53FE;
+                    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+                    border-radius: 5px;
+                    height: 100%;
+                    color: #FFFFFF;
+                    text-align: right;
+                    line-height: 14px;
+                    padding-right: 10px;
+                }
+            }
+
+            .progressValue {
+                font-weight: 500;
+                font-size: 16px;
+                color: #FFFFFF;
+            }
+        }
+
+        @media (max-width:426px) {
+            .BuyRow {
+                justify-content: space-between;
+            }
+        }
+    }
+
+    .Img {
+        flex: 1;
+
+        img {
+            max-width: 100%
+        }
+
+        .probability {
+            display: flex;
+            margin-top: 100px;
+
+            .proItem {
+                display: flex;
+                align-items: center;
+
+                .Dbg {
+                    background: rgba(255, 255, 255, 0.2);
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+
+                    .DRadius {
+                        width: 14px;
+                        height: 14px;
+                        border-radius: 50%;
+                    }
+                }
+
+                .ProInfo {
+                    margin-left: 8px;
+
+                    .InfoNum {
+                        color: #FFFFFF;
+                        font-weight: 700;
+                        font-size: 14px;
+                    }
+
+                    .InfoName {
+                        color: rgba(255, 255, 255, 0.6);
+                        font-weight: 400;
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:1023px) {
+    .BlindBoxInfo {
+        flex-direction: column-reverse;
+    }
+
+    .BlindBoxTitle {
+        margin-top: 50px;
+    }
+}
+
+@media screen and (max-width:425px) {
+    .BlindBoxInfo .Info .BuyRow .BuyBtn {
+        margin-left: 0;
+    }
+}

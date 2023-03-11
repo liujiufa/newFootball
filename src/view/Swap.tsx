@@ -219,8 +219,6 @@ function Swap() {
   const [ApproveValue, setApproveValue] = useState('0')
   // 授权
   function ApproveFun(num: number) {
-    console.log(num);
-
     if (!web3React.account) {
       return addMessage(t('Please connect Wallet'))
     }
@@ -257,33 +255,32 @@ function Swap() {
         SetTotalNum(res.data.size)
       })
       // 推送
-      let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getOrderList/${web3React.account}`, `/getOrderList/${web3React.account}`,
-        {
-          cardType: cardType,
-          currentPage: page,
-          level: level,
-          pageSize: 12,
-          type: type,
-          sortType: sort
-          // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
-        }, (data: any) => {
-          setOrderList(data.list)
-          SetTotalNum(data.size)
-        })
-      return () => {
-        try {
-          stompClient.disconnect()
-        } catch {
+      // let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getOrderList/${web3React.account}`, `/getOrderList/${web3React.account}`,
+      //   {
+      //     cardType: cardType,
+      //     currentPage: page,
+      //     level: level,
+      //     pageSize: 12,
+      //     type: type,
+      //     sortType: sort
+      //     // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
+      //   }, (data: any) => {
+      //     setOrderList(data.list)
+      //     SetTotalNum(data.size)
+      //   })
+      // return () => {
+      //   try {
+      //     stompClient.disconnect()
+      //   } catch {
 
-        }
-        clearInterval(sendTimer)
-      }
+      //   }
+      //   clearInterval(sendTimer)
+      // }
     }
   }, [page, sort, type, level, TabIndex, state.token, web3React.account, cardType])
   // 土地
   useEffect(() => {
     console.log('tudi');
-
     if (cardType === 2 && TabIndex === 1 && state.token && web3React.account) {
       getOrderList({
         cardType: cardType,
@@ -481,7 +478,6 @@ function Swap() {
             TabIndex === 2 && <div className="DropDownGroup">
               <img src={orderRecord} alt="" onClick={() => { setShowOrderRecord(true) }} />
               <DropDown Map={MyMap} change={SetCardMyType} ></DropDown>
-              {/* <DropDown Map={typeMap} change={SetUsertype}></DropDown> */}
             </div>
           }
         </div>
@@ -517,7 +513,6 @@ function Swap() {
             }
           </>
         }
-
         {
           TabIndex === 2 && <>
             {/* 交易场我的列表 */}
@@ -535,7 +530,6 @@ function Swap() {
 
           </>
         }
-
         {/* 交易场数据合个人交易场数据共用一个分页器 */}
         <div className="Pagination">
           <Pagination style={{ margin: "auto" }} showQuickJumper defaultCurrent={page} defaultPageSize={12} hideOnSinglePage showSizeChanger={false} total={totalNum} onChange={onChange} />

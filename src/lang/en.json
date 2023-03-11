@@ -335,10 +335,10 @@
     "No liquidity found": "No liquidity found",
     "Adding liquidity activates land equity": "Adding liquidity activates land equity",
     "Insufficient balance": "Insufficient balance",
-    "SBL destroyed": "SBL destroyed",
+    "MBAS destroyed": "MBAS destroyed",
     "Burn": "Burn",
     "Land NFT": "Land NFT",
-    "SBL destroyed": "SBL destroyed",
+    "MBAS destroyed": "MBAS destroyed",
     "SBL total supply": "SBL total supply",
     "Add liquidity": "Add liquidity",
     "Excellent": "Excellent",
@@ -385,8 +385,8 @@
     "Burn": "Burn",
     "BurnRule1": "1. Burn Fund Quota = BNB accumulated by Burn Fund Pool - Quota already subscribed by the whole network *2",
     "BurnRule2": "2. The upper limit of the single burn amount: 50% of the burn fund amount is worth BNB equivalent to BNB",
-    "BurnRule3": "3. The starting amount of a single burn: SBL worth 0.1BNB",
-    "BurnTip": "The burn cost {{price1}} SBL You will receive a burn reward of {{price2}} BNB",
+    "BurnRule3": "3. The starting amount of a single burn: MBAS worth 0.1BNB",
+    "BurnTip": "The burn cost {{price1}} MBAS You will receive a burn reward of {{price2}} BNB",
     "Pick up record": "Pick up record",
     "Burn amount SBL": "Burn amount SBL",
     "Reward BNB": "Reward BNB",
@@ -499,5 +499,5 @@
     "LandDetailTip4": "4. Activating the Epic NFT land can get the Governor's title;",
     "LandDetailTip5": "5. Activate Legendary NFT Land to get the title of Speaker.",
     "destructTip": "Currently the maximum burnable {{price1}} SBL, the minimum must be destroyed {{price2}} SBL",
-    "SBL Des": "SBL adopts a deflationary governance model, and all 5% of the selling slippage will be put into the destruction fund pool as a reward for users to destroy SBL. Users who destroy SBL will receive twice the value of BNB rewards, and the rewards will be released within 2,592,000 blocks. After each donation, wait 28,800 blocks to donate again."
+    "MBAS Des": "MBAS adopts a deflationary governance model, and all 5% of the selling slippage will be put into the destruction fund pool as a reward for users to destroy MBAS. Users who destroy MBAS will receive twice the value of BNB rewards, and the rewards will be released within 2,592,000 blocks. After each donation, wait 28,800 blocks to donate again."
 }

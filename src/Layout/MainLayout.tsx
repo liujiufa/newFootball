@@ -426,7 +426,7 @@ const MainLayout: React.FC = () => {
                 setShowDropMenu("/MBASGovernance");
               }}
             >
-              {t("SBL Governance")}
+              MBAS Governance
             </div>
             <div
               className={menuActive("/NFT")}
@@ -469,7 +469,7 @@ const MainLayout: React.FC = () => {
                 setShowDropMenu('/MBAS')
               }}
             >
-              MBAS
+              节点
             </div>
             <Dropdown
               overlay={ecologyMenu}

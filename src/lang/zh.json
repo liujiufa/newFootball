@@ -329,10 +329,9 @@
     "No liquidity found": "未找到流動性",
     "Adding liquidity activates land equity": "添加流動性可激活土地權益",
     "Insufficient balance": "余额不足",
-    "SBL destroyed": "SBL銷毀",
+    "MBAS destroyed": "MBAS銷毀",
     "Burn": "销毁参与",
     "Land NFT": "土地NFT",
-    "SBL destroyed": "SBL銷毀",
     "SBL total supply": "SBL總供應",
     "Add liquidity": "添加流動性",
     "Excellent": "優秀",
@@ -395,7 +394,7 @@
     "Amount BNB": "金額BNB",
     "BurnRule1": "1、销毁基金额度=销毁基⾦池累计收到的BNB-全⽹已经认购的额度*2",
     "BurnRule2": "2、单次銷毀上限金额：销毁基金额度5%BNB等价值BNB",
-    "BurnRule3": "3、单次銷毀起始金额：价值0.1BNB的SBL",
+    "BurnRule3": "3、单次銷毀起始金额：价值0.1BNB的MBAS",
     "Congratulations, the burn was successful!": "恭喜，銷毀成功！",
     "Node reward": "節點獎勵",
     "Mintage": "鑄幣額度",
@@ -446,7 +445,7 @@
     "Eligibility: Synthetic Perfect badge NFT": "申領資格：合成良品徽章NFT",
     "Eligibility: Synthetic Epic badge NFT": "申領資格：合成史詩徽章NFT",
     "28,800 blocks are required to burn again.": "28,800個區塊後可再次銷毀。",
-    "BurnTip": "此次銷毀消耗 {{price1}} SBL 您將獲得 {{price2}} BNB 的銷毀獎勵。",
+    "BurnTip": "此次銷毀消耗 {{price1}} MBAS 您將獲得 {{price2}} BNB 的銷毀獎勵。",
     "Mint successfully": "申領成功",
     "Land details": "土地詳情",
     "Activated": "已激活",
@@ -492,5 +491,5 @@
     "The badge to be synthesized does not belong to you": "要合成的徽章不屬於你",
     "copyLink": "複製併使用此鏈接，邀請您的朋友加入Space Ball ，一起探索無限精彩的元宇宙世界。建立自己的Space Ball家族！",
     "LandDes": "土地是Space Ball 生態中最有價值的NFT，發行數量有限，是生態中最稀缺的資源。Space Ball 將對早期參與生態交互的用戶進行土地免費空投，用戶參與徽章NFT的合成，即可獲得土地申領權限。持有土地並激活后，可以享受土地分紅和土地服務獎，共享生態發展收益。",
-    "SBL Des": "SBL採用通縮治理模型，將賣出滑點5%全部打入銷毀基金池，作為對用戶銷毀SBL的獎勵。用戶銷毀SBL，將獲得2倍價值的BNB獎勵，獎勵將在2,592,000個區塊內釋放完畢。每次捐贈後，等待28,800個區塊可以再次捐贈。"
+    "MBAS Des": "MBAS採用通縮治理模型，將賣出滑點5%全部打入銷毀基金池，作為對用戶銷毀MBAS的獎勵。用戶銷毀MBAS，將獲得2倍價值的BNB獎勵，獎勵將在2,592,000個區塊內釋放完畢。每次捐贈後，等待28,800個區塊可以再次捐贈。"
 }

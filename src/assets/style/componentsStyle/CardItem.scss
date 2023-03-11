@@ -1,11 +1,12 @@
 .CardItemLinearBorder {
     width: 100%;
     padding: 1px;
-    border-radius: 19px;
+    border-radius: 10px;
     box-sizing: border-box;
-    // background:linear-gradient(180deg, #4EADF5 0%, #DB2DCF 100%);
-    overflow: hidden;
     height: max-content;
+    background: #FFFFFF;
+    box-shadow: 15px 15px 0px rgba(116, 153, 138, 0.4);
+
 
     .buyBtn {
         height: 36px;
@@ -16,17 +17,41 @@
         color: #FFFFFF;
         font-weight: 400;
         font-size: 14px;
-        margin: 32px auto 0;
+        margin: 10px auto 0px;
+        background: url(../../image/btnBg.png) no-repeat center / 100% 100%;
     }
 }
 
 .CardItem {
-    background: #1F2045;
-    box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 19px;
-    padding: 15px;
+    border-radius: 10px;
+    padding: 10px 15px;
     box-sizing: border-box;
     margin: 1px;
+
+    .valueBox {
+        .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            /* identical to box height */
+            color: #000000;
+        }
+
+        .valuePrice {
+            margin: 5px 0px;
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 22px;
+            color: #14FD87;
+        }
+    }
 
     .CardImg {
         position: relative;
@@ -47,7 +72,7 @@
             font-weight: 400;
             font-size: 16px;
             line-height: 22px;
-            color: #D533D1;
+            color: #14FD87;
         }
 
         img {
@@ -55,43 +80,16 @@
         }
     }
 
-    .BoxNum {
-        color: #FFFFFF;
-        font-weight: 400;
-        font-size: 14px;
-        text-align: center;
-    }
-
-    .cardId {
-        color: #FFFFFF;
-        font-weight: 400;
-        font-size: 14px;
-        text-align: center;
-        margin-top: 10px;
-    }
-
-    .openBtn {
-        padding: 8px 24px;
-        width: max-content;
-        border-radius: 6px;
-        font-weight: 400;
-        font-size: 14px;
-        color: #FFFFFF;
-        margin: 15px auto 0;
-    }
-
     .price {
         font-weight: 400;
         font-size: 14px;
-        color: #FFFFFF;
+        color: #000;
         margin-top: 10px;
-        height: 84px;
         font-family: 'PingFang SC';
         font-style: normal;
         font-weight: 400;
         font-size: 16px;
         line-height: 22px;
-        color: #FFFFFF;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -113,15 +111,6 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
-
-            .title {
-                width: 43px;
-                font-family: 'PingFang SC';
-                font-style: normal;
-                font-weight: 400;
-                font-size: 16px;
-                color: #FFFFFF;
-            }
 
             .value {
                 width: 46px;
@@ -152,7 +141,7 @@
                     font-weight: 500;
                     font-size: 12px;
                     letter-spacing: 0.08em;
-                    color: #FFFFFF;
+                    color: #000;
                     text-align: right;
                     display: flex;
                     align-items: center;
@@ -170,45 +159,36 @@
             flex: auto;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 8px;
-
-
-            .shareValue {
-                height: 12px;
-                background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
-                border-radius: 8px;
-                font-family: 'DIN';
-                font-style: normal;
-                font-weight: 500;
-                font-size: 12px;
-                letter-spacing: 0.08em;
-                color: #FFFFFF;
-                text-align: right;
-                display: flex;
-                align-items: center;
-                justify-content: flex-end;
-            }
         }
 
         .box {
             width: 100%;
             display: flex;
             align-items: center;
-            justify-content: center;
+            // justify-content: center;
             font-family: 'PingFang SC';
             font-style: normal;
             font-weight: 400;
             font-size: 16px;
             line-height: 22px;
-            color: #FFFFFF;
+            color: #000;
 
             .priceFlex {
-                >span {
+                width: 100%;
+
+                >div {
+                    width: 100%;
                     font-family: 'PingFang SC';
                     font-style: normal;
-                    font-weight: 400;
+                    font-weight: 700;
                     font-size: 16px;
                     line-height: 22px;
-                    color: #FFFFFF;
+                    color: #000;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    /*内容会被修剪，并且其余内容是不可见的*/
+                    text-overflow: ellipsis;
+                    /*显示省略符号来代表被修剪的文本。*/
                 }
             }
         }
@@ -233,7 +213,7 @@
     }
 
     .coinName {
-        margin-left: 10px;
+        margin-right: 10px;
     }
 
 
@@ -261,6 +241,7 @@
 @media screen and (max-width:375px) {
     .CardItem {
         padding: 12px;
+
         .price .computingPower .title {
             font-size: 14px;
         }

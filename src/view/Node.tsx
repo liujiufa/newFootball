@@ -48,14 +48,9 @@ function SBL() {
   const web3React = useWeb3React()
   let state = useSelector<stateType, stateType>(state => state);
   let { t } = useTranslation()
-  let [Tab, setTab] = useState(1)
   let [showProfit, setShowProfit] = useState(false)
   let [NodeBase, setNodeBase] = useState<NodeInfoType | null>(null)
   let [NodeRecord, setNodeRecord] = useState<NodeRecordType[]>([])
-  /* 铸币节点申请记录弹窗 */
-  let [showApplyRecord, setshowApplyRecord] = useState(false)
-  /* 用户最高等级 */
-  let [MaxLevel, setMaxLevel] = useState(0)
   /* 铸币节点奖励记录id */
   let [ProfitId, setProfitId] = useState(-1)
   const timeoutRef = useRef(0);
@@ -107,8 +102,8 @@ function SBL() {
           addMessage(t('Receive success'))
           timeoutRef.current = window.setTimeout(() => {
             getNodeUserList().then(res => {
-              setNodeRecord(res.data)
               console.log(res.data, '节点奖励');
+              setNodeRecord(res.data)
             })
           }, 5000);
         }, (err: any) => {
@@ -192,9 +187,9 @@ function SBL() {
             <div className="getRecord" onClick={() => { ShowProfitFun(item.id) }}>
               {t("Records")} <img src={RecordIcon} alt="" />
             </div>
-          </div>)}
+          </div>
+          )}
         </div>
-
       </div>
       {/* 节点收益记录 */}
       <GlodJdSy isShow={showProfit} id={ProfitId} close={() => { setShowProfit(false) }}></GlodJdSy>

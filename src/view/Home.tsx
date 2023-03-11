@@ -515,7 +515,7 @@ function Home() {
 
             <div className="box">
               <div className="destructAll">
-                {t("SBL destroyed")}：<span>{Number(allBalance).toLocaleString()}</span>
+                {t("MBAS destroyed")}：<span>{Number(allBalance).toLocaleString()}</span>
               </div>
               <div className="provideAll">
                 {t("SBL total supply")}：<span>{Number(totalSupply).toLocaleString()}</span>

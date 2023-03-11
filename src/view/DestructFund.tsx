@@ -229,10 +229,10 @@ function DestructFund() {
     <div>
       <div className="DestructFund">
         <div className="SwapTitle">
-          {t("SBL destroyed")}
+          {t("MBAS destroyed")}
         </div>
         <div className="NodeDesc">
-          {t("SBL Des")}
+          {t("MBAS Des")}
         </div>
         <div className="Content">
           {/* 銷毀參與 */}
@@ -243,9 +243,9 @@ function DestructFund() {
             <div className="inputBox">
               <input value={inputValue} onChange={(e) => { changeFun(e) }} />
               <div className="maxBtn" onClick={() => { maxFun(Math.floor(parseInt(toSBL) * 0.05)) }}>max</div>
-              <div className="coinBox"><img src={SBLIcon} alt="" /> SBL</div>
+              <div className="coinBox"><img src={SBLIcon} alt="" /> MBAS</div>
             </div>
-            <div className="Balance">{t("Balance")}：{NumSplic(balance1, 4)} SBL</div>
+            <div className="Balance">{t("Balance")}：{NumSplic(balance1, 4)} MBAS</div>
             {parseFloat(ApproveValue) > inputValue ? (Math.floor(parseInt(toSBL) * 0.05) < parseInt(minBurn) ? <div className="DestructBtn Btn DestructBtning flex" onClick={() => { addMessage(t("Currently cannot be destroyed")) }}>{t("Destroy")}</div> : <div className="DestructBtn Btn  flex" onClick={() => { conBurnFun() }}>{t("Destroy")}</div>) : <div className="DestructBtn Btn flex" onClick={() => { ApproveFun() }}>{t("Approve")}</div>}
             <div className="DestructRecord" onClick={() => { setDonationRecord(!donationRecord) }}>
               {t("Destroy records")}<img src={RecordIcon} alt="" />
@@ -254,8 +254,8 @@ function DestructFund() {
           {/* 銷毀獎勵 */}
           <div className="DestructReward">
             <div className="title">{t("Destruction Rewards")}</div>
-            <div className="rewardValue">{t("Award amount")}：{NumSplic(`${drawBurnRecord?.awardAmount}`, 8) || "0"} {drawBurnRecord?.coinName || "SBL"}</div>
-            <div className="toFreed">{t("To be released")}：{NumSplic(`${drawBurnRecord?.treatAmount}`, 8) || "0"} {drawBurnRecord?.coinName || "SBL"}</div>
+            <div className="rewardValue">{t("Award amount")}：{NumSplic(`${drawBurnRecord?.awardAmount}`, 8) || "0"} {drawBurnRecord?.coinName || "MBAS"}</div>
+            <div className="toFreed">{t("To be released")}：{NumSplic(`${drawBurnRecord?.treatAmount}`, 8) || "0"} {drawBurnRecord?.coinName || "MBAS"}</div>
             {drawBurnRecord ? <div className="process">
               <div className="Freed">{t("Process")}：</div>
               <div className="processBox">

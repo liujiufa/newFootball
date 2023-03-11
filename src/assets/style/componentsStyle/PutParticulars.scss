@@ -1,15 +1,7 @@
 .PutParticulars {
-  padding: 30px !important;
-  background: #1d1e44;
-  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px !important;
   border-radius: 19px;
   position: relative;
-
-  // height: 573px;
-  // padding-bottom: 100px !important;
-  .ant-modal-content {
-    box-shadow: none;
-  }
 
   .ant-modal-header {
     display: none;
@@ -17,14 +9,16 @@
 
   .ant-modal-body {
     padding: 0px;
-    background: #1d1e44;
-    box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
 
     .title {
-      font-size: 20px;
+      font-family: 'PingFang SC';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 34px;
       text-align: center;
-      color: #fff;
-      box-shadow: 0;
+      color: #000000;
+      margin-bottom: 20px;
     }
 
     .hzimg {
@@ -56,21 +50,24 @@
 
     .p1,
     .p2 {
-      margin-top: 20px;
+      margin-top: 10px;
       display: flex;
       align-items: center;
       justify-content: space-between;
 
       .kpdetails {
+        color: #000000;
         margin: 0;
       }
     }
 
     .kpdetails {
       min-height: 15px;
-      margin-top: 15px;
+      margin-top: 10px;
       color: #fff;
       font-size: 14px;
+      color: #000000;
+
 
       input {
         margin-left: 20px;

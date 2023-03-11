@@ -25,12 +25,6 @@
                 margin-bottom: 20px;
             }
 
-            .titleTip {
-                font-weight: 500;
-                font-size: 18px;
-                margin-bottom: 30px;
-                color: rgba(0, 0, 0, 0.6);
-            }
 
             .Box {
                 // height: 100px;
@@ -248,6 +242,18 @@
                 color: #DB2DCF;
             }
 
+            .titleTip {
+                margin: 20px auto 0px;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                /* identical to box height */
+                text-align: center;
+                color: #00AE70;
+            }
+
         }
     }
 }
@@ -350,6 +356,8 @@
                     padding: 10px 24px;
                 }
             }
+
+
         }
 
     }

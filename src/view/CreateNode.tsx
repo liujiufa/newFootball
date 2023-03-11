@@ -85,14 +85,6 @@ export default function Invitation() {
       })
     }
   })
-  // useEffect(() => {
-  //   if (state.token && web3React.account) {
-  //     Contracts.example.queryClaimExtraMBAS(web3React.account).then((res: any) => {
-  //       console.log(res, '确认领取数据');
-  //       setIsBuyValue(res)
-  //     })
-  //   }
-  // }, [state.token, confirmBuy]);
 
   const drawAwardFun = () => {
     if (state.token && web3React.account) {
@@ -118,7 +110,6 @@ export default function Invitation() {
     }
   }
 
-
   const GetBtnFun = () => {
     return <div className="getBtned flexCenter">已领取</div>
     return <div className="getBtn flexCenter">领取</div>
@@ -134,11 +125,6 @@ export default function Invitation() {
     } else {
       return <div className="getBtnEnd flexCenter">认购</div>
     }
-  }
-
-  // 判断等级
-  const levelFun = () => {
-
   }
 
   return (
