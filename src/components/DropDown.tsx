@@ -34,7 +34,7 @@ function DropDown(props: any) {
   }
   return (
     <Dropdown overlay={menu} overlayClassName="DropDown" getPopupContainer={getparent} trigger={['click']}>
-      <div className="dropDown" >
+      <div className="dropDown">
         {t(Map[Index].key)}
         <img src={dropDownIcon} alt="" />
       </div>

@@ -1,0 +1,387 @@
+#Synthesis {
+
+    display: flex;
+    flex-direction: column;
+    // height: 666px;
+    padding: 0;
+    align-items: center;
+    color: #fff;
+
+    .Title {
+        margin-top: 60px;
+        font-family: 'Impact';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 60px;
+        line-height: 73px;
+        color: rgba(0, 0, 0, 0.8);
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .Content {
+        max-width: 1200px;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 100%;
+        padding: 35px;
+        background: radial-gradient(43.67% 43.67% at 70.18% 50%, #EBFFF5 36.46%, #FFFFFF 100%);
+        box-shadow: 30px 30px 4px rgba(116, 153, 138, 0.4);
+        border-radius: 31px;
+        margin-bottom: 50px;
+
+
+        .SynthesisHandle {
+            flex: 1;
+            // width: 550px;
+            // height: calc(100%-35px);
+
+            .SynthesisItems {
+
+                .CardItems {
+                    display: flex;
+                    justify-content: space-between;
+
+                    >div {
+                        width: 150px;
+                        height: 150px;
+                    }
+
+                    .CardItemsLeft {
+                        background: #014845;
+                        border: 1px solid #14FD87;
+                        box-shadow: 4px 5px 0px rgba(2, 72, 69, 0.4);
+                        border-radius: 10px;
+                        overflow: hidden;
+
+                        img {
+                            width: 100%;
+                        }
+                    }
+
+                    .Add {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+
+                    .CardImg {
+                        width: 100%;
+                        height: 100%;
+                        background: #014845;
+                        border: 1px solid #14FD87;
+                        box-shadow: 4px 5px 0px rgba(2, 72, 69, 0.4);
+                        border-radius: 10px;
+                        overflow: hidden;
+
+                        img {
+                            width: 100%;
+                        }
+                    }
+                }
+
+                @media (max-width:1024px) {
+                    .CardItems {
+                        >div {
+                            width: 120px;
+                            height: 120px;
+                        }
+                    }
+                }
+
+                .CardItem {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    margin: 0 auto;
+                    padding-top: 56px;
+
+                    .CardImg {
+                        width: 190px;
+                        height: 190px;
+                    }
+
+                    .CardImg1 {
+                        width: 190px;
+                        height: 190px;
+                        position: relative;
+                        background: #014845;
+                        border: 1px solid #14FD87;
+                        box-shadow: 4px 5px 0px rgba(2, 72, 69, 0.4);
+                        border-radius: 10px;
+                        overflow: hidden;
+                        border-radius: 10px;
+                    }
+
+                    .Decorate {
+                        display: flex;
+                        justify-content: space-around;
+                        font-size: 16px;
+                        font-weight: 400;
+                        padding-top: 30px;
+
+                        .Number {
+                            color: #000;
+                        }
+                    }
+
+                    .confirmBtn {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 104px;
+                        height: 36px;
+                        margin-top: 25px;
+                        font-size: 14px;
+                        font-weight: 700;
+                        border-radius: 6px;
+                        background: url(../image/btnBg.png) no-repeat center / 100% 100%;
+                    }
+
+                    .Tip {
+                        display: flex;
+                        align-items: center;
+                        margin-top: 18px;
+                        font-style: 12px;
+                        font-weight: 400;
+                        color: rgba(0, 0, 0, 0.6);
+
+                        .TipContent {
+                            line-height: 18.84px;
+                        }
+                    }
+                }
+
+                @media (max-width:1024px) {
+                    .CardItem {
+                        .CardImg {
+                            width: 120px;
+                            height: 120px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .deviceLine {
+            margin: 0px 30px;
+            width: 2px;
+            height: 438px;
+            background: linear-gradient(180deg, rgba(20, 253, 135, 0) 0%, #14FD87 47.92%, rgba(20, 253, 135, 0) 100%);
+            opacity: 0.8;
+        }
+
+        .SynthesisList {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 550px;
+
+            .Category {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                padding-right: 30px;
+
+                >div {
+                    height: 36px;
+                }
+
+                .dropBox {
+                    display: flex;
+                    justify-content: space-between;
+
+                    .dropDown {
+                        &:first-child {
+                            margin-right: 20px;
+                        }
+                    }
+                }
+
+                .Page {
+                    // 分页样式
+                    display: flex;
+                    align-items: center;
+                    justify-content: end;
+                }
+
+                .ant-pagination-item-link {
+                    background: rgba(0, 0, 0, 0.04) !important;
+                    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+                    border-radius: 3px !important;
+                    color: rgba(0, 0, 0, 0.6) !important;
+                }
+
+                .ant-pagination-item {
+                    background: rgba(0, 0, 0, 0.04) !important;
+                    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+                    border-radius: 3px !important;
+                    color: rgba(0, 0, 0, 0.6) !important;
+
+                    a {
+                        color: rgba(0, 0, 0, 0.6) !important;
+                    }
+                }
+
+                .ant-pagination-item-active {
+                    background: #D533D1 !important;
+                    border: 1px solid #D533D1 !important;
+                }
+
+                .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+                    background: rgba(0, 0, 0, 0.04) !important;
+                    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+                    border-radius: 3px !important;
+                    color: rgba(0, 0, 0, 0.6) !important;
+                }
+
+                .ant-pagination-options-quick-jumper {
+                    color: rgba(0, 0, 0, 0.6) !important;
+
+                    input {
+                        background: rgba(0, 0, 0, 0.04) !important;
+                        border: 1px solid rgba(0, 0, 0, 0.2) !important;
+                        border-radius: 3px !important;
+                        color: rgba(0, 0, 0, 0.6) !important;
+                    }
+                }
+
+                .dropDown {
+                    display: flex;
+                    align-items: center;
+                    border: 1px solid rgba(20, 253, 135, 0.4);
+                    color: #14FD87;
+                    border-radius: 6px;
+                    margin-left: 0;
+                    padding: 10px 15px;
+                    justify-content: space-between;
+                }
+            }
+
+            .CardListBox {
+                width: 100%;
+                max-height: 495px;
+                overflow-y: auto;
+                display: grid;
+                margin-top: 12px;
+                grid-template-columns: repeat(2, 216px);
+                grid-row-gap: 20px;
+                grid-column-gap: 20px;
+                justify-content: space-between;
+                padding-right: 30px;
+
+                &::-webkit-scrollbar {
+                    width: 3px; //y轴滚动条粗细
+                }
+
+                //滚动条里面的小方块，能上下左右移动（取决于是垂直滚动条还是水平滚动条）
+                &::-webkit-scrollbar-thumb {
+                    background: #5b5c83;
+                    border-radius: 9px;
+                }
+
+                //滚动条的轨道（里面装有thumb）滚动槽
+                &::-webkit-scrollbar-track {
+                    background: rgba(0, 0, 0, 0.1);
+                    border-radius: 9px;
+                }
+
+
+                .SynthesisCardList {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 216px;
+                    border-radius: 19px;
+                    padding-top: 15PX;
+                    padding: 15px 15px;
+                    border: 1px solid rgba(0, 0, 0, 0.2);
+
+                    .Img {
+                        background: #171833;
+                        border: 1px solid rgba(0, 0, 0, 0.1);
+                        border-radius: 10px;
+                        width: 100%;
+                        // height: 186px;
+                        overflow: hidden;
+
+                        // margin-top: 15px;
+                        img {
+                            width: 100%;
+                        }
+
+                    }
+
+                    .Id {
+                        font-style: 14px;
+                        font-weight: 400;
+                        margin-bottom: 20px;
+                    }
+
+                    .computingPower {
+                        width: 100%;
+                        margin-top: 18px;
+                        display: flex;
+                        justify-content: space-between;
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 22px;
+                        color: #FFFFFF;
+
+                        .value {
+                            color: #DB2DCF;
+                        }
+                    }
+
+                    .share {
+                        width: 100%;
+                        margin-top: 20px;
+                        display: flex;
+                        align-items: center;
+
+                        .shareBox {
+                            height: 12px;
+                            flex: auto;
+                            background: rgba(0, 0, 0, 0.1);
+                            border-radius: 8px;
+
+                            .shareValue {
+                                height: 100%;
+                                background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+                                border-radius: 8px;
+                                font-family: 'DIN';
+                                font-style: normal;
+                                font-weight: 500;
+                                font-size: 12px;
+                                letter-spacing: 0.08em;
+                                color: #FFFFFF;
+                                text-align: right;
+                                display: flex;
+                                align-items: center;
+                                justify-content: flex-end;
+                            }
+                        }
+
+                        .addBtn {
+                            width: 70px;
+                            display: flex;
+                            justify-content: end;
+                        }
+                    }
+                }
+
+                @media (max-width:1024px) {
+                    .SynthesisCardList {
+                        width: 151px;
+                        height: 168px;
+                    }
+                }
+            }
+        }
+    }
+}
