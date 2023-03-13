@@ -51,14 +51,13 @@ export default function Node(props: any) {
     let [showApplyRecord, setshowApplyRecord] = useState(false)
     /* 用户最高等级 */
     let [MaxLevel, setMaxLevel] = useState(0)
-    /* 铸币节点奖励记录id */
-    let [ProfitId, setProfitId] = useState(-1)
     useEffect(() => {
         if (state.token) {
             getNodeUserList().then(res => {
                 setNodeRecord(res.data)
             })
             getNodeBase().then(res => {
+                console.log(res.data);
                 setNodeBase(res.data)
             })
             getCardUserMaxLevelInfo().then(res => {

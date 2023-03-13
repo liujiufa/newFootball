@@ -11,7 +11,7 @@ export default function Farms() {
   let { t } = useTranslation();
   return (
     <div>
-        <div className="SwapTitle">{t('Farms')}</div>
+        <div className="farmsTitle">{t('Farms')}</div>
         <div className="FarmsCardList">
             <FarmsItem tokenA={SBLTokenIcon} tokenB={BNBToken} title="SBL-BNB" tokenIcon="tokenIcon"></FarmsItem>
             <FarmsItem tokenA={SBLTokenIcon} tokenB={MBAToken} title="SBL-MBA" tokenIcon="tokenIcon"></FarmsItem>

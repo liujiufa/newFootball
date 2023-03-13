@@ -144,7 +144,6 @@ function SBL() {
     }
   }, [state.token])
 
-
   return (
     <div>
       <div className="Node">
@@ -158,7 +157,7 @@ function SBL() {
           {/* 節點申請 */}
           <Node getFun={() => { getFun() }}></Node>
           {/* 銷毀獎勵 */}
-          {NodeRecord.map((item) => <div key={item.id} className="DestructReward">
+          {NodeRecord.length > 0 ? NodeRecord.map((item) => <div key={item.id} className="DestructReward">
             <div className="title">{t("Node reward")}</div>
             <div className="rewardValue">{t("Mintage")}：{item.totalAwardNum} {item.coinName}</div>
             <div className="toFreed">{t("RemainingMint")}：{item.stayAwardNum} {item.coinName}</div>
@@ -187,8 +186,30 @@ function SBL() {
             <div className="getRecord" onClick={() => { ShowProfitFun(item.id) }}>
               {t("Records")} <img src={RecordIcon} alt="" />
             </div>
-          </div>
-          )}
+          </div>) : <div className="DestructReward">
+            <div className="title">{t("Node reward")}</div>
+            <div className="rewardValue">{t("Mintage")}：-</div>
+            <div className="toFreed">{t("RemainingMint")}：-</div>
+            <div className="process">
+              <div className="Freed">{t("Progress")}：</div>
+              <div className="processBox">
+                <div className="processBar" style={{ width: 0 + '%' }}></div>
+              </div>
+              <div className="value">-</div>
+            </div>
+            <div className="inputBox">
+              <input type="number" value={0} readOnly={true} />
+              <div className="coinBox"><img src={SBLIcon} alt="" />-</div>
+            </div>
+
+            <div className="btnBox">
+              <div className="Btn flex">{t('Claim')}</div>
+              <div className="notBtn flex">{t('Refund')}</div>
+            </div>
+            <div className="getRecord">
+              {t("Records")} <img src={RecordIcon} alt="" />
+            </div>
+          </div>}
         </div>
       </div>
       {/* 节点收益记录 */}

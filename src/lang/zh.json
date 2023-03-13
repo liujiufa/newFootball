@@ -139,7 +139,7 @@
     "Unreleased": "待加速金額",
     "Reward2": "獎勵金額",
     "Current node application": "當前節點申請",
-    "PayBNBForSBL": "支付 {{BNBNum}} BNB獲得 {{SBLNum}} SBL",
+    "PayBNBForSBL": "支付 {{BNBNum}} BNB獲得 {{SBLNum}} MBAS",
     "Progress": "進程",
     "Application": "申請節點",
     "Amount to be minted": "待鑄造額度",
@@ -313,7 +313,7 @@
     "Strategic Cooperations": "戰略合作",
     "Coming Soon": "即將開放",
     "PriceDesc": "每間隔30000區塊，寶箱價格在原來基礎上漲1% ",
-    "NodeDesc": "生態鑄幣是通過鑄幣節點社區中所有玩家去銷毀的SBL總量，進行比例鑄造與解鎖生態鑄幣節點權益中的SBL代幣。成為鑄幣節點將獲得90天200%BNB年化收益。每期生態鑄幣節點獲得的鑄造SBL個數權益均不同。 SBL的價格越高，生態鑄幣節點獲取鑄造SBL個數權益將會越來越少。",
+    "NodeDesc": "生態鑄幣是通過鑄幣節點社區中所有玩家去銷毀的MBAS總量，進行比例鑄造與解鎖生態鑄幣節點權益中的MBAS代幣。成為鑄幣節點將獲得90天200%BNB年化收益。每期生態鑄幣節點獲得的鑄造MBAS個數權益均不同。 MBAS的價格越高，生態鑄幣節點獲取鑄造MBAS個數權益將會越來越少。",
     "Case": "盲盒",
     "Burn fund": "銷毀基金",
     "Coinage": "鑄幣節點",
@@ -377,7 +377,7 @@
     "Liquidity successfully removed": "已成功移除流動性",
     "Successfully added liquidity": "成功添加流動性",
     "Currently cannot be destroyed": "當前不能銷毀",
-    "destructTip": "當前最大可銷毀 {{price1}} SBL，最小須銷毀 {{price2}} SBL",
+    "destructTip": "當前最大可銷毀 {{price1}} MBAS，最小須銷毀 {{price2}} MBAS",
     "After withdrawing liquidity, you may lose eligibility for rewards": "移除流動性後，您將可能失去獲得獎勵資格",
     "AddLand": "可激活{{landType}}土地權益",
     "Destroy records": "銷毀記錄",
@@ -491,5 +491,5 @@
     "The badge to be synthesized does not belong to you": "要合成的徽章不屬於你",
     "copyLink": "複製併使用此鏈接，邀請您的朋友加入Space Ball ，一起探索無限精彩的元宇宙世界。建立自己的Space Ball家族！",
     "LandDes": "土地是Space Ball 生態中最有價值的NFT，發行數量有限，是生態中最稀缺的資源。Space Ball 將對早期參與生態交互的用戶進行土地免費空投，用戶參與徽章NFT的合成，即可獲得土地申領權限。持有土地並激活后，可以享受土地分紅和土地服務獎，共享生態發展收益。",
-    "MBAS Des": "MBAS採用通縮治理模型，將賣出滑點5%全部打入銷毀基金池，作為對用戶銷毀MBAS的獎勵。用戶銷毀MBAS，將獲得2倍價值的BNB獎勵，獎勵將在2,592,000個區塊內釋放完畢。每次捐贈後，等待28,800個區塊可以再次捐贈。"
+    "MBAS Des": "MBAS採用通縮治理模型，將賣出滑點5%全部打入銷毀基金池，作為對用戶銷毀MBAS的獎勵。用戶銷毀MBAS，將獲得2倍價值的BNB獎勵，獎勵將在2,592,000個區塊內釋放完畢。每次銷毀後，等待28,800個區塊可以再次銷毀。"
 }

@@ -226,8 +226,8 @@ function Pledge() {
         </div>
 
         <div className="PledgeTabs">
-          <div className={TabIndex === 0 ? 'activeTab' : 'invalidTab'} onClick={() => { changeTab(0); }}>質押中</div>
-          <div className={TabIndex === 1 ? 'activeTab' : 'invalidTab'} onClick={() => { changeTab(1); }}>已銷毀</div>
+          <div className={TabIndex === 0 ? 'activeTab invalidTab' : 'invalidTab'} onClick={() => { changeTab(0); }}>質押中</div>
+          <div className={TabIndex === 1 ? 'activeTab invalidTab' : 'invalidTab'} onClick={() => { changeTab(1); }}>已銷毀</div>
         </div>
 
         {pledgeData && <div className="pledgeScreen">

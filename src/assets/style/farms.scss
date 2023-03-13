@@ -1,57 +1,70 @@
-// .SwapTitle {
-//     margin-top: 60px;
-//     color: #FFFFFF;
-//     font-weight: 700;
-//     font-size: 24px;
-//     text-align: center;
-// }
-.farmsHeader{
+.farmsTitle {
+    margin-top: 60px;
+    font-family: 'Impact';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 73px;
+    color: rgba(0, 0, 0, 0.8);
+    text-align: center;
+}
+
+.farmsHeader {
     display: flex;
     justify-content: space-between;
     // margin: 16px 0 0;
     // max-width: 1248px;
-    margin:0 auto 34px;
+    margin: 0 auto 34px;
     align-items: center;
     padding: 0 110px;
+
     // height: 300px;
-    .title{
+    .title {
         color: #fff;
         font-weight: 600;
         font-size: 2.6vW;
         // white-space: nowrap;
     }
-    .Subtitle{
+
+    .Subtitle {
         font-weight: 600;
         font-size: 20px;
         color: #fff;
     }
-    .headerRight{
+
+    .headerRight {
         width: 210px;
         height: 240px;
-        img{
+
+        img {
             width: 100%;
             height: 100%;
         }
     }
 }
-.screen{
+
+.screen {
     display: flex;
     justify-content: space-between;
     margin: 81px 0px 0;
-    .screenLeft{
+
+    .screenLeft {
         display: flex;
         align-items: center;
-        .screenLeftLeft{
+
+        .screenLeftLeft {
             display: flex;
             align-items: center;
         }
-        .SwitchLabel{
+
+        .SwitchLabel {
             margin-left: 10px;
             font-weight: 600;
             font-size: 20px;
             color: #fff;
         }
-        .Tab{
+
+        .Tab {
             width: 220px;
             height: 30px;
             background: rgba(127, 83, 254, 0.1);
@@ -59,31 +72,36 @@
             margin-left: 36px;
             display: flex;
             align-items: center;
-            .tabItem{
+
+            .tabItem {
                 flex: 1;
                 height: 30px;
                 text-align: center;
                 line-height: 30px;
                 color: #FFFFFF;
             }
-            .selTabItem{
+
+            .selTabItem {
                 background: #7F53FE;
                 border-radius: 15px;
                 height: 30px;
-                
+
             }
         }
     }
-    .screenRight{
+
+    .screenRight {
         display: flex;
-        .screenItem{
-            .screenLabel{
+
+        .screenItem {
+            .screenLabel {
                 color: #CCCCCC;
                 font-weight: 500;
                 font-size: 12px;
                 margin-bottom: 4px;
             }
-            .screenPut{
+
+            .screenPut {
                 width: 200px;
                 height: 40px;
                 background: #FFFFFF;
@@ -93,64 +111,78 @@
         }
     }
 }
-.FarmsCardList{
+
+.FarmsCardList {
     margin: 30px 60px;
     display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(100px, 345px));
+    grid-template-columns: repeat(auto-fill, minmax(100px, 345px));
     justify-content: center;
     grid-row-gap: 16px;
     grid-column-gap: 58px;
 }
 
-@media screen and (max-width:575px)  {
-    .FarmsCardList{
+@media screen and (max-width:575px) {
+    .FarmsCardList {
         margin: 30px;
     }
-    .farmsHeader{
+
+    .farmsHeader {
         padding: 0 40px;
-        .title{
+
+        .title {
             font-size: 9vw;
-            white-space:pre-wrap
+            white-space: pre-wrap
         }
-        .headerRight{
+
+        .headerRight {
             display: none;
         }
     }
-    .screen{
+
+    .screen {
         margin: 60px 30px;
     }
-    .screenLeft{
+
+    .screenLeft {
         flex-direction: column;
         align-items: flex-start !important;
     }
-    .Tab{
+
+    .Tab {
         margin: 12px 0 0 !important;
     }
 }
-.no-info{
+
+.no-info {
     height: 30px;
 }
+
 .ant-switch-checked {
     background-color: #7F53FE !important;
     --antd-wave-shadow-color: #7F53FE !important;
 }
+
 .ant-switch-checked ::selection {
     background: #7F53FE !important;
 }
-.pledgeNum{
+
+.pledgeNum {
     margin-top: 10px;
     width: 100%;
     font-weight: 600;
     font-size: 22px;
     color: #fff;
 }
-.pledge{
-    display:flex;
+
+.pledge {
+    display: flex;
     align-items: center;
-    .pledgeLeft{
+
+    .pledgeLeft {
         flex: 1;
         margin-right: 16px;
-        .putNum{
+
+        .putNum {
             margin-top: 10px;
             width: 100%;
             font-weight: 600;
@@ -159,35 +191,40 @@
             border: none;
         }
     }
-    .pledgeRight{
-        display:flex;
-        div{
+
+    .pledgeRight {
+        display: flex;
+
+        div {
             background: rgba(127, 83, 254, 0.14);
             width: 50px;
             height: 50px;
-            border-radius:50%;
-            line-height:50px;
+            border-radius: 50%;
+            line-height: 50px;
             font-size: 40px;
             color: #7F53FE;
-            text-align:center;
+            text-align: center;
         }
     }
 }
-.linkPrincipal{
+
+.linkPrincipal {
     color: #7F53FE;
 }
+
 @media screen and (max-width:1200px)and (min-width: 921px) {
 
-    .farmsHeader{
-        .title{
+    .farmsHeader {
+        .title {
             font-size: 54px;
         }
     }
 }
+
 @media screen and (max-width:920px)and (min-width: 576px) {
-    .farmsHeader{
-        .title{
-            font-size:40px;
+    .farmsHeader {
+        .title {
+            font-size: 40px;
         }
     }
 }

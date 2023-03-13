@@ -5,7 +5,7 @@ import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
 import { Contract } from 'web3-eth-contract';
 import { provider } from 'web3-core';
 import Web3 from 'web3'
-import { abiObj, contractAddress } from './config'
+import { abiObj, contractAddress, obj } from './config'
 import BigNumber from 'big.js'
 declare let window: any;
 interface contractType {
@@ -32,7 +32,7 @@ const networkConf = {
         },
         // rpcUrls: ['https://bsc-dataseed2.binance.org'],
         // rpcUrls: ['https://bsc-dataseed.binance.org/'],
-        rpcUrls: ['https://data-seed-prebsc-1-s3.binance.org:8545'],
+        rpcUrls: ['https://data-seed-prebsc-2-s1.binance.org:8545'],
         blockExplorerUrls: [SCAN_ADDRESS[ChainId.BSC]],
     }
 }
@@ -234,8 +234,7 @@ export class Contracts {
     // 2.0
     // 添加流动性
     addLiquidity(addr: string, type: number, type1: number) {
-        console.log(addr, type, type1);
-        let obj = { 0.2: 0.1, 0.5: 0.2, 1: 0.3, 2.5: 0.4, 8: 0.5 }
+        console.log(addr, type, type1, '添加流动性');
         this.verification('Liquidity')
         BigNumber.NE = -40
         BigNumber.PE = 40

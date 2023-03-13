@@ -7,9 +7,7 @@ import { Contracts } from '../web3';
 import { useWeb3React } from '@web3-react/core'
 import { NumSplic, showLoding, addMessage, getBit, initWebSocket } from '../utils/tool';
 import { contractAddress, socketUrl } from "../config"
-
 import BigNumber from 'big.js'
-
 import '../assets/style/DestructFund.scss'
 import DestructSucceed from '../components/DestructSucceed'
 import DestructDes from '../components/DestructDes'
@@ -170,12 +168,6 @@ function DestructFund() {
         setDrawBurnRecord(res.data)
         console.log(res.data, "获取销毁奖励")
       })
-
-      // let time = setInterval(() => {
-      //   getBurnUserInfo().then(res => {
-      //     setDrawBurnRecord(res.data)
-      //   })
-      // }, 3000)
       // 推送
       let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getBurnUserInfo/${web3React.account}`, `/getBurnUserInfo/${web3React.account}`,
         {}, (data: any) => {
@@ -191,8 +183,8 @@ function DestructFund() {
       })
       /* 查询销毁基金 */
       Contracts.example.burnLimit(web3React.account).then((res: any) => {
-        console.log(res, '销毁基金额度');
         let value = new BigNumber(res).div(10 ** 18).toString()
+        console.log(res, value, '销毁基金额度');
         setBurnLimitValue(value)
         // toSBL
         Contracts.example.toSBL(web3React.account as string, parseFloat(value)).then((res: any) => {
@@ -206,10 +198,8 @@ function DestructFund() {
         Contracts.example.toSBL(web3React.account as string, parseFloat(value)).then((res: any) => {
           let toSBLValue = new BigNumber(res).div(10 ** 18).toString()
           console.log(toSBLValue, '最小销毁额度');
-
           setMinBurn(`${parseInt(toSBLValue) + 1}`)
           setInputValue(parseInt(toSBLValue) + 1)
-
         })
       })
       return () => {
@@ -261,7 +251,7 @@ function DestructFund() {
               <div className="processBox">
                 <div className="processBar" style={{ width: `${Math.floor(((drawBurnRecord!.awardAmount) - (drawBurnRecord!.treatAmount)) / (drawBurnRecord!.awardAmount) * 100)}%` }}></div>
               </div>
-              <div className="value">{Math.floor(((drawBurnRecord!.awardAmount) - (drawBurnRecord!.treatAmount)) / (drawBurnRecord!.awardAmount) * 100)}%</div>
+              {drawBurnRecord!.awardAmount ? <div className="value">{Math.floor(((drawBurnRecord!.awardAmount) - (drawBurnRecord!.treatAmount)) / (drawBurnRecord!.awardAmount) * 100)}%</div> : <div className='value'>-</div>}
             </div> :
               <div className="process">
                 <div className="Freed">{t("Process")}：</div>

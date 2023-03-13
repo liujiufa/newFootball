@@ -60,7 +60,6 @@ export default function Liquidity() {
     const [addLiquidityValue, setAddLiquidityValue] = useState(0)
     // 币对值
     const [coinPairValue, setCoinPairValue] = useState('0')
-    const [time, setTime] = useState(0)
     // BNB余额
     const [balance, setBalance] = useState('0')
     // SBL余额
@@ -87,15 +86,14 @@ export default function Liquidity() {
         } else {
             list = [...list, key]
         }
-        // setTime(time + 1)
         setOepnCardList(list)
     }
     // 添加流动性
     const addLiquidityFun = (type: number) => {
         console.log(balance, toSBL, balance1, type);
-        // if (addLiquidityValue > parseFloat(balance) || parseFloat(toSBL) > parseFloat(balance1)) {
-        //     return addMessage('余额不足')
-        // }
+        if (addLiquidityValue > parseFloat(balance) || parseFloat(toSBL) > parseFloat(balance1)) {
+            return addMessage('余额不足')
+        }
         if (state.token && web3React.account && addLiquidityValue > 0) {
             showLoding(true)
             Contracts.example.addLiquidity(web3React.account, addLiquidityValue, type).then((res: any) => {
@@ -104,7 +102,6 @@ export default function Liquidity() {
                 setSuccessAddLiquidity(true)
                 Contracts.example.web3.eth.getTransactionReceipt(res.transactionHash).then((res: any) => {
                     let value = Web3.utils.fromWei("0x" + res.logs[res.logs.length - 1].data.slice(res.logs[res.logs.length - 1].data.length - 64), "ether")
-                    console.log(value, '11111111111111');
                     setCoinPairValue(value)
                 })
             }).finally(() => {
@@ -112,7 +109,6 @@ export default function Liquidity() {
             })
         }
     }
-
     // 移除流动性
     const RmLiquidityFun = (type: number, chainId: number, currencyPair: number, hostAmount: number, tokenAmount: number) => {
         setRmLiquidityValue({ type: type, num: chainId, currencyPair: currencyPair, hostAmount: hostAmount, tokenAmount: tokenAmount })
@@ -138,7 +134,6 @@ export default function Liquidity() {
             })
         }
     }
-
 
     useEffect(() => {
         if (state.token && web3React.account) {

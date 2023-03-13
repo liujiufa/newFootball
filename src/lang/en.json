@@ -128,7 +128,7 @@
     "TeamRules5": "Hold a legendary NFT land, and enjoy the new reward for purchasing treasure chests and upgrading NFT in the sports center: 13%; the new income of the same quality NFT land: 25%",
     "Node application": "Node application",
     "Current node application": "Current node application",
-    "PayBNBForSBL": "Pay {{BNBNum}} BNB for {{SBLNum}}SBL",
+    "PayBNBForSBL": "Pay {{BNBNum}} BNB for {{SBLNum}}MBAS",
     "Progress": "Progress",
     "Purchase": "Purchase",
     "Evolve2": "Evolve",
@@ -320,7 +320,7 @@
     "Coming Soon": "Coming Soon",
     "Tips": "Tips",
     "PriceDesc": "The price of cases increases by 1% from the original base each 30000 blocks",
-    "NodeDesc": "Eco-coinage is to use the total amount of SBL burned by all players in the coinage node community to proportionally coinage and unlock the SBL tokens in the rights and interests of the ecological coinage node. Become a coinage node and get 200% BNB annualized income for 90 days.The rights and interests of the number of coined SBLs obtained by the ecological coinage nodes are different in each period. The higher the price of SBL, the less and less the number of SBL coined by the ecological coinage node.",
+    "NodeDesc": "Eco-coinage is to use the total amount of MBAS burned by all players in the coinage node community to proportionally coinage and unlock the MBAS tokens in the rights and interests of the ecological coinage node. Become a coinage node and get 200% BNB annualized income for 90 days.The rights and interests of the number of coined SBLs obtained by the ecological coinage nodes are different in each period. The higher the price of MBAS, the less and less the number of MBAS coined by the ecological coinage node.",
     "Burn fund": "Burn fund",
     "Coinage": "Coinage",
     "MBA Convert": "MBA Convert",
@@ -498,6 +498,6 @@
     "LandDetailTip3": "3. Activating Perfect NFT land can get the Mayor's title;",
     "LandDetailTip4": "4. Activating the Epic NFT land can get the Governor's title;",
     "LandDetailTip5": "5. Activate Legendary NFT Land to get the title of Speaker.",
-    "destructTip": "Currently the maximum burnable {{price1}} SBL, the minimum must be destroyed {{price2}} SBL",
+    "destructTip": "Currently the maximum burnable {{price1}} MBAS, the minimum must be destroyed {{price2}} MBAS",
     "MBAS Des": "MBAS adopts a deflationary governance model, and all 5% of the selling slippage will be put into the destruction fund pool as a reward for users to destroy MBAS. Users who destroy MBAS will receive twice the value of BNB rewards, and the rewards will be released within 2,592,000 blocks. After each donation, wait 28,800 blocks to donate again."
 }

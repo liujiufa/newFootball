@@ -13,10 +13,14 @@ import InviteReward from './ABI/InviteReward.json';
 import FundNode from './ABI/FundNode.json';
 // export let baseUrl: string = 'http://192.168.2.111:10000';
 // export let baseUrl: string = 'http://47.107.116.172:10000';
-export let socketUrl: string = 'http://spaceballgames.com:8912/endpointWisely';
+// export let socketUrl: string = 'http://spaceballgames.com:8912/endpointWisely';
+// export let socketUrl: string = 'http://192.168.2.133:8912/endpointWisely';
+export let socketUrl: string = 'http://47.107.116.172:8912/endpointWisely';
 // export let baseUrl: string = 'http://spaceballgames.com:10000';
 export let baseUrl: string = 'http://47.107.116.172:10000';
+// export let baseUrl: string = 'http://192.168.2.133:10000';
 export let BlockUrl: string = 'https://testnet.bscscan.com/tx/';
+export let obj = { 0.2: 0.1, 0.5: 0.2, 1: 0.3, 2.5: 0.4, 8: 0.5 }
 interface abiObjType {
     [propName: string]: any;
 }
@@ -55,14 +59,14 @@ export const contractAddress: contractAddressType = {
     "EXChangeNFT": "0x5342Ff2Ef64BEef28Ec22f94f7CD79E45d08DC49",
     "NFT": "0x280017329c764A5b4eF26cc447FE424674628498",
     "Merge": "0x075bd4Db4AFbf3DC4A6e4CBBda07b1087926F276",
-    "Node": "0x0D4ba732215319523D49715E461C313aCD625156",
-    "Liquidity": "0x7D0461525E396270FDC90C25A96fA512d57438e0",
+    "Node": "0xdCe3C0FC23013D9531c0615EfF42eCcAdFe32C4d",
+    "Liquidity": "0xE127CBfFB47e5972Fe5Bd9710eE284D826a24972",
     "BurnFund": "0x7babCa7561a802294C7543eB40658fA5c781ebCD",
     "Pledge": "0x674a5FBb9F12eDeF7Cfb2619DE47Ef8CAAecA02a",
     "LandNFT": "0x75DCc4d1414c3505aC0874deE9d1dA2003f2503e",
     "LandReward": "0xb249Ad46Eb8B9c95Dc94E476d9da4de328a5b975",
     "InviteReward": "0x7dc040E5E1dC8a44a014bFA6768413f5F14d3822",
-    "FundNode": "0xf7F719b9B04857f4fe79D9334A477e39e7e9a5b7",
+    "FundNode": "0x14ea3d1FfdD3e4dA676828329FC2d0f45977801e",
     // v3
     // "Token": "0x77382cea8f8509b48A4dd7Ecb3F8F8ce7f7c446b",
     // "BlindBox": "0x9B3924686D73be19b3E0939c5fA3698a396C8B52",

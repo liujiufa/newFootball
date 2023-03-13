@@ -33,7 +33,7 @@ function AddLiquidityModal(props: any) {
     const [balance, setBalance] = useState('0')
     // SBL余额
     const [balance1, setBalance1] = useState('0')
-    // ToSBL
+    // ToMBAS
     const [toSBL, setToSBL] = useState('0')
     const [close, setClose] = useState(true)
     const handleCallback = useCallback(
@@ -118,11 +118,11 @@ function AddLiquidityModal(props: any) {
             Contracts.example.getBalance(web3React.account).then((res: any) => {
                 setBalance(new BigNumber(res).div(10 ** 18).toString())
             })
-            /* 查询SBL余额 */
+            /* 查询MBAS余额 */
             Contracts.example.balanceOf(web3React.account).then((res: any) => {
                 setBalance1(new BigNumber(res).div(10 ** 18).toString())
             })
-            // toSBL
+            // toMBAS
             Contracts.example.toLiquiditySBL(web3React.account as string, type).then((res: any) => {
                 setToSBL(new BigNumber(res).div(10 ** 18).toString())
             })
@@ -187,10 +187,9 @@ function AddLiquidityModal(props: any) {
                         {/* {width > 425 && <div className="rightBox"></div>} */}
                     </div>
                 </div>
-                <div className="btnBox">{parseFloat(ApproveValue) <= parseFloat(toSBL) && <div className="approveBtn toApproveBtn  flex" onClick={() => { ApproveFun() }}> <div>授权 MBAS</div> </div>}</div>
+                <div className="btnBox">{parseFloat(ApproveValue) <= parseFloat(toSBL) && <div className="approveBtn toApproveBtn  flex" onClick={() => { ApproveFun() }}> 授权 MBAS </div>}</div>
                 {parseFloat(ApproveValue) > parseFloat(toSBL) ? <div className="toSupplyBtn flex" onClick={() => { confirmApplyFun() }}>{t("Supply")}</div> : <div className="supplyBtn flex">{t("Supply")}</div>}
                 <p className='titleTip'>{t("AddLand", { landType: landType[type] })}</p>
-                {/* <span>{t("clickLeave")}</span> */}
             </Modal >
         </>
     )

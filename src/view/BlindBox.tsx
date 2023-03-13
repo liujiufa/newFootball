@@ -75,23 +75,9 @@ export default function BlindBox() {
             <div className="addr">0xghgjgkhjh...hjkhjhk <img src={copyIcon} alt="" /></div>
           </div>
         </>}
-        {/* BNB開獎記錄 */}
-        {TabIndex === 1 && <>
-          <div className="items titles">
-            <div className="item time">時間</div>
-            <div className="item type">類型</div>
-            <div className="item value">金額</div>
-            <div className="item hash">交易哈希</div>
-          </div>
-          <div className="items contents">
-            <div className="item time">2022.03.03 18: 03</div>
-            <div className="item type">一等獎</div>
-            <div className="item value">5 BNB</div>
-            <div className="item hash">0Xsdhierfhdhh2347887hskdd</div>
-          </div>
-        </>}
+
         {/* 我的開獎記錄 */}
-        {TabIndex === 2 && <>
+        {TabIndex === 1 && <>
           <div className="items titles">
             <div className="item time">時間</div>
             <div className="item addr">開獎地址</div>
@@ -108,6 +94,23 @@ export default function BlindBox() {
           </div>
         </>}
       </div>
+
+      {/* BNB開獎記錄 */}
+      {TabIndex === 2 && <>
+        <div className="items titles">
+          <div className="item time">時間</div>
+          <div className="item type">類型</div>
+          <div className="item value">金額</div>
+          <div className="item hash">交易哈希</div>
+        </div>
+        <div className="items contents">
+          <div className="item time">2022.03.03 18: 03</div>
+          <div className="item type">一等獎</div>
+          <div className="item value">5 BNB</div>
+          <div className="item hash">0Xsdhierfhdhh2347887hskdd</div>
+        </div>
+      </>}
+
       {/* 成功购买弹窗 */}
       <Modal
         visible={false}

@@ -213,7 +213,7 @@
                 font-size: 16px;
                 line-height: 22px;
                 color: #FFFFFF;
-                margin-top: 50px;
+                margin-top: 25px;
             }
 
             .toSupplyBtn {
@@ -230,16 +230,21 @@
                 margin-top: 20px;
             }
 
-            span {
-                position: absolute;
-                bottom: -60px;
-                width: 100%;
-                text-align: center;
-                font-style: normal;
-                font-weight: 400;
-                font-size: 12px;
-                line-height: 17px;
-                color: #DB2DCF;
+            .btnBox {
+                border: 1px solid rgba(20, 253, 135, 0.6) !important;
+                border-radius: 6px;
+                margin-top: 12px;
+
+                .toApproveBtn {
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 14px;
+                    line-height: 20px;
+                    /* identical to box height */
+                    color: #14FD87;
+                    padding: 10px 24px;
+                }
             }
 
             .titleTip {
@@ -253,6 +258,7 @@
                 text-align: center;
                 color: #00AE70;
             }
+
 
         }
     }
@@ -340,22 +346,7 @@
                 margin-top: 15px;
             }
 
-            .btnBox {
-                border: 1px solid rgba(20, 253, 135, 0.6);
-                border-radius: 6px;
 
-                .toApproveBtn {
-                    margin: 20px auto 15px;
-                    font-family: 'PingFang SC';
-                    font-style: normal;
-                    font-weight: 700;
-                    font-size: 14px;
-                    line-height: 20px;
-                    /* identical to box height */
-                    color: #14FD87;
-                    padding: 10px 24px;
-                }
-            }
 
 
         }

@@ -116,20 +116,6 @@ function CardSynthesis(props: CardSynthesisPropsType) {
             showLoding(false)
         })
     }
-    // 以前的授权
-    function Approval() {
-        if (!web3React.account) {
-            addMessage(t('Please connect Wallet'))
-        }
-        showLoding(true)
-        /* 判断徽章等级 */
-        Contracts.example.setApprovalForAll(web3React.account as string, contractAddress.Merge, true).then(() => {
-            addMessage(t('Authorization succeeded'))
-            setIsApproved(true)
-        }).finally(() => {
-            showLoding(false)
-        })
-    }
     /* 合成 */
     async function mager() {
         setShowEnterMerge(false)
