@@ -27,7 +27,7 @@ function DestructDesRule(props: any) {
 
         </div>
 
-        <span>{t("clickLeave")}</span>
+        {/* <span>{t("clickLeave")}</span> */}
       </Modal>
     </>
   )

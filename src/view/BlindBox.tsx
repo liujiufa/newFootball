@@ -127,7 +127,7 @@ export default function BlindBox() {
       </Modal>
       {/* 成功打开NFT */}
       <Modal
-        visible={true}
+        visible={false}
         className='successBuyModal'
         centered
         width={'552px'}

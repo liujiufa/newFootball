@@ -9,18 +9,18 @@ import CancelPledgeSuccess from '../components/CancelPledgeSuccess'
 import ImproveComputingPower from '../components/ImproveComputingPower'
 import CancelPledge from '../components/CancelPledge'
 import ImprovePowerSuccess from "../components/ImprovePowerSuccess"
-import '../assets/style/componentsStyle/pledge.scss'
-import '../assets/style/componentsStyle/CardSynthesis.scss'
 import NoData from '../components/NoData'
 import { useViewport } from '../components/viewportContext'
 import { Pagination } from 'antd';
+import '../assets/style/componentsStyle/CardSynthesis.scss'
 import '../assets/style/componentsStyle/AddFlow.scss'
+import '../assets/style/componentsStyle/pledge.scss'
+import '../assets/style/componentsStyle/AddFluidOk.scss'
 import { useTranslation } from 'react-i18next'
 import { showLoding, addMessage, NumSplic, getWebsocketData, initWebSocket } from "../utils/tool";
 import { Contracts } from "../web3";
 import { socketUrl } from "../config";
 import BigNumber from 'big.js'
-import '../assets/style/componentsStyle/AddFluidOk.scss'
 import RewardRecord from '../components/RewardRecord'
 import AbleGetReward from '../components/AbleGetReward'
 
@@ -122,6 +122,10 @@ function Pledge() {
       setCancelPledgeValue(tokenId)
     }
   }
+  function changeTab(tab: number) {
+    SetTabIndex(tab)
+  }
+
   // 领取
   function Receive(type: number, id: number, amount: string) {
     console.log(type, id, amount);
@@ -216,10 +220,16 @@ function Pledge() {
   }, [state.token, web3React.account])
   return (
     <div>
-      <div className="Edition-Center">
+      <div className="Edition-Center" id="Pledge">
         <div className="SwapTitle">
           {t("Stake")}
         </div>
+
+        <div className="PledgeTabs">
+          <div className={TabIndex === 0 ? 'activeTab' : 'invalidTab'} onClick={() => { changeTab(0); }}>質押中</div>
+          <div className={TabIndex === 1 ? 'activeTab' : 'invalidTab'} onClick={() => { changeTab(1); }}>已銷毀</div>
+        </div>
+
         {pledgeData && <div className="pledgeScreen">
           <div className="Tabs">
             <div className="pledgeValueBox">
