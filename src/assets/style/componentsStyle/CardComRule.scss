@@ -1,18 +1,18 @@
 .CardComRule {
-  background: #1d1e44;
-  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 19px;
   .ant-modal-content {
     box-shadow: none;
   }
+
   .ant-modal-header {
     display: none;
   }
+
   .ant-modal-body {
     position: relative;
-    background: #1d1e44;
+    // background: #1d1e44;
     // box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
     padding: 0;
+
     .title {
       font-size: 24px;
       margin: auto;
@@ -21,11 +21,13 @@
       color: #fff;
       box-shadow: 0;
     }
+
     .box {
       width: 500px;
       margin: 0 auto;
       margin-bottom: 30px;
       margin-top: 20px;
+
       .zifujg {
         width: 100%;
         margin-left: 40px;
@@ -33,7 +35,42 @@
         font-size: 16px;
         color: #fff;
       }
+
+      .ImgBox {
+        display: flex;
+        justify-content: space-evenly;
+
+        >div {
+          .subTitle {
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 22px;
+            color: #000000;
+            text-align: center;
+          }
+
+          img {
+            max-width: 186px;
+            max-height: 186px;
+            border-radius: 10px;
+            margin: 10px 0px 16px;
+          }
+
+          .valueBox {
+            text-align: center;
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 22px;
+            color: #000000;
+          }
+        }
+      }
     }
+
     span {
       position: absolute;
       bottom: -55px;

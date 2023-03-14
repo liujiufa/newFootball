@@ -121,26 +121,14 @@ export default function Invitation() {
   let state = useSelector<stateType, stateType>((state) => state);
   // 邀请列表数据
   let [InvitationData, setInvitationTypeDate] = useState<any>(null);
-
-
-  let [landData, setLandData] = useState<landDataType | null>(null);
-  let [TabIndex, setTabIndex] = useState(0);
   // 邀请列表数据弹窗
   let [inviteModal, setInviteModal] = useState(false);
-  let [InviTabIndex, setInviTabIndex] = useState(0);
   /* 奖励记录类型 */
   let [RevenueType, setRevenueType] = useState(0);
-  let [heavyLoad, setHeavyLoad] = useState(false);
   /* 邀请奖励机制弹窗控制 */
   let [ShowRevenueRecord, setShowRevenueRecord] = useState(false);
-  let [teamHeavyLoad, setteamHeavyLoad] = useState(false);
-  /* 邀请奖励机制弹窗控制 */
-  let [ShowInvitationrewardMech, setShowInvitationrewardMech] = useState(false);
   // 邀请奖励数据
   let [rewardData, setRewardData] = useState<rewardDataType | null>(null);
-  /* 用户最高等级 */
-  let [MaxLevel, setMaxLevel] = useState(0);
-  let [showObtainMethod, setShowObtainMethod] = useState(false);
   const web3React = useWeb3React();
   const timeoutRef = useRef(0);
   //   console.log(TabIndex, "TabIndex");
@@ -151,32 +139,16 @@ export default function Invitation() {
         console.log(res.data, '邀请奖励');
         setRewardData(res.data);
       });
-      getCardUserMaxLevelInfo().then((res) => {
-        setMaxLevel(res.data);
-      });
       // 邀请列表
       getUserReferee().then((res) => {
         console.log(res, '邀请列表');
         setInvitationTypeDate(res.data);
-      });
-      getHomeLand().then((res) => {
-        console.log(res);
-        setLandData(res.data);
       });
     }
     return () => {
       clearTimeout(timeoutRef.current)
     }
   }, [state.token]);
-  let [touteid] = useState(location.state);
-
-  useEffect(() => {
-    // console.log(touteid);
-    if (touteid && rewardData && landData) {
-      setTabIndex(1);
-    }
-  }, [rewardData, landData]);
-
   function invitation() {
     if (!web3React.account) {
       return addMessage(t("Please connect Wallet"));
@@ -190,31 +162,13 @@ export default function Invitation() {
       addMessage(t("Copy Success"));
     }
   }
-  function getMaxLevel(type: number) {
-    if (type === 0) {
-      setHeavyLoad(true);
-      setTimeout(() => {
-        setHeavyLoad(false);
-      }, 1000);
-    }
-    if (type === 1) {
-      setteamHeavyLoad(true);
-      setTimeout(() => {
-        setteamHeavyLoad(false);
-      }, 1000);
-    }
-    setTimeout(() => {
-      setHeavyLoad(false);
-    }, 1000);
-    getCardUserMaxLevelInfo().then((res) => {
-      setMaxLevel(res.data);
-    });
-  }
+
   function ShowRevenueRecordFun(type: number) {
     console.log(type);
     setRevenueType(type);
     setShowRevenueRecord(true);
   }
+
   function Receive(type: number, id: number, amount: string) {
     if (!web3React.account) {
       return addMessage(t("Please connect Wallet"));
@@ -228,26 +182,16 @@ export default function Invitation() {
     }).then((res: any) => {
       if (res.data) {
         showLoding(true)
-        Contracts.example
-          .getInviteReward(web3React.account as string, res.data)
-          .then(
-            (res: any) => {
+        Contracts.example.getInviteReward(web3React.account as string, res.data)
+          .then((res: any) => {
               addMessage(t('Receive success'))
               timeoutRef.current = window.setTimeout(() => {
-                // getUserAccountList().then((res) => {
-                //   setRewardData(res.data);
-                // });
-                getCardUserMaxLevelInfo().then((res) => {
-                  setMaxLevel(res.data);
-                });
                 getRefereeUserAccount().then((res) => {
                   console.log(res.data, '邀请奖励');
                   setRewardData(res.data);
                 });
               }, 5000);
-
-            },
-            (err: any) => {
+            }, (err: any) => {
               if (err.code === 4001) {
                 userCancelDrawAward({ type, id }).then((res) => {
                   addMessage(t('Cancellation received successfully'))

@@ -22,7 +22,6 @@ function ClaimSuccess(props: any) {
                 <p className='title'>{t("Pledge successful")}!</p>
                 <div className="tip">{t("Jump to my pledge")}</div>
                 <div className="confirmBtn flex" onClick={() => { navigate('/Pledge') }}>{t("Confirm")}</div>
-                <span>{t("clickLeave")}</span>
             </Modal>
         </>
     )

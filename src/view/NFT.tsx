@@ -19,8 +19,6 @@ import { addMessage, showLoding, getWebsocketData, initWebSocket } from '../util
 import { Pagination } from 'antd';
 import '../assets/style/componentsStyle/AddFlow.scss'
 import SelMerge from "../components/SelMerge"
-import ImprovePowerSuccess from "../components/ImprovePowerSuccess"
-import ImproveComputingPower from "../components/ImproveComputingPower"
 import { useTranslation } from 'react-i18next'
 import { socketUrl } from "../config"
 // 挂卖详情
@@ -30,8 +28,6 @@ import ComSucceed from '../components/ComSucceed'
 import OpenRes from '../components/openRes'
 // 徽章合成规则
 import CardComRule from '../components/CardComRule'
-// 盲盒开启
-import BoxOpen from '../components/BoxOpen'
 
 
 export interface BoxInfo {
@@ -143,8 +139,6 @@ function NFT() {
   let [computingPower, setComputingPower] = useState(0)
   // 提升算力值弹窗
   let [iproveComputingPower, setImproveComputingPower] = useState(false)
-  // MBA
-  const [MBAValue, setMBAValue] = useState('0')
   function showDetial(index: number) {
     setCardDetialIndex(index)
     setShowCardDetail(true)
@@ -228,7 +222,6 @@ function NFT() {
       return addMessage(t('Computing power is full'))
     }
   }
-
   /* 初始化数据 */
   useEffect(() => {
     if (state.token && web3React.account && TabIndex === 1) {
@@ -236,7 +229,6 @@ function NFT() {
         console.log(res)
         setuserBox(res.data)
       })
-
       // let time = setInterval(() => {
       //   getBoxUserInfo().then(res => {
       //     setuserBox(res.data)
@@ -278,10 +270,7 @@ function NFT() {
         setuserCard(res.data.list)
         SetTotalNum(res.data.size)
       })
-      getPromotePowerNum().then(res => {
-        console.log(res.data, 'MBA值')
-        setMBAValue(res.data)
-      })
+
       // 推送
       let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getCardUserInfo/${web3React.account}`, `/getCardUserInfo/${web3React.account}`,
         {
@@ -321,6 +310,44 @@ function NFT() {
 
   return (
     <div>
+      <div className="Edition-Center">
+        <div className="SwapTitle">
+          {t('stock')}
+        </div>
+        {/* 合成成功 */}
+        {
+          MergeRes && <ComSucceed isShow={showMergeSuccess} CardInfo={MergeRes as OpenResType} close={() => { setShowMergeSuccess(false) }}></ComSucceed>
+        }
+        <div className="screen">
+          <div className="DropDownGroup">
+            <DropDown Map={LevelMap} change={
+              (num: number) => {
+                SetLevel(num)
+              }
+            } staetIndex={level}>
+            </DropDown>
+            <DropDown Map={typeMap} change={SetType} staetIndex={type}>
+            </DropDown>
+          </div>
+        </div>
+        {/* 徽章徽章 */}
+        {
+          userCard.length !== 0 ? <>
+            <div className="CardList">
+              {
+                userCard.map((item, index) => <Card key={item.id} Index={index} cardInfo={item} showDetia={showDetial} changeFun={ImproveComputingPowerFun}></Card>)
+              }
+            </div>
+          </> : <>
+            <NoData></NoData>
+          </>
+        }
+        <div className="Pagination">
+          <Pagination style={{ margin: "auto" }} showQuickJumper defaultCurrent={page} defaultPageSize={12} showSizeChanger={false} total={totalNum} onChange={onChange} />
+        </div>
+      </div>
+
+
       {/*质押成功 */}
       <PledgeSuccess showModal={showPledge} close={() => { setShowPledge(false) }}></PledgeSuccess>
       {/* 盲盒开启成功 */}
@@ -349,40 +376,6 @@ function NFT() {
       {
         width < 1024 && <SelMerge isShow={showCardSynthesis && showSelCard} CardInfo={userCard[cardDetialIndex]} EnterSelCard={EnterSelCard} close={() => { setshowSelCard(false); setshowCardSynthesis(false) }}></SelMerge>
       }
-      <div className="Edition-Center">
-        <div className="SwapTitle">
-          {t('stock')}
-        </div>
-        {/* 合成成功 */}
-        {
-          MergeRes && <ComSucceed isShow={showMergeSuccess} CardInfo={MergeRes as OpenResType} close={() => { setShowMergeSuccess(false) }}></ComSucceed>
-        }
-        <div className="screen">
-          <div className="DropDownGroup">
-            <DropDown Map={LevelMap} change={
-              (num: number) => {
-                SetLevel(num)
-              }
-            } staetIndex={level}></DropDown>
-            <DropDown Map={typeMap} change={SetType} staetIndex={type}></DropDown>
-          </div>
-        </div>
-        {/* 徽章徽章 */}
-        {
-          userCard.length !== 0 ? <>
-            <div className="CardList">
-              {
-                userCard.map((item, index) => <Card key={item.id} Index={index} cardInfo={item} showDetia={showDetial} changeFun={ImproveComputingPowerFun}></Card>)
-              }
-            </div>
-          </> : <>
-            <NoData></NoData>
-          </>
-        }
-        <div className="Pagination">
-          <Pagination style={{ margin: "auto" }} showQuickJumper defaultCurrent={page} defaultPageSize={12} showSizeChanger={false} total={totalNum} onChange={onChange} />
-        </div>
-      </div>
     </div >
   )
 }

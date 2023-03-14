@@ -74,7 +74,7 @@ function CardDetails(props: any) {
   const NFTPledgeFun = () => {
     if (web3React.account && props.CardInfo.tokenId) {
       showLoding(true)
-      Contracts.example.stake(web3React.account as string, props.CardInfo.tokenId).then((res: any) => {
+      Contracts.example.stake(web3React.account as string, contractAddress.NFT, props.CardInfo.tokenId).then((res: any) => {
         console.log('质押成功');
         props.close()
         props.pledgeSuccessModal()
@@ -162,29 +162,29 @@ function CardDetails(props: any) {
         props.CardInfo && <Modal title="Basic Modal" visible={props.isShow}
           destroyOnClose
           onCancel={() => props.close()}
-          className='Card'
+          className='CardModal'
           centered
           width={'417px'}
           closable={false}
           footer={null}
         >
-          <p className='title'>{props.type === "CreateOrder" ? t('Listing details') : t('Card Details')}</p>
+          <div className='title'>{props.type === "CreateOrder" ? t('Listing details') : t('Card Details')}</div>
           <div className='hzimg'>
             <Image src={props.CardInfo.imageUrl} alt="" preview={{
               maskClassName: 'myMaskStyle'
             }}></Image>
           </div>
           <div className="p1">
-            <p className='kpdetails'>{t('Card Name')}:{i18n.language === 'zh' ? props.CardInfo.zhCardName : props.CardInfo.cardName}</p>
-            <p className='kpdetails'>{t('CardID')}:{props.CardInfo.cardNo}</p>
+            <div className='kpdetails'>{t('Card Name')}:{i18n.language === 'zh' ? props.CardInfo.zhCardName : props.CardInfo.cardName}</div>
+            <div className='kpdetails'>{t('CardID')}:{props.CardInfo.cardNo}</div>
           </div>
           <div className="p2">
-            <p className='kpdetails'>{t("Computing power")}:{props.CardInfo.currentPower}/{props.CardInfo.basePower}({Math.floor(props.CardInfo.currentPower / props.CardInfo.basePower * 100)}%)</p>
-            <p className='kpdetails'>{t('CardLevel')}:{t(level[props.CardInfo.cardLevel])}</p>
+            <div className='kpdetails'>{t("Computing power")}:{props.CardInfo.currentPower}/{props.CardInfo.basePower}({Math.floor(props.CardInfo.currentPower / props.CardInfo.basePower * 100)}%)</div>
+            <div className='kpdetails'>{t('CardLevel')}:{t(level[props.CardInfo.cardLevel])}</div>
           </div>
 
-          <p className='kpdetails'>{t('CardType')}:{t(cardClass[props.CardInfo.cardType])}</p>
-          <p className='kpdetails'>{t('Introduction Card')}:{i18n.language === 'zh' ? props.CardInfo.zhIntroduce : props.CardInfo.introduce}</p>
+          <div className='kpdetails'>{t('CardType')}:{t(cardClass[props.CardInfo.cardType])}</div>
+          <div className='kpdetails'>{t('Introduction Card')}:{i18n.language === 'zh' ? props.CardInfo.zhIntroduce : props.CardInfo.introduce}</div>
 
           {
             props.type === "NFT" && <div className='butm'>
@@ -216,7 +216,7 @@ function CardDetails(props: any) {
             </div>
           }
 
-          <span>{t('Click anywhere to close')}</span>
+          {/* <span>{t('Click anywhere to close')}</span> */}
         </Modal>
       }
 

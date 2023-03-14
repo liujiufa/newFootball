@@ -24,7 +24,7 @@ function CardItem(props: CardInfo) {
       <div className="CardItem">
         <div className="valueBox">
           <div className="title">價值<div className='iconBox'><img src={valueIcon} alt="" /></div></div>
-          <div className="valuePrice"></div>
+          <div className="valuePrice">2.542531 BNB</div>
         </div>
         <div className="CardImg" onClick={() => props.showCardDetail()}>
           {props.type === "goods" && <div className="pending">{t('Pending order')}</div>}
@@ -37,7 +37,7 @@ function CardItem(props: CardInfo) {
               <div className="box">
                 {width > 425 && <img className="coinName" src={props.orderInfo?.coinName === 'SBL' ? SBLIcon : BNBIcon} alt="" />}
                 <div className="priceFlex">
-                  <div>{t('price')}:{props.orderInfo?.price} {props.orderInfo?.coinName}</div>
+                  <div>{props.orderInfo?.price} {props.orderInfo?.coinName}</div>
                 </div>
               </div>
             </div>
@@ -50,7 +50,7 @@ function CardItem(props: CardInfo) {
               <div className="box">
                 {width > 425 && <img className="coinName" src={props.orderInfo?.coinName === 'SBL' ? SBLIcon : BNBIcon} alt="" />}
                 <div className="priceFlex">
-                  <div>{t('price')}:{props.orderInfo?.price} {props.orderInfo?.coinName}</div>
+                  <div>{props.orderInfo?.price} {props.orderInfo?.coinName}</div>
                 </div>
               </div>
             </div>

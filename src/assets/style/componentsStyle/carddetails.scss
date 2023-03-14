@@ -2,11 +2,7 @@
   overflow: visible;
 }
 
-.Card {
-  background: #1d1e44;
-  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 19px;
-  // height: 573px;
+.CardModal {
   position: relative;
 
   .ant-modal-content {
@@ -18,15 +14,12 @@
   }
 
   .ant-modal-body {
-    background: #1d1e44;
-    box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
-    padding: 0;
 
     .title {
       font-size: 24px;
-      margin: 25px auto 15px;
+      margin: 0px auto 15px;
       text-align: center;
-      color: #fff;
+      color: #000;
       box-shadow: 0;
     }
 
@@ -61,7 +54,7 @@
 
     .p1,
     .p2 {
-      margin-top: 15px;
+      margin-top: 5px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -73,19 +66,28 @@
 
     .kpdetails {
       min-height: 15px;
-      margin-top: 15px;
+      margin-top: 5px;
       padding: 0 30px;
-      color: #fff;
+      color: #000;
       font-size: 14px;
 
       input {
         margin-left: 20px;
         margin-right: 10px;
         width: 140px;
-        background: #171833;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 10px;
+        background: #014845;
+        border: 1px solid #14FD87;
+        box-shadow: 4px 5px 0px rgba(2, 72, 69, 0.4);
+        border-radius: 6px;
         padding: 8px;
+        font-family: 'DIN';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 17px;
+        /* identical to box height */
+        letter-spacing: 0.08em;
+        color: #FFFFFF;
       }
 
       input::-webkit-outer-spin-button,
@@ -100,19 +102,13 @@
       justify-content: space-around;
       margin: 0 auto;
       color: #fff;
-      margin-top: 25px;
-      margin-bottom: 30px;
+      margin-top: 12px;
 
-      //   flex-grow: 0;
       .gm {
-        // flex-grow: 0;
         position: relative;
-        // display: flex;
         width: 76px;
         height: 36px;
-        // line-height: 76px;
-        color: #db2dcf;
-        background: linear-gradient(90deg, #4eadf5 0%, #db2dcf 100%);
+        background: url(../../image/btnBg.png) no-repeat center / 100% 100%;
         box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
         border-radius: 6px;
         border: 0;
@@ -122,7 +118,7 @@
         font-size: 14px;
         line-height: 20px;
         /* identical to box height */
-        color: #FFFFFF;
+        color: #fff;
 
         div {
           position: absolute;
@@ -136,7 +132,6 @@
           bottom: 0;
           width: 74px;
           height: 34px;
-          background: #1d1e44;
         }
       }
 
@@ -148,7 +143,7 @@
         border: 0;
         width: 76px;
         height: 36px;
-        background: linear-gradient(90deg, #4eadf5 0%, #db2dcf 100%);
+        background: url(../../image/btnBg.png) no-repeat center / 100% 100%;
         border-radius: 6px;
       }
 
@@ -178,7 +173,7 @@
 @media screen and (max-width:425px) {
   .Card {
     .ant-modal-body {
-      padding:0px 12px;
+      padding: 0px 12px;
 
       .kpdetails {
         padding: 0px;

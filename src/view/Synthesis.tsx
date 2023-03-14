@@ -9,6 +9,7 @@ import { contractAddress } from '../config'
 import { Modal, Pagination } from 'antd';
 import { addMessage, NumSplic, showLoding } from '../utils/tool'
 import desIcon from '../assets/image/desIcon.png'
+import translateRecoedIcon from '../assets/image/translateRecoedIcon.png'
 import defaultCard from '../assets/image/defaultCard.png'
 import addIcon from '../assets/image/addIcon.png'
 import '../assets/style/Synthesis.scss'
@@ -18,6 +19,8 @@ import Tips from '../components/Tips'
 import { useTranslation } from 'react-i18next'
 // 徽章合成规则
 import CardComRule from '../components/CardComRule'
+import CardComSuccess from '../components/CardComSuccess'
+import CardComRecord from '../components/CardComRecord'
 import BigNumber from 'big.js'
 interface CardSynthesisPropsType {
     CardInfo: CardInfoType,
@@ -64,6 +67,8 @@ export default function Synthesis() {
     let [showEnterMerge, setShowEnterMerge] = useState(false)
     /* 合成规则弹窗控制 */
     let [showMergeRule, setShowMergeRule] = useState(false)
+    let [showMergeSuccess, setShowMergeSuccess] = useState(false)
+    let [showMergeRecord, setShowMergeRecord] = useState(false)
     /* 类型筛选 */
     let [type, SetType] = useState(0)
     /* 分页 */
@@ -126,7 +131,10 @@ export default function Synthesis() {
                             {
                                 ToBeSelect && (parseFloat(ApproveValue) > ToBeSelect?.price) ? <div className='confirmBtn' onClick={() => { setShowEnterMerge(true) }}>{t('Confirm')}</div> : <div className='confirmBtn' onClick={ApproveFun}>{t('Approve')}</div>
                             }
-                            <div className='Tip'><div className='TipContent' onClick={() => { setShowMergeRule(true) }}>{t('Evolve rules')}</div><div className='TipImg'> <img style={{ marginLeft: '5px' }} src={desIcon} alt="" /></div></div>
+                            <div className='Tip'>
+                                <div className='TipContent TipContent1' onClick={() => { setShowMergeRule(true) }}>{t('Evolve rules')}<img style={{ marginLeft: '5px' }} src={desIcon} alt="" /></div>
+                                <div className='TipContent' onClick={() => { setShowMergeRecord(true) }}>合成记录<img style={{ marginLeft: '5px' }} src={translateRecoedIcon} alt="" /></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -138,7 +146,8 @@ export default function Synthesis() {
                             <DropDown Map={typeMap} change={SetType}></DropDown>
                         </div>
                         {/* 三个水平排列（保证布局一致） */}
-                        {/* <div className="Page">
+                        {/* 
+                        <div className="Page">
                             <Pagination style={{ margin: "auto" }} current={page} defaultPageSize={12} total={total} onChange={changePage} />
                         </div> 
                         */}
@@ -164,6 +173,9 @@ export default function Synthesis() {
                     </div>
                 </div>
             </div>
+            <CardComRule isShow={showMergeRule} close={() => setShowMergeRule(false)}></CardComRule>
+            <CardComSuccess isShow={showMergeSuccess} close={() => setShowMergeSuccess(false)}></CardComSuccess>
+            <CardComRecord isShow={showMergeRecord} close={() => setShowMergeRecord(false)}></CardComRecord>
         </div>
     )
 }

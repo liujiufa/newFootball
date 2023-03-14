@@ -41,14 +41,23 @@
     }
 
     .priceBox {
-        font-family: 'DIN';
-        font-style: normal;
-        font-weight: 700;
-        font-size: 30px;
-        line-height: 37px;
-        /* identical to box height */
-        color: #00BE13;
-        text-align: center;
+        .price {
+            font-family: 'DIN';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 30px;
+            line-height: 37px;
+            /* identical to box height */
+            color: #00BE13;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        img {
+            margin-right: 12px;
+        }
 
         .boxNum {
             font-family: 'PingFang SC';
@@ -80,6 +89,8 @@
         justify-content: space-between;
 
         .goods {
+            position: relative;
+
             >div {
                 font-family: 'PingFang SC';
                 font-style: normal;
@@ -89,6 +100,22 @@
                 color: rgba(0, 0, 0, 0.7);
                 text-align: center;
                 margin-top: 5px;
+            }
+
+            .surplus {
+                margin-top: 0px;
+                width: 48px;
+                height: 48px;
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 18px;
+                line-height: 25px;
+                /* identical to box height */
+                color: #FFFFFF;
             }
         }
     }
@@ -212,6 +239,10 @@
         .type,
         .value {
             width: 100px;
+        }
+
+        .addr {
+            width: 240px;
         }
 
         .hash {

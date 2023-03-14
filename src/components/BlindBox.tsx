@@ -20,7 +20,7 @@ function BlindBox(props: BlindBoxPropsType) {
     showLoding(true)
     openBox({ id: props.BoxInfo.id, userAddress: web3React.account }).then((res: any) => {
       if (res.data && res.code === 200) {
-        Contracts.example.OpenBox(web3React.account as string, res.data.sign).then(() => {
+        Contracts.example.openBox(web3React.account as string, res.data.sign).then(() => {
           return props.openSuccess(res.data.cardUser)
         }).finally(() => {
           showLoding(false)

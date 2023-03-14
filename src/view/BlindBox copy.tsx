@@ -73,7 +73,6 @@ function BlindBox() {
           //     setBoxBase([{ ...item, price: value }])
           //   })
           // } catch {
-
           // }
         })
       })
@@ -87,7 +86,6 @@ function BlindBox() {
         {
           BoxBase[buyBoxIndex] && <RaceBoxModal isShow={showRaceBoxModal} BoxInfo={BoxBase[buyBoxIndex]} close={() => { setShowRaceBoxModal(false) }} buySuccess={buySuccess}></RaceBoxModal>
         }
-
         {/* 购买成功弹窗 */}
         <PurchaseBox isShow={showPurchaseBox} close={() => { setShowPurchaseBox(false) }}></PurchaseBox>
         <div className="BlindBoxTitle">

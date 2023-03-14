@@ -41,13 +41,13 @@ export function buyBox(data: buyBoxPropsType) {
     })
 }
 /* 开启盲盒 */
-export function openBox(data: buyBoxType) {
-    return axois.request({
-        url: '/user/bBoxUser/openBox',
-        method: 'post',
-        data
-    })
-}
+// export function openBox(data: buyBoxType) {
+//     return axois.request({
+//         url: '/user/bBoxUser/openBox',
+//         method: 'post',
+//         data
+//     })
+// }
 /* 获取用户盲盒信息 */
 export function getBoxUserInfo() {
     return axois.request({
@@ -418,5 +418,50 @@ export function drawNodeAward(data: any) {
         url: `/user/nNodeRecruitRecord/drawNodeAward`,
         method: 'post',
         data
+    })
+}
+
+//开宝箱
+export function openBox(data: any) {
+    return axois.request({
+        url: `/user/bBoxOpenRecord/openBox`,
+        method: 'post',
+        data
+    })
+}
+//开奖结果
+export function openBoxResule(type: any, level: any) {
+    return axois.request({
+        url: `/user/cCardBase/metaData/${type}/${level}`,
+        method: 'get',
+    })
+}
+
+//获取盲盒配置
+export function boxBase() {
+    return axois.request({
+        url: `/user/bBoxBase/boxBase`,
+        method: 'get'
+    })
+}
+//获取BNB开将记录
+export function wrapRecord() {
+    return axois.request({
+        url: `/user/wWrapOpenRecord/wrapRecord`,
+        method: 'get'
+    })
+}
+//获取个人开将记录
+export function boxRecord() {
+    return axois.request({
+        url: `/user/bBoxOpenRecord/boxRecord`,
+        method: 'get'
+    })
+}
+//
+export function wrapCount() {
+    return axois.request({
+        url: `/user/wWrapRecord/wrapCount`,
+        method: 'get'
     })
 }

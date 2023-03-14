@@ -255,27 +255,27 @@ function Swap() {
         SetTotalNum(res.data.size)
       })
       // 推送
-      // let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getOrderList/${web3React.account}`, `/getOrderList/${web3React.account}`,
-      //   {
-      //     cardType: cardType,
-      //     currentPage: page,
-      //     level: level,
-      //     pageSize: 12,
-      //     type: type,
-      //     sortType: sort
-      //     // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
-      //   }, (data: any) => {
-      //     setOrderList(data.list)
-      //     SetTotalNum(data.size)
-      //   })
-      // return () => {
-      //   try {
-      //     stompClient.disconnect()
-      //   } catch {
+      let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getOrderList/${web3React.account}`, `/getOrderList/${web3React.account}`,
+        {
+          cardType: cardType,
+          currentPage: page,
+          level: level,
+          pageSize: 12,
+          type: type,
+          sortType: sort
+          // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
+        }, (data: any) => {
+          setOrderList(data.list)
+          SetTotalNum(data.size)
+        })
+      return () => {
+        try {
+          stompClient.disconnect()
+        } catch {
 
-      //   }
-      //   clearInterval(sendTimer)
-      // }
+        }
+        clearInterval(sendTimer)
+      }
     }
   }, [page, sort, type, level, TabIndex, state.token, web3React.account, cardType])
   // 土地

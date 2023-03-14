@@ -19,7 +19,7 @@ import '../assets/style/componentsStyle/AddFluidOk.scss'
 import { useTranslation } from 'react-i18next'
 import { showLoding, addMessage, NumSplic, getWebsocketData, initWebSocket } from "../utils/tool";
 import { Contracts } from "../web3";
-import { socketUrl } from "../config";
+import { contractAddress, socketUrl } from "../config";
 import BigNumber from 'big.js'
 import RewardRecord from '../components/RewardRecord'
 import AbleGetReward from '../components/AbleGetReward'
@@ -98,7 +98,7 @@ function Pledge() {
   const CancelNFTPledgeFun = (tokenId: string) => {
     if (web3React.account && tokenId) {
       showLoding(true)
-      Contracts.example.unstake(web3React.account as string, tokenId).then((res: any) => {
+      Contracts.example.unstake(web3React.account as string, contractAddress.NFT, tokenId).then((res: any) => {
         setCancelPledge(false)
         setCancelPledgeSuccess(true)
         getPledgeCardUserInfo({
@@ -224,12 +224,10 @@ function Pledge() {
         <div className="SwapTitle">
           {t("Stake")}
         </div>
-
         <div className="PledgeTabs">
           <div className={TabIndex === 0 ? 'activeTab invalidTab' : 'invalidTab'} onClick={() => { changeTab(0); }}>質押中</div>
           <div className={TabIndex === 1 ? 'activeTab invalidTab' : 'invalidTab'} onClick={() => { changeTab(1); }}>已銷毀</div>
         </div>
-
         {pledgeData && <div className="pledgeScreen">
           <div className="Tabs">
             <div className="pledgeValueBox">

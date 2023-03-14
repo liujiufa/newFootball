@@ -18,7 +18,7 @@ import FundNode from './ABI/FundNode.json';
 export let socketUrl: string = 'http://47.107.116.172:8912/endpointWisely';
 // export let baseUrl: string = 'http://spaceballgames.com:10000';
 export let baseUrl: string = 'http://47.107.116.172:10000';
-// export let baseUrl: string = 'http://192.168.2.133:10000';
+// export let baseUrl: string = 'http://192.168.2.121:10000';
 export let BlockUrl: string = 'https://testnet.bscscan.com/tx/';
 export let obj = { 0.2: 0.1, 0.5: 0.2, 1: 0.3, 2.5: 0.4, 8: 0.5 }
 interface abiObjType {
@@ -55,13 +55,13 @@ export const contractAddress: contractAddressType = {
     //测试
     // v2
     "Token": "0x030870f2e1fE2738fa67418652bc02Ac5962E3b6",
-    "BlindBox": "0x0eecA77fee41D7f4aF1aE0c58bD63b9e5853b51C",
+    "BlindBox": "0xfD495162faBAF48B848fD5523184f5E9A67fC85d",
     "EXChangeNFT": "0x5342Ff2Ef64BEef28Ec22f94f7CD79E45d08DC49",
     "NFT": "0x280017329c764A5b4eF26cc447FE424674628498",
     "Merge": "0x075bd4Db4AFbf3DC4A6e4CBBda07b1087926F276",
     "Node": "0xdCe3C0FC23013D9531c0615EfF42eCcAdFe32C4d",
-    "Liquidity": "0xE127CBfFB47e5972Fe5Bd9710eE284D826a24972",
-    "BurnFund": "0x7babCa7561a802294C7543eB40658fA5c781ebCD",
+    "Liquidity": "0xC60E1e58Cd4052Ed5AFe3499F0365b89a81792d1",
+    "BurnFund": "0x8B4578c4501f2D77a3E62159Fa147B45310edb36",
     "Pledge": "0x674a5FBb9F12eDeF7Cfb2619DE47Ef8CAAecA02a",
     "LandNFT": "0x75DCc4d1414c3505aC0874deE9d1dA2003f2503e",
     "LandReward": "0xb249Ad46Eb8B9c95Dc94E476d9da4de328a5b975",

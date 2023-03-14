@@ -125,15 +125,6 @@ export class Contracts {
         console.log(addr, toaddr);
         return this.contract.Token?.methods.approve(toaddr, amounted).send({ from: addr })
     }
-    // //转账
-    // transfer(addr: string, toaddr: string, amount: number) {
-    //     BigNumber.NE = -40
-    //     BigNumber.PE = 40
-    //     let num = new BigNumber(amount).times(10 ** 18).toString()
-    //     this.verification('Token')
-    //     console.log(addr, toaddr, num);
-    //     return this.contract.Token?.methods.transfer(toaddr, num).send({ from: addr })
-    // }
     //购买盲盒
     buyBox(addr: string, data: string, payableAmount: number,) {
         BigNumber.NE = -40
@@ -143,9 +134,9 @@ export class Contracts {
         return this.contract.BlindBox?.methods.buyBox(data).send({ from: addr })
     }
     //购买盲盒
-    OpenBox(addr: string, data: string) {
+    openBox(addr: string, data: string) {
         this.verification('BlindBox')
-        return this.contract.BlindBox?.methods.OpenBox(data).send({ from: addr })
+        return this.contract.BlindBox?.methods.openBox(data).send({ from: addr })
     }
     //查询721归属
     ownerOf(addr: string, tokenId: string) {
@@ -316,16 +307,16 @@ export class Contracts {
         return this.contract.BurnFund?.methods.withdrawReward().send({ from: addr })
     }
     // 质押
-    stake(addr: string, tokenId: string) {
+    stake(addr: string, NFTAddress: string, tokenId: string) {
         console.log(tokenId);
 
         this.verification('Pledge')
-        return this.contract.Pledge?.methods.stake(tokenId).send({ from: addr })
+        return this.contract.Pledge?.methods.stake(NFTAddress, tokenId).send({ from: addr })
     }
     // 取消质押
-    unstake(addr: string, tokenId: string) {
+    unstake(addr: string, NFTAddress: string, tokenId: string) {
         this.verification('Pledge')
-        return this.contract.Pledge?.methods.unstake(tokenId).send({ from: addr })
+        return this.contract.Pledge?.methods.unstake(NFTAddress, tokenId).send({ from: addr })
     }
     // 兑换MBA
     improveHashRate(addr: string, amount: number) {
