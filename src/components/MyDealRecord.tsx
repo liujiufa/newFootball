@@ -100,7 +100,6 @@ function MyDealRecord(props: propsType) {
             )}
           />
         </Table>
-        <span>{t('Click anywhere to close')}</span>
       </Modal>
     </>
   );

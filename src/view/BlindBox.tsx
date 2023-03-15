@@ -58,16 +58,12 @@ export default function BlindBox() {
       boxBase().then((res: any) => {
         console.log(res, '盲盒配置');
         res.data.map((item: any) => {
-          try {
-            Contracts.example.toSBL(web3React.account as string, item?.price).then((res: any) => {
-              let value = new BigNumber(res).div(10 ** 18).toString()
-              console.log({ ...item, MBASPrice: value }, 'value');
-              setBoxBaseValue({ ...item, MBASPrice: parseInt(value) })
-            })
-          } catch {
-          }
+          Contracts.example.toMBAS(web3React.account as string, item?.price).then((res: any) => {
+            let value = new BigNumber(res).div(10 ** 18).toString()
+            console.log({ ...item, MBASPrice: value }, 'value');
+            setBoxBaseValue({ ...item, MBASPrice: (parseInt(value) + 1) })
+          })
         })
-
       })
       wrapCount().then((res: any) => {
         console.log(res.data, '红包');
@@ -100,10 +96,10 @@ export default function BlindBox() {
         Contracts.example.openBox(web3React.account as string, res.data as string).then((res: any) => {
           console.log(res, '购买宝箱');
           Contracts.example.web3.eth.getTransactionReceipt(res.transactionHash).then((res: any) => {
-            let value1 = Web3.utils.fromWei("0x" + res.logs[res.logs.length - 1].data.slice(res.logs[res.logs.length - 1].data.length - 192, res.logs[res.logs.length - 1].data.length - 128), "ether")
+            let value1 = Web3.utils.fromWei("0x" + res.logs[res.logs.length - 1].data.slice(res.logs[res.logs.length - 1].data.length - 192, res.logs[res.logs.length - 1].data.length - 128), "wei")
             let type = Web3.utils.fromWei("0x" + res.logs[res.logs.length - 1].data.slice(res.logs[res.logs.length - 1].data.length - 128, res.logs[res.logs.length - 1].data.length - 64), "wei")
             let grade = Web3.utils.fromWei("0x" + res.logs[res.logs.length - 1].data.slice(res.logs[res.logs.length - 1].data.length - 64), "wei")
-            console.log(res, value1);
+            console.log(res, value1, type, grade, '==========');
             // 0:NFT,1:一等奖,2:二等奖,3:三等奖,4:特等奖
             showLoding(false)
             if (value1 === '0') {
@@ -126,14 +122,14 @@ export default function BlindBox() {
     })
   }
 
-
   // 授权
-  function ApproveFun(num: string) {
+  function ApproveFun(num: number) {
+    console.log(num, '授权额度');
     if (!web3React.account) {
       return addMessage(t('Please connect Wallet'))
     }
     showLoding(true)
-    Contracts.example.toLiquiditySBL(web3React.account as string, parseFloat(num)).then((res: any) => {
+    Contracts.example.toLiquiditySBL(web3React.account as string, num).then((res: any) => {
       let value = new BigNumber(res).div(10 ** 18).toString()
       Contracts.example.approve1(web3React.account as string, contractAddress.BlindBox, value).then(() => {
         Contracts.example.Tokenapprove(web3React.account as string, contractAddress.BlindBox).then((res: any) => {
@@ -144,6 +140,7 @@ export default function BlindBox() {
       })
     })
   }
+
   const gradeValueFun = (item: any) => {
     if (item?.type === 2) {
       return grade[item?.type]
@@ -177,7 +174,7 @@ export default function BlindBox() {
       <div className="priceBox">
         <div className='price'> 价格：<img src={iconDemo} alt="" />{BoxBaseValue?.MBASPrice}{BoxBaseValue?.name}（~{BoxBaseValue?.price}BNB）</div>
         <div className="boxNum">剩余数量：{BoxBaseValue?.totalNum - BoxBaseValue?.sellNum}/{BoxBaseValue?.totalNum}</div>
-        {parseFloat(ApproveValue) >= parseFloat(BoxBaseValue?.price) ? <div className="buyBtn flexCenter" onClick={() => { openBoxFun() }}>立即開啟</div> : <div className="buyBtn flexCenter" onClick={() => { ApproveFun(BoxBaseValue?.price) }}>授权</div>}
+        {parseFloat(ApproveValue) >= parseFloat(BoxBaseValue?.MBASPrice) ? <div className="buyBtn flexCenter" onClick={() => { openBoxFun() }}>立即開啟</div> : <div className="buyBtn flexCenter" onClick={() => { ApproveFun(BoxBaseValue?.MBASPrice) }}>授权</div>}
       </div>
       <div className="goodsBox">
         {BoxBaseArr.map((item: any, index: any) => <div key={index} className="goods">
@@ -210,13 +207,15 @@ export default function BlindBox() {
             <div className="item value">金額</div>
             <div className="item hash">交易哈希</div>
           </div>
-          {WrapRecord?.length > 0 && WrapRecord.map((item: any, index: any) => <div key={index} className="items contents">
-            <div className="item time">{dateFormat('YYYY-mm-dd HH:MM', new Date(item?.createTime))}</div>
-            <div className="item addr">{item?.userAddress}</div>
-            <div className="item type">{grade[item?.level]}</div>
-            <div className="item value">{item?.amount} BNB</div>
-            <div className="item hash">{AddrHandle(item?.txId, 6, 6)}</div>
-          </div>)}
+          <div className="bigBox">
+            {WrapRecord?.length > 0 && WrapRecord.map((item: any, index: any) => <div key={index} className="items contents">
+              <div className="item time">{dateFormat('YYYY-mm-dd HH:MM', new Date(item?.createTime))}</div>
+              <div className="item addr">{AddrHandle(item?.userAddress, 6, 6)}</div>
+              <div className="item type">{grade[item?.level]}</div>
+              <div className="item value">{item?.amount} BNB</div>
+              <div className="item hash">{AddrHandle(item?.txId, 6, 6)}</div>
+            </div>)}
+          </div>
         </>}
         {/* 我的開獎記錄 */}
         {TabIndex === 2 && <>
@@ -226,19 +225,21 @@ export default function BlindBox() {
             <div className="item value">金額</div>
             <div className="item hash">交易哈希</div>
           </div>
-          {BoxRecord?.length > 0 && BoxRecord.map((item: any, index: any) => <div key={index} className="items contents">
-            <div className="item time">{dateFormat('YYYY-mm-dd HH:MM', new Date(item?.createTime))}</div>
-            <div className="item type">{gradeValueFun(item)}</div>
-            <div className="item value">{item?.amount} BNB</div>
-            <div className="item hash">{AddrHandle(item?.txId, 6, 6)}</div>
-          </div>)}
+          <div className="bigBox">
+            {BoxRecord?.length > 0 && BoxRecord.map((item: any, index: any) => <div key={index} className="items contents">
+              <div className="item time">{dateFormat('YYYY-mm-dd HH:MM', new Date(item?.createTime))}</div>
+              <div className="item type">{gradeValueFun(item)}</div>
+              <div className="item value">{item?.amount} BNB</div>
+              <div className="item hash">{AddrHandle(item?.txId, 6, 6)}</div>
+            </div>)}
+          </div>
         </>}
       </div>
 
 
       {/* 成功购买弹窗 */}
       <Modal
-        visible={false}
+        visible={confirmRewardBox}
         className='successBuyModal'
         centered
         width={'552px'}
@@ -255,7 +256,7 @@ export default function BlindBox() {
       </Modal>
       {/* 成功打开NFT */}
       <Modal
-        visible={false}
+        visible={confirmBuy}
         className='successBuyModal'
         centered
         width={'552px'}

@@ -21,11 +21,11 @@ function CardComRule(props: PropsType) {
       >
         <p className='title'>{t('Evolve rules1')}</p>
         <div className='box'>
-          <p className='zifujg'>{t('Evolve rule1')}</p>
-          <p className='zifujg'>{t('Evolve rule2')}</p>
-          <p className='zifujg'>{t('Evolve rule3')}</p>
-          <p className='zifujg'>{t('Evolve rule4')}</p>
-          <p className='zifujg'>{t('Evolve rule5')}</p>
+          <div className='zifujg'>{t('Evolve rule1')}</div>
+          <div className='zifujg'>{t('Evolve rule2')}</div>
+          <div className='zifujg'>{t('Evolve rule3')}</div>
+          <div className='zifujg'>{t('Evolve rule4')}</div>
+          <div className='zifujg'>{t('Evolve rule5')}</div>
         </div>
       </Modal>
     </>

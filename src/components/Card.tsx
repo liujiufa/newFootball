@@ -23,7 +23,16 @@ interface CardPropsType {
   Index: number,
 }
 function Card(props: any) {
+  console.log(props.data, '11111111');
+
   let { t } = useTranslation()
+  const fun = () => {
+    if (props.tag === "NFT") {
+      props.fun(props.Index)
+    } else {
+      props.fun()
+    }
+  }
   return (
     <div className="Card">
       <div className="CardItem">
@@ -31,7 +40,7 @@ function Card(props: any) {
           <div className="title">價值<div className='iconBox'><img src={valueIcon} alt="" /></div></div>
           <div className="valuePrice">2.542531 BNB</div>
         </div>
-        <div className="CardImg" onClick={() => { props.showDetia(props.Index) }}>
+        <div className="CardImg" onClick={() => { fun() }}>
           <img src={props.cardInfo.imageUrl} alt="" />
         </div>
         <div className="ID">ID:  {props.cardInfo.cardNo}</div>

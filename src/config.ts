@@ -11,16 +11,19 @@ import LandNFT from './ABI/LandNFT.json';
 import LandReward from './ABI/LandDistribute.json';
 import InviteReward from './ABI/InviteReward.json';
 import FundNode from './ABI/FundNode.json';
-// export let baseUrl: string = 'http://192.168.2.111:10000';
 // export let baseUrl: string = 'http://47.107.116.172:10000';
 // export let socketUrl: string = 'http://spaceballgames.com:8912/endpointWisely';
-// export let socketUrl: string = 'http://192.168.2.133:8912/endpointWisely';
-export let socketUrl: string = 'http://47.107.116.172:8912/endpointWisely';
+// export let socketUrl: string = 'http://47.107.116.172:8912/endpointWisely';
+export let socketUrl: string = 'http://192.168.2.120:8912/endpointWisely';
 // export let baseUrl: string = 'http://spaceballgames.com:10000';
-export let baseUrl: string = 'http://47.107.116.172:10000';
+export let baseUrl: string = 'http://192.168.2.120:10000';
 // export let baseUrl: string = 'http://192.168.2.121:10000';
 export let BlockUrl: string = 'https://testnet.bscscan.com/tx/';
 export let obj = { 0.2: 0.1, 0.5: 0.2, 1: 0.3, 2.5: 0.4, 8: 0.5 }
+export let nftLevel = { 1: "精灵仙子", 2: "水精灵", 3: "木精灵", 4: "火精灵", 5: "土精灵", 6: "金精灵" }
+export let nftType = { 1: "绯红", 2: "橙黄", 3: "湛蓝", 4: "翠色", 5: "浅紫" }
+export let landLevel = { 1: "地球领土", 2: "行星领土", 3: "银河领土", 4: "星际领土", 5: "宇宙领土" }
+
 interface abiObjType {
     [propName: string]: any;
 }
@@ -57,7 +60,7 @@ export const contractAddress: contractAddressType = {
     "Token": "0x030870f2e1fE2738fa67418652bc02Ac5962E3b6",
     "BlindBox": "0xfD495162faBAF48B848fD5523184f5E9A67fC85d",
     "EXChangeNFT": "0x5342Ff2Ef64BEef28Ec22f94f7CD79E45d08DC49",
-    "NFT": "0x280017329c764A5b4eF26cc447FE424674628498",
+    "NFT": "0xAf7b484aB4514f856f8418ed47a11121E7cc45d3",
     "Merge": "0x075bd4Db4AFbf3DC4A6e4CBBda07b1087926F276",
     "Node": "0xdCe3C0FC23013D9531c0615EfF42eCcAdFe32C4d",
     "Liquidity": "0xC60E1e58Cd4052Ed5AFe3499F0365b89a81792d1",

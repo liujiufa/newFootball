@@ -13,7 +13,6 @@ import CardSynthesis from "../components/CardSynthesis"
 import '../assets/style/Swap.scss'
 import PledgeSuccess from '../components/PledgeSuccess'
 import NoData from '../components/NoData'
-import Merge from '../components/Merge'
 import { useViewport } from '../components/viewportContext'
 import { addMessage, showLoding, getWebsocketData, initWebSocket } from '../utils/tool'
 import { Pagination } from 'antd';
@@ -320,11 +319,7 @@ function NFT() {
         }
         <div className="screen">
           <div className="DropDownGroup">
-            <DropDown Map={LevelMap} change={
-              (num: number) => {
-                SetLevel(num)
-              }
-            } staetIndex={level}>
+            <DropDown Map={LevelMap} change={(num: number) => { SetLevel(num) }} staetIndex={level}>
             </DropDown>
             <DropDown Map={typeMap} change={SetType} staetIndex={type}>
             </DropDown>
@@ -335,7 +330,7 @@ function NFT() {
           userCard.length !== 0 ? <>
             <div className="CardList">
               {
-                userCard.map((item, index) => <Card key={item.id} Index={index} cardInfo={item} showDetia={showDetial} changeFun={ImproveComputingPowerFun}></Card>)
+                userCard.map((item, index) => <Card key={item.id} Index={index} cardInfo={item} fun={showDetial} tag='NFT'></Card>)
               }
             </div>
           </> : <>
@@ -346,8 +341,6 @@ function NFT() {
           <Pagination style={{ margin: "auto" }} showQuickJumper defaultCurrent={page} defaultPageSize={12} showSizeChanger={false} total={totalNum} onChange={onChange} />
         </div>
       </div>
-
-
       {/*质押成功 */}
       <PledgeSuccess showModal={showPledge} close={() => { setShowPledge(false) }}></PledgeSuccess>
       {/* 盲盒开启成功 */}
@@ -368,10 +361,7 @@ function NFT() {
       {
         width >= 1024 && <CardSynthesis isShow={showCardSynthesis} mergeSuccess={mergeSuccess} CardInfo={userCard[cardDetialIndex]} close={() => setshowCardSynthesis(false)}></CardSynthesis>
       }
-      {/* 小屏确定 */}
-      {
-        width < 1024 && userCard[cardDetialIndex] && <Merge isShow={showCardSynthesis && showMerge} mergeSuccess={mergeSuccess} SelCard={SelCardInfo} CardInfo={userCard[cardDetialIndex]} SelCardFun={SelCard} close={() => { setshowMerge(false); setshowCardSynthesis(false) }}></Merge>
-      }
+
       {/* 小屏选择NFT */}
       {
         width < 1024 && <SelMerge isShow={showCardSynthesis && showSelCard} CardInfo={userCard[cardDetialIndex]} EnterSelCard={EnterSelCard} close={() => { setshowSelCard(false); setshowCardSynthesis(false) }}></SelMerge>

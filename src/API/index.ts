@@ -77,7 +77,6 @@ interface compoundCardType {
 /* 合成 */
 export function compoundCard(data: compoundCardType) {
     console.log(data, '后台合成');
-
     return axois.request({
         url: `/user/cCardUser/compoundCard`,
         method: 'post',
@@ -458,10 +457,22 @@ export function boxRecord() {
         method: 'get'
     })
 }
-//
 export function wrapCount() {
     return axois.request({
         url: `/user/wWrapRecord/wrapCount`,
+        method: 'get'
+    })
+}
+export function getUserCardCombineRecord() {
+    return axois.request({
+        url: `/user/cCardCombineRecord/getUserCardCombineRecord`,
+        method: 'get'
+    })
+}
+// 已销毁记录
+export function getPledgeCardUserBurnInfo() {
+    return axois.request({
+        url: `/user/cCardUser/getPledgeCardUserBurnInfo`,
         method: 'get'
     })
 }

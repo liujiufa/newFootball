@@ -120,8 +120,8 @@ export class Contracts {
     //授权2
     approve1(addr: string, toaddr: string, amount: string) {
         this.verification('Token')
-        var amounted = Web3.utils.toWei(`${parseFloat(amount) * 100}`, "ether")
-        // var amounted = Web3.utils.toBN("99999999999999999999999999999999")
+        // var amounted = Web3.utils.toWei(`${parseFloat(amount) * 100}`, "ether")
+        var amounted = Web3.utils.toBN("99999999999999999999999999999999")
         console.log(addr, toaddr);
         return this.contract.Token?.methods.approve(toaddr, amounted).send({ from: addr })
     }
@@ -191,13 +191,10 @@ export class Contracts {
     }
 
     //合成
-    toSynthesis(addr: string, data: string, payableAmount: number) {
-        BigNumber.NE = -40
-        BigNumber.PE = 40
-        let num = new BigNumber(payableAmount).times(10 ** 18).toString()
-        this.verification('Merge')
+    toSynthesis(addr: string, data: string) {
+        this.verification('NFT')
         console.log(data, '合成');
-        return this.contract.Merge?.methods.toSynthesis(data).send({ from: addr })
+        return this.contract.NFT?.methods.compound(data).send({ from: addr })
     }
     //购买节点
     buyNode(addr: string, data: string, payableAmount: number) {
@@ -365,6 +362,15 @@ export class Contracts {
         this.verification('BurnFund')
         console.log(num);
         return this.contract.BurnFund?.methods.querySBLAmountOut(num).call({ from: addr })
+    }
+    //盲盒价格转MBAS(非流动性)
+    toMBAS(addr: string, amount: number,) {
+        BigNumber.NE = -40
+        BigNumber.PE = 40
+        let num = new BigNumber(amount).times(10 ** 18).toString()
+        this.verification('BlindBox')
+        console.log(num);
+        return this.contract.BlindBox?.methods.queryMBASAmountOut(num).call({ from: addr })
     }
     //转SBL(流动性)
     toLiquiditySBL(addr: string, amount: number,) {

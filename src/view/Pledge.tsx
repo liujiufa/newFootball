@@ -238,7 +238,9 @@ function Pledge() {
           <div className="DropDownGroup">
             <div className="ableGetReward">{t("Claimable")}：<span onClick={() => { setRewardRecord(true) }}>{NumSplic(`${pledgeData?.amount}`, 8)} SBL</span> {pledgeData?.amount ? <div className="getBtn flex" onClick={() => { getBtnFun(pledgeData?.amount) }}>{t("Harvest")}</div> : <div className="getBtn flex" onClick={() => { getBtnFun(0) }}>{t("Harvest")}</div>}</div>
           </div>
-        </div>}
+        </div>
+        }
+
         {
           userCard.length !== 0 ? <>
             <div className="CardList">
@@ -256,6 +258,8 @@ function Pledge() {
         <div className="Pagination">
           <Pagination style={{ margin: "auto" }} showQuickJumper defaultCurrent={page} defaultPageSize={12} showSizeChanger={false} total={totalNum} onChange={onChange} />
         </div>
+
+
       </div>
       {/* 取消质押 */}
       <CancelPledge CancelFun={CancelNFTPledgeFun} tokenId={cancelPledgeValue} showModal={cancelPledge} close={() => { setCancelPledge(false) }}></CancelPledge>

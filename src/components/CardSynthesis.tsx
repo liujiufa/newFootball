@@ -147,11 +147,11 @@ function CardSynthesis(props: CardSynthesisPropsType) {
             cardId: props.CardInfo.id,
             choiceCardId: SelCard.id
         }).then(resSign => {
-            Contracts.example.toSynthesis(web3React.account as string, resSign.data.sign, ToBeSelect?.price as number).then((res: any) => {
-                props.mergeSuccess(resSign.data.cardUser)
-            }).finally(() => {
-                showLoding(false)
-            })
+            // Contracts.example.toSynthesis(web3React.account as string, resSign.data.sign, ToBeSelect?.price as number).then((res: any) => {
+            //     props.mergeSuccess(resSign.data.cardUser)
+            // }).finally(() => {
+            //     showLoding(false)
+            // })
         }, () => {
             showLoding(false)
         })

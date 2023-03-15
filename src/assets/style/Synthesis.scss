@@ -81,6 +81,11 @@
                     }
                 }
 
+                .result {
+                    display: flex;
+                    justify-content: center;
+                }
+
                 @media (max-width:1024px) {
                     .CardItems {
                         >div {
@@ -90,12 +95,12 @@
                     }
                 }
 
-                .CardItem {
+                .items {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
                     margin: 0 auto;
-                    padding-top: 56px;
+                    padding-top: 12px;
 
                     .CardImg {
                         width: 190px;
@@ -152,14 +157,15 @@
                             display: flex;
                             align-items: center;
                         }
-                        .TipContent1{
+
+                        .TipContent1 {
                             margin-right: 50px;
                         }
                     }
                 }
 
                 @media (max-width:1024px) {
-                    .CardItem {
+                    .items {
                         .CardImg {
                             width: 120px;
                             height: 120px;
@@ -270,12 +276,7 @@
                 width: 100%;
                 max-height: 495px;
                 overflow-y: auto;
-                display: grid;
                 margin-top: 12px;
-                grid-template-columns: repeat(2, 216px);
-                grid-row-gap: 20px;
-                grid-column-gap: 20px;
-                justify-content: space-between;
                 padding-right: 30px;
 
                 &::-webkit-scrollbar {
@@ -294,91 +295,112 @@
                     border-radius: 9px;
                 }
 
-
-                .SynthesisCardList {
+                .synthesisCardList {
                     display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    width: 216px;
-                    border-radius: 19px;
-                    padding-top: 15PX;
-                    padding: 15px 15px;
-                    border: 1px solid rgba(0, 0, 0, 0.2);
+                    justify-content: space-between;
+                    flex-wrap: wrap;
 
-                    .Img {
-                        background: #171833;
-                        border: 1px solid rgba(0, 0, 0, 0.1);
-                        border-radius: 10px;
-                        width: 100%;
-                        // height: 186px;
-                        overflow: hidden;
-
-                        // margin-top: 15px;
-                        img {
-                            width: 100%;
-                        }
-
+                    .Card {
+                        padding: 12px 5px;
+                        max-width: 50%;
                     }
 
-                    .Id {
-                        font-style: 14px;
-                        font-weight: 400;
-                        margin-bottom: 20px;
-                    }
-
-                    .computingPower {
-                        width: 100%;
-                        margin-top: 18px;
-                        display: flex;
-                        justify-content: space-between;
-                        font-family: 'PingFang SC';
-                        font-style: normal;
-                        font-weight: 400;
-                        font-size: 16px;
-                        line-height: 22px;
-                        color: #FFFFFF;
-
-                        .value {
-                            color: #DB2DCF;
-                        }
-                    }
-
-                    .share {
-                        width: 100%;
-                        margin-top: 20px;
-                        display: flex;
-                        align-items: center;
-
-                        .shareBox {
-                            height: 12px;
-                            flex: auto;
-                            background: rgba(0, 0, 0, 0.1);
-                            border-radius: 8px;
-
-                            .shareValue {
-                                height: 100%;
-                                background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
-                                border-radius: 8px;
-                                font-family: 'DIN';
-                                font-style: normal;
-                                font-weight: 500;
-                                font-size: 12px;
-                                letter-spacing: 0.08em;
-                                color: #FFFFFF;
-                                text-align: right;
-                                display: flex;
-                                align-items: center;
-                                justify-content: flex-end;
-                            }
-                        }
-
-                        .addBtn {
-                            width: 70px;
-                            display: flex;
-                            justify-content: end;
-                        }
-                    }
                 }
+
+                .Card {
+                    width: 100%;
+                    padding: 1px;
+                    border-radius: 19px;
+                    box-sizing: border-box;
+                    height: max-content;
+                }
+
+
+
+                // .SynthesisCardList {
+                //     display: flex;
+                //     flex-direction: column;
+                //     align-items: center;
+                //     width: 216px;
+                //     border-radius: 19px;
+                //     padding-top: 15PX;
+                //     padding: 15px 15px;
+                //     border: 1px solid rgba(0, 0, 0, 0.2);
+
+                //     .Img {
+                //         background: #171833;
+                //         border: 1px solid rgba(0, 0, 0, 0.1);
+                //         border-radius: 10px;
+                //         width: 100%;
+                //         // height: 186px;
+                //         overflow: hidden;
+
+                //         // margin-top: 15px;
+                //         img {
+                //             width: 100%;
+                //         }
+
+                //     }
+
+                //     .Id {
+                //         font-style: 14px;
+                //         font-weight: 400;
+                //         margin-bottom: 20px;
+                //     }
+
+                //     .computingPower {
+                //         width: 100%;
+                //         margin-top: 18px;
+                //         display: flex;
+                //         justify-content: space-between;
+                //         font-family: 'PingFang SC';
+                //         font-style: normal;
+                //         font-weight: 400;
+                //         font-size: 16px;
+                //         line-height: 22px;
+                //         color: #FFFFFF;
+
+                //         .value {
+                //             color: #DB2DCF;
+                //         }
+                //     }
+
+                //     .share {
+                //         width: 100%;
+                //         margin-top: 20px;
+                //         display: flex;
+                //         align-items: center;
+
+                //         .shareBox {
+                //             height: 12px;
+                //             flex: auto;
+                //             background: rgba(0, 0, 0, 0.1);
+                //             border-radius: 8px;
+
+                //             .shareValue {
+                //                 height: 100%;
+                //                 background: linear-gradient(90deg, #4EADF5 0%, #DB2DCF 100%);
+                //                 border-radius: 8px;
+                //                 font-family: 'DIN';
+                //                 font-style: normal;
+                //                 font-weight: 500;
+                //                 font-size: 12px;
+                //                 letter-spacing: 0.08em;
+                //                 color: #FFFFFF;
+                //                 text-align: right;
+                //                 display: flex;
+                //                 align-items: center;
+                //                 justify-content: flex-end;
+                //             }
+                //         }
+
+                //         .addBtn {
+                //             width: 70px;
+                //             display: flex;
+                //             justify-content: end;
+                //         }
+                //     }
+                // }
 
                 @media (max-width:1024px) {
                     .SynthesisCardList {

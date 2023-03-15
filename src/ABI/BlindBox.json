@@ -35,11 +35,6 @@
         "internalType": "address",
         "name": "_badgeNFTAdd",
         "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_landNFTAdd",
-        "type": "address"
       }
     ],
     "stateMutability": "nonpayable",
@@ -94,6 +89,12 @@
         "indexed": false,
         "internalType": "uint256",
         "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "level",
         "type": "uint256"
       }
     ],
@@ -272,6 +273,25 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "balance",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "blindBoxRatio",
     "outputs": [
@@ -431,19 +451,6 @@
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "landNFTAdd",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -791,19 +798,6 @@
       }
     ],
     "name": "updateLandDividentRatio",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_landNFTAdd",
-        "type": "address"
-      }
-    ],
-    "name": "updateLandNFTAdd",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

@@ -3,12 +3,13 @@ import React from 'react'
 import { Modal } from 'antd';
 import { useTranslation } from 'react-i18next'
 import '../assets/style/componentsStyle/CardComRule.scss'
-import defaultCard from '../assets/image/defaultCard.png'
+import { nftLevel, nftType, landLevel } from '../config'
 interface PropsType {
   isShow: boolean,
   close: Function
 }
-function CardComSuccess(props: PropsType) {
+
+function CardComSuccess(props: any) {
   let { t } = useTranslation()
   return (
     <>
@@ -25,19 +26,19 @@ function CardComSuccess(props: PropsType) {
           <div className="ImgBox">
             <div className="leftBox">
               <div className="subTitle">徽章</div>
-              <img src={defaultCard} alt="" />
+              <img src={props.data.imageUrl} alt="" />
               <div className="valueBox">
-                五星-火精靈！
+                {nftLevel[props.data.cardLevel]}-{nftType[props.data.cardType]}！
                 <div className="value">
-                  价值：1.342531 BNB
+                  价值：{props.data.currentInitValue} BNB
                 </div>
               </div>
             </div>
             <div className="rightBox">
               <div className="subTitle">土地</div>
-              <img src={defaultCard} alt="" />
+              <img src={props.data.landImgUrl} alt="" />
               <div className="valueBox">
-                綠茵之地
+                {landLevel[props.data.landLevel]}
               </div>
             </div>
           </div>
