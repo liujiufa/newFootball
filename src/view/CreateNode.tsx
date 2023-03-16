@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import {
-  nodeLand, drawNodeAward
+  nodeLand, drawNodeAward, drawLand
 } from "../API";
 import { useSelector } from "react-redux";
 import { Modal } from "antd";
@@ -9,44 +9,25 @@ import { stateType } from "../store/reducer";
 import { useWeb3React } from "@web3-react/core";
 import { addMessage, AddrHandle, NumSplic, showLoding } from "../utils/tool";
 import { Contracts } from "../web3";
-import GlodJdSy from '../components/GlodJdSy'
 import BigNumber from "big.js";
-import landImg from "../assets/image/land1.jpg";
 import defaultCard from "../assets/image/defaultCard.png";
 import copy from "copy-to-clipboard";
-import { useLocation } from "react-router-dom";
-import { BlockUrl } from '../config'
+import { useLocation, useNavigate } from "react-router-dom";
+import { BlockUrl, landLevel } from '../config'
 import "../assets/style/Invitation.scss";
 import "../assets/style/componentsStyle/MyDealRecord.scss";
 import "../assets/style/componentsStyle/Reward.scss";
 declare let window: any;
 
-interface landDataType {
-  status: number;
-  level: number;
-  imageUrl?: string;
-}
-interface rewardDataType {
-  amount: number,
-  amountString: string,
-  coinName: string,
-  createTime: string,
-  freezeAmount: number,
-  id: number,
-  totalAmount: number,
-  type: number,
-  updateTime: string,
-  userAddress: string,
-  userId: number
-}
-
 export default function Invitation() {
   let location = useLocation();
   let { t } = useTranslation();
+  const navigate = useNavigate()
   let state = useSelector<stateType, stateType>((state) => state);
   let [CreateNodeData, setCreateNodeData] = useState<any>();
   let [isBuyValue, setIsBuyValue] = useState(0);
   let [showGuide, setShowGuide] = useState(false);
+  let [showGuideed, setShowGuideed] = useState(false);
   let [isBuy, setIsBuy] = useState(false);
   let [showBuySuccess, setShowBuySuccess] = useState(false);
   let [confirmBuy, setConfimBuy] = useState(false);
@@ -55,8 +36,8 @@ export default function Invitation() {
   useEffect(() => {
     if (state.token && web3React.account) {
       nodeLand().then((res: any) => {
-        console.log(res, '创世节点配置');
         if (res.code === 200) {
+          console.log(res.data, '创世节点配置');
           setCreateNodeData(res.data)
           console.log(res.data.nodeLevel);
           Contracts.example.queryClaimExtraMBAS(res.data.nodeLevel, web3React.account as string).then((res: any) => {
@@ -109,10 +90,30 @@ export default function Invitation() {
       })
     }
   }
+  const drawLandFun = () => {
+    if (state.token && web3React.account) {
+      drawLand({ id: CreateNodeData?.id }).then((res: any) => {
+        console.log(res, "tudi");
+        if (res.code === 200) {
+          showLoding(true)
+          Contracts.example.ApplyLand(web3React.account as string, res.data.data).then((res: any) => {
+            console.log(res, '领取成功');
+            showLoding(false)
+            setShowGuide(true)
+          }).finally(() => {
+            showLoding(false)
+          })
+        }
+      })
+    }
+  }
 
   const GetBtnFun = () => {
-    return <div className="getBtned flexCenter">已领取</div>
-    return <div className="getBtn flexCenter">领取</div>
+    if (CreateNodeData?.status === 1) {
+      return <div className="getBtned flexCenter" onClick={() => { setShowGuideed(true) }}>已领取</div>
+    } else {
+      return <div className="getBtn flexCenter" onClick={() => { drawLandFun() }}>领取</div>
+    }
   }
 
   const BuyBtnFun = () => {
@@ -125,6 +126,10 @@ export default function Invitation() {
     } else {
       return <div className="getBtnEnd flexCenter">认购</div>
     }
+  }
+
+  const activeFun = () => {
+    navigate('/Liquidity', { state: { cardLevel: CreateNodeData?.level as number } })
   }
 
   return (
@@ -158,7 +163,7 @@ export default function Invitation() {
       </div>
       {/* 领取成功 */}
       <Modal
-        visible={false}
+        visible={showGuide}
         className='nodeJoinModal guide'
         centered
         width={'432px'}
@@ -167,22 +172,22 @@ export default function Invitation() {
         onCancel={() => { setShowGuide(false) }}>
         <div className="box">
           <div className="tip">
-            领取成功!在MBAS中添加LP激活土地，<span>去添加</span>
+            领取成功!在MBAS中添加LP激活土地，<span onClick={() => { activeFun() }}>去添加</span>
           </div>
         </div>
       </Modal>
       {/* 成功领取土地 */}
       <Modal
-        visible={false}
+        visible={showGuideed}
         className='nodeJoinModal'
         centered
         width={'432px'}
         closable={false}
         footer={null}
-        onCancel={() => { setShowGuide(false) }}>
+        onCancel={() => { setShowGuideed(false) }}>
         <div className="box">
           <div className="tip">
-            已成功认领取5星土地 <span>查看</span>
+            已成功认领取{landLevel[CreateNodeData?.level]}星土地 <span onClick={() => { navigate('/Land') }}>查看</span>
           </div>
         </div>
       </Modal>

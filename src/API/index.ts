@@ -64,6 +64,7 @@ interface getUserCardType {
 }
 /* 获取用户徽章信息 */
 export function getUserCard(data: getUserCardType) {
+    console.log(data, "data");
     return axois.request({
         url: `/user/cCardUser/getCardUserInfo`,
         method: 'post',
@@ -85,6 +86,8 @@ export function compoundCard(data: compoundCardType) {
 }
 /* 获取可合成徽章 */
 export function getCardCompoundList(data: getUserCardType) {
+    console.log(data, "image.png");
+
     return axois.request({
         url: `/user/cCardUser/getCardCompoundList`,
         method: 'post',
@@ -177,7 +180,7 @@ export function getNodeEarnRecord(id: number) {
         method: 'get'
     })
 }
-/* 获取收益记录 type:1 推荐 2 土地服务奖 4 土地分红 */
+/* 获取收益记录 type:1 推荐 2 土地服务奖 4 土地分红 6：基金节点 */
 export function getUserAccountDetail(type: number) {
     return axois.request({
         url: `/user/uUserAccount/getUserAccountDetail/${type}`,
@@ -469,10 +472,42 @@ export function getUserCardCombineRecord() {
         method: 'get'
     })
 }
+// 获取达标节点数据
+export function qualifiedNode() {
+    return axois.request({
+        url: `/user/nNodeRecruitRecord/qualifiedNode`,
+        method: 'get'
+    })
+}
 // 已销毁记录
-export function getPledgeCardUserBurnInfo() {
+export function getPledgeCardUserBurnInfo(data: any) {
     return axois.request({
         url: `/user/cCardUser/getPledgeCardUserBurnInfo`,
-        method: 'get'
+        method: 'post',
+        data
+    })
+}
+// 领取土地
+export function drawLand(data: any) {
+    return axois.request({
+        url: `/user/lLandUser/drawLand`,
+        method: 'post',
+        data
+    })
+}
+// 领取土地
+export function drawNodeFund(data: any) {
+    return axois.request({
+        url: `/user/uUserAccount/drawNodeFund`,
+        method: 'post',
+        data
+    })
+}
+
+// 获取节点基金的金额
+export function nodeFund() {
+    return axois.request({
+        url: `/user/uUserAccount/nodeFund`,
+        method: 'get',
     })
 }

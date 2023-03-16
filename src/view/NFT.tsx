@@ -20,13 +20,10 @@ import '../assets/style/componentsStyle/AddFlow.scss'
 import SelMerge from "../components/SelMerge"
 import { useTranslation } from 'react-i18next'
 import { socketUrl } from "../config"
-// 挂卖详情
-import PutParticulars from '../components/PutParticulars'
 // 合成成功
 import ComSucceed from '../components/ComSucceed'
 import OpenRes from '../components/openRes'
-// 徽章合成规则
-import CardComRule from '../components/CardComRule'
+
 
 
 export interface BoxInfo {
@@ -211,15 +208,6 @@ function NFT() {
     setSelCardInfo(Card)
     setshowMerge(true)
     setshowSelCard(false)
-  }
-  // 提升算力函数
-  const ImproveComputingPowerFun = (id: number) => {
-    if (userCard[id].currentPower < userCard[id].basePower) {
-      setComputingPower(id)
-      setImproveComputingPower(true)
-    } else {
-      return addMessage(t('Computing power is full'))
-    }
   }
   /* 初始化数据 */
   useEffect(() => {

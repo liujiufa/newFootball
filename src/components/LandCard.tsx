@@ -33,23 +33,18 @@ function LandCard(props: LandUserCardPropsType) {
     4: [t('Epic'), t('add LP with value of 5 BNB'), t('LandServiceIncome4'), t('LandDividend')],
     5: [t('Legend'), t('add LP with value of 16 BNB'), t('LandServiceIncome5'), t('LandDividend')]
   }
-  const navigate = useNavigate()
   // console.log(props.cardInfo, props.userLevel, '激活');
 
-  const activeFun = () => {
-    navigate('/Liquidity', { state: { cardLevel: props.cardInfo.cardLevel as number } })
-  }
+
   return (
     <div className="CardItemLinearBorder" >
       <div className="CardItem">
+        <div className="ID">ID:{props.cardInfo.cardNo}</div>
         <div className="CardImg" onClick={() => { props.showDetail(props.Index) }}>
-          {props.cardInfo.isActivation == 0 && <div className="cardBg"><img src={i18n.language==='zh' ? cardBgImg : cardBgImgEN} alt="" /></div>}
+          {props.cardInfo.isActivation == 0 && <div className="cardBg"><img src={i18n.language === 'zh' ? cardBgImg : cardBgImgEN} alt="" /></div>}
           <img src={props.cardInfo.imageUrl} alt="" />
         </div>
-        <div className="cardId">
-          <div className='cardTip'>{cardObj[props.cardInfo.cardLevel][2]}</div>
-          {props.cardInfo.isActivation == 0 && <div className="toActiveBtn flex" onClick={() => { activeFun() }}>{t("Active")}</div>}
-        </div>
+
       </div>
     </div >
   )

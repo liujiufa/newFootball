@@ -128,10 +128,10 @@ function CardDetails(props: any) {
   return (
     <>
       {
-        props.CardInfo && <Modal title="Basic Modal" visible={props.isShow}
+        props.CardInfo && <Modal visible={props.isShow}
           destroyOnClose
           onCancel={() => props.close()}
-          className='CardModal'
+          className='landCard'
           centered
           width={'417px'}
           closable={false}

@@ -3,12 +3,10 @@ import '../assets/style/componentsStyle/carddetails.scss'
 import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
 import { useWeb3React } from '@web3-react/core'
-import { getBoxUserInfo, getPledgeCardUserInfo, getPledgeCardUserData, userDrawAward, userCancelDrawAward } from '../API'
+import { getBoxUserInfo, getPledgeCardUserInfo, getPledgeCardUserData, userDrawAward, userCancelDrawAward, getPledgeCardUserBurnInfo } from '../API'
 import PledgeCard, { CardInfoType } from '../components/PledgeCard'
 import CancelPledgeSuccess from '../components/CancelPledgeSuccess'
-import ImproveComputingPower from '../components/ImproveComputingPower'
 import CancelPledge from '../components/CancelPledge'
-import ImprovePowerSuccess from "../components/ImprovePowerSuccess"
 import NoData from '../components/NoData'
 import { useViewport } from '../components/viewportContext'
 import { Pagination } from 'antd';
@@ -55,8 +53,6 @@ function Pledge() {
   let [totalNum, SetTotalNum] = useState(0)
   // 可领取金额
   let [getValue, setGetValue] = useState(0)
-  // 提升算力值数据
-  let [computingPower, setComputingPower] = useState(0)
   // 控制可领取金额
   let [getPage, setGetPage] = useState(false)
   // 奖励记录
@@ -69,21 +65,7 @@ function Pledge() {
   let [cancelPledgeValue, setCancelPledgeValue] = useState('')
   let [page, SetPage] = useState(1)
   let [userCard, setuserCard] = useState<CardInfoType[]>([])
-  // 提升算力值弹窗
-  let [iproveComputingPower, setImproveComputingPower] = useState(false)
-  // 提升算力值值
-  let [iproveComputingPowerValue, setImproveComputingPowerValue] = useState('0')
-  // 提升算力成功
-  let [improvePowerSuccess, setImprovePowerSuccess] = useState(false)
-  // 提升算力函数
-  const ImproveComputingPowerFun = (id: number) => {
-    if (userCard[id].currentPower < userCard[id].basePower) {
-      setComputingPower(id)
-      setImproveComputingPower(true)
-    } else {
-      return addMessage(t('Computing power is full'))
-    }
-  }
+  let [burnCard, setBurnCard] = useState<any>([])
 
   function onChange(pageNumber: number) {
     SetPage(pageNumber)
@@ -159,6 +141,49 @@ function Pledge() {
     })
   }
 
+  const PledgeContent = () => {
+    if (TabIndex === 0) {
+      return <div className="PledgeContent">
+        {
+          userCard.length !== 0 ? <>
+            <div className="CardList">
+              {
+                userCard.map((item, index) => <div className="cancelPledge">
+                  <PledgeCard key={item.id} Index={index} cardInfo={item} cancelFun={ConNFTPledgeFun} tag="pledge"></PledgeCard>
+                  {/* <div className="btn flex" onClick={() => { ConNFTPledgeFun(item.tokenId) }}>{t("Cancel stake")}</div> */}
+                </div>)
+              }
+            </div>
+          </> : <>
+            <NoData></NoData>
+          </>
+        }
+        <div className="Pagination">
+          <Pagination style={{ margin: "auto" }} showQuickJumper defaultCurrent={page} defaultPageSize={12} showSizeChanger={false} total={totalNum} onChange={onChange} />
+        </div>
+      </div>
+    } else {
+      return <div className="PledgeContent">
+        {
+          burnCard?.length !== 0 ? <>
+            <div className="CardList">
+              {
+                burnCard?.map((item: any, index: any) => <div className="cancelPledge">
+                  <PledgeCard key={item.id} Index={index} cardInfo={item}></PledgeCard>
+                </div>)
+              }
+            </div>
+          </> : <>
+            <NoData></NoData>
+          </>
+        }
+        <div className="Pagination">
+          <Pagination style={{ margin: "auto" }} showQuickJumper defaultCurrent={page} defaultPageSize={12} showSizeChanger={false} total={totalNum} onChange={onChange} />
+        </div>
+      </div>
+    }
+  }
+
   useEffect(() => {
     if (state.token && web3React.account) {
       getPledgeCardUserInfo({
@@ -167,7 +192,6 @@ function Pledge() {
         userAddress: web3React.account
       }).then(res => {
         console.log(res.data, "用户徽章", res.data.size)
-        setImproveComputingPowerValue(res.data.promotePowerNum)
         setuserCard(res.data.list)
         SetTotalNum(res.data.size)
       })
@@ -179,7 +203,6 @@ function Pledge() {
           userAddress: web3React.account
         }, (data: any) => {
           console.log(data, '用户徽章')
-          setImproveComputingPowerValue(data.promotePowerNum)
           setuserCard(data.list)
           SetTotalNum(data.size)
         })
@@ -193,7 +216,8 @@ function Pledge() {
       }
 
     }
-  }, [state.token, web3React.account, page, totalNum, improvePowerSuccess, cancelPledgeSuccess])
+  }, [state.token, web3React.account, page, totalNum, cancelPledgeSuccess])
+
   useEffect(() => {
     if (state.token && web3React.account) {
       getPledgeCardUserData().then(res => {
@@ -218,6 +242,19 @@ function Pledge() {
 
     }
   }, [state.token, web3React.account])
+
+  useEffect(() => {
+    if (state.token && TabIndex === 1) {
+      getPledgeCardUserBurnInfo({
+        currentPage: page,
+        pageSize: 12,
+        userAddress: web3React.account
+      }).then((res: any) => {
+        console.log("销毁记录", res.data.list);
+        setBurnCard(res.data.list)
+      })
+    }
+  }, [state.token, TabIndex])
   return (
     <div>
       <div className="Edition-Center" id="Pledge">
@@ -240,39 +277,16 @@ function Pledge() {
           </div>
         </div>
         }
-
-        {
-          userCard.length !== 0 ? <>
-            <div className="CardList">
-              {
-                userCard.map((item, index) => <div className="cancelPledge">
-                  <PledgeCard key={item.id} Index={index} cardInfo={item} changeFun={ImproveComputingPowerFun}></PledgeCard>
-                  <div className="btn flex" onClick={() => { ConNFTPledgeFun(item.tokenId) }}>{t("Cancel stake")}</div>
-                </div>)
-              }
-            </div>
-          </> : <>
-            <NoData></NoData>
-          </>
-        }
-        <div className="Pagination">
-          <Pagination style={{ margin: "auto" }} showQuickJumper defaultCurrent={page} defaultPageSize={12} showSizeChanger={false} total={totalNum} onChange={onChange} />
-        </div>
-
-
+        <PledgeContent></PledgeContent>
       </div>
       {/* 取消质押 */}
       <CancelPledge CancelFun={CancelNFTPledgeFun} tokenId={cancelPledgeValue} showModal={cancelPledge} close={() => { setCancelPledge(false) }}></CancelPledge>
-      {/* 提升算力值 */}
-      {userCard[computingPower] && <ImproveComputingPower successFun={() => { setImprovePowerSuccess(true) }} value={iproveComputingPowerValue} data={userCard[computingPower]} showModal={iproveComputingPower} close={() => { setImproveComputingPower(false) }}></ImproveComputingPower>}
       {/* 领取记录 */}
       <RewardRecord showModal={rewardRecord} close={() => { setRewardRecord(false) }}></RewardRecord>
       {/* 可领取金额 */}
       {pledgeData && <AbleGetReward getFun={Receive} dataId={pledgeData.dataId} data={getValue} showModal={getPage} close={() => { setGetPage(false) }}></AbleGetReward>}
       {/* 取消成功 */}
       <CancelPledgeSuccess showModal={cancelPledgeSuccess} close={() => { setCancelPledgeSuccess(false) }}></CancelPledgeSuccess>
-      {/* 提升算力成功 */}
-      <ImprovePowerSuccess showModal={improvePowerSuccess} close={() => { setImprovePowerSuccess(false) }}></ImprovePowerSuccess>
 
     </div>
   )

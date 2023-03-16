@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Modal, Table } from "antd";
 import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
-import { getNodeEarnRecord } from '../API'
+import { getUserAccountDetail } from '../API'
 import { dateFormat } from '../utils/tool'
 import { useTranslation } from 'react-i18next'
 import "../assets/style/componentsStyle/GlodJdSy.scss";
@@ -13,18 +13,19 @@ interface propsType {
   id: number,
   close: Function
 }
-const type = ['', 'claim', 'Distribution', 'refund']
+const type = ['', 'claim', '獎勵領取', '獎勵發放']
 function GlodJdSy(props: propsType) {
   let { t } = useTranslation()
   let state = useSelector<stateType, stateType>(state => state);
   let [tableData, setTableData] = useState([])
   useEffect(() => {
     if (state.token && props.id !== -1) {
-      getNodeEarnRecord(props.id).then(res => {
+      getUserAccountDetail(props.id).then(res => {
+        console.log(res, '222');
         setTableData(res.data)
       })
     }
-  }, [state.token, props.id])
+  }, [state.token, props.id, props.isShow])
 
   return (
     <>
@@ -69,7 +70,6 @@ function GlodJdSy(props: propsType) {
             )}
           />
         </Table>
-        {/* <span>{t('Click anywhere to close')}</span> */}
       </Modal>
     </>
   );

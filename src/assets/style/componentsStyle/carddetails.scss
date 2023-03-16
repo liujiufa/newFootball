@@ -1,8 +1,4 @@
-.ant-modal-content {
-  overflow: visible;
-}
-
-.CardModal {
+.landCard {
   position: relative;
 
   .ant-modal-content {
@@ -48,7 +44,8 @@
       }
 
       img {
-        width: 100%;
+        max-width: 337px;
+        max-height: 337px;
       }
     }
 
@@ -108,17 +105,16 @@
         position: relative;
         width: 76px;
         height: 36px;
-        background: url(../../image/btnBg.png) no-repeat center / 100% 100%;
-        box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+        background: transparent;
         border-radius: 6px;
-        border: 0;
         font-family: 'PingFang SC';
         font-style: normal;
         font-weight: 400;
         font-size: 14px;
         line-height: 20px;
         /* identical to box height */
-        color: #fff;
+        color: #14FD87;
+        border: 1px solid rgba(32, 255, 231, 1);
 
         div {
           position: absolute;
@@ -171,7 +167,7 @@
 }
 
 @media screen and (max-width:425px) {
-  .Card {
+  .landCard {
     .ant-modal-body {
       padding: 0px 12px;
 

@@ -19,26 +19,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "../assets/style/Invitation.scss";
 import "../assets/style/componentsStyle/MyDealRecord.scss";
 import "../assets/style/componentsStyle/Reward.scss";
-import { type } from "@testing-library/user-event/dist/type";
-import { getRefereeUserAccount } from '../API/index'
 import NoData from "../components/NoData";
 BigNumber.NE = -40
 BigNumber.PE = 40
-interface InvitationItem {
-  userAddress: string;
-  id: number;
-}
-interface InvitationType {
-  list: InvitationItem[];
-  refereeAddress: string;
-  size: number;
-}
-interface refereeData {
-  id: number;
-  amount: number;
-  amountString: string;
-  coinName: string;
-}
 interface NodeDataType {
   "id": number,
   "periodNum": number,
@@ -60,12 +43,8 @@ export default function Invitation() {
   //   console.log(location.state);
   let { t } = useTranslation();
   let state = useSelector<stateType, stateType>((state) => state);
-  // 邀请列表数据
-  let [InvitationData, setInvitationTypeDate] = useState<InvitationType | null>(null);
   let [NodeApplyData, setNodeApplyData] = useState<NodeDataType>();
   let [NodeRankData, setNodeRankData] = useState<any>([]);
-  // 邀请列表数据弹窗
-  let [inviteModal, setInviteModal] = useState(false);
   let [ShowMoreDetail, setShowMoreDetail] = useState(false);
   let [showJoinSuccess, setShowJoinSuccess] = useState(false);
   let [showGetSuccess, setShowGetSuccess] = useState(false);
@@ -109,10 +88,12 @@ export default function Invitation() {
 
   useEffect(() => {
     if (state.token && web3React.account) {
-      Contracts.example.queryClaimMBAS(web3React.account).then((res: any) => {
-        console.log(res, '确认领取数据');
-        setIsGetValue(res)
-      })
+      if (web3React.account) {
+        Contracts.example.queryClaimMBAS(web3React.account).then((res: any) => {
+          console.log(res, '确认领取数据');
+          setIsGetValue([new BigNumber(res[0]).div(10 ** 18).toString(), new BigNumber(res[1]).div(10 ** 18).toString()])
+        })
+      }
     }
   }, [state.token, ConfirmBuy]);
 
@@ -212,8 +193,7 @@ export default function Invitation() {
             <div className="devideLine"></div>
             <div className="copyBtn" onClick={invitation}><img src={copyIcon} alt="" /></div>
           </div>
-          {/* <div className="inviteListBtn" onClick={() => { setInviteModal(true) }}>邀請列表({InvitationData ? 0 : (InvitationData?.list.length - 1)}) <img src={inviteListIcon} alt="" /></div> */}
-          <div className="inviteListBtn" onClick={() => { setInviteModal(true) }}>有效邀请:{NodeApplyData?.refereeCount ?? 0} <img onClick={() => { navigate('/Invitation') }} src={ableInviteIcon} alt="" /></div>
+          <div className="inviteListBtn">有效邀请:{NodeApplyData?.refereeCount ?? 0} <img onClick={() => { navigate('/Invitation') }} src={ableInviteIcon} alt="" /></div>
         </div>
 
         <div className="itemBox nodeAction">
@@ -256,15 +236,6 @@ export default function Invitation() {
             </div>
           </> : <NoData></NoData>
           }
-          {/* <div className="content">
-            <div className="itemsBox">
-              {NodeRankData.map((item: any, index: any) => <div key={index} className={index % 2 === 0 ? "items" : "oddItems items"}>
-                <div className="item rank">{item?.rank}</div>
-                <div className="item address">{item?.userAddress}</div>
-                <div className="item num">{item?.refereeCount}</div>
-              </div>)}
-            </div>
-          </div> */}
         </div>
       </div>
       {/* 成功参与 */}

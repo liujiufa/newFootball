@@ -51,7 +51,6 @@ function CardDetails(props: any) {
   // 铸造授权
   const [isApproveMergeValue, setIsApproveMergeValue] = useState(false)
   let [putPrice, setPutPrice] = useState('')
-  const [ApproveValue, setApproveValue] = useState('0')
   async function createOrder() {
     if (!web3React.account) {
       addMessage(t('Please connect Wallet'))
@@ -151,10 +150,10 @@ function CardDetails(props: any) {
   return (
     <>
       {
-        props.CardInfo && <Modal title="Basic Modal" visible={props.isShow}
+        props.CardInfo && <Modal visible={props.isShow}
           destroyOnClose
           onCancel={() => props.close()}
-          className='Card'
+          className='landCard'
           centered
           width={'417px'}
           closable={false}
@@ -183,16 +182,9 @@ function CardDetails(props: any) {
           }
           {
             props.type === "CreateOrder" && <div className='butm'>
-              {/* {
-                isApproved ? <button className='hc' onClick={createOrder}>{t('Verify')}</button> : <button className='hc' onClick={() => createOrderApproval()}>{t('Approve')}</button>
-              } */}
-
               <button className='hc' onClick={createOrder}>{t('Verify')}</button>
-
             </div>
           }
-
-          <span>{t('Click anywhere to close')}</span>
         </Modal>
       }
 

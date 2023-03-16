@@ -172,7 +172,7 @@ export default function Synthesis() {
                     res.data.list = res.data.list.filter((item: CardInfoType) => {
                         return item.tokenId !== SelCard1?.tokenId
                     })
-                    console.log(res.data, '111');
+                    console.log(res.data, '??????');
                     // toSBLFun(res.data.price, res.data)
                     setToBeSelect(res.data)
                     SetTotal(res.data.size)
@@ -234,27 +234,27 @@ export default function Synthesis() {
                 setuserCard(res.data.list)
                 SetTotalNum(res.data.size)
             })
-            // 推送
-            let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getCardUserInfo/${web3React.account}`, `/getCardUserInfo/${web3React.account}`,
-                {
-                    currentPage: page,
-                    level: level,
-                    pageSize: 12,
-                    type: type,
-                    userAddress: web3React.account
-                }, (data: any) => {
-                    console.log(data, '推送用户卡牌数据')
-                    setuserCard(data.list)
-                    SetTotalNum(data.size)
-                })
-            return () => {
-                try {
-                    stompClient.disconnect()
-                } catch {
+            // // 推送
+            // let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getCardUserInfo/${web3React.account}`, `/getCardUserInfo/${web3React.account}`,
+            //     {
+            //         currentPage: page,
+            //         level: level,
+            //         pageSize: 12,
+            //         type: type,
+            //         userAddress: web3React.account
+            //     }, (data: any) => {
+            //         console.log(data, '推送用户卡牌数据')
+            //         setuserCard(data.list)
+            //         SetTotalNum(data.size)
+            //     })
+            // return () => {
+            //     try {
+            //         stompClient.disconnect()
+            //     } catch {
 
-                }
-                clearInterval(sendTimer)
-            }
+            //     }
+            //     clearInterval(sendTimer)
+            // }
         } else {
             setuserCard([])
         }

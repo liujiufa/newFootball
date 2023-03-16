@@ -3,18 +3,27 @@
     padding: 1px;
     border-radius: 19px;
     box-sizing: border-box;
-    // background:linear-gradient(180deg, #4EADF5 0%, #DB2DCF 100%);
-    overflow: hidden;
     height: max-content;
 }
 
 .CardItem {
-    // background: #1F2045;
-    // box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
-    // border-radius: 19px;
+    background: #FFFFFF;
+    box-shadow: 15px 15px 0px rgba(116, 153, 138, 0.4);
+    border-radius: 10px;
     padding: 15px;
     box-sizing: border-box;
     margin: 1px;
+
+    .ID {
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 22px;
+        text-align: center;
+        color: rgba(0, 0, 0, 0.6);
+        margin-bottom: 12px;
+    }
 
     .CardImg {
         position: relative;
@@ -134,6 +143,7 @@
 @media screen and (max-width:1024px) {
     .CardItem {
         padding: 12px;
+
         .cardId {
             flex-direction: column;
             align-items: center;

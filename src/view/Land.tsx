@@ -132,16 +132,11 @@ function Land() {
   let [landRewardRecordId, setLandRewardRecordId] = useState(0)
   // 控制土地详情说明
   let [landDetailDes, setLandDetailDes] = useState(false)
-  //  土地申领成功
-  let [landApplication1, setLandApplication1] = useState<landObjType[]>([])
   // 我的权益
   let [userBeneficial, setUserBeneficial] = useState<UserBeneficialType[]>([])
-  //  土地申领数量
-  let [landApplicationNum, setLandApplicationNum] = useState(0)
+
   // 我的领地
   let [landUserCard, setLandUserCard] = useState<LandUserCard[]>([])
-  // 土地申领成功
-  let [ClaimSuccessModal, setClaimSuccessModal] = useState(false)
   /* 创建订单弹窗控制 */
   let [showCreateOrder, setShowCreateOrder] = useState(false)
   /* 创建订单成功弹窗控制 */
@@ -165,7 +160,6 @@ function Land() {
   function createOrderFun(level: number) {
     setUserCardDetail(false)
     setShowCreateOrder(true)
-
   }
   // 挂卖成功
   function CreateOrderSuccess() {
@@ -271,7 +265,7 @@ function Land() {
         setUserBeneficial(res.data)
       })
     }
-  }, [state.token, web3React.account, tabActive, landApplicationNum])
+  }, [state.token, web3React.account, tabActive])
 
   return (
     <div>
@@ -318,7 +312,6 @@ function Land() {
               <div className="myTitle" onClick={() => { setLandDetailDes(true) }}>{t("My title")}：{LevelObj[userLevel]}<img src={helpIcon}></img> </div>
               {/* 我的权益 */}
               <div className="RewardBox">
-
                 <div className="landService">
                   <div className="title">{t("Land service income")}</div>
                   <div className="allReward">
@@ -365,8 +358,6 @@ function Land() {
       </div>
       {/* 挂卖成功 */}
       <Tips isShow={showCreateOrderSuccess} title={t('List successfully')} subTitle={t('List to the market successfully')} enterFun={() => setShowCreateOrderSuccess(false)} close={() => setShowCreateOrderSuccess(false)}></Tips>
-      {/* 申领成功 */}
-      {landApplication1.length > 0 && <ClaimSuccess data={landApplication1} showModal={ClaimSuccessModal} close={() => { setClaimSuccessModal(false) }}></ClaimSuccess>}
       {/* 土地详情 */}
       {landUserCard[cardDetialIndex] && <LandCardDetails showCreateOrder={createOrderFun} userLevel={userLevel} CardInfo={landUserCard[cardDetialIndex]} showModal={userCardDetail} close={() => setUserCardDetail(false)}></LandCardDetails>}
       {/* 土地详情说明 */}

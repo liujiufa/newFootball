@@ -1,6 +1,7 @@
 import React from 'react'
 import '../assets/style/componentsStyle/Card.scss'
 import addIcon from '../assets/image/addIcon.png'
+import valueIcon from '../assets/image/valueIcon.svg'
 import { useTranslation } from 'react-i18next'
 export interface CardInfoType {
   id: number,
@@ -26,18 +27,15 @@ function Card(props: any) {
   return (
     <div className="Card">
       <div className="CardItem">
-        <div className="cardId">ID：{props.cardInfo.cardNo}</div>
+        <div className="valueBox">
+          <div className="title">價值<div className='iconBox'><img src={valueIcon} alt="" /></div></div>
+          <div className="valuePrice">2.542531 BNB</div>
+        </div>
         <div className="CardImg">
           <img src={props.cardInfo.imageUrl} alt="" />
         </div>
-        <div className="computingPower">
-          <div className="title">{t("Computing power")}</div>
-          <div className="value">{props.cardInfo?.currentPower}/{props.cardInfo?.basePower}</div>
-        </div>
-        <div className="share">
-          <div className="shareBox"><div className="shareValue" style={{ width: `${Math.floor(props.cardInfo?.currentPower / props.cardInfo?.basePower * 100)}%` }}>{Math.floor(props.cardInfo?.currentPower / props.cardInfo?.basePower * 100)}%</div></div>
-          <div className="addBtn" onClick={() => { props.changeFun(props.Index) }}><img src={addIcon} alt="" /></div>
-        </div>
+        <div className="ID">ID:  {props.cardInfo.cardNo}</div>
+        {props.tag === "Pledge" && <div className="cancelBtn flex" onClick={() => { props.cancelFun(props.cardInfo.tokenId) }}>{t("Cancel stake")}</div>}
       </div>
     </div >
   )

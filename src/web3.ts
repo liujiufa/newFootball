@@ -344,6 +344,11 @@ export class Contracts {
         this.verification('Pledge')
         return this.contract.Pledge?.methods.withdrawReward(data).send({ from: addr })
     }
+    //领取节点收益
+    getNodeFundAward(addr: string, data: string) {
+        this.verification('NodeDistribute')
+        return this.contract.NodeDistribute?.methods.withdrawReward(data).send({ from: addr })
+    }
     //领取土地收益
     getLandAward(addr: string, data: string) {
         this.verification('LandReward')

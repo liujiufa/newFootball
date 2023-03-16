@@ -1,11 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import {
-  getUserReferee,
-  getHomeLand,
-  getUserAccountList,
+  qualifiedNode,
   getCardUserMaxLevelInfo,
-  userDrawAward,
+  drawNodeFund,
   userCancelDrawAward,
+  nodeFund
 } from "../API";
 import { useSelector } from "react-redux";
 import { Modal } from "antd";
@@ -73,22 +72,16 @@ export default function Invitation() {
   //   console.log(location.state);
   let { t } = useTranslation();
   let state = useSelector<stateType, stateType>((state) => state);
-  // 邀请列表数据
-  let [InvitationData, setInvitationTypeDate] = useState<InvitationType | null>(null);
-
-
   let [landData, setLandData] = useState<landDataType | null>(null);
   let [TabIndex, setTabIndex] = useState(0);
   let [showGuide, setShowGuide] = useState(false);
   let [showProfit, setShowProfit] = useState(false)
   let [ProfitId, setProfitId] = useState(-1)
-
-  /* 奖励记录类型 */
-  let [RevenueType, setRevenueType] = useState(0);
   /* 邀请奖励机制弹窗控制 */
   let [ShowRevenueRecord, setShowRevenueRecord] = useState(false);
-  // 邀请奖励数据
   let [rewardData, setRewardData] = useState<rewardDataType | null>(null);
+  let [nodeData, setNodeData] = useState<any>(null);
+  let [nodeAwardData, setNodeAwardData] = useState<any>(null);
   /* 用户最高等级 */
   let [MaxLevel, setMaxLevel] = useState(0);
   const web3React = useWeb3React();
@@ -97,126 +90,102 @@ export default function Invitation() {
   useEffect(() => {
     if (state.token) {
       // 邀请奖励
-      getRefereeUserAccount().then((res) => {
-        console.log(res.data, '邀请奖励');
-        setRewardData(res.data);
+      qualifiedNode().then((res) => {
+        console.log(res.data, '节点');
+        setNodeData(res.data);
       });
-      getCardUserMaxLevelInfo().then((res) => {
-        setMaxLevel(res.data);
+      nodeFund().then((res: any) => {
+        console.log(res.data, '奖励');
+        setNodeAwardData(res.data);
       });
-      // 邀请列表
-      getUserReferee().then((res) => {
-        console.log(res);
-        setInvitationTypeDate(res.data);
-      });
-      getHomeLand().then((res) => {
-        console.log(res);
-        setLandData(res.data);
-      });
-    }
-    return () => {
-      clearTimeout(timeoutRef.current)
     }
   }, [state.token]);
-  let [touteid] = useState(location.state);
-
-  useEffect(() => {
-    // console.log(touteid);
-    if (touteid && rewardData && landData) {
-      setTabIndex(1);
-    }
-  }, [rewardData, landData]);
 
 
-  function ShowRevenueRecordFun(type: number) {
-    console.log(type);
-    setRevenueType(type);
-    setShowRevenueRecord(true);
-  }
-  function Receive(type: number, id: number, amount: string) {
+  function Receive(amount: string) {
     if (!web3React.account) {
       return addMessage(t("Please connect Wallet"));
     }
     if (new BigNumber(amount).lte(0)) {
       return addMessage(t("No collectable quantity"));
     }
-    userDrawAward({
-      type,
-      id,
+    drawNodeFund({
     }).then((res: any) => {
+      console.log(res);
       if (res.data) {
         showLoding(true)
-        Contracts.example
-          .getInviteReward(web3React.account as string, res.data)
-          .then(
-            (res: any) => {
-              addMessage(t('Receive success'))
-              timeoutRef.current = window.setTimeout(() => {
-                // getUserAccountList().then((res) => {
-                //   setRewardData(res.data);
-                // });
-                getCardUserMaxLevelInfo().then((res) => {
-                  setMaxLevel(res.data);
-                });
-                getRefereeUserAccount().then((res) => {
-                  console.log(res.data, '邀请奖励');
-                  setRewardData(res.data);
-                });
-              }, 5000);
+        Contracts.example.getNodeFundAward(web3React.account as string, res.data.data).then((res: any) => {
+          addMessage(t('Receive success'))
+          timeoutRef.current = window.setTimeout(() => {
+            nodeFund().then((res: any) => {
+              console.log(res.data, '奖励');
+              setNodeAwardData(res.data);
+            });
+          }, 5000);
 
-            },
-            (err: any) => {
-              if (err.code === 4001) {
-                userCancelDrawAward({ type, id }).then((res) => {
-                  addMessage(t('Cancellation received successfully'))
-                });
-              }
+        },
+          (err: any) => {
+            if (err.code === 4001) {
+              // userCancelDrawAward({ type, id }).then((res) => {
+              //   addMessage(t('Cancellation received successfully'))
+              // });
             }
-          ).finally(() => {
-            showLoding(false)
-          });
+          }
+        ).finally(() => {
+          showLoding(false)
+        });
       } else {
         addMessage(res.msg);
       }
     });
   }
+  const NodeState = () => {
+    if (nodeData?.nodeOrLand && nodeData?.is_activation && nodeData?.yesterdayRanking > 0) {
+      return <span>是</span>
+    } else {
+      return <span>否</span>
+    }
+  }
+
   return (
     <div className="Edition-Center" id="NodeFund">
       <div className="SwapTitle">节点基金</div>
       <div className="Invitation">
         <div className="itemBox">
           <div className="titleBox">
-            <div className="title">达标节点：<span> 否</span></div>
-            <div className="titleIcon"><img src={desIcon} alt="" /></div>
+            <div className="title">达标节点：<NodeState></NodeState></div>
+            <div className="titleIcon"><img src={desIcon} onClick={() => { setShowGuide(true) }} alt="" /></div>
           </div>
           <div className="content">
             <div className="items">
-              <div className="item"><img src={enoughIcon} alt="" /><div> 持有土地的创世节点/持有五星土地</div></div>
-              <div className="item"><img src={noEnoughIcon} alt="" /><div> 土地激活</div></div>
-              <div className="item"><img src={enoughIcon} alt="" /><div> 昨日排名: 12</div></div>
+              <div className="item"><img src={nodeData?.nodeOrLand ? enoughIcon : noEnoughIcon} alt="" /><div> 持有土地的创世节点/持有五星土地</div></div>
+              <div className="item"><img src={nodeData?.is_activation ? enoughIcon : noEnoughIcon} alt="" /><div> 土地激活</div></div>
+              <div className="item"><img src={nodeData?.yesterdayRanking > 0 ? enoughIcon : noEnoughIcon} alt="" /><div> 昨日排名: {nodeData?.yesterdayRanking}</div></div>
             </div>
-            <div className="NFTNum">我的团队土地NFT数量： <span>5</span></div>
+            <div className="NFTNum">我的团队土地NFT数量： <span>{nodeData?.landCount}</span></div>
           </div>
         </div>
 
-        {/* <div className="itemBox">
-          <div className="reward">奖励总金额：<span> 563.4568 MBAS</span></div>
-          <div className="yestoday">昨日奖励金额：<span> 563.4568 MBAS</span></div>
+        <div className="itemBox">
+          <div className="reward">奖励总金额：<span> {nodeAwardData?.totalAmount} MBAS</span></div>
+          <div className="yestoday">昨日奖励金额：<span> {nodeAwardData?.yesterDayAmount} MBAS</span></div>
           <div className="inputBox">
             <div className="inputValue">
-              <span className="inputValueStyle">{NumSplic(`${rewardData?.amountString}`, 4) || "0"}</span>
+              <span className="inputValueStyle">{NumSplic(`${nodeAwardData?.amount}`, 4) || "0"}</span>
               <span>
-                <img src={SBLToken} alt="" />{rewardData?.coinName || "SBL"}
+                <img src={SBLToken} alt="" />{nodeAwardData?.coinName || "MBAS"}
               </span>
             </div>
-            <div className="getBox"><div className="getBtn flex" onClick={() => Receive(1, rewardData?.id as number, `${rewardData?.amount}`)}>{t("Harvest")}</div></div>
+            <div className="getBox"><div className="getBtn flex" onClick={() => Receive(nodeAwardData?.amount)}>{t("Harvest")}</div></div>
           </div>
-          <div className="rewardRecord" onClick={() => ShowRevenueRecordFun(1)}>{t("Records2")}<img src={record} alt="" /></div>
-        </div> */}
+          <div className="rewardRecord" onClick={() => setShowProfit(true)}>{t("Records2")}<img src={record} alt="" /></div>
+        </div>
       </div>
+
+
       {/* 规则 */}
       <Modal
-        visible={false}
+        visible={showGuide}
         className='nodeJoinModal guide'
         centered
         width={'500px'}
@@ -234,7 +203,7 @@ export default function Invitation() {
         </div>
       </Modal>
       {/* 收益记录 */}
-      <GlodJdSy isShow={showProfit} id={ProfitId} close={() => { setShowProfit(false) }}></GlodJdSy>
+      <GlodJdSy isShow={showProfit} id={6} close={() => { setShowProfit(false) }}></GlodJdSy>
 
     </div >
   );

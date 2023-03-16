@@ -8,7 +8,7 @@ import { useViewport } from '../components/viewportContext'
 import { useWeb3React } from '@web3-react/core'
 import { Contracts } from '../web3';
 import { showLoding, addMessage, dateFormat, AddrHandle, getBit } from '../utils/tool';
-import { contractAddress } from '../config'
+import { contractAddress, nftType, nftLevel } from '../config'
 import Web3 from 'web3';
 import BigNumber from 'big.js'
 import '../assets/style/BlindBox.scss'
@@ -145,7 +145,7 @@ export default function BlindBox() {
     if (item?.type === 2) {
       return grade[item?.type]
     } else if (item?.type === 1) {
-      return `${landGrade[item?.nftType]}-${item?.level}星`
+      return `${nftLevel[item?.level]}-${nftType[item?.nftType]}`
     }
   }
   useEffect(() => {
@@ -229,7 +229,7 @@ export default function BlindBox() {
             {BoxRecord?.length > 0 && BoxRecord.map((item: any, index: any) => <div key={index} className="items contents">
               <div className="item time">{dateFormat('YYYY-mm-dd HH:MM', new Date(item?.createTime))}</div>
               <div className="item type">{gradeValueFun(item)}</div>
-              <div className="item value">{item?.amount} BNB</div>
+              <div className="item value">{!!item?.amount ? `${item?.amount} BNB` : "-"}</div>
               <div className="item hash">{AddrHandle(item?.txId, 6, 6)}</div>
             </div>)}
           </div>
