@@ -3,7 +3,7 @@ import React from 'react'
 import { Modal } from 'antd';
 import '../assets/style/componentsStyle/ConfirmExchange.scss'
 import BNBIcon from '../assets/image/BNBIcon.svg'
-import SBLIcon from '../assets/image/SBLTokens.png'
+import SBLIcon from '../assets/image/SBLIcon.png'
 import { useTranslation } from 'react-i18next';
 function ConfirmExchange(props: any) {
     let { t } = useTranslation()

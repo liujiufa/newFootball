@@ -234,6 +234,10 @@
                     line-height: 22px;
                     color: #000000;
                 }
+
+                .hash {
+                    color: #009E4E;
+                }
             }
         }
 
@@ -243,7 +247,7 @@
 
         .type,
         .value {
-            width: 100px;
+            width: 120px;
         }
 
         .addr {

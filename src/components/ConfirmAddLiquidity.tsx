@@ -8,7 +8,7 @@ import BigNumber from 'big.js'
 
 import '../assets/style/componentsStyle/ConfirmAddLiquidity.scss'
 import BNBIcon from '../assets/image/BNBIcon.svg'
-import SBLIcon from '../assets/image/SBL.png'
+import SBLIcon from '../assets/image/SBLIcon.png'
 import tipIcon from '../assets/image/tipIcon.png'
 import closeIcon from '../assets/image/closeIcon.png'
 

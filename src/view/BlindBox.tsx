@@ -9,6 +9,7 @@ import { useWeb3React } from '@web3-react/core'
 import { Contracts } from '../web3';
 import { showLoding, addMessage, dateFormat, AddrHandle, getBit } from '../utils/tool';
 import { contractAddress, nftType, nftLevel } from '../config'
+import { BlockUrl } from '../config'
 import Web3 from 'web3';
 import BigNumber from 'big.js'
 import '../assets/style/BlindBox.scss'
@@ -21,7 +22,7 @@ import grade3 from '../assets/image/grade4.png'
 import copyIcon from '../assets/image/copyIcon.png'
 import closeIcon from '../assets/image/closeIcon.png'
 import { useNavigate } from 'react-router-dom';
-
+import copy from "copy-to-clipboard";
 export interface BoxBaseType {
   id: number
   status: number
@@ -33,7 +34,6 @@ export interface BoxBaseType {
 }
 let grade = { 1: "一等奖", 2: "二等奖", 3: "三等奖", 4: "普通" }
 let gradeImg = { 1: grade0, 2: grade1, 3: grade2, 4: grade3 }
-let landGrade = { 1: "111", 2: "222", 3: "333", 4: "444", 5: "555" }
 export default function BlindBox() {
   let { t } = useTranslation()
   let state = useSelector<stateType, stateType>(state => state);
@@ -75,7 +75,7 @@ export default function BlindBox() {
   useEffect(() => {
     if (state.token) {
       wrapRecord().then((res: any) => {
-        console.log(res.data, '开奖');
+        console.log(res.data, 'BNB开奖');
         setWrapRecord(res.data)
       })
       boxRecord().then((res: any) => {
@@ -86,7 +86,7 @@ export default function BlindBox() {
   }, [state.token, TabIndex])
 
   const openBoxFun = () => {
-    if (parseFloat(BoxBaseValue?.price) > parseFloat(balance1)) {
+    if (parseFloat(BoxBaseValue?.MBASPrice) > parseFloat(balance1)) {
       return addMessage(t('Insufficient balance'))
     }
     showLoding(true)
@@ -94,12 +94,11 @@ export default function BlindBox() {
       console.log(res, '开宝箱');
       if (res.code === 200) {
         Contracts.example.openBox(web3React.account as string, res.data as string).then((res: any) => {
-          console.log(res, '购买宝箱');
           Contracts.example.web3.eth.getTransactionReceipt(res.transactionHash).then((res: any) => {
-            let value1 = Web3.utils.fromWei("0x" + res.logs[res.logs.length - 1].data.slice(res.logs[res.logs.length - 1].data.length - 192, res.logs[res.logs.length - 1].data.length - 128), "wei")
-            let type = Web3.utils.fromWei("0x" + res.logs[res.logs.length - 1].data.slice(res.logs[res.logs.length - 1].data.length - 128, res.logs[res.logs.length - 1].data.length - 64), "wei")
-            let grade = Web3.utils.fromWei("0x" + res.logs[res.logs.length - 1].data.slice(res.logs[res.logs.length - 1].data.length - 64), "wei")
-            console.log(res, value1, type, grade, '==========');
+            let value1 = Web3.utils.fromWei("0x" + res.logs[res.logs.length - 1].data.slice(res.logs[res.logs.length - 1].data.length - 256, res.logs[res.logs.length - 1].data.length - 192), "wei")
+            let type = Web3.utils.fromWei("0x" + res.logs[res.logs.length - 1].data.slice(res.logs[res.logs.length - 1].data.length - 192, res.logs[res.logs.length - 1].data.length - 128), "wei")
+            let grade = Web3.utils.fromWei("0x" + res.logs[res.logs.length - 1].data.slice(res.logs[res.logs.length - 1].data.length - 128, res.logs[res.logs.length - 1].data.length - 64), "wei")
+            console.log("日志:", res, "类型:", value1, "宝箱类型:", type, "宝箱等级:", grade,);
             // 0:NFT,1:一等奖,2:二等奖,3:三等奖,4:特等奖
             showLoding(false)
             if (value1 === '0') {
@@ -142,12 +141,15 @@ export default function BlindBox() {
   }
 
   const gradeValueFun = (item: any) => {
+    // 2:红包 1:土地
     if (item?.type === 2) {
-      return grade[item?.type]
+      return grade[item?.level]
     } else if (item?.type === 1) {
       return `${nftLevel[item?.level]}-${nftType[item?.nftType]}`
     }
   }
+
+
   useEffect(() => {
     if (web3React.account) {
       /* 查询MBAS余额 */
@@ -194,7 +196,12 @@ export default function BlindBox() {
         {TabIndex === 0 && <> 寶箱可以隨機開出一星、二星、三星三種屬性的精靈徽章NFT和一等獎、二等獎、三等獎、普通的BNB。精靈徽章NFT可以參與質押挖礦獲取MBAS，低星徽章合成高星徽章時，可以獲得土地NFT獎勵。NFT可在Metabase生態內的交易市場交易，也支持在第三方交易平臺交易。
           <div className="contractAddr">
             徽章NFT合約地址
-            <div className="addr">0xghgjgkhjh...hjkhjhk <img src={copyIcon} alt="" /></div>
+            <div className="addr">{AddrHandle(contractAddress.BlindBox, 10, 6)} <img onClick={() => {
+              copy(
+                contractAddress.BlindBox
+              );
+              addMessage(t("Copy Success"));
+            }} src={copyIcon} alt="" /></div>
           </div>
         </>}
 
@@ -213,7 +220,7 @@ export default function BlindBox() {
               <div className="item addr">{AddrHandle(item?.userAddress, 6, 6)}</div>
               <div className="item type">{grade[item?.level]}</div>
               <div className="item value">{item?.amount} BNB</div>
-              <div className="item hash">{AddrHandle(item?.txId, 6, 6)}</div>
+              <div className="item hash" onClick={() => { window.open(BlockUrl + item?.txId) }}>{AddrHandle(item?.txId, 6, 6)}</div>
             </div>)}
           </div>
         </>}
@@ -230,12 +237,11 @@ export default function BlindBox() {
               <div className="item time">{dateFormat('YYYY-mm-dd HH:MM', new Date(item?.createTime))}</div>
               <div className="item type">{gradeValueFun(item)}</div>
               <div className="item value">{!!item?.amount ? `${item?.amount} BNB` : "-"}</div>
-              <div className="item hash">{AddrHandle(item?.txId, 6, 6)}</div>
+              <div className="item hash" onClick={() => { window.open(BlockUrl + item?.txId) }}>{AddrHandle(item?.txId, 6, 6)}</div>
             </div>)}
           </div>
         </>}
       </div>
-
 
       {/* 成功购买弹窗 */}
       <Modal
@@ -251,7 +257,7 @@ export default function BlindBox() {
           <div className="title">恭喜！</div>
           <img src={BlindBoxImg} alt="" />
           <div className="type">{grade[ResultData]}</div>
-          <div className="confirmBtn  flexCenter">確認</div>
+          <div className="confirmBtn  flexCenter" onClick={() => setConfirmRewardBox(false)}>確認</div>
         </div>
       </Modal>
       {/* 成功打开NFT */}

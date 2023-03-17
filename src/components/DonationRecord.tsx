@@ -51,7 +51,7 @@ function DonationRecord(props: any) {
             )}
           />
           <Column
-            title={t("Burn amount SBL")}
+            title={t("Burn amount MBAS")}
             render={(item) => (
               <>
                 <div>{item.burnAmount}</div>

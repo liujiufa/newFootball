@@ -25,7 +25,7 @@ export default function Invitation() {
   const navigate = useNavigate()
   let state = useSelector<stateType, stateType>((state) => state);
   let [CreateNodeData, setCreateNodeData] = useState<any>();
-  let [isBuyValue, setIsBuyValue] = useState(0);
+  let [isBuyValue, setIsBuyValue] = useState<any>([]);
   let [showGuide, setShowGuide] = useState(false);
   let [showGuideed, setShowGuideed] = useState(false);
   let [isBuy, setIsBuy] = useState(false);
@@ -38,11 +38,10 @@ export default function Invitation() {
       nodeLand().then((res: any) => {
         if (res.code === 200) {
           console.log(res.data, '创世节点配置');
-          setCreateNodeData(res.data)
-          console.log(res.data.nodeLevel);
-          Contracts.example.queryClaimExtraMBAS(res.data.nodeLevel, web3React.account as string).then((res: any) => {
+          setCreateNodeData(res?.data)
+          Contracts.example.queryClaimExtraMBAS(res?.data?.nodeLevel, web3React.account as string).then((res: any) => {
             console.log(res, '确认领取数据');
-            setIsBuyValue(res)
+            setIsBuyValue([new BigNumber(res[0]).div(10 ** 18).toString(), new BigNumber(res[1]).div(10 ** 18).toString()])
           })
         }
       })
@@ -58,7 +57,7 @@ export default function Invitation() {
     }
   }, [state.token, web3React.account]);
 
-  window.ethereum.on('accountsChanged', () => {
+  window?.ethereum?.on('accountsChanged', () => {
     if (state.token && web3React.account) {
       Contracts.example.nodeReward(web3React.account).then((res: any) => {
         console.log(res, '是否认购');
@@ -67,6 +66,7 @@ export default function Invitation() {
     }
   })
 
+  // 认购
   const drawAwardFun = () => {
     if (state.token && web3React.account) {
       drawNodeAward({
@@ -203,9 +203,9 @@ export default function Invitation() {
         <div className="box">
           <div className="title">认购</div>
           <div className="tip">
-            本次认购需支付{NumSplic(CreateNodeData?.giveValue, 1)}BNB,将获得{isBuyValue[1]}MBAS
+            本次认购需支付{NumSplic(CreateNodeData?.giveValue, 4)}BNB,将获得{NumSplic(isBuyValue[1], 4)}MBAS
           </div>
-          <div className="confirm flexCenter" onClick={() => { drawAwardFun() }}>確認</div>
+          {!isBuy ? <div className="confirm flexCenter" onClick={() => { drawAwardFun() }}>確認</div> : <div className="confirmed flexCenter">確認</div>}
         </div>
       </Modal>
       {/* 成功认购 */}
@@ -219,7 +219,7 @@ export default function Invitation() {
         onCancel={() => { setShowBuySuccess(false) }}>
         <div className="box">
           <div className="tip">
-            已成功认购{isBuyValue[1]}MBAS（认购价值～{NumSplic(CreateNodeData?.giveValue, 1)}BNB）<span onClick={() => { window.open(BlockUrl + hashValue) }}>查看</span>
+            已成功认购{parseInt(isBuyValue[1])}MBAS（认购价值～{NumSplic(CreateNodeData?.giveValue, 1)}BNB）<span onClick={() => { window.open(BlockUrl + hashValue) }}>查看</span>
           </div>
         </div>
       </Modal>

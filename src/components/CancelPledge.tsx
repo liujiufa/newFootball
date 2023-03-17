@@ -3,7 +3,7 @@ import React from 'react'
 import { Modal } from 'antd';
 import '../assets/style/componentsStyle/ConfirmExchange.scss'
 import BNBIcon from '../assets/image/BNBIcon.svg'
-import SBLIcon from '../assets/image/SBLTokens.png'
+import SBLIcon from '../assets/image/SBLIcon.png'
 import { useTranslation } from 'react-i18next';
 function CancelPledge(props: any) {
     let { t } = useTranslation()
@@ -21,7 +21,6 @@ function CancelPledge(props: any) {
                 <div className="tip">{t("Confirm to cancel the stake")}?</div>
                 <div className="confirmBtn flex" onClick={() => { props.CancelFun(props.tokenId) }}>{t("Confirm")}</div>
 
-                <span>{t("clickLeave")}</span>
             </Modal>
         </>
     )

@@ -10,6 +10,8 @@ interface PropsType {
 }
 
 function CardComSuccess(props: any) {
+  console.log(props.data, '合成成功数据');
+
   let { t } = useTranslation()
   return (
     <>

@@ -14,7 +14,7 @@ import ConfirmAddLiquidity from '../components/ConfirmAddLiquidity'
 import ConfirmRmLiquidity from '../components/ConfirmRmLiquidity'
 import SuccessAddLiquidity from '../components/SuccessAddLiquidity'
 import SuccessRmLiquidity from '../components/SuccessRmLiquidity'
-import SBLIcon from '../assets/image/SBLToken.png'
+import SBLIcon from '../assets/image/SBLIcon.png'
 import BNBIcon from '../assets/image/BNBIcon.svg'
 import switchIcon from '../assets/image/dropDownIcon.png'
 import { Contracts } from '../web3';
@@ -91,9 +91,9 @@ export default function Liquidity() {
     // 添加流动性
     const addLiquidityFun = (type: number) => {
         console.log(balance, toSBL, balance1, type);
-        if (addLiquidityValue > parseFloat(balance) || parseFloat(toSBL) > parseFloat(balance1)) {
-            return addMessage('余额不足')
-        }
+        // if (addLiquidityValue > parseFloat(balance) || parseFloat(toSBL) > parseFloat(balance1)) {
+        //     return addMessage('余额不足')
+        // }
         if (state.token && web3React.account && addLiquidityValue > 0) {
             showLoding(true)
             Contracts.example.addLiquidity(web3React.account, addLiquidityValue, type).then((res: any) => {

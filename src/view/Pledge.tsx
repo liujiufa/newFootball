@@ -149,7 +149,7 @@ function Pledge() {
             <div className="CardList">
               {
                 userCard.map((item, index) => <div className="cancelPledge">
-                  <PledgeCard key={item.id} Index={index} cardInfo={item} cancelFun={ConNFTPledgeFun} tag="pledge"></PledgeCard>
+                  <PledgeCard key={item.id} Index={index} cardInfo={item} cancelFun={ConNFTPledgeFun} tag="Pledge"></PledgeCard>
                   {/* <div className="btn flex" onClick={() => { ConNFTPledgeFun(item.tokenId) }}>{t("Cancel stake")}</div> */}
                 </div>)
               }
@@ -269,11 +269,11 @@ function Pledge() {
           <div className="Tabs">
             <div className="pledgeValueBox">
               <div className="recentlyComputingPower">{t("Total current hashrate")}：{pledgeData?.power}</div>
-              <div className="pledgeAllReward">{t("Total staking rewards")}：{NumSplic(`${pledgeData?.totalAmount}`, 8)} SBL</div>
+              <div className="pledgeAllReward">{t("Total staking rewards")}：{NumSplic(`${pledgeData?.totalAmount}`, 8)} MBAS</div>
             </div>
           </div>
           <div className="DropDownGroup">
-            <div className="ableGetReward">{t("Claimable")}：<span onClick={() => { setRewardRecord(true) }}>{NumSplic(`${pledgeData?.amount}`, 8)} SBL</span> {pledgeData?.amount ? <div className="getBtn flex" onClick={() => { getBtnFun(pledgeData?.amount) }}>{t("Harvest")}</div> : <div className="getBtn flex" onClick={() => { getBtnFun(0) }}>{t("Harvest")}</div>}</div>
+            <div className="ableGetReward">{t("Claimable")}：<span onClick={() => { setRewardRecord(true) }}>{NumSplic(`${pledgeData?.amount}`, 8)} MBAS</span> {pledgeData?.amount ? <div className="getBtn flex" onClick={() => { getBtnFun(pledgeData?.amount) }}>{t("Harvest")}</div> : <div className="getBtn flex" onClick={() => { getBtnFun(0) }}>{t("Harvest")}</div>}</div>
           </div>
         </div>
         }

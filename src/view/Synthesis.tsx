@@ -39,7 +39,7 @@ interface SelCardType {
 const typeMap = [
     {
         key: 'All the types',
-        value: 0
+        value: -1
     },
     {
         key: 'Perseus Badge',
@@ -66,7 +66,7 @@ export default function Synthesis() {
     const [isApproved, setIsApproved] = useState(false)
     const [SelCard1, setSelCard1] = useState<any>(null)
     const [MergeResult, setMergeResult] = useState<any>(null)
-    const [SelCard2, setSelCard2] = useState<CardInfoType | null>(null)
+    const [SelCard2, setSelCard2] = useState<any>(null)
     let [userCard, setuserCard] = useState<CardInfoType[]>([])
     /* 分页总条数 */
     let [totalNum, SetTotalNum] = useState(0)
@@ -79,7 +79,7 @@ export default function Synthesis() {
     /* 等级筛选 */
     let [level, SetLevel] = useState(0)
     /* 类型筛选 */
-    let [type, SetType] = useState(0)
+    let [type, SetType] = useState(-1)
     /* 分页 */
     let [page, SetPage] = useState(1)
     /* 总条数 */
@@ -159,30 +159,76 @@ export default function Synthesis() {
             </div>
         }
     }
+    const initFirstFun = () => {
+        getUserCard({
+            currentPage: page,
+            level: level,
+            pageSize: 12,
+            type: type,
+            userAddress: web3React.account as string
+        }).then(res => {
+            console.log(res.data, "用户徽章")
+            setuserCard(res.data.list)
+            SetTotalNum(res.data.size)
+        })
+        // // 推送
+        // let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getCardUserInfo/${web3React.account}`, `/getCardUserInfo/${web3React.account}`,
+        //     {
+        //         currentPage: page,
+        //         level: level,
+        //         pageSize: 12,
+        //         type: type,
+        //         userAddress: web3React.account
+        //     }, (data: any) => {
+        //         console.log(data, '推送用户卡牌数据')
+        //         setuserCard(data.list)
+        //         SetTotalNum(data.size)
+        //     })
+        // return () => {
+        //     try {
+        //         stompClient.disconnect()
+        //     } catch {
+
+        //     }
+        //     clearInterval(sendTimer)
+        // }
+    }
+
+    const initSecFun = () => {
+        getCardCompoundList({
+            currentPage: page,
+            level: SelCard1?.cardLevel,
+            type: SelCard1?.cardLevel < 5 ? type : SelCard1?.cardType,
+            pageSize: 12,
+            userAddress: web3React.account as string
+        }).then((res: any) => {
+            if (res.code === 200) {
+                res.data.list = res.data.list.filter((item: CardInfoType) => {
+                    return item.tokenId !== SelCard1?.tokenId
+                })
+                console.log(res.data, '??????');
+                // toSBLFun(res.data.price, res.data)
+                setToBeSelect(res.data)
+                SetTotal(res.data.size)
+            }
+        })
+    }
+
     useEffect(() => {
         if (web3React.account && state.token) {
-            getCardCompoundList({
-                currentPage: page,
-                level: SelCard1?.cardLevel,
-                type: SelCard1?.cardLevel < 5 ? type : SelCard1?.cardType,
-                pageSize: 12,
-                userAddress: web3React.account
-            }).then((res: any) => {
-                if (res.code === 200) {
-                    res.data.list = res.data.list.filter((item: CardInfoType) => {
-                        return item.tokenId !== SelCard1?.tokenId
-                    })
-                    console.log(res.data, '??????');
-                    // toSBLFun(res.data.price, res.data)
-                    setToBeSelect(res.data)
-                    SetTotal(res.data.size)
-                }
-            })
+            initSecFun()
+        } else {
+            setToBeSelect(null)
+        }
+    }, [web3React.account, state.token, type, page, SelCard1])
+
+    useEffect(() => {
+        if (web3React.account) {
             Contracts.example.isApprovedForAll(web3React.account, contractAddress.NFT).then((res: boolean) => {
                 setIsApproved(res)
             })
         }
-    }, [web3React.account, state.token, type, page, SelCard1])
+    }, [web3React.account])
 
     /* 合成 */
     async function mager() {
@@ -209,10 +255,12 @@ export default function Synthesis() {
             cardId: SelCard1.id,
             choiceCardId: SelCard2.id
         }).then((resSign: any) => {
-            console.log(resSign);
+            console.log(resSign, '合成数据');
             setMergeResult(resSign.data)
             Contracts.example.toSynthesis(web3React.account as string, resSign.data.sign).then((res: any) => {
                 setShowMergeSuccess(true)
+                initFirstFun()
+                initSecFun()
             }).finally(() => {
                 showLoding(false)
             })
@@ -223,38 +271,7 @@ export default function Synthesis() {
 
     useEffect(() => {
         if (state.token && web3React.account) {
-            getUserCard({
-                currentPage: page,
-                level: level,
-                pageSize: 12,
-                type: type,
-                userAddress: web3React.account
-            }).then(res => {
-                console.log(res.data, "用户徽章")
-                setuserCard(res.data.list)
-                SetTotalNum(res.data.size)
-            })
-            // // 推送
-            // let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getCardUserInfo/${web3React.account}`, `/getCardUserInfo/${web3React.account}`,
-            //     {
-            //         currentPage: page,
-            //         level: level,
-            //         pageSize: 12,
-            //         type: type,
-            //         userAddress: web3React.account
-            //     }, (data: any) => {
-            //         console.log(data, '推送用户卡牌数据')
-            //         setuserCard(data.list)
-            //         SetTotalNum(data.size)
-            //     })
-            // return () => {
-            //     try {
-            //         stompClient.disconnect()
-            //     } catch {
-
-            //     }
-            //     clearInterval(sendTimer)
-            // }
+            initFirstFun()
         } else {
             setuserCard([])
         }
@@ -268,16 +285,25 @@ export default function Synthesis() {
                     <div className="SynthesisItems">
                         <div className="CardItems">
                             {/* 三个150px水平排列 */}
-                            <div className="CardItemsLeft"><img src={SelCard1?.imageUrl} alt="" ></img>
+                            <div className="CardItemsLeft" onClick={() => { setSelCard1(null) }}>
+                                <div className="CardImg">
+                                    <img src={SelCard1?.imageUrl} alt="" ></img>
+                                </div>
+                                <div className="price">{SelCard1?.currentInitValue ?? 0} BNB</div>
                             </div>
                             <div className="Add"><img src={AddImg} alt="" /></div>
-                            {
+                            <div className="CardItemsRight" onClick={() => { setSelCard2(null) }}>
+                                <div className="CardImg">
+                                    <img src={SelCard2?.imageUrl} alt="" />
+                                </div>
+                                <div className="price">{SelCard2?.currentInitValue ?? 0} BNB</div>
+                            </div>
+                            {/* {
                                 SelCard2 ? <>
-                                    <div className="CardItemsRight"><div className="CardImg"><img src={SelCard2?.imageUrl} alt="" /></div></div>
                                 </> : <>
                                     <div className="CardItemsRight"><div className="CardImg"></div></div>
                                 </>
-                            }
+                            } */}
                         </div>
                         <div className="result">
                             <img src={resultImg} alt="" />
@@ -299,7 +325,7 @@ export default function Synthesis() {
                 <div className='SynthesisList'>
                     <div className="Category">
                         <div className="dropBox">
-                            <DropDown Map={typeMap} change={SetType}></DropDown>
+                            <DropDown Map={typeMap} change={SetType} staetIndex={type}></DropDown>
                             <DropDown Map={LevelMap} change={(num: number) => { SetLevel(num) }} staetIndex={level}>
                             </DropDown>
                         </div>
@@ -314,9 +340,9 @@ export default function Synthesis() {
                     <CardListBox></CardListBox>
 
                 </div>
-            </div>
+            </div >
             <CardComRule isShow={showMergeRule} close={() => setShowMergeRule(false)}></CardComRule>
-            {MergeResult && <CardComSuccess isShow={showMergeSuccess} data={MergeResult} close={() => setShowMergeSuccess(false)}></CardComSuccess>}
+            {MergeResult && <CardComSuccess isShow={showMergeSuccess} data={MergeResult.cardUser} close={() => setShowMergeSuccess(false)}></CardComSuccess>}
             <CardComRecord isShow={showMergeRecord} close={() => setShowMergeRecord(false)}></CardComRecord>
         </div >
     )

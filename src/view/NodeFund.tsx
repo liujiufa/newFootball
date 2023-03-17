@@ -18,7 +18,7 @@ import BigNumber from "big.js";
 import GainRecording from "../components/GainRecording";
 import InviteList from "../components/InviteList";
 import BNBIcon from "../assets/image/BNBIcon.svg";
-import SBLToken from "../assets/image/SBL.png";
+import SBLToken from "../assets/image/SBLIcon.png";
 import copyIcon from "../assets/image/copyIcon.png";
 import mechanism from "../assets/image/mechanism.png";
 import desIcon from "../assets/image/desIcon24.png";

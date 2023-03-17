@@ -8,8 +8,6 @@ import { getBoxUserInfo, getUserCard, getPromotePowerNum } from '../API'
 import DropDown from '../components/DropDown'
 import Card, { CardInfoType } from '../components/Card'
 import Tips from '../components/Tips'
-import BlindBox from '../components/BlindBox'
-import CardSynthesis from "../components/CardSynthesis"
 import '../assets/style/Swap.scss'
 import PledgeSuccess from '../components/PledgeSuccess'
 import NoData from '../components/NoData'
@@ -69,7 +67,7 @@ const LevelMap = [
 const typeMap = [
   {
     key: 'All the types',
-    value: 0
+    value: -1
   },
   {
     key: 'Perseus Badge',
@@ -97,7 +95,7 @@ function NFT() {
   const web3React = useWeb3React()
   let [TabIndex, SetTabIndex] = useState(0)
   /* 类型筛选 */
-  let [type, SetType] = useState(0)
+  let [type, SetType] = useState(-1)
   let levelRef = useRef<number>(0)
   let funRef = useRef()
   /* 等级筛选 */
@@ -345,10 +343,7 @@ function NFT() {
       }
       {/* 挂卖成功 */}
       <Tips isShow={showCreateOrderSuccess} title={t('List successfully')} subTitle={t('List to the market successfully')} enterFun={() => setShowCreateOrderSuccess(false)} close={() => setShowCreateOrderSuccess(false)}></Tips>
-      {/* 徽章合成 */}
-      {
-        width >= 1024 && <CardSynthesis isShow={showCardSynthesis} mergeSuccess={mergeSuccess} CardInfo={userCard[cardDetialIndex]} close={() => setshowCardSynthesis(false)}></CardSynthesis>
-      }
+
 
       {/* 小屏选择NFT */}
       {

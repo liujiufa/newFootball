@@ -6,25 +6,14 @@ import { CardInfoType } from './Card'
 import { useTranslation } from 'react-i18next'
 import { addMessage, showLoding } from '../utils/tool'
 import { Modal, Image } from 'antd';
-import { contractAddress } from '../config'
+import { contractAddress, nftType, nftLevel } from '../config'
 import BigNumber from 'big.js'
 import '../assets/style/componentsStyle/carddetails.scss'
 import { useNavigate } from 'react-router-dom';
-
-interface CardDetailPropsType {
-  isShow: boolean,
-  close: Function,
-  type: string,
-  CardInfo: CardInfoType,
-  showCreateOrder?: Function
-  CreateOrderSuccess?: Function
-  showMerge?: Function
-  pledgeSuccessModal: Function,
-}
-const cardClass = ['', 'Perseus Badge', 'Khaos Badge', 'Gaea Badge', 'Astra Badge']
-const level = ['', 'Common', 'Uncommon', 'Outstanding', 'Rare', 'Perfect', 'Epic']
 /* type:Swap 交易场详情 CreateOrder 挂单详情 NFT 背包徽章详情 */
 function CardDetails(props: any) {
+  console.log("CardDetails", props);
+
   const navigate = useNavigate()
   let { t, i18n } = useTranslation()
   const web3React = useWeb3React()
@@ -144,15 +133,19 @@ function CardDetails(props: any) {
             }}></Image>
           </div>
           <div className="p1">
-            <div className='kpdetails'>{t('Card Name')}:{i18n.language === 'zh' ? props.CardInfo.zhCardName : props.CardInfo.cardName}</div>
+            <div className='kpdetails'>{t('Card Name')}:{t(nftLevel[props.CardInfo.cardLevel])}-{t(nftType[props.CardInfo.cardType])}</div>
             <div className='kpdetails'>{t('CardID')}:{props.CardInfo.cardNo}</div>
           </div>
           <div className="p2">
-            <div className='kpdetails'>{t("Computing power")}:{props.CardInfo.currentPower}/{props.CardInfo.basePower}({Math.floor(props.CardInfo.currentPower / props.CardInfo.basePower * 100)}%)</div>
-            <div className='kpdetails'>{t('CardLevel')}:{t(level[props.CardInfo.cardLevel])}</div>
+            <div className='kpdetails'>{t('CardLevel')}:{t(nftLevel[props.CardInfo.cardLevel])}</div>
+            <div className='kpdetails'>{t('ComputingPower')}:{props.CardInfo.power}</div>
           </div>
+          <div className="p2">
+            <div className='kpdetails'>{t('CardType')}:{t(nftType[props.CardInfo.cardType])}</div>
+            <div className='kpdetails'>價值：{props.CardInfo.currentInitValue} BNB</div>
+          </div>
+          <div className='kpdetails'>累计产出: {props.CardInfo.releaseNum} MBAS</div>
 
-          <div className='kpdetails'>{t('CardType')}:{t(cardClass[props.CardInfo.cardType])}</div>
           <div className='kpdetails'>{t('Introduction Card')}:{i18n.language === 'zh' ? props.CardInfo.zhIntroduce : props.CardInfo.introduce}</div>
 
           {
@@ -174,7 +167,7 @@ function CardDetails(props: any) {
 
           {/* 挂卖 */}
           {
-            props.type === "CreateOrder" && <p className='kpdetails'>{t('Please enter price')}:<input type='text' value={putPrice} onChange={putNum} />SBL</p>
+            props.type === "CreateOrder" && <p className='kpdetails'>{t('Please enter price')}:<input type='text' value={putPrice} onChange={putNum} />MBAS</p>
           }
           {
             props.type === "CreateOrder" && <div className='butm'>

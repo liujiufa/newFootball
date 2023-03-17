@@ -83,7 +83,7 @@ const LandLevelMap = [
 const typeMap = [
   {
     key: 'All the types',
-    value: 0
+    value: -1
   },
   {
     key: 'Perseus Badge',
@@ -137,7 +137,7 @@ const sortLandMap = [
 const MyMap = [
   {
     key: 'All',
-    value: 0
+    value: -1
   },
   {
     key: 'Badge',
@@ -180,13 +180,13 @@ function Swap() {
   /* 筛选排序 */
   let [sortLand, SetLandSort] = useState(1)
   /* 类型筛选 */
-  let [type, SetType] = useState(0)
+  let [type, SetType] = useState(-1)
   /* 等级筛选 */
   let [level, SetLevel] = useState(0)
   /* 土地等级筛选 */
   let [LandLevel, SetLandLevel] = useState(0)
   /* 用户订单类型筛选 */
-  let [usertype, SetUsertype] = useState(0)
+  let [usertype, SetUsertype] = useState(-1)
   /* 用户订单等级筛选 */
   let [userlevel, SetUserlevel] = useState(0)
   /* tab */
@@ -196,7 +196,7 @@ function Swap() {
   // 我的封号
   let [userLevel, setUserLevel] = useState(0)
   /* 我的类型 */
-  let [cardMyType, SetCardMyType] = useState(0)
+  let [cardMyType, SetCardMyType] = useState(-1)
   /* 徽章详情弹窗控制 */
   let [showCardDetail, setShowCardDetail] = useState(false)
   /* 确认购买弹窗控制 */
@@ -436,9 +436,9 @@ function Swap() {
           orderInfo && orderInfo.cardType !== 5 && <PutParticulars isShow={showCardDetail} OrderInfo={orderInfo} close={() => setShowCardDetail(false)} ></PutParticulars>
         }
         {/* 土地详情 */}
-        {
+        {/* {
           orderInfo && orderInfo.cardType === 5 && <LandPutParticulars userLevel={userLevel} isShow={showCardDetail} OrderInfo={orderInfo} close={() => setShowCardDetail(false)} ></LandPutParticulars>
-        }
+        } */}
         {/* 取消挂卖成功 */}
         <Tips isShow={showCancelSuccess} title={t('Cancellation succeeded')} subTitle={t('Cancel tips')} enterFun={() => setShowCancelSuccess(false)} close={() => setShowCancelSuccess(false)}></Tips>
         {/* 取消挂卖 */}
@@ -463,21 +463,21 @@ function Swap() {
           </div>
           {
             TabIndex === 0 && <div className="DropDownGroup">
-              <DropDown Map={LevelMap} change={SetLevel}></DropDown>
-              <DropDown Map={typeMap} change={SetType}></DropDown>
-              <DropDown Map={sortMap} change={SetSort}></DropDown>
+              <DropDown Map={LevelMap} change={SetLevel} staetIndex={level}></DropDown>
+              <DropDown Map={typeMap} change={SetType} staetIndex={type}></DropDown>
+              <DropDown Map={sortMap} change={SetSort} staetIndex={sort}></DropDown>
             </div>
           }
           {
             TabIndex === 1 && <div className="DropDownGroup">
-              <DropDown Map={LandLevelMap} change={SetLandLevel} ></DropDown>
-              <DropDown Map={sortLandMap} change={SetLandSort}></DropDown>
+              <DropDown Map={LandLevelMap} change={SetLandLevel}></DropDown>
+              <DropDown Map={sortLandMap} change={SetLandSort} staetIndex={sortLand}></DropDown>
             </div>
           }
           {
             TabIndex === 2 && <div className="DropDownGroup">
               <img src={orderRecord} alt="" onClick={() => { setShowOrderRecord(true) }} />
-              <DropDown Map={MyMap} change={SetCardMyType} ></DropDown>
+              <DropDown Map={MyMap} change={SetCardMyType} staetIndex={cardMyType}  ></DropDown>
             </div>
           }
         </div>

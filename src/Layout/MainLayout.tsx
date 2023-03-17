@@ -1,10 +1,13 @@
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Layout } from "antd";
 import { useConnectWallet, injected, ChainId } from "../web3";
 import { AddrHandle, addMessage } from "../utils/tool";
 import { useWeb3React } from "@web3-react/core";
+import { useSelector } from "react-redux";
+import { stateType } from '../store/reducer'
+import { getUserInfo } from '../API/index'
 import copy from "copy-to-clipboard";
 import logo from "../assets/image/logo.svg";
 import Doc from "../assets/image/Doc.svg";
@@ -28,10 +31,12 @@ interface SubMenuItemType {
   Fun: () => void
 }
 const MainLayout: React.FC = () => {
+  let state = useSelector<stateType, stateType>(state => state);
   let { t, i18n } = useTranslation();
   const web3React = useWeb3React();
   let [showSubMenu, setShowSubMenu] = useState(false);
   let [showDropMenu, setShowDropMenu] = useState<any>();
+  let [UserInfo, setUserInfo] = useState<any>();
   let [subMenuList, setSubMenuList] = useState<SubMenuItemType[]>([]);
   let Connect = useConnectWallet();
   // 底部更多菜单
@@ -118,9 +123,6 @@ const MainLayout: React.FC = () => {
     //   }
     // },
   ]
-  function getparent(triggerNode: any) {
-    return triggerNode.parentNode;
-  }
   function changeLanguage(lang: any) {
     window.localStorage.setItem("lang", lang.key);
     i18n.changeLanguage(lang.key);
@@ -334,9 +336,27 @@ const MainLayout: React.FC = () => {
   }
   // 导航
   const navigateFun = (path: string) => {
-    navigate(path)
-    setShowDropMenu(null)
+    if (path === "/CreateNode") {
+      if (UserInfo?.nodeLevel > 0 && UserInfo?.endTime < Date.now()) {
+        navigate(path)
+        setShowDropMenu(null)
+      } else {
+        addMessage("您没有权限！")
+      }
+    } else {
+      navigate(path)
+      setShowDropMenu(null)
+    }
   }
+
+  useEffect(() => {
+    if (state.token) {
+      getUserInfo().then(res => {
+        console.log(res.data, "我的信息")
+        setUserInfo(res.data)
+      })
+    }
+  }, [state.token])
 
   return (
     <Layout>

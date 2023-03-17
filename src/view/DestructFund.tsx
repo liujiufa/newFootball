@@ -15,7 +15,7 @@ import DonateDestroy from '../components/DonateDestroy'
 import ConfirmDestruct from '../components/ConfirmDestruct'
 import DonationRecord from '../components/DonationRecord'
 import GetRecord from '../components/GetRecord'
-import SBLIcon from '../assets/image/SBLTokens.png'
+import SBLIcon from '../assets/image/SBLIcon.png'
 import BNBIcon from '../assets/image/BNBIcon.svg'
 import RecordIcon from '../assets/image/record.png'
 import desIcon from '../assets/image/desIcon.png'
@@ -77,7 +77,7 @@ function DestructFund() {
     if (parseFloat(burnLimitValue) <= 0) {
       return addMessage(t('Insufficient amount of destruction fund'))
     }
-    if (inputValue <= Math.floor(parseInt(toSBL) * 0.05) && inputValue >= parseInt(minBurn)) {
+    if (inputValue <= Math.floor(parseInt(toSBL) * 0.5) && inputValue >= parseInt(minBurn)) {
       setConBurn(true)
     } else {
       return addMessage(t('Please enter the correct value'))
@@ -92,7 +92,7 @@ function DestructFund() {
     if (parseFloat(burnLimitValue) <= 0) {
       return addMessage(t('Insufficient amount of destruction fund'))
     }
-    if (inputValue < parseFloat(minBurn) || inputValue > Math.floor(parseInt(toSBL) * 0.05)) {
+    if (inputValue < parseFloat(minBurn) || inputValue > Math.floor(parseInt(toSBL) * 0.5)) {
       return addMessage(t('Please enter the correct value'))
     }
     showLoding(true)
@@ -229,14 +229,14 @@ function DestructFund() {
           <div className="DestructJoin">
             <div className="title">{t("Burn")}</div>
             <div className="DestructValue">{t("Destruction Fund Quota")}：<span>{NumSplic(burnLimitValue, 4)} BNB</span></div>
-            <div className="subTitle">{t("destructTip", { price1: Math.floor(parseInt(toSBL) * 0.05), price2: parseInt(minBurn) })}<img onClick={() => { setDestructDes(!destructDes) }} src={desIcon} alt="" /></div>
+            <div className="subTitle">{t("destructTip", { price1: Math.floor(parseInt(toSBL) * 0.5), price2: parseInt(minBurn) })}<img onClick={() => { setDestructDes(!destructDes) }} src={desIcon} alt="" /></div>
             <div className="inputBox">
               <input value={inputValue} onChange={(e) => { changeFun(e) }} />
-              <div className="maxBtn" onClick={() => { maxFun(Math.floor(parseInt(toSBL) * 0.05)) }}>max</div>
+              <div className="maxBtn" onClick={() => { maxFun(Math.floor(parseInt(toSBL) * 0.5)) }}>max</div>
               <div className="coinBox"><img src={SBLIcon} alt="" /> MBAS</div>
             </div>
             <div className="Balance">{t("Balance")}：{NumSplic(balance1, 4)} MBAS</div>
-            {parseFloat(ApproveValue) > inputValue ? (Math.floor(parseInt(toSBL) * 0.05) < parseInt(minBurn) ? <div className="DestructBtn Btn DestructBtning flex" onClick={() => { addMessage(t("Currently cannot be destroyed")) }}>{t("Destroy")}</div> : <div className="DestructBtn Btn  flex" onClick={() => { conBurnFun() }}>{t("Destroy")}</div>) : <div className="DestructBtn Btn flex" onClick={() => { ApproveFun() }}>{t("Approve")}</div>}
+            {parseFloat(ApproveValue) > inputValue ? (Math.floor(parseInt(toSBL) * 0.5) < parseInt(minBurn) ? <div className="DestructBtn Btn DestructBtning flex" onClick={() => { addMessage(t("Currently cannot be destroyed")) }}>{t("Destroy")}</div> : <div className="DestructBtn Btn  flex" onClick={() => { conBurnFun() }}>{t("Destroy")}</div>) : <div className="DestructBtn Btn flex" onClick={() => { ApproveFun() }}>{t("Approve")}</div>}
             <div className="DestructRecord" onClick={() => { setDonationRecord(!donationRecord) }}>
               {t("Destroy records")}<img src={RecordIcon} alt="" />
             </div>

@@ -66,7 +66,6 @@ export default function Invitation() {
             // item = { ...item, rank: Number(index) + 1 }
             arr.push({ ...item, rank: Number(index) + 1 })
           })
-          console.log(arr, '111');
           setNodeRankData(arr);
         });
       });
@@ -112,6 +111,7 @@ export default function Invitation() {
   }
   // 参与节点
   const buyNode = () => {
+
     let refereeUserAddress = GetQueryString("address") || '0x0000000000000000000000000000000000000000'
     if (web3React.account) {
       Contracts.example.getBalance(web3React.account).then((res: any) => {
@@ -129,6 +129,8 @@ export default function Invitation() {
           }).finally(() =>
             showLoding(false)
           )
+        } else {
+          addMessage(t("Insufficient balance"))
         }
       })
     }

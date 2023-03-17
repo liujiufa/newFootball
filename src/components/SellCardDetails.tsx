@@ -44,18 +44,14 @@ function CardDetails(props: any) {
     5: [t('Legend'), t('add LP with value of 16 BNB'), t('LandServiceIncome5'), t('LandDividend')]
   }
   const web3React = useWeb3React()
-  // 挂卖授权
-  let [isApproved, setIsApproved] = useState(false)
-  // 质押授权
-  const [isApprovePledgeValue, setIsApprovePledgeValue] = useState(false)
-  // 铸造授权
-  const [isApproveMergeValue, setIsApproveMergeValue] = useState(false)
   let [putPrice, setPutPrice] = useState('')
+
   async function createOrder() {
     if (!web3React.account) {
       addMessage(t('Please connect Wallet'))
     }
     let owenr = await Contracts.example.ownerLandOf(web3React.account as string, props.CardInfo.tokenId)
+    console.log(owenr, '333');
     if (owenr !== web3React.account) {
       return addMessage(t("Cards don't belong to you"))
     }
@@ -85,63 +81,6 @@ function CardDetails(props: any) {
     }).finally(() => {
       showLoding(false)
     })
-  }
-
-  useEffect(() => {
-    if (web3React.account && props.isShow) {
-      setPutPrice('')
-      // 查询挂卖是否授权
-      Contracts.example.isApprovedForAll(web3React.account, contractAddress.EXChangeNFT).then((res: any) => {
-        setIsApproved(res)
-      })
-
-      // 查询质押授权
-      Contracts.example.isApprovedForAll(web3React.account, contractAddress.Pledge).then((res: any) => {
-        setIsApprovePledgeValue(res)
-      })
-
-      // 查询合成授权
-      Contracts.example.isApprovedForAll(web3React.account, contractAddress.Merge).then((res: any) => {
-        setIsApproveMergeValue(res)
-      })
-
-    }
-  }, [web3React.account, props.type, props.isShow])
-
-  // 挂卖授权
-  function createOrderApproval() {
-    if (!web3React.account) {
-      addMessage(t('Please connect Wallet'))
-    }
-    /* 判断徽章等级 */
-    Contracts.example.setApprovalForAll(web3React.account as string, contractAddress.EXChangeNFT, true).then(() => {
-      setIsApproved(true)
-      addMessage(t('Authorization succeeded'))
-    })
-  }
-
-  // 质押授权
-  function Approval() {
-    if (!web3React.account) {
-      return addMessage(t('Please connect Wallet'))
-    }
-    Contracts.example.setApprovalForAll(web3React.account as string, contractAddress.Pledge, true).then(() => {
-      setIsApprovePledgeValue(true)
-      return addMessage(t('Authorization succeeded'))
-    })
-  }
-
-  // 合成函数
-  function ApproveEvolveFun() {
-    if (!isApproveMergeValue) {
-      if (!web3React.account) {
-        return addMessage(t('Please connect Wallet'))
-      }
-      Contracts.example.setApprovalForAll(web3React.account as string, contractAddress.Merge, true).then(() => {
-        setIsApproveMergeValue(true)
-        return addMessage(t('Authorization succeeded'))
-      })
-    }
   }
 
   function putNum(e: React.ChangeEvent<HTMLInputElement>) {

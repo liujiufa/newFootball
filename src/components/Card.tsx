@@ -23,8 +23,7 @@ interface CardPropsType {
   Index: number,
 }
 function Card(props: any) {
-  console.log(props.data, '11111111');
-
+  console.log(props.cardInfo, '11111111');
   let { t } = useTranslation()
   const fun = () => {
     if (props.tag === "NFT") {
@@ -38,7 +37,7 @@ function Card(props: any) {
       <div className="CardItem">
         <div className="valueBox">
           <div className="title">價值<div className='iconBox'><img src={valueIcon} alt="" /></div></div>
-          <div className="valuePrice">2.542531 BNB</div>
+          <div className="valuePrice">{props.cardInfo.currentInitValue} BNB</div>
         </div>
         <div className="CardImg" onClick={() => { fun() }}>
           <img src={props.cardInfo.imageUrl} alt="" />

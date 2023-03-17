@@ -4,7 +4,7 @@ import { Modal } from 'antd';
 import { getBit } from '../utils/tool';
 import '../assets/style/componentsStyle/SuccessAddLiquidity.scss'
 import BNBIcon from '../assets/image/BNBIcon.svg'
-import SBLIcon from '../assets/image/SBLTokens.png'
+import SBLIcon from '../assets/image/SBLIcon.png'
 import { useTranslation } from 'react-i18next';
 function SuccessAddLiquidity(props: any) {
     const { t } = useTranslation()

@@ -26,7 +26,7 @@ import '../assets/style/Swap.scss'
 import '../assets/style/Land.scss'
 import ClaimSuccess from '../components/ClaimSuccess'
 // import MyDealRecord from '../components/MyDealRecord'
-import SBLIcon from '../assets/image/SBLTokens.png'
+import SBLIcon from '../assets/image/SBLIcon.png'
 
 import myTerritory from '../assets/image/landProcess/myTerritory.png'
 import landApply from '../assets/image/landProcess/landApply.png'

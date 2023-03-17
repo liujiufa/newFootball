@@ -82,7 +82,7 @@ function LandCardDetails(props: any) {
         <div className='kpdetails'>{t("Land dividend")}：{cardObj[props.CardInfo.cardLevel][3]}</div>
         <div className='butm'>
           {isApproved ? <button className='hc' onClick={() => { props.showCreateOrder && props.showCreateOrder(props.CardInfo.cardLevel) }}>{t("Sale")}</button> : <button className='gm' onClick={() => { createOrderApproval() }}> <div>{t("Sale")}</div></button>}
-          {props.userLevel == props.CardInfo.cardLevel && <button className='hc' onClick={() => { activeFun() }}>激活</button>}
+          {<button className='hc' onClick={() => { activeFun() }}>激活</button>}
         </div>
       </Modal>
 

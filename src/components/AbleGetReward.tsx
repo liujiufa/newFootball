@@ -3,7 +3,7 @@ import React from 'react'
 import { Modal } from 'antd';
 import '../assets/style/componentsStyle/ConfirmExchange.scss'
 import BNBIcon from '../assets/image/BNBIcon.svg'
-import SBLIcon from '../assets/image/SBLTokens.png'
+import SBLIcon from '../assets/image/SBLIcon.png'
 import { NumSplic } from '../utils/tool';
 import { useTranslation } from 'react-i18next';
 function AbleGetReward(props: any) {
@@ -19,10 +19,9 @@ function AbleGetReward(props: any) {
                 onCancel={() => { props.close() }}
             >
                 <p className='title'>{t("Receivable amount")}</p>
-                <div className="valueBox flex">{NumSplic(props.data, 8)} SBL </div>
+                <div className="valueBox flex">{NumSplic(props.data, 8)} MBAS </div>
                 <div className="confirmBtn flex" onClick={() => { props.getFun(3, props.dataId, props.data) }}>{t("Confirm")}</div>
-
-                <span>{t("clickLeave")}</span>
+                {/* <span>{t("clickLeave")}</span> */}
             </Modal>
         </>
     )

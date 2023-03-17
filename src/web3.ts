@@ -145,6 +145,7 @@ export class Contracts {
     }
     //查询土地归属
     ownerLandOf(addr: string, tokenId: string) {
+        console.log(tokenId,'222');
         this.verification('LandNFT')
         return this.contract.LandNFT?.methods.ownerOf(tokenId).call({ from: addr })
     }
@@ -154,7 +155,7 @@ export class Contracts {
         BigNumber.NE = -40
         BigNumber.PE = 40
         let priceStr = new BigNumber(price).times(10 ** 18).toString()
-        console.log(tokenId, priceStr, payToken, nftAddr);
+        console.log(tokenId, priceStr, payToken, nftAddr, '111');
         // 1 1000000000000000000 0x0000000000000000000000000000000000000000 0xF8B48f9F7fC7DcC960402083D0B9A4D26DF14c0d
         return this.contract.EXChangeNFT?.methods.createOrder(tokenId, priceStr, payToken, nftAddr).send({ from: addr })
     }

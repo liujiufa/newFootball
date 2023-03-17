@@ -12,7 +12,7 @@ import '../assets/style/SBL.scss'
 import GlodJdSy from '../components/GlodJdSy'
 import BigNumber from 'big.js'
 // import MyDealRecord from '../components/MyDealRecord'
-import SBLIcon from '../assets/image/SBLTokens.png'
+import SBLIcon from '../assets/image/SBLIcon.png'
 import RecordIcon from '../assets/image/record.png'
 
 interface NodeBase {

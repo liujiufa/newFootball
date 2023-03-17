@@ -11,7 +11,7 @@ function DropDown(props: any) {
   console.log(Map);
 
   function changeFun(value: number, index: number) {
-    setIndex(index)
+    setIndex(value)
     props.change(value)
   }
   const menu = (
@@ -29,7 +29,8 @@ function DropDown(props: any) {
   return (
     <Dropdown overlay={menu} overlayClassName="DropDown" getPopupContainer={getparent} trigger={['click']}>
       <div className="dropDown">
-        {t(Map[Index].key)}
+        {/* {t(Map[Index].key)} */}
+        {t(Map.find((item: any) => item.value === Index)?.key)}
         <img src={dropDownIcon} alt="" />
       </div>
     </Dropdown>

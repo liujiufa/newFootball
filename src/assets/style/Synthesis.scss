@@ -48,7 +48,8 @@
                         height: 150px;
                     }
 
-                    .CardItemsLeft {
+                    .CardImg {
+                        position: relative;
                         background: #014845;
                         border: 1px solid #14FD87;
                         box-shadow: 4px 5px 0px rgba(2, 72, 69, 0.4);
@@ -58,6 +59,18 @@
                         img {
                             width: 100%;
                         }
+
+                    }
+
+                    .price {
+                        margin-top: 10px;
+                        text-align: center;
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 16px;
+                        line-height: 22px;
+                        color: #000000;
                     }
 
                     .Add {

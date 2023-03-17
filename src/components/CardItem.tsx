@@ -1,22 +1,13 @@
 import { useTranslation } from 'react-i18next'
 import React, { useEffect, useState } from 'react'
 import BNBIcon from '../assets/image/BNBIcon.svg'
-import SBLIcon from '../assets/image/SBL.svg'
+import SBLIcon from '../assets/image/SBLIcon.png'
 import valueIcon from '../assets/image/valueIcon.svg'
 import '../assets/style/componentsStyle/CardItem.scss'
 import { orderInfoType } from '../view/Swap'
 import BigNumber from 'big.js'
 import { useViewport } from '../components/viewportContext'
-interface CardInfo {
-  orderInfo: orderInfoType
-  type: string
-  showCardDetail: Function,
-  buy?: Function,
-  CancelOrder?: Function,
-  approveFun?: Function
-  ApproveValue?: string
-}
-function CardItem(props: CardInfo) {
+function CardItem(props: any) {
   let { t } = useTranslation()
   const { width } = useViewport()
   return (
@@ -24,7 +15,7 @@ function CardItem(props: CardInfo) {
       <div className="CardItem">
         <div className="valueBox">
           <div className="title">價值<div className='iconBox'><img src={valueIcon} alt="" /></div></div>
-          <div className="valuePrice">2.542531 BNB</div>
+          <div className="valuePrice">{props.orderInfo?.currentInitValue} BNB</div>
         </div>
         <div className="CardImg" onClick={() => props.showCardDetail()}>
           {props.type === "goods" && <div className="pending">{t('Pending order')}</div>}

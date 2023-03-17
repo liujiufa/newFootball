@@ -15,7 +15,7 @@ import DropDown from '../components/DropDown'
 import '../assets/style/componentsStyle/AddLiquidityModal.scss'
 import BNBIcon from '../assets/image/BNBIcon.svg'
 import addIcon from '../assets/image/addIcon.png'
-import SBLIcon from '../assets/image/SBL.png'
+import SBLIcon from '../assets/image/SBLIcon.png'
 import switchIcon from '../assets/image/dropDownIcon.png'
 import closeIcon from '../assets/image/closeIcon.png'
 import Web3 from 'web3';
@@ -86,15 +86,15 @@ function AddLiquidityModal(props: any) {
         if (!web3React.account) {
             return addMessage(t('Please connect Wallet'))
         }
-        showLoding(true)
         Contracts.example.toLiquiditySBL(web3React.account as string, parseFloat(toSBL)).then((res: any) => {
             let value = new BigNumber(res).div(10 ** 18).toString()
+            showLoding(true)
             Contracts.example.approve1(web3React.account as string, contractAddress.Liquidity, value).then(() => {
                 Contracts.example.Tokenapprove(web3React.account as string, contractAddress.Liquidity).then((res: any) => {
                     setApproveValue(new BigNumber(res).div(10 ** 18).toString())
-                }).finally(() => {
-                    showLoding(false)
                 })
+            }).finally(() => {
+                showLoding(false)
             })
         })
 

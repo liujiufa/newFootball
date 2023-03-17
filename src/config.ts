@@ -14,11 +14,11 @@ import FundNode from './ABI/FundNode.json';
 import NodeDistribute from './ABI/NodeDistribute.json';
 export let baseUrl: string = 'http://47.107.116.172:10000';
 // export let socketUrl: string = 'http://spaceballgames.com:8912/endpointWisely';
+// export let socketUrl: string = 'http://192.168.2.118:8912/endpointWisely';
 export let socketUrl: string = 'http://47.107.116.172:8912/endpointWisely';
-// export let socketUrl: string = 'http://192.168.2.124:8912/endpointWisely';
 // export let baseUrl: string = 'http://spaceballgames.com:10000';
 // export let baseUrl: string = 'http://192.168.2.124:10000';
-// export let baseUrl: string = 'http://192.168.2.121:10000';
+// export let baseUrl: string = 'http://192.168.2.118:10000';
 // export let baseUrl: string = 'http://192.168.2.107:10000';
 export let BlockUrl: string = 'https://testnet.bscscan.com/tx/';
 export let obj = { 0.2: 0.1, 0.5: 0.2, 1: 0.3, 2.5: 0.4, 8: 0.5 }

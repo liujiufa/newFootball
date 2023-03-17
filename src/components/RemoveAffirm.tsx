@@ -2,7 +2,7 @@
 import React from 'react'
 import { Modal } from 'antd';
 import '../assets/style/componentsStyle/RemoveAffirm.scss'
-import SBL from '../assets/image/SBL.svg'
+import SBL from '../assets/image/SBLIcon.png'
 import Frame from '../assets/image/BNBIcon.svg'
 
 function RemoveAffirm() {
