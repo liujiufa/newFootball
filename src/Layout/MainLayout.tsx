@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
 import { getUserInfo } from '../API/index'
 import copy from "copy-to-clipboard";
-import logo from "../assets/image/logo.svg";
+import logo from "../assets/image/logo.png";
 import Doc from "../assets/image/Doc.svg";
 import Email from "../assets/image/Email.svg";
 import Telegram from "../assets/image/Telegram.svg";
@@ -547,14 +547,14 @@ const MainLayout: React.FC = () => {
             >
               <div className={menuActive("/Ecology")}>{t('Ecology')}</div>
             </Dropdown>
-            <div
+            {/* <div
               className={menuActive("/farms")}
               onClick={() => {
                 navigateFun("/farms");
               }}
             >
               {t("Farms")}
-            </div>
+            </div> */}
             <div
               className={menuActive("/Invitation")}
               onClick={() => {
@@ -652,12 +652,12 @@ const MainLayout: React.FC = () => {
       </Content>
       <Footer>
         <div className="footerLink">
-          <img src={logo} alt="" />
+          {/* <img src={logo} alt="" /> */}
           <div className="SOCIALRow">
             <div className="SOCIAL">SOCIAL</div>
             <div className="SOCIALItem">
               <a
-                href="https://twitter.com/spaceballgames"
+                href="https://twitter.com/MetaBaseDAO"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -673,7 +673,7 @@ const MainLayout: React.FC = () => {
                 </div> */}
             <div className="SOCIALItem">
               <a
-                href="https://t.me/SpaceBallgame"
+                href="https://t.me/MetaBaseDAO"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -681,7 +681,7 @@ const MainLayout: React.FC = () => {
                 <span>Telegram</span>
               </a>
             </div>
-            <div className="SOCIALItem">
+            {/* <div className="SOCIALItem">
               <a
                 href="https://discord.gg/sxbN5ZVKTW"
                 target="_blank"
@@ -708,7 +708,7 @@ const MainLayout: React.FC = () => {
             <div className="SOCIALItem" onClick={invitation}>
               <img src={Email} alt="" />
               <span>spaceballok@gmail.com</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </Footer>
