@@ -7,6 +7,7 @@ import { getDrawBurnRecord } from '../API/index'
 import { dateFormat } from "../utils/tool";
 import "../assets/style/componentsStyle/DonationRecord.scss";
 import { useTranslation } from "react-i18next";
+import { Content } from "antd/lib/layout/layout";
 const { Column } = Table;
 const typeObj = { '3': '收益领取' }
 function GetRecord(props: any) {
@@ -39,11 +40,11 @@ function GetRecord(props: any) {
           dataSource={drawBurnRecord}
           pagination={false}
           rowKey="id"
-          scroll={{ y: 260 }}
+          scroll={{  y: 260 }}
         >
           <Column
             title={t("Time")}
-            width={140}
+            // width={140}
             render={(item) => (
               <>
                 <div>{dateFormat('YYYY-mm-dd HH:MM', new Date(item.createTime))}</div>
@@ -60,7 +61,7 @@ function GetRecord(props: any) {
           />
           <Column
             title={t("Type")}
-            width={140}
+            // width={140}
             render={(item) => (
               <>
                 <div>{typeObj[item.type]}</div>

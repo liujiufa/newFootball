@@ -1,340 +1,470 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect, useRef, useCallback } from "react";
 import { useTranslation } from "react-i18next";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper";
+
+
+import bt1 from "../assets/image/home/bt1.png";
+import bt2 from "../assets/image/home/bt2.png";
+import bt3 from "../assets/image/home/bt3.png";
+import bt4 from "../assets/image/home/bt4.png";
+import bt5 from "../assets/image/home/bt5.png";
+import bt6 from "../assets/image/home/bt6.png";
+import bt7 from "../assets/image/home/bt7.png";
+import bt8 from "../assets/image/home/bt8.png";
+import bt9 from "../assets/image/home/bt9.png";
+import bt10 from "../assets/image/home/bt10.png";
+import bt11 from "../assets/image/home/bt11.png";
+import bt12 from "../assets/image/home/bt12.png";
+import FairyNft from "../assets/image/home/fairy-nft-group.png";
+import LandNft from "../assets/image/home/land-nft-group.png";
+
+import Land1 from "../assets/image/home/land1.jpg";
+import Land2 from "../assets/image/home/land2.jpg";
+import Land3 from "../assets/image/home/land3.jpg";
+import Land4 from "../assets/image/home/land4.jpg";
+import Land5 from "../assets/image/home/land5.jpg";
+import Fairy1 from "../assets/image/home/fairy1.jpg";
+import Fairy2 from "../assets/image/home/fairy2.jpg";
+import Fairy3 from "../assets/image/home/fairy3.jpg";
+import Fairy4 from "../assets/image/home/fairy4.jpg";
+import Fairy5 from "../assets/image/home/fairy5.jpg";
+
+
+import RoadMapZh from "../assets/image/home/road-map-zh.png";
+import RoadMapEn from "../assets/image/home/road-map-en.png";
+
+import RoadMapMobileZh from "../assets/image/home/road-map-mobile-zh.png";
+import RoadMapMobileEn from "../assets/image/home/road-map-mobile-en.png";
+
+import HabitsProcessFirst from "../assets/image/home/habits-mobile-process-first.png"
+import HabitsProcessSecond from "../assets/image/home/habits-mobile-process-second.png"
+import HabitsProcessThird from "../assets/image/home/habits-mobile-process-third.png"
+import HabitsProcessFourth from "../assets/image/home/habits-mobile-process-fourth.png"
+import HabitsProcessFifth from "../assets/image/home/habits-mobile-process-fifth.png"
+import HabitsProcessLast from "../assets/image/home/habits-mobile-process-last.png"
+
+import HabitsFirstTitle from "../assets/image/home/habits-first-title.png"
+import HabitsSecondTitle from "../assets/image/home/habits-second-title.png"
+import HabitsThirdTitle from "../assets/image/home/habits-third-title.png"
+import HabitsFourthTitle from "../assets/image/home/habits-fourth-title.png"
+import HabitsFifthTitle from "../assets/image/home/habits-fifth-title.png"
+import HabitsLastTitle from "../assets/image/home/habits-last-title.png"
+
+import { ReactComponent as PrevIcon } from "../assets/image/home/prev.svg";
+import { ReactComponent as NextIcon } from "../assets/image/home/next.svg";
+
+import HomeMouseCard from "../components/HomeMouseCard";
+import { debounce } from "../utils/debounce";
+
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/effect-cards";
 import "../assets/style/Home.scss";
-import { Carousel } from "antd";
-import { useNavigate } from "react-router-dom";
-import { stateType } from '../store/reducer'
-import { Contracts } from '../web3'
-import bt1 from "../assets/image/bt1.png";
-import bt2 from "../assets/image/bt2.png";
-import bt3 from "../assets/image/bt3.png";
-import bt4 from "../assets/image/bt4.png";
-import bt5 from "../assets/image/bt5.png";
-import bt6 from "../assets/image/bt6.png";
-import bt7 from "../assets/image/bt7.png";
-import bt8 from "../assets/image/bt8.png";
-import bt9 from "../assets/image/bt9.png";
-import bt10 from "../assets/image/bt10.png";
-import bt11 from "../assets/image/bt11.png";
-import bt12 from "../assets/image/bt12.png";
 
-import G1 from "../assets/image/G1.png";
-import G2 from "../assets/image/G2.png";
-import G3 from "../assets/image/G3.png";
-import G4 from "../assets/image/G4.png";
-import G5 from "../assets/image/G5.png";
-import G6 from "../assets/image/G6.png";
+const INIT_BT = [
+  {
+    img: bt1,
+  },
+  {
+    img: bt2,
+  },
+  {
+    img: bt3,
+  },
+  {
+    img: bt4,
+  },
+  {
+    img: bt5,
+  },
+  {
+    img: bt6,
+  },
+  {
+    img: bt7,
+  },
+  {
+    img: bt8,
+  },
+  {
+    img: bt9,
+  },
+  {
+    img: bt10,
+  },
+  {
+    img: bt11,
+  },
+  {
+    img: bt12,
+  },
+]
 
-import fe1 from "../assets/image/fe1.png";
-import fel1 from "../assets/image/fel1.png";
-import fel2 from "../assets/image/fel2.png";
-import fel3 from "../assets/image/fel3.png";
-import fel4 from "../assets/image/fel4.png";
-import zi1 from "../assets/image/zi1.png";
-import zi2 from "../assets/image/zi2.png";
-import zi3 from "../assets/image/zi3.png";
-import zi4 from "../assets/image/zi4.png";
-import bzt1 from "../assets/image/bzt1.png";
-import bzt2 from "../assets/image/bzt2.png";
-import { addMessage } from "../utils/tool";
-import BScroll from "@better-scroll/core";
-import { request } from "http";
-import { url } from "inspector";
-import { useSelector } from "react-redux";
-import { useWeb3React } from "@web3-react/core";
-import { contractAddress } from "../config";
-import BigNumber from 'big.js'
+const LAND_NFT = [
+  { img: Land1 },
+  { img: Land2 },
+  { img: Land3 },
+  { img: Land4 },
+  { img: Land5 },
+]
+
+const FAIRY_NFT = [
+  { img: Fairy1 },
+  { img: Fairy2 },
+  { img: Fairy3 },
+  { img: Fairy4 },
+  { img: Fairy5 },
+]
+
+let GLOBAL_IS_NFT_ENter = false
+
 function Home() {
-  const web3React = useWeb3React()
-  let state = useSelector<stateType, stateType>(state => state);
-  const navigate = useNavigate();
+  const pabtboxRef = useRef<HTMLDivElement | null>(null)
+  const ecolboxRef = useRef<HTMLDivElement | null>(null)
 
-  useEffect(() => {
-    const wrapper: any = document.querySelector(".scroll");
-    const scroll = new BScroll(wrapper, {
-      scrollX: true, //开启横向滚动
-      click: true, // better-scroll 默认会阻止浏览器的原生 click 事件
-      scrollY: false, //关闭竖向滚动
-    });
-  }, []);
+  const [layoutPabt, setLayoutPabt] = useState(false)
+  const [isEnter, setIsEnter] = useState(false)
+  const [isNftEnter, setIsNftEnter] = useState(false)
+  const [isUp, setIsup] = useState(0)
+  const [habitsIndex, setHabitsIndex] = useState(0)
+
+  const [activeProcessIndex, setActiveProcessIndex] = useState<null | number>(null)
+
   let { t, i18n } = useTranslation();
-  let [lxt] = useState([
-    {
-      title: "Road Map title 1",
-      nei: ["Road Map sub title 1", "Road Map subTitle 1"],
-    },
-    {
-      title: "Road Map title 2",
-      nei: ["Road Map sub title 2"],
-    },
-    {
-      title: "Road Map title 3",
-      nei: ["Road Map sub title 3"],
-    },
-    {
-      title: "Road Map title 4",
-      nei: ["Road Map sub title 4", "Road Map subtitle 4"],
-    },
-    {
-      title: "Road Map title 5",
-      nei: ["Road Map sub title 5"],
-    },
-    {
-      title: "Road Map title 6",
-      nei: ["Road Map sub title 6"],
-    },
-    {
-      title: "Road Map title 7",
-      nei: ["Road Map sub title 7"],
-    },
-    {
-      title: "Road Map title 8",
-      nei: ["Road Map sub title 8"],
-    },
-    {
-      title: "Road Map title 9",
-      nei: ["Road Map sub title 9"],
-    },
-    {
-      title: "Road Map title 10",
-      nei: ["Road Map sub title 10"],
-    },
-    {
-      title: "Road Map title 11",
-      nei: ["Road Map sub title 11"],
-    },
-    {
-      title: "Road Map title 12",
-      nei: ["Road Map sub title 12"],
-    },
-    {
-      title: "Road Map title 13",
-      nei: ["Road Map sub title 13", "Road Map subtitle 13"],
-    },
-  ]);
-  let [bt, setBt] = useState([
-    {
-      img: bt1,
-    },
-    {
-      img: bt2,
-    },
-    {
-      img: bt3,
-    },
-    {
-      img: bt4,
-    },
-    {
-      img: bt5,
-    },
-    {
-      img: bt6,
-    },
-    {
-      img: bt7,
-    },
-    {
-      img: bt8,
-    },
-    {
-      img: bt9,
-    },
-    {
-      img: bt10,
-    },
-    {
-      img: bt11,
-    },
-    {
-      img: bt12,
-    },
-  ]);
-  let [nian, seinian] = useState({
-    title: "Road Map title 1",
-    nei: ["Road Map sub title 1", "Road Map subTitle 1"],
-  });
-  function sznian(a: string) {
-    setnum(a);
-    if (a === "01") {
-      let title = lxt[0].title;
-      let nei = lxt[0].nei;
-      seinian({
-        title,
-        nei,
-      });
-    }
-    if (a === "02") {
-      let title = lxt[1].title;
-      let nei = lxt[1].nei;
-      seinian({
-        title,
-        nei,
-      });
-    }
-    if (a === "03") {
-      let title = lxt[2].title;
-      let nei = lxt[2].nei;
-      seinian({
-        title,
-        nei,
-      });
-    }
-    if (a === "04") {
-      let title = lxt[3].title;
-      let nei = lxt[3].nei;
-      seinian({
-        title,
-        nei,
-      });
-    }
-    if (a === "05") {
-      let title = lxt[4].title;
-      let nei = lxt[4].nei;
-      seinian({
-        title,
-        nei,
-      });
-    }
-    if (a === "06") {
-      let title = lxt[5].title;
-      let nei = lxt[5].nei;
-      seinian({
-        title,
-        nei,
-      });
-    }
-    if (a === "07") {
-      let title = lxt[6].title;
-      let nei = lxt[6].nei;
-      seinian({
-        title,
-        nei,
-      });
-    }
-    if (a === "08") {
-      let title = lxt[7].title;
-      let nei = lxt[7].nei;
-      seinian({
-        title,
-        nei,
-      });
-    }
-    if (a === "09") {
-      let title = lxt[8].title;
-      let nei = lxt[8].nei;
-      seinian({
-        title,
-        nei,
-      });
-    }
-    if (a === "10") {
-      let title = lxt[9].title;
-      let nei = lxt[9].nei;
-      seinian({
-        title,
-        nei,
-      });
-    }
-    if (a === "11") {
-      let title = lxt[10].title;
-      let nei = lxt[10].nei;
-      seinian({
-        title,
-        nei,
-      });
-    }
-    if (a === "12") {
-      let title = lxt[11].title;
-      let nei = lxt[11].nei;
-      seinian({
-        title,
-        nei,
-      });
-    }
-    if (a === "13") {
-      let title = lxt[12].title;
-      let nei = lxt[12].nei;
-      seinian({
-        title,
-        nei,
-      });
-    }
-  }
-  let [appgy] = useState([
-    {
-      tit: "NFT",
-      ne: "Freely",
-      tu: G1,
-    },
-    {
-      tit: "Guessing",
-      ne: "Get more",
-      tu: G2,
-    },
-    {
-      tit: "Staking",
-      ne: "Staking NF",
-      tu: G3,
-    },
-    {
-      tit: "Coinage",
-      ne: "Space Ba",
-      tu: G4,
-    },
-    {
-      tit: "Donation",
-      ne: "Reduce",
-      tu: G5,
-    },
-    {
-      tit: "Games",
-      ne: "PVP battles",
-      tu: G6,
-    },
-  ]);
-  let [isfea, setisfea] = useState(true);
-  let [isfen, setisfen] = useState(true);
-  let [isnum, setnum] = useState("01");
-  const [totalSupply, setTotalSupply] = useState('0')
-  const [allBalance, setAllBalance] = useState('0')
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [mobileActiveIndex, setMobileActiveIndex] = useState(0)
+  let [bt, setBt] = useState<Array<{ img: string, className?: string }>>(INIT_BT);
+  let [nftMouse, setNftMouse] = useState<Array<{ img: string, className?: string }>>([]);
 
-  function getlbox(name: any): void {
-    console.log(name);
-    if (name === "NFT") {
-      return navigate("/Swap");
+  const [ecolboxData, setEcolboxData] = useState([
+    {
+      title: t("Meta Fairy NFT"),
+      content: t("Meta Fairy NFT is an NFT collection composed of multiple"),
+      img: FairyNft
+
+    },
+    {
+      title: t("Meta Land NFT"),
+      content: t("Meta Land NFT is a series of digital assets designed based"),
+      img: LandNft
+
     }
-    if (name === "Coinage") {
-      return navigate("/Node");
-    }
-    if (name === "Staking") {
-      return navigate("/Pledge");
-    }
-    if (name === "Donation") {
-      return navigate("/DestructFund");
-    }
-    addMessage(t("Coming Soon"));
-  }
+  ])
 
   useEffect(() => {
-    if (web3React.account && state.token) {
-      // Contracts.example.totalSupply(web3React.account).then((res: any) => {
-      //   // console.log(res);
-      //   setTotalSupply(new BigNumber(res).div(10 ** 18).toString())
-      // })
-      // Contracts.example.balanceOf(contractAddress.DestructBalance).then((res: any) => {
-      //   // console.log(res);
-      //   setAllBalance(new BigNumber(res).div(10 ** 18).toString())
-      // })
+    setEcolboxData([
+      {
+        title: t("Meta Fairy NFT"),
+        content: t("Meta Fairy NFT is an NFT collection composed of multiple"),
+        img: FairyNft
+
+      },
+      {
+        title: t("Meta Land NFT"),
+        content: t("Meta Land NFT is a series of digital assets designed based"),
+        img: LandNft
+
+      }
+    ])
+  }, [t])
+
+
+  const [HABITS_DATA] = useState([
+    {
+      className: "habits-process-first-group",
+      title: "MetaBase ",
+      viceTitle: t("public chain protocol"),
+      content: [
+        t("DAG framework protocol"),
+        t("GHOST Rules")
+      ],
+      img: HabitsProcessFirst,
+      titleImg: HabitsFirstTitle
+
+    },
+    {
+      className: "habits-process-second-group",
+      title: "Meta BaaS",
+      viceTitle: "",
+      content: [
+        t("Meta BaaS (Blockchain as")
+      ],
+      img: HabitsProcessSecond,
+      titleImg: HabitsSecondTitle
+    },
+    {
+      className: "habits-process-third-group",
+      title: t("Meta Base Metaverse"),
+      viceTitle: "",
+      content: [
+        t("Meta Base Metaverse is a metaverse")
+      ],
+      img: HabitsProcessThird,
+      titleImg: HabitsThirdTitle
+    },
+    {
+      className: "habits-process-fourth-group",
+      title: t("Meta Wallet"),
+      viceTitle: "",
+      content: [
+        t("Meta Wallet is committed to creating")
+      ],
+      img: HabitsProcessFourth,
+      titleImg: HabitsFourthTitle
     }
-  }, [state.token, web3React.account])
+    , {
+      className: "habits-process-fifth-group",
+      title: "Meta",
+      viceTitle: t("Digital Pay"),
+      content: [
+        t("Meta is the only circulation token on the Meta Chain")
+      ],
+      img: HabitsProcessFifth,
+      titleImg: HabitsFifthTitle
+    },
+    {
+      className: "habits-process-last-group",
+      title: "Meta Base DeFi",
+      viceTitle: "生态",
+      content: [
+        t("Defi decentralized finance is an important part of Meta ecology"),
+        t("Meta Swap")
+      ],
+      img: HabitsProcessLast,
+      titleImg: HabitsLastTitle
+
+    }
+  ])
+  useLayoutEffect(() => {
+    document.documentElement.style.setProperty('--animate-duration', '2s');
+  }, [])
+
+  useEffect(() => {
+    const all = bt.every(item => !!item?.className)
+
+    if (layoutPabt && !all) {
+
+      const list = bt.filter(item => !!item?.className)
+      const index = list?.length / 3
+
+      let data: Array<{ img: string, className?: string }> = bt
+
+      setTimeout(() => {
+        data = bt.map((item: any, idx: number) => {
+          const flag = (idx % 4) === index
+          if (flag) {
+            item = {
+              ...item,
+              className: "animate__animated animate__fadeInUp"
+            }
+          }
+          return item
+        })
+        setBt(data)
+      }, 400);
+    }
+
+  }, [layoutPabt, bt])
+
+  useLayoutEffect(() => {
+    if (pabtboxRef?.current && !layoutPabt) {
+      const viewPortHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+      const offsetTop = pabtboxRef?.current?.offsetTop || 0
+      const scrollTop = document.documentElement.scrollTop
+      const top = offsetTop - scrollTop
+      setLayoutPabt(top <= viewPortHeight)
+      window.addEventListener("scroll", () => {
+        const viewPortHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+        const offsetTop = pabtboxRef?.current?.offsetTop || 0
+        const scrollTop = document.documentElement.scrollTop
+        const top = offsetTop - scrollTop
+        setLayoutPabt(top <= viewPortHeight)
+
+      })
+    }
+
+  }, [pabtboxRef, layoutPabt])
+
+  useLayoutEffect(() => {
+    if (ecolboxRef?.current) {
+      if (isEnter) {
+        const scrollY = window.scrollY;
+
+        (ecolboxRef.current as any).onmousewheel = function scrollWheel(event: any) {
+          event = event || window.event;
+          if (navigator.userAgent.toLowerCase().indexOf('msie') >= 0) {
+            event.returnValue = false;
+          } else {
+            event.preventDefault();
+          };
+        };
+
+        if (navigator.userAgent.toLowerCase().indexOf('firefox') >= 0) {
+          //firefox支持onmousewheel
+          // eslint-disable-next-line
+          addEventListener('DOMMouseScroll',
+            function (event) {
+              var obj = event.target;
+              var onmousewheel;
+              while (obj) {
+                onmousewheel = (obj as any).getAttribute('onmousewheel') || (obj as any).onmousewheel;
+                if (onmousewheel) break;
+                if ((obj as any).tagName == 'BODY') break;
+                obj = (obj as any).parentNode;
+              };
+              if (onmousewheel) {
+                if (event.preventDefault) event.preventDefault();
+                event.returnValue = false; //禁止页面滚动
+                if (typeof (obj as any).onmousewheel != 'function') {
+                  //将onmousewheel转换成function
+                  eval('window._tmpFun = function(event){' + onmousewheel + '}');
+                  (obj as any).onmousewheel = (window as any)._tmpFun;
+                  (window as any)._tmpFun = null;
+                };
+                // 不直接执行是因为若onmousewheel(event)运行时间较长的话，会导致锁定滚动失效，使用setTimeout可避免
+                setTimeout(function () {
+                  (obj as any).onmousewheel(event);
+                },
+                  1);
+              };
+            },
+            false);
+        };
+        let flag = 0
+
+        ecolboxRef.current.addEventListener("mousewheel", (event: any) => {
+
+          window.scrollTo({
+            left: 0,
+            top: scrollY,
+            behavior: "smooth"
+          })
+          window.screenTop = scrollY
+          let up = 0
+          if (event.wheelDelta) {  //判断浏览器IE，谷歌滑轮事件
+            if (event.wheelDelta > 0) { //当滑轮向上滚动时
+              up = 1
+            }
+            if (event.wheelDelta < 0) { //当滑轮向下滚动时
+              up = 2
+            }
+          } else if (event.detail) {  //Firefox滑轮事件
+            if (event.detail > 0) { //当滑轮向上滚动时
+              up = 1
+            }
+            if (event.detail < 0) { //当滑轮向下滚动时
+              up = 2
+            }
+          }
+          flag += 1
+          if (flag > 1) {
+            return;
+          }
+          debounce(() => {
+            flag = 0
+            setIsup(up)
+          }, 400)
+
+          return false
+        }, {
+          capture: false
+        });
+        ecolboxRef.current.addEventListener("mousewheel", () => {
+          window.scrollTo({
+            left: 0,
+            top: scrollY,
+            behavior: "smooth"
+          })
+        })
+      }
+    }
+  }, [ecolboxRef, isEnter])
+
+  useEffect(() => {
+    if (!!isUp) {
+      setActiveIndex(isUp - 1)
+    }
+  }, [isUp])
+
+
+  const changeActiveIndex = useCallback(
+    () => {
+      if (!GLOBAL_IS_NFT_ENter) {
+        setActiveIndex(activeIndex ? 0 : 1)
+      }
+    },
+    [activeIndex]
+  )
+
+  useEffect(() => {
+    let timer: number | undefined = undefined
+
+    timer = window.setTimeout(() => {
+      changeActiveIndex()
+    }, 5000);
+
+    return () => {
+      clearTimeout(timer)
+    }
+
+  }, [activeIndex, isNftEnter])
+
+
+  const changeNftGroup = useCallback(
+    () => {
+      const nftData = activeIndex ? LAND_NFT : FAIRY_NFT
+      if (nftMouse?.length < nftData?.length) {
+
+        let data: Array<{ img: string, className?: string }> = nftMouse
+
+        data = nftData.filter((_item, idx) => idx <= nftMouse?.length).map((item, index) => {
+          let currentItem: { img: string, className?: string } = item
+          const flag = index <= nftMouse?.length
+          if (flag) {
+            currentItem = ({
+              ...currentItem,
+              className: "animate__animated animate__fadeInUp"
+            })
+          } else {
+            currentItem = ({
+              ...currentItem,
+              className: ""
+            })
+          }
+          return currentItem
+        })
+        setNftMouse(data)
+      }
+    },
+    [activeIndex, nftMouse]
+  )
+
+
+  useEffect(() => {
+    let timer: number | undefined = undefined
+    if (GLOBAL_IS_NFT_ENter) {
+      timer = window.setTimeout(() => {
+        changeNftGroup()
+      }, 200);
+    }
+
+    return () => {
+      clearTimeout(timer)
+    }
+
+
+  }, [isNftEnter, nftMouse])
+
 
   return (
-    <div className="bj">
+    <div id="home" className="bj">
       <div className="space">
         <div className="tit">
-          <div className="title">SPACE BALL</div>
-          <div className="xiang">{t("SPACE BALL")}</div>
+          <div className="title">META BASE</div>
+          <div className="xiang">{t("The first Metaverse world created with welfare as the theme")}</div>
           <a href={i18n.language === "zh" ? "http://spaceballgames.com/File/SpaceBallZh.pdf" : "http://spaceballgames.com/File/SpaceBallEn.pdf"} target="downloadFile">
             <div className="btn">{t("WHITEPAPER")}</div>
           </a>
@@ -350,341 +480,340 @@ function Home() {
               <div className="zhi">{t("CASE")}</div>
             </div>
             <div className="casebox">
-              <div className="nebox">
-                <div className="tytie">{t("MYSTERY CASE")}</div>
-                <div className="mynei">{t("Mystery cases")}</div>
-                <div className="mybtn" onClick={() => navigate("/BlindBox")}>
-                  {t("BUY CASE")}
+              <div className="casebox-left"></div>
+              <div className="casebox-right">
+                <div className="casebox-right-img"></div>
+                <div className="casebox-right-group">
+                  <div className="casebox-right-text">
+                    {t("The MetaBase Welfare Blind Box is a pilot product of MetaBase")}
+                  </div>
+                  <div className="casebox-right-btn">
+                    <div className="casebox-right-btn-content">
+                      {t("OPEN CASE")}
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div className="casebox-mobile">
+              <div className="casebox-mobile-vicetitle">MYSTERY CASE</div>
+              <div className="casebox-mobile-content">
+                {t("The MetaBase Welfare Blind Box is a pilot product of MetaBase")}
+              </div>
+              <div className="casebox-mobile-group">
+                <div className="casebox-mobile-img"></div>
+              </div>
+              <div className="casebox-mobile-group">
+
+                <div className="casebox-mobile-btn">
+                  <div className="casebox-mobile-btn-content">
+                    {t("OPEN CASE")}
+                  </div>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
         {/* 应用生态 */}
-        <div>
-          <div className="ecol">
-            <div className="title">
-              <div className="bei">{t("APPLICATION ECOLOGY")}</div>
-              <div className="zhi">{t("APPLICATION ECOLOGY")}</div>
+        <div className="ecol">
+          <div className="title">
+            <div className="bei">{t("Ecological NFT")}</div>
+            <div className="zhi">{t("Ecological NFT")}</div>
+          </div>
+          <div className="ecolbox" style={isNftEnter ? { margin: "120px auto 0" } : {}} onMouseEnter={(event) => {
+            setIsEnter(true)
+          }}
+            onMouseLeave={(event) => {
+              setIsEnter(false)
+            }}
+          >
+            <div className="ecolbox-group-card">
+              {
+                nftMouse.map((item) => <div style={{ visibility: item?.className ? "visible" : "hidden", backgroundImage: `url(${item.img})` }} className={`ecolbox-group-card-item ${item?.className || ""}`} ></div>
+                )
+              }
             </div>
-            <div className="ecolbox">
-              {appgy.map((item, index) => {
-                return (
-                  <div
-                    className="nebox"
-                    key={index}
-                    onClick={() => getlbox(item.tit)}
-                  >
-                    <div className="tit">{t(item.tit)}</div>
-                    <div className="ne">{t(item.ne)}</div>
-                    <img src={item.tu} alt="" />
-                  </div>
-                );
-              })}
+            <div className="ecolbox-left" style={{ backgroundImage: `url(${ecolboxData[activeIndex].img})` }}
+              onMouseEnter={(event) => {
+                GLOBAL_IS_NFT_ENter = true
+                setIsNftEnter(true)
+              }}
+              onMouseLeave={(event) => {
+                GLOBAL_IS_NFT_ENter = false
+                setNftMouse([])
+                setIsNftEnter(false)
+              }}
+            ></div>
+            <div className="ecolbox-right" ref={ecolboxRef}>
+              <div className="ecolbox-right-nft-content">
+                <div className="ecolbox-right-name">{ecolboxData[activeIndex].title}</div>
+                <div className="ecolbox-right-content">
+                  {ecolboxData[activeIndex].content}
+                </div>
+              </div>
+              <div className="ecolbox-right-process">
+                <div onClick={() => {
+                  setActiveIndex(0)
+                }} style={{ backgroundColor: !activeIndex ? "#14FD87" : "#C8D1C8" }} className="ecolbox-right-process-item">
+
+                </div>
+                <div onClick={() => {
+                  setActiveIndex(1)
+                }} style={{ backgroundColor: !!activeIndex ? "#14FD87" : "#C8D1C8" }} className="ecolbox-right-process-item">
+
+                </div>
+              </div>
             </div>
+          </div>
+          <div className="ecolbox-mobile">
+            <div className="ecolbox-mobile-group">
+              {/* <div className="ecolbox-mobile-img" style={{ backgroundImage: `url(${ecolboxData[activeIndex].img})` }}></div> */}
+              <Swiper
+                slidesPerView={1.5}
+                spaceBetween={10}
+                grabCursor={true}
+                modules={[Autoplay]}
+                className="mySwiper"
+                loop
+                autoplay={{
+                  delay: 2500,
+                  disableOnInteraction: false,
+                }}
+
+              >
+                {
+                  (mobileActiveIndex === 0 ? FAIRY_NFT : LAND_NFT).map((item) =>
+                    <SwiperSlide>
+
+                      <div className="ecolbox-mobile-img" style={{ backgroundImage: `url(${item.img})` }}></div>
+                    </SwiperSlide>
+                  )
+                }
+                {/* <SwiperSlide></SwiperSlide>
+                <SwiperSlide></SwiperSlide>
+                <SwiperSlide></SwiperSlide>
+                <SwiperSlide></SwiperSlide>
+                <SwiperSlide></SwiperSlide>
+                <SwiperSlide></SwiperSlide>
+                <SwiperSlide></SwiperSlide>
+                <SwiperSlide></SwiperSlide>
+                <SwiperSlide></SwiperSlide> */}
+              </Swiper>
+            </div>
+            <div className="ecolbox-mobile-group">
+
+              <div className="ecolbox-mobile-name">{ecolboxData[mobileActiveIndex].title}</div>
+
+            </div>
+            <div className="ecolbox-mobile-content-group">
+              <PrevIcon className="ecolbox-mobile-content-icon" onClick={() => {
+                setMobileActiveIndex((mobileActiveIndex + 1) % 2)
+              }} />
+              <div className="ecolbox-mobile-content">
+                {ecolboxData[mobileActiveIndex].content}
+              </div>
+              <NextIcon className="ecolbox-mobile-content-icon" onClick={() => {
+                setMobileActiveIndex((mobileActiveIndex + 3) % 2)
+              }} />
+            </div>
+
+
           </div>
         </div>
       </div>
       {/* 特色板块 */}
+
+
       <div className="feans">
         <div className="title">
-          <div className="bei">{t("FEATURED FUNCTIONS")}</div>
-          <div className="zhi">{t("FEATURED FUNCTIONS")}</div>
+          <div className="bei">{t("TOKENOMICS")}</div>
+          <div className="zhi">{t("TOKENOMICS")}</div>
         </div>
-        <div className="fenbox">
-          <div className="fenletf">
-            {isfea ? (
-              <div className="kai" onClick={() => setisfea(false)}>
-                <Carousel autoplay dots={false}>
-                  <div className="kaibox">
-                    <img src={fel4} alt="" />
-                  </div>
-                  <div className="kaibox">
-                    <img src={fel3} alt="" />
-                  </div>
-                  <div className="kaibox">
-                    <img src={fel2} alt="" />
-                  </div>
-                  <div className="kaibox">
-                    <img src={fel1} alt="" />
-                  </div>
-                </Carousel>
-                <div className="Badge">{t("Badge NFT")}</div>
-              </div>
-            ) : (
-              <div className="guan">
-                <div className="gunbox">
-                  <div className="tit">{t("Badge NFT")}</div>
-                  <div className="nei">{t("Holding the")}</div>
-                  <div className="btn" onClick={() => navigate("/BlindBox")}>
-                    {t("GET BADGE")}
-                  </div>
-                </div>
+        <div className="feans-contract-address">
+          {t("Contract address")} OxE45454hdjhhhfifhi7575d
+          <div className="feans-contract-address-copy"></div>
+        </div>
+        <div className="feans-group">
+          <div className="feans-content">
+            {t("MBAS is the native governance token of MetaBase")}
+          </div>
+          <div className="feans-content-next feans-content">
+            {t("Through")}
+            <div className="feans-content-next-link feans-content-next-link-first  animate__animated animate__heartBeat" >{t("MBAS burning")}</div>
+            {t("users can")}
+            <div className="feans-content-next-link feans-content-next-link-last  animate__animated animate__heartBeat" >
+              {t("Coinage node")}
+            </div>{t("you can also")}
+          </div>
+          <div className="feans-asstes-chart-group">
 
-                <div className="kai" onClick={() => setisfea(true)}>
-                  <Carousel autoplay dots={false}>
-                    <div className="kaibox myImgAuto1">
-                      <img src={fel4} alt="" />
-                    </div>
-                    <div className="kaibox myImgAuto2">
-                      <img src={fel3} alt="" />
-                    </div>
-                    <div className="kaibox myImgAuto3">
-                      <img src={fel2} alt="" />
-                    </div>
-                    <div className="kaibox myImgAuto4">
-                      <img src={fel1} alt="" />
-                    </div>
-                  </Carousel>
-                </div>
+            <div className="feans-asstes-group-chart1"></div>
+            <div className="feans-asstes-group-chart-base feans-asstes-group-chart2">
+              <div className="feans-asstes-group-chart-logo">
+
               </div>
-            )}
+            </div>
+            <div className="feans-asstes-share-process-base feans-asstes-share-process1">
+              {t("NFT staking")}
+              <div className="feans-asstes-share-text">
+                40%
+              </div>
+            </div>
+            <div className="feans-asstes-share-process-base feans-asstes-share-process2">
+              {t("Game ecology")}
+              <div className="feans-asstes-share-text">
+                35%
+              </div>
+            </div>
+            <div className="feans-asstes-share-process-base feans-asstes-share-process3">
+              {t("Guessing ecology")}
+              <div className="feans-asstes-share-text">
+                15%
+              </div>
+            </div>
+            <div className="feans-asstes-share-process-base feans-asstes-share-process4">
+              {t("Foundation")}
+              <div className="feans-asstes-share-text">
+                5%
+              </div>
+            </div>
+            <div className="feans-asstes-share-process-base feans-asstes-share-process5">
+              {t("Coinage node")}
+              <div className="feans-asstes-share-text">
+                10%
+              </div>
+            </div>
+            <div className="feans-asstes-share-process-base feans-asstes-share-process6">
+              {t("Initial liquidity")}
+              <div className="feans-asstes-share-text">
+                5%
+              </div>
+            </div>
+            <div className="feans-asstes-share-process-base feans-asstes-share-process7">
+              {t("Public offering")}
+              <div className="feans-asstes-share-text">
+                0.65%
+              </div>
+            </div>
           </div>
 
-          <div className="fenright">
-            {isfen ? (
-              <div className="kai myAuto" onClick={() => setisfen(false)}>
-                <Carousel autoplay dots={false}>
-                  <div className="kaibox">
-                    <img src={zi1} alt="" />
-                  </div>
-                  <div className="kaibox">
-                    <img src={zi2} alt="" />
-                  </div>
-                  <div className="kaibox">
-                    <img src={zi3} alt="" />
-                  </div>
-                  <div className="kaibox">
-                    <img src={zi4} alt="" />
-                  </div>
-                </Carousel>
-                {/* <img src={zi1} alt="" /> */}
-                <div className="Badge">{t("Land NFT")}</div>
-              </div>
-            ) : (
-              <div className="ribox">
-                <div className="gunbox">
-                  <div className="tit">{t("Land NFT")}</div>
-                  <div className="nei">{t("jointly build")}</div>
-                  <div
-                    className="btn"
-                    onClick={() =>
-                      navigate("/Land")
-                    }
-                  >
-                    {t("VIEW LAND")}
-                  </div>
-                </div>
+          <div className="feans-asstes-amount-group">
+            <div className="feans-asstes-amount-group-base feans-asstes-amount-group-left">
+              <div className="feans-asstes-amount-label">{t("MBAS Destory")}</div>
+              145,456,789
+            </div>
+            <div className="feans-asstes-amount-group-base feans-asstes-amount-group-right">
+              <div className="feans-asstes-amount-label">{t("MBAS Total supply")}</div>
 
-                <div className="kai myAuto" onClick={() => setisfen(true)}>
-                  <div className="">
-                    <Carousel autoplay dots={false}>
-                      <div className="kaibox">
-                        <img src={zi1} alt="" />
-                      </div>
-                      <div className="kaibox">
-                        <img src={zi2} alt="" />
-                      </div>
-                      <div className="kaibox">
-                        <img src={zi3} alt="" />
-                      </div>
-                      <div className="kaibox">
-                        <img src={zi4} alt="" />
-                      </div>
-                    </Carousel>
-                    {/* <img src={zi1} alt="" /> */}
-                  </div>
-                </div>
-              </div>
-            )}
+              145,456,789
+            </div>
           </div>
+
         </div>
       </div>
 
-      {/* 代笔经济 */}
-      <div className="tokens">
+      {/* 应用生态 */}
+      <div className="habits">
         <div className="title">
-          <div className="bei">{t("Tokenomicst")}</div>
-          <div className="zhi">{t("Tokenomicst")}</div>
+          <div className="bei">{t("APPLICATION ECOLOGY")}</div>
+          <div className="zhi">{t("APPLICATION ECOLOGY")}</div>
         </div>
-        <div className="todbj">
-          <div className="stou">
-            <div className="stone">{t("Space Ball adopts a")}</div>
-            <div className="stone">{t("SBL is Space Ball's")}</div>
-            <img src={i18n.language === "zh" ? bzt2 : bzt1} alt="" />
+        <div className="habits-group">
+          <div className="habits-group-chart">
+            {
+              HABITS_DATA.map((item, index) =>
+                <HomeMouseCard
+                  onMouseEnter={() => {
+                    setActiveProcessIndex(index)
+                  }}
+                  className={item.className}
+                  cardClassName={activeProcessIndex === index ? "animate__animated animate__fadeInUp" : ""}
+                  title={item.title}
+                  viceTitle={item.viceTitle}
+                  content={item.content}
+                />)
+            }
 
-            <div className="box">
-              <div className="destructAll">
-                {t("MBAS destroyed")}：<span>{Number(allBalance).toLocaleString()}</span>
+          </div>
+          <div className="habits-mobile">
+            <div className="habits-mobile-group">
+
+              <div className="habits-mobile-content-group">
+                <PrevIcon className="habits-mobile-content-icon" onClick={() => {
+                  setHabitsIndex((habitsIndex + 5) % 6)
+                }} />
+                <div className="habits-mobile-content" style={{ backgroundImage: `url(${HABITS_DATA[habitsIndex].img})` }}>
+                </div>
+                <NextIcon className="habits-mobile-content-icon" onClick={() => {
+                  setHabitsIndex((habitsIndex + 1) % 6)
+                }} />
               </div>
-              <div className="provideAll">
-                {t("SBL total supply")}：<span>{Number(totalSupply).toLocaleString()}</span>
+
+            </div>
+
+            <div className="habits-mobile-card-group">
+
+              <div className="habits-mobile-card">
+                <img className="habits-mobile-card-title-img" src={HABITS_DATA[habitsIndex].titleImg} />
+                <div className="habits-mobile-card-content">
+                  <div className="habits-mobile-card-title-group">
+                    <div className="habits-mobile-card-title">
+                      {HABITS_DATA[habitsIndex].title}
+                    </div>
+                    <div className="habits-mobile-card-vicetitle">
+                      {HABITS_DATA[habitsIndex].viceTitle}
+                    </div>
+                  </div>
+                  {
+                    HABITS_DATA[habitsIndex]?.content.map((item) => <div className="habits-mobile-card-text">{item}</div>
+                    )
+                  }
+                </div>
               </div>
             </div>
 
           </div>
+
         </div>
-        <div className="fsbtm"></div>
       </div>
 
-      {/* 路线图 */}
-      <div className="WaspNest">
+      {/* Road Map */}
+      <div className="road-map">
         <div className="title">
-          <div className="bei">{t("Road Map")}</div>
-          <div className="zhi">{t("Road Map")}</div>
+          <div className="bei">{t("ROAD MAP")}</div>
+          <div className="zhi">{t("ROAD MAP")}</div>
         </div>
-        <div className="scroll">
-          <div className="scbox">
-            <div className="hexagonRow hexagonRow1">
-              <div className="hexagon"></div>
-              <div className="hexagon hexagon1"></div>
-              <div className="hexagon"></div>
-              <div className="hexagon hexagon1"></div>
-              <div className="hexagon hexagon1"></div>
-              <div className="hexagon"></div>
-            </div>
-            <div className="hexagonRow">
-              <div
-                onClick={() => sznian("01")}
-                className={
-                  isnum === "01" ? "hexagon hexagons" : "hexagon hexagon01"
-                }
-              >
-                <div className={isnum === "01" ? "num" : "nums"}>01</div>
-              </div>
-              <div
-                onClick={() => sznian("03")}
-                className={
-                  isnum === "03" ? "hexagon hexagons" : "hexagon hexagon03"
-                }
-              >
-                <div className={isnum === "03" ? "num" : "nums"}>03</div>
-              </div>
-              <div
-                onClick={() => sznian("05")}
-                className={
-                  isnum === "05" ? "hexagon hexagons" : "hexagon hexagon05"
-                }
-              >
-                <div className={isnum === "05" ? "num" : "nums"}>05</div>
-              </div>
-              <div
-                onClick={() => sznian("07")}
-                className={
-                  isnum === "07" ? "hexagon hexagons" : "hexagon hexagon07"
-                }
-              >
-                <div className={isnum === "07" ? "num" : "nums"}>07</div>
-              </div>
-              <div
-                onClick={() => sznian("08")}
-                className={
-                  isnum === "08" ? "hexagon hexagons" : "hexagon hexagon08"
-                }
-              >
-                <div className={isnum === "08" ? "num" : "nums"}>08</div>
-              </div>
-              <div
-                onClick={() => sznian("10")}
-                className={
-                  isnum === "10" ? "hexagon hexagons" : "hexagon hexagon10"
-                }
-              >
-                <div className={isnum === "10" ? "num" : "nums"}>10</div>
-              </div>
-              <div
-                onClick={() => sznian("12")}
-                className={
-                  isnum === "12" ? "hexagon hexagons" : "hexagon hexagon12"
-                }
-              >
-                <div className={isnum === "12" ? "num" : "nums"}>12</div>
-              </div>
-            </div>
-            <div className="hexagonRow hexagonRow3">
-              <div
-                onClick={() => sznian("02")}
-                className={
-                  isnum === "02" ? "hexagon hexagons" : "hexagon hexagon02"
-                }
-              >
-                <div className={isnum === "02" ? "num" : "nums"}>02</div>
-              </div>
-              <div
-                onClick={() => sznian("04")}
-                className={
-                  isnum === "04" ? "hexagon hexagons" : "hexagon hexagon04"
-                }
-              >
-                <div className={isnum === "04" ? "num" : "nums"}>04</div>
-              </div>
-              <div
-                onClick={() => sznian("06")}
-                className={
-                  isnum === "06" ? "hexagon hexagons" : "hexagon hexagon06"
-                }
-              >
-                <div className={isnum === "06" ? "num" : "nums"}>06</div>
-              </div>
-              <div className="hexagon "></div>
-              <div
-                onClick={() => sznian("09")}
-                className={
-                  isnum === "09" ? "hexagon hexagons" : "hexagon hexagon09"
-                }
-              >
-                <div className={isnum === "09" ? "num" : "nums"}>09</div>
-              </div>
-              <div
-                onClick={() => sznian("11")}
-                className={
-                  isnum === "11" ? "hexagon hexagons" : "hexagon hexagon11"
-                }
-              >
-                <div className={isnum === "11" ? "num" : "nums"}>11</div>
-              </div>
-              <div
-                onClick={() => sznian("13")}
-                className={
-                  isnum === "13" ? "hexagon hexagons" : "hexagon hexagon13"
-                }
-              >
-                <div className={isnum === "13" ? "num" : "nums"}>13</div>
-              </div>
-            </div>
-          </div>
+        <div className="road-map-group" style={{ backgroundImage: `url(${i18n?.language === "en" ? RoadMapEn : RoadMapZh})` }}>
         </div>
-
-        <div className="april">
-          <div className="biao">{t(nian.title)}</div>
-          {nian.nei.map((item, index) => {
-            return (
-              <div key={index} className="then">
-                {t(item)}
-              </div>
-            );
-          })}
-        </div>
+        <div className="road-map-mobile-group-chart" style={{ backgroundImage: `url(${i18n?.language === "en" ? RoadMapMobileEn : RoadMapMobileZh})` }} ></div>
       </div>
 
       {/* 战略合作 */}
       <div className="partner">
         <div className="partibox">
           <div className="title">
-            <div className="bei">{t("Strategic Cooperations")}</div>
-            <div className="zhi">{t("Strategic Cooperations")}</div>
+            <div className="bei">{t("STRATEGIC COOPERATION")}</div>
+            <div className="zhi">{t("STRATEGIC COOPERATION")}</div>
           </div>
         </div>
-        <div className="pabtbox">
+        <div ref={pabtboxRef} className="pabtbox">
           {bt.map((item, index) => {
             return (
-              <div className="bt" key={index}>
+              <div style={{ visibility: item?.className ? "visible" : "hidden" }} className={`bt ${item?.className || ""}`} key={index}>
                 <img src={item.img} alt="" />
               </div>
             );
           })}
         </div>
       </div>
+
+      <div className="home-bg-first"></div>
+      <div className="home-bg-second"></div>
+      <div className="home-bg-third"></div>
+      <div className="home-bg-last"></div>
+
     </div>
   );
 }

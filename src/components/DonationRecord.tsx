@@ -38,14 +38,12 @@ function DonationRecord(props: any) {
           dataSource={donationRecord}
           pagination={false}
           rowKey="id"
-          scroll={{ y: 260 }}
+          scroll={{ y: 260, x: 450 }}
         >
           <Column
             title={t("Time")}
-            width={140}
             render={(item) => (
               <>
-                {/* <div>{item.createTime}</div> */}
                 <div>{dateFormat('YYYY-mm-dd HH:MM', new Date(item.createTime))}</div>
               </>
             )}
@@ -60,7 +58,6 @@ function DonationRecord(props: any) {
           />
           <Column
             title={t("Reward BNB")}
-            width={140}
             className='rewardBNB'
             render={(item) => (
               <>

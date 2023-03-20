@@ -18,6 +18,8 @@ import { useTranslation } from 'react-i18next'
 import { showLoding, addMessage, NumSplic, getWebsocketData, initWebSocket } from "../utils/tool";
 import { Contracts } from "../web3";
 import { contractAddress, socketUrl } from "../config";
+import CardDetails from '../components/CardDetails'
+
 import BigNumber from 'big.js'
 import RewardRecord from '../components/RewardRecord'
 import AbleGetReward from '../components/AbleGetReward'
@@ -66,7 +68,15 @@ function Pledge() {
   let [page, SetPage] = useState(1)
   let [userCard, setuserCard] = useState<CardInfoType[]>([])
   let [burnCard, setBurnCard] = useState<any>([])
+  /* 徽章详情弹窗控制 */
+  let [showCardDetail, setShowCardDetail] = useState(false)
+  let [cardDetialIndex, setCardDetialIndex] = useState(0)
 
+
+  function showDetial(index: number) {
+    setCardDetialIndex(index)
+    setShowCardDetail(true)
+  }
   function onChange(pageNumber: number) {
     SetPage(pageNumber)
     console.log('Page: ', pageNumber);
@@ -120,8 +130,8 @@ function Pledge() {
     userDrawAward({
       type, id
     }).then((res: any) => {
-      console.log(res);
-      if (res.data && web3React.account) {
+      console.log(res, '22');
+      if (res.code === 200 && web3React.account) {
         showLoding(true)
         Contracts.example.getPledgeAward(web3React.account as string, res.data).then((res: any) => {
           setGetPage(false)
@@ -149,7 +159,7 @@ function Pledge() {
             <div className="CardList">
               {
                 userCard.map((item, index) => <div className="cancelPledge">
-                  <PledgeCard key={item.id} Index={index} cardInfo={item} cancelFun={ConNFTPledgeFun} tag="Pledge"></PledgeCard>
+                  <PledgeCard key={item.id} Index={index} cardInfo={item} cancelFun={ConNFTPledgeFun} tag="Pledge" detail={() => { showDetial(index) }}></PledgeCard>
                   {/* <div className="btn flex" onClick={() => { ConNFTPledgeFun(item.tokenId) }}>{t("Cancel stake")}</div> */}
                 </div>)
               }
@@ -168,8 +178,8 @@ function Pledge() {
           burnCard?.length !== 0 ? <>
             <div className="CardList">
               {
-                burnCard?.map((item: any, index: any) => <div className="cancelPledge">
-                  <PledgeCard key={item.id} Index={index} cardInfo={item}></PledgeCard>
+                burnCard?.map((item: any, index: any) => <div className="cancelPledge burnCard">
+                  <PledgeCard key={item.id} Index={index} cardInfo={item} tag="Burn"></PledgeCard>
                 </div>)
               }
             </div>
@@ -225,20 +235,20 @@ function Pledge() {
         SetPledgeData(res.data)
       })
       // 推送
-      let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getPledgeCardUserData/${web3React.account}`, `/getPledgeCardUserData/${web3React.account}`,
-        {}, (data: any) => {
-          console.log(data, '获取用户质押上方数据')
-          SetPledgeData(data)
-        })
-      setGetPage(false)
-      return () => {
-        try {
-          stompClient.disconnect()
-        } catch {
+      // let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getPledgeCardUserData/${web3React.account}`, `/getPledgeCardUserData/${web3React.account}`,
+      //   {}, (data: any) => {
+      //     console.log(data, '获取用户质押上方数据')
+      //     SetPledgeData(data)
+      //   })
+      // setGetPage(false)
+      // return () => {
+      //   try {
+      //     stompClient.disconnect()
+      //   } catch {
 
-        }
-        clearInterval(sendTimer)
-      }
+      //   }
+      //   clearInterval(sendTimer)
+      // }
 
     }
   }, [state.token, web3React.account])
@@ -287,7 +297,10 @@ function Pledge() {
       {pledgeData && <AbleGetReward getFun={Receive} dataId={pledgeData.dataId} data={getValue} showModal={getPage} close={() => { setGetPage(false) }}></AbleGetReward>}
       {/* 取消成功 */}
       <CancelPledgeSuccess showModal={cancelPledgeSuccess} close={() => { setCancelPledgeSuccess(false) }}></CancelPledgeSuccess>
-
+      {/* 徽章详情 */}
+      {
+        userCard.length > 0 && <CardDetails isShow={showCardDetail} CardInfo={userCard[cardDetialIndex]} close={() => setShowCardDetail(false)} ></CardDetails>
+      }
     </div>
   )
 }

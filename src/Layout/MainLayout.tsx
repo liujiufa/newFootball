@@ -75,6 +75,27 @@ const MainLayout: React.FC = () => {
       }
     },
   ]
+  // 底部节点菜单
+  const NodeSubMenuList = [
+    {
+      name: "节点申请",
+      Fun: () => {
+        navigateFun("/NodeApply");
+      }
+    },
+    {
+      name: "创世节点",
+      Fun: () => {
+        navigateFun("/CreateNode");
+      }
+    },
+    {
+      name: "节点基金",
+      Fun: () => {
+        navigateFun("/NodeFund");
+      }
+    },
+  ]
   // 底部NFT菜单
   const NFTSubMenuList = [
     {
@@ -93,6 +114,18 @@ const MainLayout: React.FC = () => {
       name: t("Pledge"),
       Fun: () => {
         navigate("/Pledge");
+      }
+    },
+    {
+      name: "交易中心",
+      Fun: () => {
+        navigate("/Swap");
+      }
+    },
+    {
+      name: "合成",
+      Fun: () => {
+        navigate("/Synthesis");
       }
     },
   ]
@@ -150,6 +183,7 @@ const MainLayout: React.FC = () => {
       addMessage(t("Not opened yet"));
     }
   }
+
   const menu = (
     <Menu
       onClick={changeLanguage}
@@ -309,6 +343,10 @@ const MainLayout: React.FC = () => {
     setSubMenuList(NFTSubMenuList)
     setShowSubMenu(true)
   }
+  function showNode() {
+    setSubMenuList(NodeSubMenuList)
+    setShowSubMenu(true)
+  }
   function showSBLOther() {
     setSubMenuList(SBLSubMenuList)
     setShowSubMenu(true)
@@ -373,13 +411,21 @@ const MainLayout: React.FC = () => {
 
           {/* 小屏 */}
           <div className="MenuList Secondary">
-            <div
+            {/* <div
               className={menuActive("/")}
               onClick={() => {
                 navigate("/");
               }}
             >
               {t("Home")}
+            </div> */}
+            <div
+              className='MenuItem pointer'
+              onClick={() => {
+                setShowDropMenu('/MBAS')
+              }}
+            >
+              节点
             </div>
             <div
               className={menuActive("/BlindBox")}
@@ -424,13 +470,21 @@ const MainLayout: React.FC = () => {
 
           {/* 大屏 */}
           <div className="MenuList LargeScreen">
-            <div
+            {/* <div
               className={menuActive("/")}
               onClick={() => {
                 navigateFun("/");
               }}
             >
               {t("Home")}
+            </div> */}
+            <div
+              className='MenuItem pointer'
+              onClick={() => {
+                setShowDropMenu('/MBAS')
+              }}
+            >
+              节点
             </div>
             <div
               className={menuActive("/BlindBox")}
@@ -483,14 +537,7 @@ const MainLayout: React.FC = () => {
             >
               SWAP
             </div>
-            <div
-              className='MenuItem pointer'
-              onClick={() => {
-                setShowDropMenu('/MBAS')
-              }}
-            >
-              节点
-            </div>
+
             <Dropdown
               overlay={ecologyMenu}
               placement="bottom"
@@ -623,7 +670,7 @@ const MainLayout: React.FC = () => {
                             <img src={Medium} alt="" />
                             <span>Medium</span>
                         </a>
-                        </div> */}
+                </div> */}
             <div className="SOCIALItem">
               <a
                 href="https://t.me/SpaceBallgame"
@@ -675,6 +722,7 @@ const MainLayout: React.FC = () => {
         </div>
       }
       <div className="FootMenu">
+        <div className="MenuItem flexCenter" onClick={showNode}>节点</div>
         <div className="division"></div>
         <div className="MenuItem flexCenter" onClick={() => {
           navigate("/BlindBox");

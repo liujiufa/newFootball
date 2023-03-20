@@ -76,7 +76,7 @@ export default function BlindBox() {
     if (state.token) {
       wrapRecord().then((res: any) => {
         console.log(res.data, 'BNB开奖');
-        setWrapRecord(res.data)
+        setWrapRecord(res.data.reverse())
       })
       boxRecord().then((res: any) => {
         console.log(res.data, '个人开奖');
@@ -127,15 +127,15 @@ export default function BlindBox() {
     if (!web3React.account) {
       return addMessage(t('Please connect Wallet'))
     }
-    showLoding(true)
     Contracts.example.toLiquiditySBL(web3React.account as string, num).then((res: any) => {
       let value = new BigNumber(res).div(10 ** 18).toString()
+      showLoding(true)
       Contracts.example.approve1(web3React.account as string, contractAddress.BlindBox, value).then(() => {
         Contracts.example.Tokenapprove(web3React.account as string, contractAddress.BlindBox).then((res: any) => {
           setApproveValue(new BigNumber(res).div(10 ** 18).toString())
-        }).finally(() => {
-          showLoding(false)
         })
+      }).finally(() => {
+        showLoding(false)
       })
     })
   }
@@ -186,16 +186,18 @@ export default function BlindBox() {
           <div className="num">{item?.amount}BNB</div>
         </div>)}
       </div>
-      <div className="Tabs">
-        <div className={TabIndex === 0 ? 'activeTab linear-gradient' : 'invalidTab'} onClick={() => { changeTab(0) }}>盲盒介紹</div>
-        <div className={TabIndex === 1 ? 'activeTab linear-gradient' : 'invalidTab'} onClick={() => { changeTab(1) }}>BNB開獎記錄</div>
-        <div className={TabIndex === 2 ? 'activeTab linear-gradient' : 'invalidTab'} onClick={() => { changeTab(2) }}>我的開獎記錄</div>
+      <div className="tabsBox">
+        <div className="Tabs">
+          <div className={TabIndex === 0 ? 'activeTab linear-gradient' : 'invalidTab'} onClick={() => { changeTab(0) }}>盲盒介紹</div>
+          <div className={TabIndex === 1 ? 'activeTab linear-gradient' : 'invalidTab'} onClick={() => { changeTab(1) }}>BNB開獎記錄</div>
+          <div className={TabIndex === 2 ? 'activeTab linear-gradient' : 'invalidTab'} onClick={() => { changeTab(2) }}>我的開獎記錄</div>
+        </div>
       </div>
       <div className="contentBox">
         {/* 盲盒介紹 */}
         {TabIndex === 0 && <> 寶箱可以隨機開出一星、二星、三星三種屬性的精靈徽章NFT和一等獎、二等獎、三等獎、普通的BNB。精靈徽章NFT可以參與質押挖礦獲取MBAS，低星徽章合成高星徽章時，可以獲得土地NFT獎勵。NFT可在Metabase生態內的交易市場交易，也支持在第三方交易平臺交易。
           <div className="contractAddr">
-            徽章NFT合約地址
+            <div className="addrTitle"> 徽章NFT合約地址</div>
             <div className="addr">{AddrHandle(contractAddress.BlindBox, 10, 6)} <img onClick={() => {
               copy(
                 contractAddress.BlindBox

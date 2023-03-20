@@ -6,6 +6,7 @@
     padding: 0;
     align-items: center;
     color: #fff;
+    padding: 0px 20px;
 
     .Title {
         margin-top: 60px;
@@ -77,6 +78,12 @@
                         display: flex;
                         justify-content: center;
                         align-items: center;
+                        padding: 10px;
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                        }
                     }
 
                     .CardImg {
@@ -420,6 +427,177 @@
                         width: 151px;
                         height: 168px;
                     }
+                }
+            }
+        }
+    }
+
+    // 小屏
+    @media (max-width:425px) {
+        #smallContent {
+            .SynthesisHandle .SynthesisItems {
+                .CardItems>div {
+                    width: 80px;
+                    height: 80px;
+                }
+
+                .items .CardImg1 {
+                    width: 80px;
+                    height: 80px;
+                }
+            }
+        }
+    }
+}
+
+// 弹窗
+.nodeModal {
+    .ant-modal-body {
+        padding: 20px 12px !important;
+    }
+
+    .SynthesisList {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 550px;
+
+
+        .Category {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding-right: 30px;
+
+            >div {
+                height: 36px;
+            }
+
+            .dropBox {
+                display: flex;
+                justify-content: space-between;
+
+                .dropDown {
+                    width: auto;
+
+                    img {
+                        margin-left: 12px;
+                    }
+
+                    &:first-child {
+                        margin-right: 20px;
+                    }
+                }
+            }
+
+            .Page {
+                // 分页样式
+                display: flex;
+                align-items: center;
+                justify-content: end;
+            }
+
+            .ant-pagination-item-link {
+                background: rgba(0, 0, 0, 0.04) !important;
+                border: 1px solid rgba(0, 0, 0, 0.2) !important;
+                border-radius: 3px !important;
+                color: rgba(0, 0, 0, 0.6) !important;
+            }
+
+            .ant-pagination-item {
+                background: rgba(0, 0, 0, 0.04) !important;
+                border: 1px solid rgba(0, 0, 0, 0.2) !important;
+                border-radius: 3px !important;
+                color: rgba(0, 0, 0, 0.6) !important;
+
+                a {
+                    color: rgba(0, 0, 0, 0.6) !important;
+                }
+            }
+
+            .ant-pagination-item-active {
+                background: #D533D1 !important;
+                border: 1px solid #D533D1 !important;
+            }
+
+            .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+                background: rgba(0, 0, 0, 0.04) !important;
+                border: 1px solid rgba(0, 0, 0, 0.2) !important;
+                border-radius: 3px !important;
+                color: rgba(0, 0, 0, 0.6) !important;
+            }
+
+            .ant-pagination-options-quick-jumper {
+                color: rgba(0, 0, 0, 0.6) !important;
+
+                input {
+                    background: rgba(0, 0, 0, 0.04) !important;
+                    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+                    border-radius: 3px !important;
+                    color: rgba(0, 0, 0, 0.6) !important;
+                }
+            }
+
+            .dropDown {
+                display: flex;
+                align-items: center;
+                border: 1px solid rgba(20, 253, 135, 0.4);
+                color: #14FD87;
+                border-radius: 6px;
+                margin-left: 0;
+                padding: 10px 15px;
+                justify-content: space-between;
+            }
+        }
+
+        .CardListBox {
+            width: 100%;
+            max-height: 495px;
+            overflow-y: auto;
+            margin-top: 12px;
+
+            &::-webkit-scrollbar {
+                width: 3px; //y轴滚动条粗细
+            }
+
+            //滚动条里面的小方块，能上下左右移动（取决于是垂直滚动条还是水平滚动条）
+            &::-webkit-scrollbar-thumb {
+                background: #5b5c83;
+                border-radius: 9px;
+            }
+
+            //滚动条的轨道（里面装有thumb）滚动槽
+            &::-webkit-scrollbar-track {
+                background: rgba(0, 0, 0, 0.1);
+                border-radius: 9px;
+            }
+
+            .synthesisCardList {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+
+                .Card {
+                    padding: 12px 5px;
+                    max-width: 50%;
+                }
+
+            }
+
+            .Card {
+                width: 100%;
+                padding: 1px;
+                border-radius: 19px;
+                box-sizing: border-box;
+                height: max-content;
+            }
+
+            @media (max-width:1024px) {
+                .SynthesisCardList {
+                    width: 151px;
+                    height: 168px;
                 }
             }
         }

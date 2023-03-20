@@ -116,7 +116,6 @@ function DestructFund() {
     showLoding(true)
     Contracts.example.burnToEarn(web3React.account as string, num).then(() => {
       // addMessage(t('Authorization succeeded'))
-      console.log('销毁成功');
       setConBurn(false)
       setBurnSuccess(true)
     }).finally(() => {

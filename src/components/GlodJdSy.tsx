@@ -3,24 +3,24 @@ import React, { useEffect, useState } from "react";
 import { Modal, Table } from "antd";
 import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
-import { getUserAccountDetail } from '../API'
+import { getNodeEarnRecord } from '../API'
 import { dateFormat } from '../utils/tool'
 import { useTranslation } from 'react-i18next'
 import "../assets/style/componentsStyle/GlodJdSy.scss";
+import { rewardType } from '../config'
 const { Column } = Table;
 interface propsType {
   isShow: boolean,
   id: number,
   close: Function
 }
-const type = ['', 'claim', '獎勵領取', '獎勵發放']
 function GlodJdSy(props: propsType) {
   let { t } = useTranslation()
   let state = useSelector<stateType, stateType>(state => state);
   let [tableData, setTableData] = useState([])
   useEffect(() => {
     if (state.token && props.id !== -1) {
-      getUserAccountDetail(props.id).then(res => {
+      getNodeEarnRecord(props.id).then(res => {
         console.log(res, '222');
         setTableData(res.data)
       })
@@ -65,7 +65,7 @@ function GlodJdSy(props: propsType) {
             title={t('Type')}
             render={(item) => (
               <>
-                <div>{t(type[item.type])}</div>
+                <div>{rewardType[item.type]}</div>
               </>
             )}
           />

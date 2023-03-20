@@ -71,7 +71,7 @@
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
 
     .MenuItem {
       // color: #ffffff;
@@ -89,7 +89,7 @@
     }
 
     .active {
-      color: #db2dcf;
+      color: #fff;
       // font-weight: 700;
     }
 
@@ -148,6 +148,20 @@
       margin-left: 10px;
       background: url(../image/connectBg.png) no-repeat center / 100% 100%;
 
+    }
+
+    .toConnect {
+      padding: 12px 33px;
+      background: url(../image/connectBg.png) no-repeat 100% 100% / 100% 100%;
+      font-family: 'Impact';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 17px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #000000;
+      margin-left: 10px;
     }
   }
 
@@ -338,7 +352,7 @@
   bottom: 0;
   width: 100%;
   height: 46px;
-  background: linear-gradient(180deg, #47047C 0%, #440576 0.01%, #2A0E41 100%);
+  background: linear-gradient(90.88deg, #17FC8D 2.75%, #53E2ED 99.51%);
   z-index: 999;
   align-items: center;
 
@@ -362,7 +376,7 @@
   .division {
     width: 1px;
     height: 28px;
-    background: linear-gradient(180deg, rgba(123, 16, 208, 0) 0%, #7B10D0 60.42%, rgba(123, 16, 208, 0) 100%);
+    background: linear-gradient(90.88deg, #17FC8D 2.75%, #53E2ED 99.51%);
     transform: matrix(-1, 0, 0, 1, 0, 0);
   }
 }

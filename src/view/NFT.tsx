@@ -40,27 +40,27 @@ const LevelMap = [
     value: 0
   },
   {
-    key: 'Common',
+    key: '精灵仙子',
     value: 1
   },
   {
-    key: 'Uncommon',
+    key: '木精灵',
     value: 2
   },
   {
-    key: 'Outstanding',
+    key: '水精灵',
     value: 3
   },
   {
-    key: 'Rare',
+    key: '火精灵',
     value: 4
   },
   {
-    key: 'Perfect',
+    key: '土精灵',
     value: 5
   },
   {
-    key: 'Epic',
+    key: '金精灵',
     value: 6
   }
 ]
@@ -84,6 +84,10 @@ const typeMap = [
   {
     key: 'Astra Badge',
     value: 4
+  },
+  {
+    key: 'Purple Badge',
+    value: 5
   }
 ]
 // var level: number = 0

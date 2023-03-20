@@ -34,7 +34,7 @@ export default function Router() {
           <Route path="DestructFund" element={<DestructFund />}></Route>
           <Route path="Liquidity" element={<Liquidity />}></Route>
           <Route path="MBASwap" element={<MBASwap />}></Route>
-          <Route path="Farms" element={<Farms />}></Route>
+          {/* <Route path="Farms" element={<Farms />}></Route> */}
           <Route path="Invitation" element={<Invitation />}></Route>
           <Route path="NodeApply" element={<NodeApply />}></Route>
           <Route path="NodeFund" element={<NodeFund />}></Route>

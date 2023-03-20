@@ -5,7 +5,7 @@ import { Modal } from 'antd';
 import { orderInfoType } from '../view/Swap'
 import { Image } from 'antd'
 import '../assets/style/componentsStyle/PutParticulars.scss'
-
+import { landLevel } from '../config'
 interface PropsType {
   isShow: boolean,
   close: Function,
@@ -36,23 +36,22 @@ function PutParticulars(props: PropsType) {
         closable={false}
         footer={null}
       >
-        <p className='title'>{t('Card Details')}</p>
+        <div className='title'>{t('Card Details')}</div>
         <div className='hzimg'>
           <Image src={props.OrderInfo.image}></Image>
         </div>
         <div className="p1">
-          <p className='kpdetails'>{t("Land quality")}: {cardObj[props.OrderInfo.cardLevel][0]}</p>
-          <p className='kpdetails'>ID：{props.OrderInfo.cardNo}</p>
+          <div className='kpdetails'>{t("Land quality")}: {landLevel[props.OrderInfo.cardLevel]}</div>
+          <div className='kpdetails'>ID：{props.OrderInfo.cardNo}</div>
         </div>
         <div className="p2">
-          <p className='kpdetails'>{t("Land title")}：{LevelObj[props.userLevel]}</p>
-          <p className='kpdetails'>{t("Status")}：{props.OrderInfo.isActivation == 1 ? t('Active') : t('Not active')}</p>
+          <div className='kpdetails'>{t("Land title")}：{LevelObj[props.userLevel]}</div>
+          <div className='kpdetails'>{t("Status")}：{props.OrderInfo.isActivation == 1 ? t('Active') : t('Not active')}</div>
         </div>
 
-        <p className='kpdetails'>{t("Activation requirement")}：{cardObj[props.OrderInfo.cardLevel][1]}</p>
-        <p className='kpdetails'>{t("Land service income")}：{cardObj[props.OrderInfo.cardLevel][2]}</p>
-        <p className='kpdetails'>{t("Land dividend")}：{cardObj[props.OrderInfo.cardLevel][3]}</p>
-        <span>{t('Click anywhere to close')}</span>
+        <div className='kpdetails'>{t("Activation requirement")}：{cardObj[props.OrderInfo.cardLevel][1]}</div>
+        <div className='kpdetails'>{t("Land service income")}：{cardObj[props.OrderInfo.cardLevel][2]}</div>
+        <div className='kpdetails'>{t("Land dividend")}：{cardObj[props.OrderInfo.cardLevel][3]}</div>
       </Modal>
     </>
   )

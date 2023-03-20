@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
 import { getUserAccountDetail } from '../API/index'
 import { dateFormat } from '../utils/tool'
+import { rewardType } from '../config'
 import "../assets/style/componentsStyle/DonationRecord.scss";
 import { useTranslation } from "react-i18next";
 const { Column } = Table;
@@ -38,14 +39,14 @@ function GetRecord(props: any) {
           dataSource={rewardRecordList}
           pagination={false}
           rowKey="id"
-          scroll={{ y: 260 }}
+          scroll={{ y: 260, x: 450 }}
         >
           <Column
             title={t("Time")}
             width={140}
             render={(item) => (
               <>
-                <div>{item.name}</div>
+                <div>{dateFormat('YYYY-mm-dd HH:MM', new Date(item.createTime))}</div>
               </>
             )}
           />
@@ -53,7 +54,7 @@ function GetRecord(props: any) {
             title={t("Amount")}
             render={(item) => (
               <>
-                <div>{item.amount}</div>
+                <div>{item.amount}MBAS</div>
               </>
             )}
           />
@@ -62,12 +63,11 @@ function GetRecord(props: any) {
             width={140}
             render={(item) => (
               <>
-                <div>{t("claim")}</div>
+                <div>{rewardType[item.type]}</div>
               </>
             )}
           />
         </Table>
-        <span>{t("clickLeave")}</span>
       </Modal>
     </>
   );

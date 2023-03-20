@@ -60,9 +60,10 @@
         }
     }
 
+
     .CardImg {
-        background: #171833;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        // background: #171833;
+        // border: 1px solid rgba(255, 255, 255, 0.1);
         overflow: hidden;
         border-radius: 10px;
         width: 100%;
@@ -71,10 +72,26 @@
         img {
             width: 100%;
         }
+
+        .imgfilter {
+            filter: grayscale(100%);
+        }
+    }
+
+    .burnID {
+        margin: 12px 0px;
+        display: flex;
+        justify-content: center;
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 25px;
+        text-align: center;
+        color: rgba(0, 0, 0, 0.6);
     }
 
     .ID {
-        margin-top: 12px;
         display: flex;
         justify-content: center;
         font-family: 'PingFang SC';

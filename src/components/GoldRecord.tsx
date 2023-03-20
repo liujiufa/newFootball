@@ -48,7 +48,7 @@ function GoldRecord(props: propsType) {
           pagination={false}
           rowKey="id"
           // style={{overflowY:'auto',maxHeight:260}}
-          scroll={{ y: 260, x: 'auto' }}
+          scroll={{ y: 260 }}
         >
           <Column
             title={t('Time')}

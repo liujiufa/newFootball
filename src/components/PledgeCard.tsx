@@ -27,14 +27,14 @@ function Card(props: any) {
   return (
     <div className="Card">
       <div className="CardItem">
-        <div className="valueBox">
+        {props.tag === "Pledge" ? <div className="valueBox">
           <div className="title">價值<div className='iconBox'><img src={valueIcon} alt="" /></div></div>
-          <div className="valuePrice">2.542531 BNB</div>
+          <div className="valuePrice">{props.cardInfo.currentInitValue} BNB</div>
+        </div> : <div className="burnID">ID:  {props.cardInfo.cardNo}</div>}
+        <div className="CardImg" onClick={() => { props.detail() }}>
+          <img className={props.tag === "Pledge" ? '' : "imgfilter"} src={props.cardInfo.imageUrl} alt="" />
         </div>
-        <div className="CardImg">
-          <img src={props.cardInfo.imageUrl} alt="" />
-        </div>
-        <div className="ID">ID:  {props.cardInfo.cardNo}</div>
+        {props.tag === "Pledge" && <div className="ID">ID:  {props.cardInfo.cardNo}</div>}
         {props.tag === "Pledge" && <div className="cancelBtn flex" onClick={() => { props.cancelFun(props.cardInfo.tokenId) }}>{t("Cancel stake")}</div>}
       </div>
     </div >

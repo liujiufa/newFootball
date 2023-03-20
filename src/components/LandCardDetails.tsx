@@ -10,8 +10,9 @@ import { contractAddress } from '../config'
 import { useNavigate } from 'react-router-dom';
 import BigNumber from 'big.js'
 import '../assets/style/componentsStyle/carddetails.scss'
-
 function LandCardDetails(props: any) {
+  console.log(props.CardInfo);
+
   let { t, i18n } = useTranslation()
   const navigate = useNavigate()
 
@@ -49,7 +50,8 @@ function LandCardDetails(props: any) {
 
 
   const activeFun = () => {
-    navigate('/Liquidity', { state: { cardLevel: props.cardInfo.cardLevel as number } })
+    console.log("ni");
+    navigate('/Liquidity', { state: { cardLevel: props.CardInfo.cardLevel as number } })
   }
 
   return (

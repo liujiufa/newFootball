@@ -224,14 +224,14 @@ export default function Invitation() {
           {NodeRankData.length > 0 ? <>
             {NodeRankData?.filter((item: any) => (web3React.account)?.toLowerCase() === (item?.userAddress).toLowerCase()).map((item: any) => <div className="items myItems">
               <div className="item rank">{item?.rank}</div>
-              <div className="item address">{item?.userAddress}</div>
+              <div className="item address">{AddrHandle(item?.userAddress)}</div>
               <div className="item num">{item?.refereeCount}</div>
             </div>)}
             <div className="content">
               <div className="itemsBox">
                 {NodeRankData.map((item: any, index: any) => <div key={index} className={index % 2 === 0 ? "items" : "oddItems items"}>
                   <div className="item rank">{item?.rank}</div>
-                  <div className="item address">{item?.userAddress}</div>
+                  <div className="item address">{AddrHandle(item?.userAddress)}</div>
                   <div className="item num">{item?.refereeCount}</div>
                 </div>)}
               </div>

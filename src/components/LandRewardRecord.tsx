@@ -45,7 +45,7 @@ function GetRecord(props: any) {
         >
           <Column
             title={t("Time")}
-            width={140}
+            // width={140}
             render={(item) => (
               <>
                 <div>{dateFormat('YYYY-mm-dd', new Date(item.createTime))}</div>

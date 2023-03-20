@@ -53,8 +53,8 @@
 
     .CardImg {
         position: relative;
-        background: #171833;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        // background: #171833;
+        // border: 1px solid rgba(255, 255, 255, 0.1);
         overflow: hidden;
         border-radius: 10px;
         width: 100%;
@@ -232,7 +232,13 @@
 
 @media screen and (max-width:425px) {
     .CardItemLinearBorder .buyBtn {
-        margin: 20px auto 0;
+        margin: 8px auto 0;
+    }
+    .CardItemLinearBorder .buyBtn{
+        padding: 5px 24px;
+    }
+    .CardItem .price{
+        margin-top: auto;
     }
 }
 
@@ -243,6 +249,10 @@
         .price .computingPower .title {
             font-size: 14px;
         }
+    }
+    .CardItem .valueBox .valuePrice{
+        font-size: 12px;
+        margin: 0px;
     }
 
     .CardItem .price .computingPower .value {

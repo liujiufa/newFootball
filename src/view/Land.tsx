@@ -51,23 +51,23 @@ const LevelMap = [
     value: 0
   },
   {
-    key: 'Excellent',
+    key: '地球领土',
     value: 1
   },
   {
-    key: 'Rare',
+    key: '行星领土',
     value: 2
   },
   {
-    key: 'Good',
+    key: '银河领土',
     value: 3
   },
   {
-    key: 'Epic',
+    key: '星际领土',
     value: 4
   },
   {
-    key: 'Legend',
+    key: '宇宙领土',
     value: 5
   },
 ]

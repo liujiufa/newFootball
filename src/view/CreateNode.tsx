@@ -96,7 +96,7 @@ export default function Invitation() {
         console.log(res, "tudi");
         if (res.code === 200) {
           showLoding(true)
-          Contracts.example.ApplyLand(web3React.account as string, res.data.data).then((res: any) => {
+          Contracts.example.ApplyLand(web3React.account as string, res.data).then((res: any) => {
             console.log(res, '领取成功');
             showLoding(false)
             setShowGuide(true)
@@ -104,6 +104,8 @@ export default function Invitation() {
             showLoding(false)
           })
         }
+      }).catch((res: any) => {
+        addMessage(res.msg)
       })
     }
   }

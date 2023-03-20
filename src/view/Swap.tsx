@@ -29,27 +29,27 @@ const LevelMap = [
     value: 0
   },
   {
-    key: 'Common',
+    key: '精灵仙子',
     value: 1
   },
   {
-    key: 'Uncommon',
+    key: '木精灵',
     value: 2
   },
   {
-    key: 'Outstanding',
+    key: '水精灵',
     value: 3
   },
   {
-    key: 'Rare',
+    key: '火精灵',
     value: 4
   },
   {
-    key: 'Perfect',
+    key: '土精灵',
     value: 5
   },
   {
-    key: 'Epic',
+    key: '金精灵',
     value: 6
   }
 ]
@@ -60,25 +60,26 @@ const LandLevelMap = [
     value: 0
   },
   {
-    key: 'Outstanding',
+    key: '地球领土',
     value: 1
   },
   {
-    key: 'Rare',
+    key: '行星领土',
     value: 2
   },
   {
-    key: 'Perfect',
+    key: '银河领土',
     value: 3
   },
   {
-    key: 'Epic',
+    key: '星际领土',
     value: 4
   },
   {
-    key: 'Legend',
+    key: '宇宙领土',
     value: 5
-  }
+  },
+
 ]
 const typeMap = [
   {
@@ -101,10 +102,10 @@ const typeMap = [
     key: 'Astra Badge',
     value: 4
   },
-  // {
-  //   key: '土地',
-  //   value: 5
-  // }
+  {
+    key: 'Purple Badge',
+    value: 5
+  }
 ]
 const sortMap = [
   {
@@ -433,12 +434,12 @@ function Swap() {
         <MyDealRecord isShow={showOrderRecord} close={() => { setShowOrderRecord(false) }} ></MyDealRecord>
         {/* 徽章详情 */}
         {
-          orderInfo && orderInfo.cardType !== 5 && <PutParticulars isShow={showCardDetail} OrderInfo={orderInfo} close={() => setShowCardDetail(false)} ></PutParticulars>
+          orderInfo && orderInfo.cardType !== 0 && <PutParticulars isShow={showCardDetail} OrderInfo={orderInfo} close={() => setShowCardDetail(false)} ></PutParticulars>
         }
         {/* 土地详情 */}
-        {/* {
-          orderInfo && orderInfo.cardType === 5 && <LandPutParticulars userLevel={userLevel} isShow={showCardDetail} OrderInfo={orderInfo} close={() => setShowCardDetail(false)} ></LandPutParticulars>
-        } */}
+        {
+          orderInfo && orderInfo.cardType === 0 && <LandPutParticulars userLevel={userLevel} isShow={showCardDetail} OrderInfo={orderInfo} close={() => setShowCardDetail(false)} ></LandPutParticulars>
+        }
         {/* 取消挂卖成功 */}
         <Tips isShow={showCancelSuccess} title={t('Cancellation succeeded')} subTitle={t('Cancel tips')} enterFun={() => setShowCancelSuccess(false)} close={() => setShowCancelSuccess(false)}></Tips>
         {/* 取消挂卖 */}

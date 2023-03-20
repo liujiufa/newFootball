@@ -140,8 +140,13 @@
 }
 
 .ant-pagination-item-active {
-    background: #D533D1 !important;
-    border: 1px solid #D533D1 !important;
+    background: #14FD87 !important;
+    border: 1px solid #14FD87 !important;
+
+    a {
+        color: #fff !important;
+
+    }
 }
 
 .ant-select:not(.ant-select-customize-input) .ant-select-selector {

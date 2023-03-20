@@ -6,6 +6,7 @@ import { getOrderStateList } from '../API'
 import { dateFormat } from '../utils/tool'
 import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
+import { starLevel, landLevel } from '../config'
 import "../assets/style/componentsStyle/MyDealRecord.scss";
 const status = ['Put shelf', 'revoke', 'Sold', 'purchase']
 const type = ['', 'Perseus Badge', 'Khaos Badge', 'Gaea Badge', 'Astra Badge', 'Land']
@@ -40,16 +41,12 @@ function MyDealRecord(props: propsType) {
         footer={null}
       >
         <p className="title"> {t('Transaction record')} </p>
-        {/* <Table
-          columns={columns}
-          dataSource={data}
-          scroll={{ y: 240 }}
-        /> */}
+
         <Table
           dataSource={tableData}
           pagination={false}
           rowKey="id"
-          scroll={{ y: 260, x: 'auto' }}
+          scroll={{ y: 260, x: true }}
         >
           <Column
             title={t('Time')}
@@ -71,7 +68,7 @@ function MyDealRecord(props: propsType) {
             title={t('Grade')}
             render={(item) => (
               <>
-                <div>{t(level[item.cardLevel])}</div>
+                <div>{item.cardType === 0 ? landLevel[item.cardLevel] : starLevel[item.cardLevel]}</div>
               </>
             )}
           />
@@ -79,7 +76,7 @@ function MyDealRecord(props: propsType) {
             title={t('Type')}
             render={(item) => (
               <>
-                <div>{t(type[item.cardType])}</div>
+                <div>{item.cardType === 0 ? "土地NFT" : "精灵NFT"}</div>
               </>
             )}
           />
@@ -95,7 +92,7 @@ function MyDealRecord(props: propsType) {
             title={t('Amount')}
             render={(item) => (
               <>
-                <div>{item.orderPrice}</div>
+                <div>{item.orderPrice}MBAS</div>
               </>
             )}
           />

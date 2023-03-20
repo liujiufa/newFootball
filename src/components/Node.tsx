@@ -98,7 +98,7 @@ export default function Node(props: any) {
                     Contracts.example.buyNode(web3React.account as string, res.data, NodeBase!.currentNodeBase.price).then(() => {
                         timeoutRef.current = window.setTimeout(() => {
                             props.getFun()
-                        }, 3000);
+                        }, 5000);
                     }, (error: any) => {
                         cancelBuyNodeBase({
                             id: NodeBase!.currentNodeBase.id,

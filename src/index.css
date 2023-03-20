@@ -258,3 +258,15 @@ body::-webkit-scrollbar-thumb {
   box-shadow: 16px 16px 0px #5C5E5D, inset 0px 0px 4px rgba(0, 0, 0, 0.1);
   border-radius: 19px;
 }
+
+@keyframes home-rotate{
+  0%{
+      transform: rotate(0);
+    }
+  50%{
+    transform:rotate(180deg);
+  }
+  100%{
+       transform: rotate(360deg);
+    }
+}

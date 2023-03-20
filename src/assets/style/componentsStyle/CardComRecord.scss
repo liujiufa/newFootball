@@ -18,12 +18,17 @@
       /* identical to box height */
       text-align: center;
       color: #000000;
+      overflow-x: auto;
+
     }
 
     .content {
+      overflow-x: auto;
+
       .items {
         display: flex;
         justify-content: space-between;
+        min-width: 800px;
 
         .item {
           width: 90px;

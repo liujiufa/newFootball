@@ -71,8 +71,9 @@
 
         .buyBtn {
             margin: 16px auto;
-            width: 122px;
-            height: 60px;
+            width: max-content;
+            height: max-content;
+            padding: 20px 40px;
             background: url(../image/immeBuy.png) no-repeat center / 100% 100%;
             font-family: 'DIN';
             font-style: normal;
@@ -120,39 +121,46 @@
         }
     }
 
-    .Tabs {
-        display: flex;
-        margin: 50px 0px;
+    .tabsBox {
 
-        >div {
+        overflow-x: auto;
+        margin: 50px 0px 30px;
+
+        .Tabs {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0px 24px;
-            height: 36px;
-            border-radius: 6px;
-            margin-right: 20px;
-            font-family: 'PingFang SC';
-            font-style: normal;
-            font-weight: 700;
-            font-size: 14px;
-            line-height: 22px;
-            color: rgba(0, 0, 0, 0.6);
-        }
+            min-width: 450px;
+            margin-bottom: 12px;
 
-        .activeTab {
-            font-weight: 700;
-            color: #FFFFFF;
-            background: url(../image/btnBg.png) no-repeat center / 100% 100%;
-            border: 1px solid transparent;
+            >div {
 
-        }
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding:8px 24px;
+                border-radius: 6px;
+                margin-right: 20px;
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 22px;
+                color: rgba(0, 0, 0, 0.6);
+            }
 
-        .invalidTab {
-            font-weight: 400;
-            color: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            box-sizing: border-box;
+            .activeTab {
+                font-weight: 700;
+                color: #FFFFFF;
+                background: url(../image/btnBg.png) no-repeat center / 100% 100%;
+                border: 1px solid transparent;
+
+            }
+
+            .invalidTab {
+                font-weight: 400;
+                color: rgba(0, 0, 0, 0.6);
+                border: 1px solid rgba(0, 0, 0, 0.2);
+                box-sizing: border-box;
+            }
         }
     }
 
@@ -167,6 +175,7 @@
         background: #FFFFFF;
         box-shadow: 15px 15px 0px rgba(116, 153, 138, 0.4), 29px 10px 91px rgba(0, 0, 0, 0.1);
         border-radius: 19px;
+        overflow-x: auto;
 
         .contractAddr {
             max-width: 523px;
@@ -184,6 +193,15 @@
             justify-content: space-between;
             margin-top: 44px;
 
+            .addrTitle {
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 20px;
+                color: #000000;
+            }
+
             .addr {
                 font-family: 'PingFang SC';
                 font-style: normal;
@@ -191,6 +209,7 @@
                 font-size: 16px;
                 line-height: 22px;
                 color: #000000;
+                word-break: break-all;
 
                 img {
                     margin-left: 5px;
@@ -218,11 +237,14 @@
         .titles {
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             padding-bottom: 20px;
+            min-width: 860px;
+
         }
 
         .bigBox {
             overflow: auto;
             max-height: 300px;
+            min-width: 860px;
 
             .contents {
                 .item {
@@ -260,6 +282,53 @@
 
     }
 
+}
+
+@media (max-width:1024px) {
+    #BlindBox .priceBox .price {
+        font-size: 16px;
+    }
+
+    #BlindBox .goodsBox {
+        overflow-x: auto;
+
+        .goods {
+            padding: 10px;
+
+            .surplus {
+                top: 10px;
+                right: 10px;
+            }
+        }
+    }
+
+    #BlindBox .priceBox .buyBtn {
+        padding: 8px 20px;
+    }
+
+    #BlindBox .contentBox {
+        padding: 20px 40px;
+    }
+}
+
+@media (max-width:768px) {
+    #BlindBox .Tabs>div {
+        padding: 8px 12px;
+    }
+
+    #BlindBox .contentBox {
+        padding: 20px 12px;
+    }
+}
+
+@media (max-width:425px) {
+    #BlindBox .contentBox .contractAddr {
+        padding: 8px 12px;
+
+        .addrTitle {
+            margin-right: 10px;
+        }
+    }
 }
 
 .successBuyModal {

@@ -20,6 +20,7 @@ import DropDown from '../components/DropDown'
 import Tips from '../components/Tips'
 import { useTranslation } from 'react-i18next'
 import { socketUrl } from "../config"
+import { useViewport } from '../components/viewportContext';
 // 徽章合成规则
 import CardComRule from '../components/CardComRule'
 import CardComSuccess from '../components/CardComSuccess'
@@ -56,9 +57,14 @@ const typeMap = [
     {
         key: 'Astra Badge',
         value: 4
+    },
+    {
+        key: 'Purple Badge',
+        value: 5
     }
 ]
 export default function Synthesis() {
+    const { width } = useViewport()
     let { t } = useTranslation()
     const web3React = useWeb3React()
     let state = useSelector<stateType, stateType>(state => state);
@@ -72,6 +78,7 @@ export default function Synthesis() {
     let [totalNum, SetTotalNum] = useState(0)
     /* 确认合成弹窗控制 */
     let [showEnterMerge, setShowEnterMerge] = useState(false)
+    let [ShowComModal, setShowComModal] = useState(false)
     /* 合成规则弹窗控制 */
     let [showMergeRule, setShowMergeRule] = useState(false)
     let [showMergeSuccess, setShowMergeSuccess] = useState(false)
@@ -93,27 +100,27 @@ export default function Synthesis() {
             value: 0
         },
         {
-            key: 'Common',
+            key: '精灵仙子',
             value: 1
         },
         {
-            key: 'Uncommon',
+            key: '木精灵',
             value: 2
         },
         {
-            key: 'Outstanding',
+            key: '水精灵',
             value: 3
         },
         {
-            key: 'Rare',
+            key: '火精灵',
             value: 4
         },
         {
-            key: 'Perfect',
+            key: '土精灵',
             value: 5
         },
         {
-            key: 'Epic',
+            key: '金精灵',
             value: 6
         }
     ]
@@ -151,7 +158,7 @@ export default function Synthesis() {
                     ToBeSelect ? <>
                         <div className="synthesisCardList">
                             {
-                                ToBeSelect?.list.map((item, index) => <Card key={item.id} Index={index} cardInfo={item} fun={() => { setSelCard2(item) }}></Card>)
+                                ToBeSelect?.list.map((item, index) => <Card key={item.id} Index={index} cardInfo={item} fun={() => { setSelCard2(item); setShowComModal(false) }}></Card>)
                             }
                         </div>
                     </> : <><NoData></NoData></>
@@ -239,6 +246,9 @@ export default function Synthesis() {
         if (!SelCard1) {
             return addMessage(t('Please select the card to synthesize'))
         }
+        if (SelCard1.cardLevel !== SelCard2.cardLevel) {
+            return addMessage("卡牌等级不同")
+        }
         if (!SelCard2) {
             return addMessage(t('Please select the card to synthesize'))
         }
@@ -276,11 +286,10 @@ export default function Synthesis() {
             setuserCard([])
         }
     }, [state.token, web3React.account, level, type, page])
-
-    return (
-        <div id='Synthesis'>
-            <div className='Title'>{t('NFTs Evolve')}</div>
-            <div className='Content'>
+    // 小屏适配
+    const Content = () => {
+        if (width > 900) {
+            return <div className='Content' >
                 <div className="SynthesisHandle">
                     <div className="SynthesisItems">
                         <div className="CardItems">
@@ -298,12 +307,6 @@ export default function Synthesis() {
                                 </div>
                                 <div className="price">{SelCard2?.currentInitValue ?? 0} BNB</div>
                             </div>
-                            {/* {
-                                SelCard2 ? <>
-                                </> : <>
-                                    <div className="CardItemsRight"><div className="CardImg"></div></div>
-                                </>
-                            } */}
                         </div>
                         <div className="result">
                             <img src={resultImg} alt="" />
@@ -338,12 +341,80 @@ export default function Synthesis() {
                     </div>
                     {/* 徽章 */}
                     <CardListBox></CardListBox>
-
                 </div>
-            </div >
+            </div>
+        } else {
+            return <div className='Content' id="smallContent">
+                <div className="SynthesisHandle">
+                    <div className="SynthesisItems">
+                        <div className="CardItems">
+                            {/* 三个150px水平排列 */}
+                            <div className="CardItemsLeft" onClick={() => { setSelCard1(null) }}>
+                                <div className="CardImg" onClick={() => { setShowComModal(true) }}>
+                                    <img src={SelCard1?.imageUrl} alt="" ></img>
+                                </div>
+                                <div className="price">{SelCard1?.currentInitValue ?? 0} BNB</div>
+                            </div>
+                            <div className="Add"><img src={AddImg} alt="" /></div>
+                            <div className="CardItemsRight" onClick={() => { setSelCard2(null) }}>
+                                <div className="CardImg" onClick={() => { setShowComModal(true) }}>
+                                    <img src={SelCard2?.imageUrl} alt="" />
+                                </div>
+                                <div className="price">{SelCard2?.currentInitValue ?? 0} BNB</div>
+                            </div>
+                        </div>
+                        <div className="result">
+                            <img src={resultImg} alt="" />
+                        </div>
+                        <div className="items">
+                            <div className="CardImg1">
+                            </div>
+                            {
+                                isApproved ? <div className='confirmBtn' onClick={() => { mager() }}>{t('Confirm')}</div> : <div className='confirmBtn' onClick={ApproveEvolveFun}>{t('Approve')}</div>
+                            }
+                            <div className='Tip'>
+                                <div className='TipContent TipContent1' onClick={() => { setShowMergeRule(true) }}>{t('Evolve rules')}<img style={{ marginLeft: '5px' }} src={desIcon} alt="" /></div>
+                                <div className='TipContent' onClick={() => { setShowMergeRecord(true) }}>合成记录<img style={{ marginLeft: '5px' }} src={translateRecoedIcon} alt="" /></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    return (
+        <div id='Synthesis'>
+            <div className='Title'>{t('Evolve')}</div>
+            <Content></Content>
             <CardComRule isShow={showMergeRule} close={() => setShowMergeRule(false)}></CardComRule>
             {MergeResult && <CardComSuccess isShow={showMergeSuccess} data={MergeResult.cardUser} close={() => setShowMergeSuccess(false)}></CardComSuccess>}
             <CardComRecord isShow={showMergeRecord} close={() => setShowMergeRecord(false)}></CardComRecord>
+            <Modal
+                visible={ShowComModal}
+                className='nodeModal'
+                centered
+                width={'432px'}
+                closable={false}
+                footer={null}
+                onCancel={() => { setShowComModal(false) }}>
+                <div className='SynthesisList'>
+                    <div className="Category">
+                        <div className="dropBox">
+                            <DropDown Map={typeMap} change={SetType} staetIndex={type}></DropDown>
+                            <DropDown Map={LevelMap} change={(num: number) => { SetLevel(num) }} staetIndex={level}>
+                            </DropDown>
+                        </div>
+                        {/* 三个水平排列（保证布局一致） */}
+                        {/* 
+                        <div className="Page">
+                            <Pagination style={{ margin: "auto" }} current={page} defaultPageSize={12} total={total} onChange={changePage} />
+                        </div> 
+                        */}
+                    </div>
+                    {/* 徽章 */}
+                    <CardListBox></CardListBox>
+                </div>
+            </Modal>
         </div >
     )
 }
