@@ -71,6 +71,12 @@ function SBL() {
         if (res.data) {
           Contracts.example.quitNode(web3React.account as string, res.data).then((res: any) => {
             addMessage(t("Successful refund"))
+            timeoutRef.current = window.setTimeout(() => {
+              getNodeUserList().then(res => {
+                console.log(res.data, '节点奖励');
+                setNodeRecord(res.data)
+              })
+            }, 5000);
           }).finally(() => {
             showLoding(false)
           })
@@ -176,10 +182,10 @@ function SBL() {
               item.isReturn === 1 ?
                 <div className="btnBox">
                   <div className="Btn flex" onClick={() => Receive(6, item.id, item.stayDrawNum)}>{t('Claim')}</div>
-                  <div className="notBtn flex" onClick={() => { returnFun(item.id, item.applyPrice) }}>{t('Refund')}</div>
+                  <div className="Btn flex" onClick={() => { returnFun(item.id, item.applyPrice) }}>{t('Refund')}</div>
                 </div> :
                 <div className="btnBox">
-                  <div className="Btn flex" onClick={() => Receive(6, item.id, item.stayDrawNum)}>{t('Claim')}</div>
+                  <div className="notBtn flex" onClick={() => Receive(6, item.id, item.stayDrawNum)}>{t('Claim')}</div>
                   <div className="notBtn flex">{t('Refund')}</div>
                 </div>
             }

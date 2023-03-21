@@ -195,6 +195,12 @@
 
                 .balanceBox {
                     margin-top: 15px;
+
+                    .noBalance {
+                        width: 100%;
+                        text-align: right;
+                        color: #FC3838;
+                    }
                 }
 
             }

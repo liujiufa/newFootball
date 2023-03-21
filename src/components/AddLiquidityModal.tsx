@@ -167,7 +167,7 @@ function AddLiquidityModal(props: any) {
                     </div>
 
                     <div className="balanceBox">
-                        <div className="balance">{t("Balance")}：{NumSplic(balance, 4)}</div>
+                        {type <= parseFloat(balance) ? <div className="balance">{t("Balance")}：{NumSplic(balance, 4)}</div> : <div className="noBalance">余额不足！</div>}
                         {/* {width > 425 && <div className="rightBox"></div>} */}
                     </div>
 
@@ -183,7 +183,7 @@ function AddLiquidityModal(props: any) {
                         </div>
                     </div>
                     <div className="balanceBox">
-                        <div className="balance">{t("Balance")}：{NumSplic(balance1, 4)}</div>
+                        {parseFloat(toSBL) <= parseFloat(balance1) ? <div className="balance">{t("Balance")}：{NumSplic(balance1, 4)}</div> : <div className="noBalance">余额不足！</div>}
                         {/* {width > 425 && <div className="rightBox"></div>} */}
                     </div>
                 </div>

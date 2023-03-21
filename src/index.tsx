@@ -11,6 +11,7 @@ import reportWebVitals from "./reportWebVitals";
 import { HashRouter } from "react-router-dom";
 import { Contracts } from "./web3";
 import "antd/dist/antd.min.css";
+import 'animate.css';
 function getLibrary(provider: any): Web3 {
   const library = new Web3(provider);
   new Contracts(provider);

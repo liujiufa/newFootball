@@ -145,7 +145,7 @@ export class Contracts {
     }
     //查询土地归属
     ownerLandOf(addr: string, tokenId: string) {
-        console.log(tokenId,'222');
+        console.log(tokenId, '222');
         this.verification('LandNFT')
         return this.contract.LandNFT?.methods.ownerOf(tokenId).call({ from: addr })
     }
@@ -441,10 +441,10 @@ export class Contracts {
         return this.contract.FundNode?.methods.claimExtraMBAS(data).send({ from: addr, value: num })
     }
     //参与节点
-    buyJoinNode(addr: string, referAddress: string) {
+    buyJoinNode(addr: string, referAddress: string, value: number) {
         BigNumber.NE = -40
         BigNumber.PE = 40
-        let num = new BigNumber(0.2).times(10 ** 18).toString()
+        let num = new BigNumber(value).times(10 ** 18).toString()
         this.verification('FundNode')
         return this.contract.FundNode?.methods.buyNode(referAddress).send({ from: addr, value: num })
     }

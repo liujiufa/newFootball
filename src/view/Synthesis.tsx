@@ -26,12 +26,7 @@ import CardComRule from '../components/CardComRule'
 import CardComSuccess from '../components/CardComSuccess'
 import CardComRecord from '../components/CardComRecord'
 import BigNumber from 'big.js'
-interface CardSynthesisPropsType {
-    CardInfo: CardInfoType,
-    isShow: boolean,
-    close: Function
-    mergeSuccess: Function
-}
+declare let window: any;
 interface SelCardType {
     list: CardInfoType[],
     price: number,
@@ -213,8 +208,6 @@ export default function Synthesis() {
                 res.data.list = res.data.list.filter((item: CardInfoType) => {
                     return item.tokenId !== SelCard1?.tokenId
                 })
-                console.log(res.data, '??????');
-                // toSBLFun(res.data.price, res.data)
                 setToBeSelect(res.data)
                 SetTotal(res.data.size)
             }
@@ -382,6 +375,15 @@ export default function Synthesis() {
             </div>
         }
     }
+
+    window?.ethereum?.on('accountsChanged', () => {
+        if (state.token && web3React.account) {
+            setSelCard1(null)
+            setSelCard2(null)
+        }
+    })
+
+
     return (
         <div id='Synthesis'>
             <div className='Title'>{t('Evolve')}</div>

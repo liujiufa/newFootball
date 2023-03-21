@@ -108,13 +108,6 @@ function Land() {
   console.log(i18n);
 
   const LevelObj = { 0: t('Not active'), 1: t('Lord'), 2: t('Castellan'), 3: t('Mayor'), 4: t('Governor'), 5: t('Speaker') }
-  const landObj = [
-    { id: 1, title: t("Outstanding quality land"), count: 0 },
-    { id: 2, title: t("Rare quality land"), count: 0 },
-    { id: 3, title: t("Perfect quality land"), count: 0 },
-    { id: 4, title: t("Epic quality land"), count: 0 },
-    { id: 5, title: t("Legendary quality land"), count: 0 },
-  ]
   let [tabActive, setTabActive] = useState('2')
   let [totalNum, SetTotalNum] = useState(0)
   // 我的封号
@@ -152,11 +145,13 @@ function Land() {
     SetPage(pageNumber)
     console.log('Page: ', pageNumber);
   }
+
   // 打开对应土地详情（index:）
   const showDetailFun = (index: number) => {
     setCardDetialIndex(index)
     setUserCardDetail(true)
   }
+
   function createOrderFun(level: number) {
     setUserCardDetail(false)
     setShowCreateOrder(true)

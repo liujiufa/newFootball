@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper";
 
-
 import bt1 from "../assets/image/home/bt1.png";
 import bt2 from "../assets/image/home/bt2.png";
 import bt3 from "../assets/image/home/bt3.png";
@@ -63,6 +62,7 @@ import { debounce } from "../utils/debounce";
 import "swiper/css";
 import "swiper/css/effect-cards";
 import "../assets/style/Home.scss";
+import AnimaMain from "../components/AnimaMain";
 
 const INIT_BT = [
   {
@@ -123,6 +123,7 @@ let GLOBAL_IS_NFT_ENter = false
 
 function Home() {
   const pabtboxRef = useRef<HTMLDivElement | null>(null)
+  const animaRef = useRef<HTMLDivElement | null>(null)
   const ecolboxRef = useRef<HTMLDivElement | null>(null)
 
   const [layoutPabt, setLayoutPabt] = useState(false)
@@ -135,6 +136,8 @@ function Home() {
 
   let { t, i18n } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0)
+  const [animaVisable, setAnimaVisable] = useState(false)
+
   const [mobileActiveIndex, setMobileActiveIndex] = useState(0)
   let [bt, setBt] = useState<Array<{ img: string, className?: string }>>(INIT_BT);
   let [nftMouse, setNftMouse] = useState<Array<{ img: string, className?: string }>>([]);
@@ -270,7 +273,7 @@ function Home() {
   }, [layoutPabt, bt])
 
   useLayoutEffect(() => {
-    if (pabtboxRef?.current && !layoutPabt) {
+    if (pabtboxRef?.current && animaRef?.current && !layoutPabt) {
       const viewPortHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
       const offsetTop = pabtboxRef?.current?.offsetTop || 0
       const scrollTop = document.documentElement.scrollTop
@@ -279,14 +282,20 @@ function Home() {
       window.addEventListener("scroll", () => {
         const viewPortHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
         const offsetTop = pabtboxRef?.current?.offsetTop || 0
+        const animaRefOffsetTop = animaRef?.current?.offsetTop || 0
         const scrollTop = document.documentElement.scrollTop
         const top = offsetTop - scrollTop
+        const animaRefTop = animaRefOffsetTop - scrollTop
         setLayoutPabt(top <= viewPortHeight)
+
+        if (animaRefTop <= animaRefOffsetTop) {
+          setAnimaVisable(animaRefTop <= animaRefOffsetTop)
+        }
 
       })
     }
 
-  }, [pabtboxRef, layoutPabt])
+  }, [pabtboxRef, layoutPabt, animaRef])
 
   useLayoutEffect(() => {
     if (ecolboxRef?.current) {
@@ -455,9 +464,7 @@ function Home() {
       clearTimeout(timer)
     }
 
-
   }, [isNftEnter, nftMouse])
-
 
   return (
     <div id="home" className="bj">
@@ -480,7 +487,9 @@ function Home() {
               <div className="zhi">{t("CASE")}</div>
             </div>
             <div className="casebox">
-              <div className="casebox-left"></div>
+              <div className="casebox-left" ref={animaRef}>
+                <AnimaMain visable={animaVisable} />
+              </div>
               <div className="casebox-right">
                 <div className="casebox-right-img"></div>
                 <div className="casebox-right-group">

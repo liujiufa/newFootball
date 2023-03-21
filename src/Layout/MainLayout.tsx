@@ -23,6 +23,11 @@ import MBASGovernanceIcon3 from "../assets/image/MBASGovernanceIcon3.png";
 import MBASIcon0 from "../assets/image/MBASIcon0.png";
 import MBASIcon1 from "../assets/image/MBASIcon1.png";
 import MBASIcon2 from "../assets/image/MBASIcon2.png";
+import NFTIcon0 from "../assets/image/NFTIcon0.png";
+import NFTIcon1 from "../assets/image/NFTIcon1.png";
+import NFTIcon2 from "../assets/image/NFTIcon2.png";
+import NFTIcon3 from "../assets/image/NFTIcon3.png";
+import NFTIcon4 from "../assets/image/NFTIcon4.png";
 import "../assets/style/layout.scss";
 import { Menu, Dropdown } from "antd";
 const { Header, Content, Footer } = Layout;
@@ -283,12 +288,12 @@ const MainLayout: React.FC = () => {
   // 更多
   const SecondaryOther = (
     <Menu>
-      <Menu.Item key="6" onClick={noOpen}>
+      {/* <Menu.Item key="6" onClick={noOpen}>
         {t("Guess")}
       </Menu.Item>
       <Menu.Item key="7" onClick={noOpen}>
         {t("Games")}
-      </Menu.Item>
+      </Menu.Item> */}
       <Menu.Item
         key="4"
         onClick={() => {
@@ -365,11 +370,15 @@ const MainLayout: React.FC = () => {
       { icon: MBASIcon2, title: "节点基金", subtitle: '节点基金收益领取', path: '/NodeFund' },
     ],
     "/NFT": [
-      { icon: MBASIcon0, title: "徽章", subtitle: '徽章查看個人精靈徽章', path: '/NFT' },
-      { icon: MBASIcon1, title: "土地", subtitle: '獲取土地分紅和服務獎', path: '/Land' },
-      { icon: MBASIcon2, title: "交易中心", subtitle: '自由買賣徽章土地', path: '/Swap' },
-      { icon: MBASIcon2, title: "質押", subtitle: '徽章質押獲得MBAS獎勵', path: '/Pledge' },
-      { icon: MBASIcon2, title: "合成", subtitle: '徽章合成解鎖更高權益', path: '/Synthesis' },
+      { icon: NFTIcon0, title: "徽章", subtitle: '徽章查看個人精靈徽章', path: '/NFT' },
+      { icon: NFTIcon1, title: "土地", subtitle: '獲取土地分紅和服務獎', path: '/Land' },
+      { icon: NFTIcon2, title: "交易中心", subtitle: '自由買賣徽章土地', path: '/Swap' },
+      { icon: NFTIcon3, title: "質押", subtitle: '徽章質押獲得MBAS獎勵', path: '/Pledge' },
+      { icon: NFTIcon4, title: "合成", subtitle: '徽章合成解鎖更高權益', path: '/Synthesis' },
+    ],
+    "/Ecology": [
+      { icon: MBASIcon0, title: "競猜娛樂", subtitle: '-', path: '/NFT' },
+      { icon: MBASIcon1, title: "遊戲競技", subtitle: '-', path: '/Land' },
     ]
   }
   // 导航
@@ -395,6 +404,13 @@ const MainLayout: React.FC = () => {
       })
     }
   }, [state.token])
+
+  // const AutoItem = () => {
+  //   while (dropMenuList[showDropMenu].length % 3 === 0) {
+  //     <div className="autoItem">
+  //     </div>
+  //   }
+  // }
 
   return (
     <Layout>
@@ -470,14 +486,6 @@ const MainLayout: React.FC = () => {
 
           {/* 大屏 */}
           <div className="MenuList LargeScreen">
-            {/* <div
-              className={menuActive("/")}
-              onClick={() => {
-                navigateFun("/");
-              }}
-            >
-              {t("Home")}
-            </div> */}
             <div
               className='MenuItem pointer'
               onClick={() => {
@@ -510,25 +518,6 @@ const MainLayout: React.FC = () => {
             >
               NFT
             </div>
-            {/* <Dropdown
-              overlay={NftMenu}
-              placement="bottom"
-              overlayClassName="LangDropDown"
-              trigger={["click"]}
-              arrow={{ pointAtCenter: true }}
-            >
-              <div className={menuActive("/NFT")}>NFT</div>
-            </Dropdown> 
-            */}
-            {/* <div
-              className={menuActive("/Swap")}
-              onClick={() => {
-                navigateFun("/Swap");
-              }}
-            >
-              {t("Swap")}
-            </div> 
-            */}
             <div
               className='MenuItem pointer'
               onClick={() => {
@@ -538,15 +527,14 @@ const MainLayout: React.FC = () => {
               SWAP
             </div>
 
-            <Dropdown
-              overlay={ecologyMenu}
-              placement="bottom"
-              overlayClassName="LangDropDown"
-              trigger={["click"]}
-              arrow={{ pointAtCenter: true }}
+            {/* <div
+              className={menuActive("/Ecology")}
+              onClick={() => {
+                setShowDropMenu("/Ecology");
+              }}
             >
-              <div className={menuActive("/Ecology")}>{t('Ecology')}</div>
-            </Dropdown>
+              {t('Ecology')}
+            </div> */}
             {/* <div
               className={menuActive("/farms")}
               onClick={() => {
@@ -638,7 +626,9 @@ const MainLayout: React.FC = () => {
                 </div>
               </div>
             )}
-            {dropMenuList[showDropMenu].lenght % 2 !== 0 && <div className="autoitem"></div>}
+            <div className="autoitem"></div>
+            {/* {while(dropMenuList[showDropMenu].length % 3){
+              }} */}
           </div>
         </div>}
       </Header>
@@ -665,12 +655,6 @@ const MainLayout: React.FC = () => {
                 <span>Twitter</span>
               </a>
             </div>
-            {/* <div className="SOCIALItem">
-                        <a href="/" target="_blank" rel="noreferrer">
-                            <img src={Medium} alt="" />
-                            <span>Medium</span>
-                        </a>
-                </div> */}
             <div className="SOCIALItem">
               <a
                 href="https://t.me/MetaBaseDAO"

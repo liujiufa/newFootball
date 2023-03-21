@@ -14,7 +14,7 @@ import Web3 from 'web3';
 import BigNumber from 'big.js'
 import '../assets/style/BlindBox.scss'
 import BlindBoxImg from '../assets/image/BlindBoxImg.png'
-import iconDemo from '../assets/image/iconDemo.png'
+import SBLIcon from '../assets/image/SBLIcon.png'
 import grade0 from '../assets/image/grade1.png'
 import grade1 from '../assets/image/grade2.png'
 import grade2 from '../assets/image/grade3.png'
@@ -23,6 +23,7 @@ import copyIcon from '../assets/image/copyIcon.png'
 import closeIcon from '../assets/image/closeIcon.png'
 import { useNavigate } from 'react-router-dom';
 import copy from "copy-to-clipboard";
+import NoData from '../components/NoData';
 export interface BoxBaseType {
   id: number
   status: number
@@ -174,7 +175,7 @@ export default function BlindBox() {
         </div>
       </div>
       <div className="priceBox">
-        <div className='price'> 价格：<img src={iconDemo} alt="" />{BoxBaseValue?.MBASPrice}{BoxBaseValue?.name}（~{BoxBaseValue?.price}BNB）</div>
+        <div className='price'> 价格：<img src={SBLIcon} alt="" />{BoxBaseValue?.MBASPrice}{BoxBaseValue?.name}（~{BoxBaseValue?.price}BNB）</div>
         <div className="boxNum">剩余数量：{BoxBaseValue?.totalNum - BoxBaseValue?.sellNum}/{BoxBaseValue?.totalNum}</div>
         {parseFloat(ApproveValue) >= parseFloat(BoxBaseValue?.MBASPrice) ? <div className="buyBtn flexCenter" onClick={() => { openBoxFun() }}>立即開啟</div> : <div className="buyBtn flexCenter" onClick={() => { ApproveFun(BoxBaseValue?.MBASPrice) }}>授权</div>}
       </div>
@@ -217,13 +218,13 @@ export default function BlindBox() {
             <div className="item hash">交易哈希</div>
           </div>
           <div className="bigBox">
-            {WrapRecord?.length > 0 && WrapRecord.map((item: any, index: any) => <div key={index} className="items contents">
+            {WrapRecord?.length > 0 ? WrapRecord.map((item: any, index: any) => <div key={index} className="items contents">
               <div className="item time">{dateFormat('YYYY-mm-dd HH:MM', new Date(item?.createTime))}</div>
               <div className="item addr">{AddrHandle(item?.userAddress, 6, 6)}</div>
               <div className="item type">{grade[item?.level]}</div>
               <div className="item value">{item?.amount} BNB</div>
               <div className="item hash" onClick={() => { window.open(BlockUrl + item?.txId) }}>{AddrHandle(item?.txId, 6, 6)}</div>
-            </div>)}
+            </div>) : <NoData></NoData>}
           </div>
         </>}
         {/* 我的開獎記錄 */}
@@ -235,12 +236,12 @@ export default function BlindBox() {
             <div className="item hash">交易哈希</div>
           </div>
           <div className="bigBox">
-            {BoxRecord?.length > 0 && BoxRecord.map((item: any, index: any) => <div key={index} className="items contents">
+            {BoxRecord?.length > 0 ? BoxRecord.map((item: any, index: any) => <div key={index} className="items contents">
               <div className="item time">{dateFormat('YYYY-mm-dd HH:MM', new Date(item?.createTime))}</div>
               <div className="item type">{gradeValueFun(item)}</div>
               <div className="item value">{!!item?.amount ? `${item?.amount} BNB` : "-"}</div>
               <div className="item hash" onClick={() => { window.open(BlockUrl + item?.txId) }}>{AddrHandle(item?.txId, 6, 6)}</div>
-            </div>)}
+            </div>) : <NoData></NoData>}
           </div>
         </>}
       </div>

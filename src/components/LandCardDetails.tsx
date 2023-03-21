@@ -10,6 +10,7 @@ import { contractAddress } from '../config'
 import { useNavigate } from 'react-router-dom';
 import BigNumber from 'big.js'
 import '../assets/style/componentsStyle/carddetails.scss'
+import i18next from 'i18next';
 function LandCardDetails(props: any) {
   console.log(props.CardInfo);
 
@@ -18,11 +19,11 @@ function LandCardDetails(props: any) {
 
   const cardObj = {
     0: '',
-    1: [t('Excellent'), t('add LP with value of 0.4 BNB'), t('LandServiceIncome1'), t('LandDividend')],
-    2: [t('Rare'), t('add LP with value of 1 BNB'), t('LandServiceIncome2'), t('LandDividend')],
-    3: [t('Good'), t('add LP with value of 2 BNB'), t('LandServiceIncome3'), t('LandDividend')],
-    4: [t('Epic'), t('add LP with value of 5 BNB'), t('LandServiceIncome4'), t('LandDividend')],
-    5: [t('Legend'), t('add LP with value of 16 BNB'), t('LandServiceIncome5'), t('LandDividend')]
+    1: [t('Supernova'), t('add LP with value of 0.4 BNB'),],
+    2: [t('Outpost'), t('add LP with value of 1 BNB'),],
+    3: [t('Galactic Hub'), t('add LP with value of 2 BNB'),],
+    4: [t('Star Empire'), t('add LP with value of 5 BNB'),],
+    5: [t('Cosmic Nexus'), t('add LP with value of 16 BNB'),]
   }
   const LevelObj = { 0: t('Not active'), 1: t('Lord'), 2: t('Castellan'), 3: t('Mayor'), 4: t('Governor'), 5: t('Speaker') }
   const web3React = useWeb3React()
@@ -80,8 +81,7 @@ function LandCardDetails(props: any) {
         </div>
 
         <div className='kpdetails'>{t("Activation requirement")}：{cardObj[props.CardInfo.cardLevel][1]}</div>
-        <div className='kpdetails'>{t("Land service income")}：{cardObj[props.CardInfo.cardLevel][2]}</div>
-        <div className='kpdetails'>{t("Land dividend")}：{cardObj[props.CardInfo.cardLevel][3]}</div>
+        <div className='kpdetails'>土地介绍：{i18next.language === "zh" ? props.CardInfo.zhIntroduce : props.CardInfo.introduce}</div>
         <div className='butm'>
           {isApproved ? <button className='hc' onClick={() => { props.showCreateOrder && props.showCreateOrder(props.CardInfo.cardLevel) }}>{t("Sale")}</button> : <button className='gm' onClick={() => { createOrderApproval() }}> <div>{t("Sale")}</div></button>}
           {<button className='hc' onClick={() => { activeFun() }}>激活</button>}

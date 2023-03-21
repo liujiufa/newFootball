@@ -5,7 +5,7 @@ import { Modal } from 'antd';
 import { orderInfoType } from '../view/Swap'
 import { Image } from 'antd'
 import '../assets/style/componentsStyle/PutParticulars.scss'
-import { landLevel } from '../config'
+import { landLevel, starLevel } from '../config'
 interface PropsType {
   isShow: boolean,
   close: Function,
@@ -36,7 +36,7 @@ function PutParticulars(props: PropsType) {
         closable={false}
         footer={null}
       >
-        <div className='title'>{t('Card Details')}</div>
+        <div className='title'>{t("Land details")}</div>
         <div className='hzimg'>
           <Image src={props.OrderInfo.image}></Image>
         </div>
@@ -46,12 +46,11 @@ function PutParticulars(props: PropsType) {
         </div>
         <div className="p2">
           <div className='kpdetails'>{t("Land title")}：{LevelObj[props.userLevel]}</div>
-          <div className='kpdetails'>{t("Status")}：{props.OrderInfo.isActivation == 1 ? t('Active') : t('Not active')}</div>
+          <div className='kpdetails'>土地等级：{starLevel[props.OrderInfo.cardLevel]}</div>
         </div>
 
         <div className='kpdetails'>{t("Activation requirement")}：{cardObj[props.OrderInfo.cardLevel][1]}</div>
-        <div className='kpdetails'>{t("Land service income")}：{cardObj[props.OrderInfo.cardLevel][2]}</div>
-        <div className='kpdetails'>{t("Land dividend")}：{cardObj[props.OrderInfo.cardLevel][3]}</div>
+        <div className='kpdetails'>土地介绍：{cardObj[props.OrderInfo.cardLevel][2]}</div>
       </Modal>
     </>
   )

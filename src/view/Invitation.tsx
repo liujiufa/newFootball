@@ -233,7 +233,7 @@ export default function Invitation() {
 
         <div className="itemBox">
           <div className="itemTitle">{t("Send your invite link")}</div>
-          <div className="itemTip">{t("copyLink")}</div>
+          <div className="itemTip">複製併使用此鏈接，邀請您的朋友加入Meta Base ，一起探索無限精彩的元宇宙世界。建立自己的Meta Base 家族！</div>
           <div className="addressBox">
             <div className="referee" >{t("Invite link")}</div>
             <div className="addressValue">

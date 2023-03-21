@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { getNodeEquityBase, getRankingRecord } from "../API";
+import { getNodeEquityBase, getRankingRecord, nodeRecurit } from "../API";
 import { useSelector } from "react-redux";
 import { Modal } from "antd";
 import { useTranslation } from "react-i18next";
@@ -7,7 +7,7 @@ import { stateType } from "../store/reducer";
 import { useWeb3React } from "@web3-react/core";
 import { addMessage, AddrHandle, dateFormat, NumSplic, showLoding, GetQueryString } from "../utils/tool";
 import { Contracts } from "../web3";
-import { BlockUrl } from '../config'
+import { BlockUrl, BNBValue } from '../config'
 import BigNumber from "big.js";
 import copyIcon from "../assets/image/copyIcon.png";
 import ableInviteIcon from "../assets/image/ableInviteIcon.png";
@@ -53,6 +53,7 @@ export default function Invitation() {
   let [isGetBtn, setIsGetBtn] = useState(false);
   let [hashValue, setHashValue] = useState();
   let [isGetValue, setIsGetValue] = useState<any>();
+  let [NodeAplyGetValue, setNodeAplyGetValue] = useState<any>();
   const web3React = useWeb3React();
   useEffect(() => {
     if (state.token && web3React.account) {
@@ -69,6 +70,10 @@ export default function Invitation() {
           setNodeRankData(arr);
         });
       });
+      nodeRecurit().then((res: any) => {
+        console.log("nodeRecurit", res.data);
+        setNodeAplyGetValue(res.data)
+      })
     }
   }, [state.token]);
 
@@ -111,14 +116,13 @@ export default function Invitation() {
   }
   // 参与节点
   const buyNode = () => {
-
     let refereeUserAddress = GetQueryString("address") || '0x0000000000000000000000000000000000000000'
     if (web3React.account) {
       Contracts.example.getBalance(web3React.account).then((res: any) => {
         console.log(new BigNumber(res).div(10 ** 18).toString(), 'BNB余额');
-        if (new BigNumber(0.2).lte(new BigNumber(res).div(10 ** 18).toString())) {
+        if (new BigNumber(BNBValue).lte(new BigNumber(res).div(10 ** 18).toString())) {
           showLoding(true)
-          Contracts.example.buyJoinNode(web3React.account as string, refereeUserAddress).then((res: any) => {
+          Contracts.example.buyJoinNode(web3React.account as string, refereeUserAddress, BNBValue).then((res: any) => {
             console.log(res, '购买end');
             showLoding(false)
             setShowJoinSuccess(true)
@@ -269,13 +273,13 @@ export default function Invitation() {
         <div className="box">
           <div className="title">领取</div>
           <div className="tip">
-            当前节点申请已结束，恭喜您成功认购{isGetValue[0]}MBAS,回退{isGetValue[1]}BNB
+            当前节点申请已结束，恭喜您成功认购{NumSplic(isGetValue[0], 4)}MBAS,回退{NumSplic(isGetValue[1], 4)}BNB
           </div>
           <div className="confirm flexCenter" onClick={() => { getNode() }}>確認</div>
         </div>
       </Modal>}
       {/* 已领取 */}
-      {isGetValue && <Modal
+      {(isGetValue || NodeAplyGetValue) && <Modal
         visible={showGetSuccess}
         className='nodeJoinModal'
         centered
@@ -286,7 +290,7 @@ export default function Invitation() {
         <img src={closeIcon} className="closeIcon" alt="" onClick={() => setShowGetSuccess(false)} />
         <div className="box">
           <div className="tip">
-            当前节点申请已结束，您已成功领取{isGetValue[0]}MBAS,回退{isGetValue[1]}BNB，<span onClick={() => { window.open(BlockUrl + hashValue) }}> 查看</span>
+            当前节点申请已结束，您已成功领取{NumSplic(NodeAplyGetValue?.earnNum || isGetValue[0], 4)}MBAS,回退{NumSplic(NodeAplyGetValue?.needPayNum || isGetValue[1], 4)}BNB，<span onClick={() => { window.open(BlockUrl + (NodeAplyGetValue?.txId || hashValue)) }}> 查看</span>
           </div>
         </div>
       </Modal>}

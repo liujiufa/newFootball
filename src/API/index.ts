@@ -511,3 +511,10 @@ export function nodeFund() {
         method: 'get',
     })
 }
+// 获取节点申请记录
+export function nodeRecurit() {
+    return axois.request({
+        url: `/user/nNodeRecruitUser/nodeRecurit`,
+        method: 'get',
+    })
+}

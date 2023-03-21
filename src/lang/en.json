@@ -341,7 +341,6 @@
     "MBAS destroyed": "MBAS destroyed",
     "MBAS total supply": "MBAS total supply",
     "Add liquidity": "Add liquidity",
-    "Excellent": "Excellent",
     "Rare": "RARE",
     "Good": "GOOD",
     "Epic": "EPIC",
@@ -500,8 +499,6 @@
     "LandDetailTip5": "5. Activate Legendary NFT Land to get the title of Speaker.",
     "destructTip": "Currently the maximum burnable {{price1}} MBAS, the minimum must be destroyed {{price2}} MBAS",
     "MBAS Des": "MBAS adopts a deflationary governance model, and all 5% of the selling slippage will be put into the destruction fund pool as a reward for users to destroy MBAS. Users who destroy MBAS will receive twice the value of BNB rewards, and the rewards will be released within 2,592,000 blocks. After each donation, wait 28,800 blocks to donate again.",
-
-
     "The first Metaverse world created with welfare as the theme": "The first Metaverse world created with welfare as the theme",
     "WHITEPAPER": "WHITEPAPER",
     "CASE": "CASE",
@@ -566,5 +563,9 @@
     "ROAD MAP": "ROAD MAP",
     "STRATEGIC COOPERATION": "STRATEGIC COOPERATION",
     "Meta Base Metaverse": "Meta Base Metaverse",
-    "Meta Wallet": "Meta Wallet"
+    "Supernova": "Supernova",
+    "Outpost": "Outpost",
+    "Galactic Hub": "Galactic Hub",
+    "Star Empire": "Star Empire",
+    "Cosmic Nexus": "Cosmic Nexus"
 }
