@@ -9,18 +9,32 @@ import { useWeb3React } from '@web3-react/core'
 import { Contracts } from '../web3';
 import { showLoding, addMessage, dateFormat, AddrHandle, getBit } from '../utils/tool';
 import { contractAddress, nftType, nftLevel } from '../config'
-import { BlockUrl } from '../config'
+import { BlockUrl, grade } from '../config'
 import Web3 from 'web3';
 import BigNumber from 'big.js'
 import '../assets/style/BlindBox.scss'
 import BlindBoxImg from '../assets/image/BlindBoxImg.png'
+import BlindBoxImg1 from '../assets/image/BlindBox1.png'
+import BlindBoxImg2 from '../assets/image/BlindBox2.png'
+import BlindBoxImg3 from '../assets/image/BlindBox3.png'
+import BlindBoxImg4 from '../assets/image/BlindBox4.png'
+import BlindBoxImg5 from '../assets/image/BlindBox5.png'
+import BlindBoxImg6 from '../assets/image/BlindBox6.png'
+import BlindBoxImg7 from '../assets/image/BlindBox7.png'
+import coinIcon1 from '../assets/image/coinIcon1.png'
+import coinIcon2 from '../assets/image/coinIcon2.png'
+import coinIcon3 from '../assets/image/coinIcon3.png'
+import coinIcon4 from '../assets/image/coinIcon4.png'
 import SBLIcon from '../assets/image/SBLIcon.png'
+import gradeAll from '../assets/image/gradeAll.png'
 import grade0 from '../assets/image/grade1.png'
 import grade1 from '../assets/image/grade2.png'
 import grade2 from '../assets/image/grade3.png'
 import grade3 from '../assets/image/grade4.png'
 import copyIcon from '../assets/image/copyIcon.png'
 import closeIcon from '../assets/image/closeIcon.png'
+import decIcon from '../assets/image/desIcon.png'
+import swichMiddleIcon from '../assets/image/swichMiddleIcon.png'
 import { useNavigate } from 'react-router-dom';
 import copy from "copy-to-clipboard";
 import NoData from '../components/NoData';
@@ -33,8 +47,16 @@ export interface BoxBaseType {
   totalNum: number,
   sellCardinality: number,
 }
-let grade = { 1: "一等奖", 2: "二等奖", 3: "三等奖", 4: "普通" }
-let gradeImg = { 1: grade0, 2: grade1, 3: grade2, 4: grade3 }
+let redioObj = [
+  { icon: coinIcon1, title: "一等獎", subtitle: '0.5%' },
+  { icon: coinIcon1, title: "二等獎", subtitle: '1%' },
+  { icon: coinIcon1, title: "三等獎", subtitle: '1.5%' },
+  { icon: coinIcon1, title: "幸运奖", subtitle: '0.5%' },
+  { icon: coinIcon2, title: "1星", subtitle: '1.5%' },
+  { icon: coinIcon3, title: "2星", subtitle: '27%' },
+  { icon: coinIcon4, title: "3星", subtitle: '9%' },
+]
+let gradeImg = { 0: gradeAll, 1: grade0, 2: grade1, 3: grade2, 4: grade3 }
 export default function BlindBox() {
   let { t } = useTranslation()
   let state = useSelector<stateType, stateType>(state => state);
@@ -43,11 +65,12 @@ export default function BlindBox() {
   const web3React = useWeb3React()
   let [TabIndex, SetTabIndex] = useState(0)
   const [confirmBuy, setConfirmBox] = useState(false)
+  const [RadioModal, setRadioModal] = useState(false)
   const [confirmRewardBox, setConfirmRewardBox] = useState(false)
   const [balance1, setBalance1] = useState('0')
   const [ApproveValue, setApproveValue] = useState('0')
   const [BoxBaseValue, setBoxBaseValue] = useState<any>()
-  const [BoxBaseArr, setBoxBaseArr] = useState<any>([])
+  const [BoxBaseArr, setBoxBaseArr] = useState<any>()
   const [WrapRecord, setWrapRecord] = useState<any>([])
   const [BoxRecord, setBoxRecord] = useState<any>([])
   const [ResultData, setResultData] = useState<any>()
@@ -164,29 +187,150 @@ export default function BlindBox() {
       })
     }
   }, [web3React.account])
+  // BNB開獎記錄
+  const AutoBox1 = () => {
+    if (true) {
+      // if (width > 1024) {
+      return <div className='bigRecord'>
+        <div className="items titles">
+          <div className="item time">時間</div>
+          <div className="item addr">開獎地址</div>
+          <div className="item type">類型</div>
+          <div className="item value">金額</div>
+          <div className="item hash">交易哈希</div>
+        </div>
+        <div className="bigBox">
+          {WrapRecord?.length > 0 ? WrapRecord.map((item: any, index: any) => <div key={index} className="items contents">
+            <div className="item time">{dateFormat('YYYY-mm-dd HH:MM', new Date(item?.createTime))}</div>
+            <div className="item addr">{AddrHandle(item?.userAddress, 6, 6)}</div>
+            <div className="item type">{grade[item?.level]}</div>
+            <div className="item value">{item?.amount} BNB</div>
+            <div className="item hash" onClick={() => { window.open(BlockUrl + item?.txId) }}>{AddrHandle(item?.txId, 6, 6)}</div>
+          </div>) : <NoData></NoData>}
+        </div>
+      </div>
+    } else {
+      return <div className='middleRecord'>
+        <div className="items titles">
+          <div className="item time">時間</div>
+          <div className="item type">類型</div>
+          <div className="item value">金額</div>
+          <div className='switchIcon'></div>
+        </div>
+        <div className="bigBox">
+          {WrapRecord?.length > 0 ? WrapRecord.map((item: any, index: any) => <div key={index} className="items contents">
+            <div className="item time">{dateFormat('YYYY-mm-dd HH:MM', new Date(item?.createTime))}</div>
+            <div className="item type">{grade[item?.level]}</div>
+            <div className="item value">{item?.amount} BNB</div>
+            <div className="switchIcon"><img src={swichMiddleIcon} alt="" /></div>
+            {/* 
+            <div className="item addr">{AddrHandle(item?.userAddress, 6, 6)}</div>
+            <div className="item hash" onClick={() => { window.open(BlockUrl + item?.txId) }}>{AddrHandle(item?.txId, 6, 6)}</div>
+             */}
+          </div>) : <NoData></NoData>}
+        </div>
+      </div>
+    }
+  }
+  // 我的開獎記錄
+  const AutoBox2 = () => {
+    if (true) {
+      // if (width > 1024) {
+      return <div className='bigRecord'>
+        <div className="items titles">
+          <div className="item time">時間</div>
+          <div className="item type">類型</div>
+          <div className="item value">金額</div>
+          <div className="item hash">交易哈希</div>
+        </div>
+        <div className="bigBox">
+          {BoxRecord?.length > 0 ? BoxRecord.map((item: any, index: any) => <div key={index} className="items contents">
+            <div className="item time">{dateFormat('YYYY-mm-dd HH:MM', new Date(item?.createTime))}</div>
+            <div className="item type">{gradeValueFun(item)}</div>
+            <div className="item value">{!!item?.amount ? `${item?.amount} BNB` : "-"}</div>
+            <div className="item hash" onClick={() => { window.open(BlockUrl + item?.txId) }}>{AddrHandle(item?.txId, 6, 6)}</div>
+          </div>) : <NoData></NoData>}
+        </div>
+      </div>
+    } else {
+      return <div className='middleRecord'>
+        <div className="items titles">
+          <div className="item time">時間</div>
+          <div className="item type">類型</div>
+          <div className="item value">金額</div>
+          <div className="item hash">交易哈希</div>
+        </div>
+        <div className="bigBox">
+          {BoxRecord?.length > 0 ? BoxRecord.map((item: any, index: any) => <div key={index} className="items contents">
+            <div className="item time">{dateFormat('YYYY-mm-dd HH:MM', new Date(item?.createTime))}</div>
+            <div className="item type">{gradeValueFun(item)}</div>
+            <div className="item value">{!!item?.amount ? `${item?.amount} BNB` : "-"}</div>
+            <div className="item hash" onClick={() => { window.open(BlockUrl + item?.txId) }}>{AddrHandle(item?.txId, 6, 6)}</div>
+          </div>) : <NoData></NoData>}
+        </div>
+      </div>
+    }
+  }
+
+  const ImgBox = () => {
+    if (width > 600) {
+      return <div className="imgBox">
+        <img src={BlindBoxImg} alt="" />
+        <div className="boxContainer">
+          <img className='img1' src={BlindBoxImg1} alt="" />
+          <img className='img2' src={BlindBoxImg2} alt="" />
+          <img className='img3' src={BlindBoxImg3} alt="" />
+          <img className='img4' src={BlindBoxImg4} alt="" />
+          <img className='img5' src={BlindBoxImg5} alt="" />
+          <img className='img6' src={BlindBoxImg6} alt="" />
+          <img className='img7' src={BlindBoxImg7} alt="" />
+        </div>
+      </div>
+    } else {
+      return <div className='imgMiddleBox'> <img src={BlindBoxImg} alt="" /></div>
+    }
+  }
 
   return (
     <div className="Edition-Center" id='BlindBox'>
       <div className="Title">寶箱</div>
       <div className="subTitle">開啟神秘盲盒 解鎖特殊權益</div>
-      <div className="imgBox">
+      {/* <div className="imgBox">
+        <img src={BlindBoxImg} alt="" />
         <div className="boxContainer">
-          <img src={BlindBoxImg} alt="" />
+          <img className='img1' src={BlindBoxImg1} alt="" />
+          <img className='img2' src={BlindBoxImg2} alt="" />
+          <img className='img3' src={BlindBoxImg3} alt="" />
+          <img className='img4' src={BlindBoxImg4} alt="" />
+          <img className='img5' src={BlindBoxImg5} alt="" />
+          <img className='img6' src={BlindBoxImg6} alt="" />
+          <img className='img7' src={BlindBoxImg7} alt="" />
         </div>
-      </div>
+      </div> */}
+      <ImgBox></ImgBox>
       <div className="priceBox">
         <div className='price'> 价格：<img src={SBLIcon} alt="" />{BoxBaseValue?.MBASPrice}{BoxBaseValue?.name}（~{BoxBaseValue?.price}BNB）</div>
         <div className="boxNum">剩余数量：{BoxBaseValue?.totalNum - BoxBaseValue?.sellNum}/{BoxBaseValue?.totalNum}</div>
-        {parseFloat(ApproveValue) >= parseFloat(BoxBaseValue?.MBASPrice) ? <div className="buyBtn flexCenter" onClick={() => { openBoxFun() }}>立即開啟</div> : <div className="buyBtn flexCenter" onClick={() => { ApproveFun(BoxBaseValue?.MBASPrice) }}>授权</div>}
+        <div className="btnBox">
+          {parseFloat(ApproveValue) >= parseFloat(BoxBaseValue?.MBASPrice) ? <div className="buyBtn flexCenter" onClick={() => { openBoxFun() }}>立即開啟</div> : <div className="buyBtn flexCenter approveBtn" onClick={() => { ApproveFun(BoxBaseValue?.MBASPrice) }}>授权</div>}
+          {width < 600 && <img src={decIcon} alt="" onClick={() => {
+            setRadioModal(true)
+          }} />}
+        </div>
       </div>
-      <div className="goodsBox">
-        {BoxBaseArr.map((item: any, index: any) => <div key={index} className="goods">
+      {BoxBaseArr && <div className="goodsBox">
+        <div className="goods">
+          <img src={gradeImg[0]} alt="" />
+          <div className="title">奖金池</div>
+          <div className="num">{BoxBaseArr?.totalAmount}BNB</div>
+        </div>
+        {BoxBaseArr?.list?.map((item: any, index: any) => <div key={index} className="goods">
           <img src={gradeImg[item?.level]} alt="" />
           <div className="surplus flexCenter">{item?.surplusCount}</div>
           <div className="title">{grade[item?.level]}</div>
           <div className="num">{item?.amount}BNB</div>
         </div>)}
-      </div>
+      </div>}
       <div className="tabsBox">
         <div className="Tabs">
           <div className={TabIndex === 0 ? 'activeTab linear-gradient' : 'invalidTab'} onClick={() => { changeTab(0) }}>盲盒介紹</div>
@@ -199,7 +343,7 @@ export default function BlindBox() {
         {TabIndex === 0 && <> 寶箱可以隨機開出一星、二星、三星三種屬性的精靈徽章NFT和一等獎、二等獎、三等獎、普通的BNB。精靈徽章NFT可以參與質押挖礦獲取MBAS，低星徽章合成高星徽章時，可以獲得土地NFT獎勵。NFT可在Metabase生態內的交易市場交易，也支持在第三方交易平臺交易。
           <div className="contractAddr">
             <div className="addrTitle"> 徽章NFT合約地址</div>
-            <div className="addr">{AddrHandle(contractAddress.BlindBox, 10, 6)} <img onClick={() => {
+            <div className="addr">{AddrHandle(contractAddress.NFT, 10, 6)} <img onClick={() => {
               copy(
                 contractAddress.BlindBox
               );
@@ -209,26 +353,11 @@ export default function BlindBox() {
         </>}
 
         {/* BNB開獎記錄 */}
-        {TabIndex === 1 && <>
-          <div className="items titles">
-            <div className="item time">時間</div>
-            <div className="item addr">開獎地址</div>
-            <div className="item type">類型</div>
-            <div className="item value">金額</div>
-            <div className="item hash">交易哈希</div>
-          </div>
-          <div className="bigBox">
-            {WrapRecord?.length > 0 ? WrapRecord.map((item: any, index: any) => <div key={index} className="items contents">
-              <div className="item time">{dateFormat('YYYY-mm-dd HH:MM', new Date(item?.createTime))}</div>
-              <div className="item addr">{AddrHandle(item?.userAddress, 6, 6)}</div>
-              <div className="item type">{grade[item?.level]}</div>
-              <div className="item value">{item?.amount} BNB</div>
-              <div className="item hash" onClick={() => { window.open(BlockUrl + item?.txId) }}>{AddrHandle(item?.txId, 6, 6)}</div>
-            </div>) : <NoData></NoData>}
-          </div>
-        </>}
+        {TabIndex === 1 && <AutoBox1></AutoBox1>}
+
         {/* 我的開獎記錄 */}
-        {TabIndex === 2 && <>
+        {TabIndex === 2 && <AutoBox2></AutoBox2>}
+        {/* {TabIndex === 2 && <div>
           <div className="items titles">
             <div className="item time">時間</div>
             <div className="item type">類型</div>
@@ -243,7 +372,9 @@ export default function BlindBox() {
               <div className="item hash" onClick={() => { window.open(BlockUrl + item?.txId) }}>{AddrHandle(item?.txId, 6, 6)}</div>
             </div>) : <NoData></NoData>}
           </div>
-        </>}
+        </div>} */}
+
+
       </div>
 
       {/* 成功购买弹窗 */}
@@ -274,12 +405,37 @@ export default function BlindBox() {
         onCancel={() => { setConfirmBox(false) }}>
         <img src={closeIcon} className="closeIcon" alt="" onClick={() => setConfirmBox(false)} />
         <div className="box">
-          <div className="title">恭喜！</div>
+          <div className="Title">恭喜！</div>
           <div className='type'>{ResultData?.name}！</div>
           <img src={ResultData?.image} alt="" />
           <div className="confirmBtn  flexCenter" onClick={() => { navigate("/NFT") }}>去查看</div>
         </div>
       </Modal>
+      {/* 概率 */}
+      <Modal
+        visible={RadioModal}
+        className='RadioModal'
+        centered
+        width={'552px'}
+        closable={false}
+        footer={null}
+        onCancel={() => { setRadioModal(false) }}>
+        <img src={closeIcon} className="closeIcon" alt="" onClick={() => setRadioModal(false)} />
+        <div className="box">
+          <div className="Title">盲盒概率</div>
+          <div className="items">
+            {redioObj.map((item: any, index: number) => <div key={index} className="item" >
+              <div className="img">
+                <img src={item.icon} alt="" />
+              </div>
+              <div className="right">
+                <div className="title">{item.title}</div>
+                <div className="value">{item.subtitle}</div>
+              </div>
+            </div>)}
+          </div>
+        </div>
+      </Modal >
     </div >
   )
 }

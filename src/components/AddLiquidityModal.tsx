@@ -22,7 +22,7 @@ import Web3 from 'web3';
 let landLevelObj = { 1: 0.2, 2: 0.5, 3: 1, 4: 2.5, 5: 8 }
 function AddLiquidityModal(props: any) {
     let { t } = useTranslation()
-    let landType = { 0.2: t('Excellent'), 0.5: t('Rare'), 1: t('Good'), 2.5: t('Epic'), 8: t('Legend') }
+    let landType = { 0.2: t('Supernova'), 0.5: t('Outpost'), 1: t('Galactic Hub'), 2.5: t('Star Empire'), 8: t('Cosmic Nexus') }
     const { width } = useViewport()
     let state = useSelector<stateType, stateType>(state => state);
     const web3React = useWeb3React()
@@ -147,8 +147,8 @@ function AddLiquidityModal(props: any) {
             >
                 <img src={closeIcon} className="closeIcon" alt="" onClick={() => props.close()} />
                 <p className='title'>{t("Add liquidity")}</p>
-                {/* <p className='titleTip'>{t("AddLand", { landType: landType[type] })}</p> */}
                 <div className='topBox Box'>
+                    <div className="balance topBalance">{t("Balance")}：{NumSplic(balance, 4)}</div>
                     <div className="coinBox">
                         <div className="valueBox">
                             <Dropdown menu={{ items: items.map((item: any) => ({ ...item, onClick: handleCallback })) }} overlayClassName='AddLiquidityDropdown' trigger={['click']} placement="bottom">
@@ -163,12 +163,9 @@ function AddLiquidityModal(props: any) {
                             </Dropdown>
                             <div className="coinName"> <img src={BNBIcon} alt="" />BNB</div>
                         </div>
-                        {/* <div className="rightBox">{web3React.account && <div className="approveBtn flex" >{t("Approved")}</div>} </div> */}
                     </div>
-
                     <div className="balanceBox">
-                        {type <= parseFloat(balance) ? <div className="balance">{t("Balance")}：{NumSplic(balance, 4)}</div> : <div className="noBalance">余额不足！</div>}
-                        {/* {width > 425 && <div className="rightBox"></div>} */}
+                        {type <= parseFloat(balance) ? <div className="balance"></div> : <div className="noBalance">余额不足！</div>}
                     </div>
 
                 </div>
@@ -176,6 +173,7 @@ function AddLiquidityModal(props: any) {
                     <img src={addIcon} alt="" />
                 </div>
                 <div className='bottomBox Box'>
+                    <div className="balance bottomBalance">{t("Balance")}：{NumSplic(balance1, 4)}</div>
                     <div className="coinBox">
                         <div className="valueBox">
                             <div className="value">{NumSplic(toSBL, 4)}</div>
@@ -183,8 +181,7 @@ function AddLiquidityModal(props: any) {
                         </div>
                     </div>
                     <div className="balanceBox">
-                        {parseFloat(toSBL) <= parseFloat(balance1) ? <div className="balance">{t("Balance")}：{NumSplic(balance1, 4)}</div> : <div className="noBalance">余额不足！</div>}
-                        {/* {width > 425 && <div className="rightBox"></div>} */}
+                        {parseFloat(toSBL) <= parseFloat(balance1) ? <div className="balance"></div> : <div className="noBalance">余额不足！</div>}
                     </div>
                 </div>
                 <div className="btnBox">{parseFloat(ApproveValue) <= parseFloat(toSBL) && <div className="approveBtn toApproveBtn  flex" onClick={() => { ApproveFun() }}> 授权 MBAS </div>}</div>

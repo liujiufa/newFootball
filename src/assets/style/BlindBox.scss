@@ -31,12 +31,66 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        margin: 0px auto;
+        width: 600px;
+        height: 600px;
+        position: relative;
+
+        img {
+            max-width: 300px;
+            max-height: 300px;
+        }
 
         .boxContainer {
-            img {
-                width: 300px;
-                height: 300px;
+
+            .img1 {
+                position: absolute;
+                left: 5%;
+                top: 66%;
             }
+
+            .img2 {
+                position: absolute;
+                left: 0%;
+                top: 40%;
+            }
+
+            .img3 {
+                position: absolute;
+                left: 10%;
+                top: 12%;
+            }
+
+            .img4 {
+                position: absolute;
+                left: 40%;
+                top: 5%;
+            }
+
+            .img5 {
+                position: absolute;
+                right: 5%;
+                top: 66%;
+
+            }
+
+            .img6 {
+                position: absolute;
+                right: 0%;
+                top: 40%;
+            }
+
+            .img7 {
+                position: absolute;
+                right: 10%;
+                top: 12%;
+            }
+        }
+    }
+
+    .imgMiddleBox {
+        img {
+            width: 100%;
         }
     }
 
@@ -56,8 +110,8 @@
         }
 
         img {
-            width: 50px;
-            height: 50px;
+            width: 30px;
+            height: 30px;
             margin-right: 12px;
         }
 
@@ -71,20 +125,33 @@
             text-align: center;
         }
 
-        .buyBtn {
-            margin: 16px auto;
-            width: max-content;
-            height: max-content;
-            padding: 20px 40px;
-            background: url(../image/immeBuy.png) no-repeat center / 100% 100%;
-            font-family: 'DIN';
-            font-style: normal;
-            font-weight: 700;
-            font-size: 20px;
-            line-height: 24px;
-            color: #FFFFFF;
-            text-shadow: 0px 1px 0px #000000;
+        .btnBox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .buyBtn {
+                min-width: 150px;
+                width: max-content;
+                margin: 12px 10px;
+                height: max-content;
+                padding: 20px 40px;
+                background: url(../image/immeBuy.png) no-repeat center / 100% 100%;
+                font-family: 'DIN';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 20px;
+                line-height: 24px;
+                color: #FFFFFF;
+                text-shadow: 0px 1px 0px #000000;
+            }
+
+            img {
+                width: 18px;
+                height: 18px;
+            }
         }
+
     }
 
     .goodsBox {
@@ -219,67 +286,133 @@
             }
         }
 
-        .items {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        .bigRecord {
 
-            .item {
-                text-align: center;
-                font-family: 'PingFang SC';
-                font-style: normal;
-                font-weight: 700;
-                font-size: 20px;
-                line-height: 28px;
-                /* identical to box height */
-                color: #000000;
-            }
-        }
+            .items {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
 
-        .titles {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            padding-bottom: 20px;
-            min-width: 860px;
-
-        }
-
-        .bigBox {
-            overflow: auto;
-            max-height: 300px;
-            min-width: 860px;
-
-            .contents {
                 .item {
-                    margin-top: 25px;
+                    text-align: center;
                     font-family: 'PingFang SC';
                     font-style: normal;
                     font-weight: 700;
-                    font-size: 16px;
-                    line-height: 22px;
+                    font-size: 20px;
+                    line-height: 28px;
+                    /* identical to box height */
                     color: #000000;
                 }
+            }
 
-                .hash {
-                    color: #009E4E;
+            .titles {
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                padding-bottom: 20px;
+                min-width: 860px;
+
+            }
+
+            .bigBox {
+                overflow: auto;
+                max-height: 300px;
+                min-width: 860px;
+
+                .contents {
+                    .item {
+                        margin-top: 25px;
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 16px;
+                        line-height: 22px;
+                        color: #000000;
+                    }
+
+                    .hash {
+                        color: #009E4E;
+                    }
                 }
+            }
+
+            .time {
+                width: 150px;
+            }
+
+            .type,
+            .value {
+                width: 120px;
+            }
+
+            .addr {
+                width: 240px;
+            }
+
+            .hash {
+                width: 240px;
             }
         }
 
-        .time {
-            width: 150px;
-        }
+        .middleRecord {
 
-        .type,
-        .value {
-            width: 120px;
-        }
 
-        .addr {
-            width: 240px;
-        }
+            .items {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
 
-        .hash {
-            width: 240px;
+                .item {
+                    text-align: center;
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 20px;
+                    line-height: 28px;
+                    /* identical to box height */
+                    color: #000000;
+                }
+            }
+
+            .titles {
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                padding-bottom: 20px;
+
+            }
+
+            .bigBox {
+
+                .contents {
+                    .item {
+                        margin-top: 25px;
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 16px;
+                        line-height: 22px;
+                        color: #000000;
+                    }
+
+                    .hash {
+                        color: #009E4E;
+                    }
+                }
+            }
+
+            .time {
+                width: 150px;
+            }
+
+            .type,
+            .value {
+                width: 120px;
+            }
+
+            .addr {
+                width: 240px;
+            }
+
+            .hash {
+                width: 240px;
+            }
         }
 
     }
@@ -304,8 +437,9 @@
         }
     }
 
-    #BlindBox .priceBox .buyBtn {
+    #BlindBox .priceBox .btnBox .buyBtn {
         padding: 8px 20px;
+        min-width: 100px;
     }
 
     #BlindBox .contentBox {
@@ -336,13 +470,28 @@
         padding: 8px 12px;
         font-size: 12px;
     }
-    #BlindBox .priceBox img{
+
+    #BlindBox .priceBox img {
         width: 20px;
         height: 20px;
     }
-    #BlindBox .contentBox{
+
+    #BlindBox .contentBox {
         font-size: 12px;
     }
+}
+
+.Title {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 34px;
+    /* identical to box height */
+    text-align: center;
+    color: #000000;
+    margin-bottom: 20px;
+
 }
 
 .successBuyModal {
@@ -351,18 +500,7 @@
         flex-direction: column;
         align-items: center;
 
-        .title {
-            font-family: 'PingFang SC';
-            font-style: normal;
-            font-weight: 700;
-            font-size: 24px;
-            line-height: 34px;
-            /* identical to box height */
-            text-align: center;
-            color: #000000;
-            margin-bottom: 20px;
 
-        }
 
         img {
             display: flex;
@@ -394,6 +532,50 @@
             line-height: 22px;
             color: #FFFFFF;
             background: url(../image/btnBg.png) no-repeat center / 100% 100%;
+        }
+    }
+}
+
+
+.Title {}
+
+.RadioModal {
+    .items {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+
+        .item {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+
+            .img {
+                margin-right: 12px;
+            }
+
+            .title {
+                font-family: 'DIN';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 17px;
+                color: #000000;
+                text-shadow: 0px 9px 4px rgba(255, 255, 255, 0.6);
+                margin-bottom: 12px;
+            }
+
+            .value {
+                font-family: 'DIN';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 16px;
+                line-height: 20px;
+                /* identical to box height */
+                color: #000000;
+            }
         }
     }
 }

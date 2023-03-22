@@ -21,11 +21,11 @@ function CardComRule(props: PropsType) {
       >
         <p className='title'>{t('Evolve rules1')}</p>
         <div className='box'>
-          <div className='zifujg'>1、水精灵： 2個精灵仙子 +0.2BNB 可以獲得地球领土ID權益</div>
-          <div className='zifujg'>2、木精灵： 2個水精灵 +0.3BNB 可以獲得行星领土ID權益</div>
-          <div className='zifujg'>3、火精灵： 2個木精灵 +0.5BNB 可以獲得银河领土ID權益</div>
-          <div className='zifujg'>4、土精灵： 2個火精灵 +1BNB 可以獲得星际领土ID權益</div>
-          <div className='zifujg'>5、金精灵： 2個同類土精灵 +1.5BNB 可以獲得宇宙领土ID權益</div>
+          <div className='zifujg'>1、水精灵： 2個精灵仙子合成可以獲得地球领土ID權益</div>
+          <div className='zifujg'>2、木精灵： 2個水精灵合成可以獲得行星领土ID權益</div>
+          <div className='zifujg'>3、火精灵： 2個木精灵合成可以獲得银河领土ID權益</div>
+          <div className='zifujg'>4、土精灵： 2個火精灵合成可以獲得星际领土ID權益</div>
+          <div className='zifujg'>5、金精灵： 2個同類型合成可以獲得宇宙领土ID權益</div>
         </div>
       </Modal>
     </>

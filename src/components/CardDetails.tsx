@@ -61,14 +61,20 @@ function CardDetails(props: any) {
   // NFT质押
   const NFTPledgeFun = () => {
     if (web3React.account && props.CardInfo.tokenId) {
-      showLoding(true)
-      Contracts.example.stake(web3React.account as string, contractAddress.NFT, props.CardInfo.tokenId).then((res: any) => {
-        console.log('质押成功');
-        props.close()
-        props.pledgeSuccessModal()
-      }).finally(() => {
-        showLoding(false)
+      Contracts.example.isAbleToStake(web3React.account as string).then((res: any) => {
+        if (res) {
+          showLoding(true)
+          Contracts.example.stake(web3React.account as string, contractAddress.NFT, props.CardInfo.tokenId).then((res: any) => {
+            props.close()
+            props.pledgeSuccessModal()
+          }).finally(() => {
+            showLoding(false)
+          })
+        } else {
+          addMessage("不能质押")
+        }
       })
+
     }
   }
 
@@ -159,6 +165,7 @@ function CardDetails(props: any) {
               {
                 props.CardInfo.cardLevel <= 5 && <button className={'hc'} onClick={() => { navigate('/Synthesis') }}>{t('Evolve')}</button>
               }
+              {/* 质押 */}
               {
                 isApprovePledgeValue ? <button className='hc' onClick={() => { NFTPledgeFun() }}>{t('Pledge')}</button> : <button className='gm' onClick={() => { Approval() }}> <div>{t('Pledge')}</div></button>
               }
@@ -176,7 +183,6 @@ function CardDetails(props: any) {
               }
             </div>
           }
-
           {/* <span>{t('Click anywhere to close')}</span> */}
         </Modal>
       }

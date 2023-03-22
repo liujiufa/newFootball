@@ -130,6 +130,14 @@
 
                 }
 
+                .topBalance,
+                .bottomBalance {
+                    display: flex;
+                    justify-content: flex-end;
+                    width: 100%;
+                    margin-bottom: 5px;
+                }
+
                 .coinBox {
                     width: 100%;
                     align-items: center;

@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper";
+import copy from "copy-to-clipboard";
 
 import bt1 from "../assets/image/home/bt1.png";
 import bt2 from "../assets/image/home/bt2.png";
@@ -29,6 +30,7 @@ import Fairy2 from "../assets/image/home/fairy2.jpg";
 import Fairy3 from "../assets/image/home/fairy3.jpg";
 import Fairy4 from "../assets/image/home/fairy4.jpg";
 import Fairy5 from "../assets/image/home/fairy5.jpg";
+import Fairy6 from "../assets/image/home/fairy6.jpg";
 
 
 import RoadMapZh from "../assets/image/home/road-map-zh.png";
@@ -63,6 +65,9 @@ import "swiper/css";
 import "swiper/css/effect-cards";
 import "../assets/style/Home.scss";
 import AnimaMain from "../components/AnimaMain";
+import { contractAddress } from "../config";
+import { addMessage } from "../utils/tool";
+import { useNavigate } from "react-router-dom";
 
 const INIT_BT = [
   {
@@ -117,13 +122,14 @@ const FAIRY_NFT = [
   { img: Fairy3 },
   { img: Fairy4 },
   { img: Fairy5 },
+  { img: Fairy6 }
 ]
 
 let GLOBAL_IS_NFT_ENter = false
 
 function Home() {
+  const navigate = useNavigate()
   const pabtboxRef = useRef<HTMLDivElement | null>(null)
-  const animaRef = useRef<HTMLDivElement | null>(null)
   const ecolboxRef = useRef<HTMLDivElement | null>(null)
 
   const [layoutPabt, setLayoutPabt] = useState(false)
@@ -136,7 +142,7 @@ function Home() {
 
   let { t, i18n } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0)
-  const [animaVisable, setAnimaVisable] = useState(false)
+  const [animaVisable, setAnimaVisable] = useState(true)
 
   const [mobileActiveIndex, setMobileActiveIndex] = useState(0)
   let [bt, setBt] = useState<Array<{ img: string, className?: string }>>(INIT_BT);
@@ -273,7 +279,7 @@ function Home() {
   }, [layoutPabt, bt])
 
   useLayoutEffect(() => {
-    if (pabtboxRef?.current && animaRef?.current && !layoutPabt) {
+    if (pabtboxRef?.current && !layoutPabt) {
       const viewPortHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
       const offsetTop = pabtboxRef?.current?.offsetTop || 0
       const scrollTop = document.documentElement.scrollTop
@@ -282,20 +288,14 @@ function Home() {
       window.addEventListener("scroll", () => {
         const viewPortHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
         const offsetTop = pabtboxRef?.current?.offsetTop || 0
-        const animaRefOffsetTop = animaRef?.current?.offsetTop || 0
         const scrollTop = document.documentElement.scrollTop
         const top = offsetTop - scrollTop
-        const animaRefTop = animaRefOffsetTop - scrollTop
         setLayoutPabt(top <= viewPortHeight)
-
-        if (animaRefTop <= animaRefOffsetTop) {
-          setAnimaVisable(animaRefTop <= animaRefOffsetTop)
-        }
 
       })
     }
 
-  }, [pabtboxRef, layoutPabt, animaRef])
+  }, [pabtboxRef, layoutPabt])
 
   useLayoutEffect(() => {
     if (ecolboxRef?.current) {
@@ -398,7 +398,6 @@ function Home() {
     }
   }, [isUp])
 
-
   const changeActiveIndex = useCallback(
     () => {
       if (!GLOBAL_IS_NFT_ENter) {
@@ -421,17 +420,19 @@ function Home() {
 
   }, [activeIndex, isNftEnter])
 
-
   const changeNftGroup = useCallback(
     () => {
       const nftData = activeIndex ? LAND_NFT : FAIRY_NFT
-      if (nftMouse?.length < nftData?.length) {
+
+      const num = nftMouse.filter((item) => item.className).length
+
+      if (num < nftData?.length) {
 
         let data: Array<{ img: string, className?: string }> = nftMouse
 
-        data = nftData.filter((_item, idx) => idx <= nftMouse?.length).map((item, index) => {
+        data = nftData.map((item, index) => {
           let currentItem: { img: string, className?: string } = item
-          const flag = index <= nftMouse?.length
+          const flag = index <= num
           if (flag) {
             currentItem = ({
               ...currentItem,
@@ -451,7 +452,6 @@ function Home() {
     [activeIndex, nftMouse]
   )
 
-
   useEffect(() => {
     let timer: number | undefined = undefined
     if (GLOBAL_IS_NFT_ENter) {
@@ -466,15 +466,29 @@ function Home() {
 
   }, [isNftEnter, nftMouse])
 
+
+
+  useEffect(() => {
+    let timer: number | undefined = undefined
+
+    timer = window.setTimeout(() => {
+      setAnimaVisable(!animaVisable)
+    }, animaVisable ? 3000 : 500);
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [animaVisable])
+
+
   return (
     <div id="home" className="bj">
       <div className="space">
         <div className="tit">
           <div className="title">META BASE</div>
           <div className="xiang">{t("The first Metaverse world created with welfare as the theme")}</div>
-          <a href={i18n.language === "zh" ? "http://spaceballgames.com/File/SpaceBallZh.pdf" : "http://spaceballgames.com/File/SpaceBallEn.pdf"} target="downloadFile">
-            <div className="btn">{t("WHITEPAPER")}</div>
-          </a>
+          {/* <a href={i18n.language === "zh" ? "http://spaceballgames.com/File/SpaceBallZh.pdf" : "http://spaceballgames.com/File/SpaceBallEn.pdf"} target="downloadFile">
+          </a> */}
+          <div className="btn">{t("WHITEPAPER")}</div>
         </div>
       </div>
 
@@ -487,7 +501,7 @@ function Home() {
               <div className="zhi">{t("CASE")}</div>
             </div>
             <div className="casebox">
-              <div className="casebox-left" ref={animaRef}>
+              <div className="casebox-left">
                 <AnimaMain visable={animaVisable} />
               </div>
               <div className="casebox-right">
@@ -496,8 +510,8 @@ function Home() {
                   <div className="casebox-right-text">
                     {t("The MetaBase Welfare Blind Box is a pilot product of MetaBase")}
                   </div>
-                  <div className="casebox-right-btn">
-                    <div className="casebox-right-btn-content">
+                  <div className="casebox-right-btn" onClick={() => { navigate("/BlindBox") }}>
+                    <div className="casebox-right-btn-content" >
                       {t("OPEN CASE")}
                     </div>
                   </div>
@@ -531,7 +545,7 @@ function Home() {
             <div className="bei">{t("Ecological NFT")}</div>
             <div className="zhi">{t("Ecological NFT")}</div>
           </div>
-          <div className="ecolbox" style={isNftEnter ? { margin: "120px auto 0" } : {}} onMouseEnter={(event) => {
+          <div className="ecolbox" style={isNftEnter ? { margin: "144px auto 0" } : {}} onMouseEnter={(event) => {
             setIsEnter(true)
           }}
             onMouseLeave={(event) => {
@@ -540,7 +554,7 @@ function Home() {
           >
             <div className="ecolbox-group-card">
               {
-                nftMouse.map((item) => <div style={{ visibility: item?.className ? "visible" : "hidden", backgroundImage: `url(${item.img})` }} className={`ecolbox-group-card-item ${item?.className || ""}`} ></div>
+                nftMouse.map((item) => <div style={{ width: (100 / nftMouse.length).toFixed(2) + "%", padding: `${(50 / nftMouse.length).toFixed(2) + "%"} 0`, visibility: item?.className ? "visible" : "hidden", backgroundImage: `url(${item.img})` }} className={`ecolbox-group-card-item ${item?.className || ""}`} ></div>
                 )
               }
             </div>
@@ -595,20 +609,10 @@ function Home() {
                 {
                   (mobileActiveIndex === 0 ? FAIRY_NFT : LAND_NFT).map((item) =>
                     <SwiperSlide>
-
                       <div className="ecolbox-mobile-img" style={{ backgroundImage: `url(${item.img})` }}></div>
                     </SwiperSlide>
                   )
                 }
-                {/* <SwiperSlide></SwiperSlide>
-                <SwiperSlide></SwiperSlide>
-                <SwiperSlide></SwiperSlide>
-                <SwiperSlide></SwiperSlide>
-                <SwiperSlide></SwiperSlide>
-                <SwiperSlide></SwiperSlide>
-                <SwiperSlide></SwiperSlide>
-                <SwiperSlide></SwiperSlide>
-                <SwiperSlide></SwiperSlide> */}
               </Swiper>
             </div>
             <div className="ecolbox-mobile-group">
@@ -641,8 +645,13 @@ function Home() {
           <div className="zhi">{t("TOKENOMICS")}</div>
         </div>
         <div className="feans-contract-address">
-          {t("Contract address")} OxE45454hdjhhhfifhi7575d
-          <div className="feans-contract-address-copy"></div>
+          {t("Contract address")}
+          {contractAddress?.Token ? contractAddress?.Token : "--"}
+          <div className="feans-contract-address-copy" onClick={() => {
+            if (contractAddress?.Token) {
+              copy(contractAddress?.Token);
+            }
+          }}></div>
         </div>
         <div className="feans-group">
           <div className="feans-content">
@@ -667,13 +676,13 @@ function Home() {
             <div className="feans-asstes-share-process-base feans-asstes-share-process1">
               {t("NFT staking")}
               <div className="feans-asstes-share-text">
-                40%
+                35%
               </div>
             </div>
             <div className="feans-asstes-share-process-base feans-asstes-share-process2">
               {t("Game ecology")}
               <div className="feans-asstes-share-text">
-                35%
+                33%
               </div>
             </div>
             <div className="feans-asstes-share-process-base feans-asstes-share-process3">
@@ -697,7 +706,7 @@ function Home() {
             <div className="feans-asstes-share-process-base feans-asstes-share-process6">
               {t("Initial liquidity")}
               <div className="feans-asstes-share-text">
-                5%
+                1.35%
               </div>
             </div>
             <div className="feans-asstes-share-process-base feans-asstes-share-process7">

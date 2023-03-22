@@ -52,7 +52,7 @@ export default function Invitation() {
   let [BtnState, setBtnState] = useState(false);
   let [isGetBtn, setIsGetBtn] = useState(false);
   let [hashValue, setHashValue] = useState();
-  let [isGetValue, setIsGetValue] = useState<any>();
+  let [isGetValue, setIsGetValue] = useState<any>([]);
   let [NodeAplyGetValue, setNodeAplyGetValue] = useState<any>();
   const web3React = useWeb3React();
   useEffect(() => {
@@ -209,7 +209,7 @@ export default function Invitation() {
             </div>}
           </div>
           <div className="bottomContent">
-            <div className="price">支付 {NodeApplyData?.campaignPrice}{NodeApplyData?.campaignCoinName} 瓜分 {NodeApplyData?.publicOfferNum} 枚{NodeApplyData?.publicOfferCoinName}</div>
+            <div className="price">支付 {NodeApplyData?.campaignPrice || 0.02}{NodeApplyData?.campaignCoinName || "BNB"} 瓜分 {NodeApplyData?.publicOfferNum || 1000000} 枚{NodeApplyData?.publicOfferCoinName || "MBAS"}</div>
             {NodeApplyData && <BtnFun></BtnFun>}
           </div>
         </div>

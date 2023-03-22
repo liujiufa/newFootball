@@ -69,10 +69,6 @@ export default function Synthesis() {
     const [MergeResult, setMergeResult] = useState<any>(null)
     const [SelCard2, setSelCard2] = useState<any>(null)
     let [userCard, setuserCard] = useState<CardInfoType[]>([])
-    /* 分页总条数 */
-    let [totalNum, SetTotalNum] = useState(0)
-    /* 确认合成弹窗控制 */
-    let [showEnterMerge, setShowEnterMerge] = useState(false)
     let [ShowComModal, setShowComModal] = useState(false)
     /* 合成规则弹窗控制 */
     let [showMergeRule, setShowMergeRule] = useState(false)
@@ -140,7 +136,7 @@ export default function Synthesis() {
                     userCard?.length !== 0 ? <>
                         <div className="synthesisCardList">
                             {
-                                userCard.map((item, index) => <Card key={item.id} Index={index} cardInfo={item} fun={() => { setSelCard1(item) }}></Card>)
+                                userCard.map((item, index) => <Card key={item.id} selectedCard={SelCard1} Index={index} cardInfo={item} fun={() => { setSelCard1(item) }}></Card>)
                             }
                         </div>
                     </> : <><NoData></NoData></>
@@ -153,7 +149,7 @@ export default function Synthesis() {
                     ToBeSelect ? <>
                         <div className="synthesisCardList">
                             {
-                                ToBeSelect?.list.map((item, index) => <Card key={item.id} Index={index} cardInfo={item} fun={() => { setSelCard2(item); setShowComModal(false) }}></Card>)
+                                ToBeSelect?.list.map((item, index) => <Card key={item.id} Index={index} selectedCard={SelCard2} cardInfo={item} fun={() => { setSelCard2(item); setShowComModal(false) }}></Card>)
                             }
                         </div>
                     </> : <><NoData></NoData></>
@@ -171,9 +167,8 @@ export default function Synthesis() {
         }).then(res => {
             console.log(res.data, "用户徽章")
             setuserCard(res.data.list)
-            SetTotalNum(res.data.size)
         })
-        // // 推送
+        // 推送
         // let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getCardUserInfo/${web3React.account}`, `/getCardUserInfo/${web3React.account}`,
         //     {
         //         currentPage: page,
@@ -184,7 +179,6 @@ export default function Synthesis() {
         //     }, (data: any) => {
         //         console.log(data, '推送用户卡牌数据')
         //         setuserCard(data.list)
-        //         SetTotalNum(data.size)
         //     })
         // return () => {
         //     try {
@@ -232,7 +226,6 @@ export default function Synthesis() {
 
     /* 合成 */
     async function mager() {
-        setShowEnterMerge(false)
         if (!web3React.account) {
             return addMessage(t('Please connect Wallet'))
         }
@@ -241,6 +234,9 @@ export default function Synthesis() {
         }
         if (SelCard1.cardLevel !== SelCard2.cardLevel) {
             return addMessage("卡牌等级不同")
+        }
+        if (SelCard1.cardNo === SelCard2.cardNo) {
+            return addMessage("请选择两张不同卡牌")
         }
         if (!SelCard2) {
             return addMessage(t('Please select the card to synthesize'))
@@ -261,9 +257,13 @@ export default function Synthesis() {
             console.log(resSign, '合成数据');
             setMergeResult(resSign.data)
             Contracts.example.toSynthesis(web3React.account as string, resSign.data.sign).then((res: any) => {
+                setSelCard1(null)
+                setSelCard2(null)
                 setShowMergeSuccess(true)
-                initFirstFun()
-                initSecFun()
+                setTimeout(() => {
+                    initFirstFun()
+                    initSecFun()
+                }, 5000)
             }).finally(() => {
                 showLoding(false)
             })
@@ -375,15 +375,12 @@ export default function Synthesis() {
             </div>
         }
     }
-
     window?.ethereum?.on('accountsChanged', () => {
         if (state.token && web3React.account) {
             setSelCard1(null)
             setSelCard2(null)
         }
     })
-
-
     return (
         <div id='Synthesis'>
             <div className='Title'>{t('Evolve')}</div>

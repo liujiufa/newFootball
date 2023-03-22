@@ -91,7 +91,6 @@ const typeMap = [
   }
 ]
 // var level: number = 0
-
 function NFT() {
   let { t } = useTranslation()
   let state = useSelector<stateType, stateType>(state => state);
@@ -133,10 +132,6 @@ function NFT() {
   /* 开盲盒结果 */
   let [openRes, setOpenRes] = useState<OpenResType[] | null>(null)
   let [MergeRes, setMergeRes] = useState<OpenResType | null>(null)
-  // 提升算力值数据
-  let [computingPower, setComputingPower] = useState(0)
-  // 提升算力值弹窗
-  let [iproveComputingPower, setImproveComputingPower] = useState(false)
   function showDetial(index: number) {
     setCardDetialIndex(index)
     setShowCardDetail(true)
@@ -161,33 +156,7 @@ function NFT() {
     /* 移动端 */
     setshowMerge(true)
   }
-  function openSuccess(res: OpenResType[]) {
-    setOpenRes(res)
-    setShowOpenCard(true)
-  }
-  function mergeSuccess(res: OpenResType) {
-    setMergeRes(res)
-    setshowCardSynthesis(false)
-    setShowMergeSuccess(true)
-    if (state.token && web3React.account && TabIndex === 0) {
-      getUserCard({
-        currentPage: page,
-        level: level,
-        pageSize: 12,
-        type: type,
-        userAddress: web3React.account
-      }).then(res => {
-        console.log(res.data, "用户徽章")
-        setuserCard(res.data.list)
-        SetTotalNum(res.data.size)
-      })
-    }
-  }
-  /* 移动端显示选择徽章弹窗 */
-  function SelCard() {
-    setshowMerge(false)
-    setshowSelCard(true)
-  }
+
   // 挂卖成功
   function CreateOrderSuccess() {
     setShowCreateOrder(false)
@@ -223,10 +192,6 @@ function NFT() {
       //     setuserBox(res.data)
       //   })
       // }, 3000)
-      // 推送
-      // getWebsocketData(socketUrl, `/topic/noOpenEgg/${web3React.account}`, (data: any) => {
-      //   console.log(data, '推送数据')
-      // })
       const { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/noOpenEgg/${web3React.account}`, `/noOpenEgg/${web3React.account}`, {}, (data: any) => {
         console.log(data, '推送数据')
         setuserBox(data)
@@ -259,7 +224,6 @@ function NFT() {
         setuserCard(res.data.list)
         SetTotalNum(res.data.size)
       })
-
       // 推送
       let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getCardUserInfo/${web3React.account}`, `/getCardUserInfo/${web3React.account}`,
         {

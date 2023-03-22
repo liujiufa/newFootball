@@ -186,6 +186,7 @@ function Swap() {
   let [level, SetLevel] = useState(0)
   /* 土地等级筛选 */
   let [LandLevel, SetLandLevel] = useState(0)
+  console.log(LandLevel);
   /* 用户订单类型筛选 */
   let [usertype, SetUsertype] = useState(-1)
   /* 用户订单等级筛选 */
@@ -288,7 +289,7 @@ function Swap() {
         currentPage: page,
         level: LandLevel,
         pageSize: 12,
-        type: type,
+        type: -1,
         sortType: sortLand
         // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
       }).then(res => {
@@ -303,7 +304,7 @@ function Swap() {
           currentPage: page,
           level: LandLevel,
           pageSize: 12,
-          type: type,
+          type: -1,
           sortType: sortLand
           // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
         }, (data: any) => {

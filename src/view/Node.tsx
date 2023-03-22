@@ -88,7 +88,6 @@ function SBL() {
       })
     }
   }
-
   // 领取奖励
   function Receive(type: number, id: number, amount: number) {
     console.log(type, id, amount);
@@ -185,7 +184,7 @@ function SBL() {
                   <div className="Btn flex" onClick={() => { returnFun(item.id, item.applyPrice) }}>{t('Refund')}</div>
                 </div> :
                 <div className="btnBox">
-                  <div className="notBtn flex" onClick={() => Receive(6, item.id, item.stayDrawNum)}>{t('Claim')}</div>
+                  <div className="Btn flex" onClick={() => Receive(6, item.id, item.stayDrawNum)}>{t('Claim')}</div>
                   <div className="notBtn flex">{t('Refund')}</div>
                 </div>
             }

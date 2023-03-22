@@ -19,11 +19,11 @@ function DestructDesRule(props: any) {
 
         <p className='title'>{t("Land Detail")}</p>
         <div className='box'>
-          <p className='zifujg'>1.激活地球領土，可獲得領主稱號；</p>
-          <p className='zifujg'>2.激活行星領土，可獲得城主稱號；</p>
-          <p className='zifujg'>3.激活銀河領土，可獲得市長稱號；</p>
-          <p className='zifujg'>4.激活星際領土，可獲得州長稱號；</p>
-          <p className='zifujg'>5.激活宇宙領土，可獲得議長稱號。</p>
+          <p className='zifujg'>1.激活地球領土，可獲得地球領主稱號；</p>
+          <p className='zifujg'>2.激活行星領土，可獲得行星領主稱號；</p>
+          <p className='zifujg'>3.激活銀河領土，可獲得銀河領主稱號；</p>
+          <p className='zifujg'>4.激活星際領土，可獲得星際領主稱號；</p>
+          <p className='zifujg'>5.激活宇宙領土，可獲得宇宙領主稱號。</p>
 
         </div>
 

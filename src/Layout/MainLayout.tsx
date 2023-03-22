@@ -2,7 +2,7 @@ import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Layout } from "antd";
-import { useConnectWallet, injected, ChainId } from "../web3";
+// import { useConnectWallet, injected, ChainId } from "../web3";
 import { AddrHandle, addMessage } from "../utils/tool";
 import { useWeb3React } from "@web3-react/core";
 import { useSelector } from "react-redux";
@@ -28,8 +28,10 @@ import NFTIcon1 from "../assets/image/NFTIcon1.png";
 import NFTIcon2 from "../assets/image/NFTIcon2.png";
 import NFTIcon3 from "../assets/image/NFTIcon3.png";
 import NFTIcon4 from "../assets/image/NFTIcon4.png";
+import activeBg from "../assets/image/activeBg.png";
 import "../assets/style/layout.scss";
 import { Menu, Dropdown } from "antd";
+import useConnectWallet from "../hooks/useConnectWallet";
 const { Header, Content, Footer } = Layout;
 interface SubMenuItemType {
   name: string,
@@ -41,36 +43,17 @@ const MainLayout: React.FC = () => {
   const web3React = useWeb3React();
   let [showSubMenu, setShowSubMenu] = useState(false);
   let [showDropMenu, setShowDropMenu] = useState<any>();
+  let [SmallActive, setSmallActive] = useState<any>(0);
   let [UserInfo, setUserInfo] = useState<any>();
   let [subMenuList, setSubMenuList] = useState<SubMenuItemType[]>([]);
-  let Connect = useConnectWallet();
+  const { connectWallet } = useConnectWallet()
   // 底部更多菜单
   const moreSubMenuList = [
-    {
-      name: t("Swap"),
-      Fun: () => {
-        navigate("/Swap");
-      }
-    },
     {
       name: "SWAP",
       Fun: () => {
         window.open("https://pancakeswap.finance/swap?outputCurrency=0xA013e36C78BA39Ff6bE4781f0f2FBF935f6BA05A")
         // window.open("https://pancake.kiemtienonline360.com/#/swap")
-      }
-    },
-    {
-      name: t("Guess"),
-      Fun: noOpen
-    },
-    {
-      name: t("Games"),
-      Fun: noOpen
-    },
-    {
-      name: t('Farms'),
-      Fun: () => {
-        navigate("/Farms");
       }
     },
     {
@@ -161,6 +144,7 @@ const MainLayout: React.FC = () => {
     //   }
     // },
   ]
+  console.log(web3React);
   function changeLanguage(lang: any) {
     window.localStorage.setItem("lang", lang.key);
     i18n.changeLanguage(lang.key);
@@ -207,50 +191,6 @@ const MainLayout: React.FC = () => {
       ]}
     />
   );
-  const NftMenu = (
-    <Menu
-      onClick={goNft}
-      items={[
-        {
-          label: <div className="DropItem">{t("stock2")}</div>,
-          key: "/NFT",
-        },
-        {
-          type: "divider",
-        },
-        {
-          label: <div className="DropItem">{t('Land')}</div>,
-          key: "/Land",
-        },
-        {
-          type: "divider",
-        },
-        {
-          label: <div className="DropItem">{t("Pledge")}</div>,
-          key: "/Pledge",
-        },
-      ]}
-    />
-  );
-  const ecologyMenu = (
-    <Menu
-      // onClick={goNft}
-      items={[
-        {
-          label: <div className="DropItem">{t("Guess")}</div>,
-          key: "/NFT",
-        },
-        {
-          type: "divider",
-        },
-        {
-          label: <div className="DropItem">{t("Games")}</div>,
-          key: "/Land",
-        },
-      ]}
-    />
-  );
-
   // SBL下拉菜单
   const SBLMenu = (
     <Menu
@@ -379,10 +319,18 @@ const MainLayout: React.FC = () => {
     "/Ecology": [
       { icon: MBASIcon0, title: "競猜娛樂", subtitle: '-', path: '/NFT' },
       { icon: MBASIcon1, title: "遊戲競技", subtitle: '-', path: '/Land' },
+    ],
+    "/...": [
+      { icon: MBASIcon0, title: "邀請", subtitle: '-', path: '/Invitation' },
+      { icon: MBASIcon1, title: "SWAP", subtitle: '-', path: '/outLink' },
     ]
   }
   // 导航
   const navigateFun = (path: string) => {
+
+    if (path === "/outLink") {
+      return window.open("https://pancakeswap.finance/swap?outputCurrency=0xA013e36C78BA39Ff6bE4781f0f2FBF935f6BA05A")
+    }
     if (path === "/CreateNode") {
       if (UserInfo?.nodeLevel > 0 && UserInfo?.endTime < Date.now()) {
         navigate(path)
@@ -452,27 +400,34 @@ const MainLayout: React.FC = () => {
               {t("BlindBox")}
             </div>
 
-            <Dropdown
-              overlay={SBLMenu}
-              placement="bottom"
-              overlayClassName="LangDropDown"
-              trigger={["click"]}
-              arrow={{ pointAtCenter: true }}
+            <div
+              className={menuActive("/SBL")}
+              onClick={() => {
+                setShowDropMenu("/MBASGovernance");
+              }}
             >
-              <div className={menuActive("/SBL")}>{t("SBL Governance")}</div>
-            </Dropdown>
+              MBAS Governance
+            </div>
 
-            <Dropdown
-              overlay={NftMenu}
-              placement="bottom"
-              overlayClassName="LangDropDown"
-              trigger={["click"]}
-              arrow={{ pointAtCenter: true }}
+            <div
+              className={menuActive("/NFT")}
+              onClick={() => {
+                setShowDropMenu("/NFT");
+              }}
             >
-              <div className={menuActive("/NFT")}>NFT</div>
-            </Dropdown>
+              NFT
+            </div>
 
-            <Dropdown
+            <div
+              className={menuActive("/NFT")}
+              onClick={() => {
+                setShowDropMenu("/...");
+              }}
+            >
+              ...
+            </div>
+
+            {/* <Dropdown
               overlay={SecondaryOther}
               placement="bottom"
               overlayClassName="LangDropDown"
@@ -480,7 +435,7 @@ const MainLayout: React.FC = () => {
               arrow={{ pointAtCenter: true }}
             >
               <div className={menuActive("")}>...</div>
-            </Dropdown>
+            </Dropdown> */}
 
           </div>
 
@@ -563,7 +518,7 @@ const MainLayout: React.FC = () => {
                 {i18n.language === "zh" ? "繁" : "EN"}
               </div>
             </Dropdown>
-            {web3React.active ? (
+            {web3React.account ? (
               <>
                 <div className="Connect  pointer">
                   {AddrHandle(web3React.account as string)}
@@ -574,7 +529,7 @@ const MainLayout: React.FC = () => {
                 <div
                   className="toConnect  pointer flexCenter"
                   onClick={() => {
-                    Connect(injected, ChainId.BSC);
+                    connectWallet && connectWallet();
                   }}
                 >
                   Connect
@@ -593,7 +548,7 @@ const MainLayout: React.FC = () => {
             >
               <img style={{ width: "24px" }} src={Lang} alt="" />
             </Dropdown>
-            {web3React.active ? (
+            {web3React.account ? (
               <>
                 <div className="Connect  pointer">
                   {AddrHandle(web3React.account as string)}
@@ -604,7 +559,7 @@ const MainLayout: React.FC = () => {
                 <div
                   className="toConnect  pointer"
                   onClick={() => {
-                    Connect(injected, ChainId.BSC);
+                    connectWallet && connectWallet()
                   }}
                 >
                   Connect
@@ -640,32 +595,33 @@ const MainLayout: React.FC = () => {
         <div className="bg1"></div>
         <div className="bg2"></div>
       </Content>
-      <Footer>
-        <div className="footerLink">
-          {/* <img src={logo} alt="" /> */}
-          <div className="SOCIALRow">
-            <div className="SOCIAL">SOCIAL</div>
-            <div className="SOCIALItem">
-              <a
-                href="https://twitter.com/MetaBaseDAO"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img src={Twitter} alt="" />
-                <span>Twitter</span>
-              </a>
-            </div>
-            <div className="SOCIALItem">
-              <a
-                href="https://t.me/MetaBaseDAO"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img src={Telegram} alt="" />
-                <span>Telegram</span>
-              </a>
-            </div>
-            {/* <div className="SOCIALItem">
+      {
+        <Footer className="footer">
+          <div className="footerLink">
+            {/* <img src={logo} alt="" /> */}
+            <div className="SOCIALRow">
+              <div className="SOCIAL">SOCIAL</div>
+              <div className="SOCIALItem">
+                <a
+                  href="https://twitter.com/MetaBaseDAO"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src={Twitter} alt="" />
+                  <span>Twitter</span>
+                </a>
+              </div>
+              <div className="SOCIALItem">
+                <a
+                  href="https://t.me/MetaBaseDAO"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src={Telegram} alt="" />
+                  <span>Telegram</span>
+                </a>
+              </div>
+              {/* <div className="SOCIALItem">
               <a
                 href="https://discord.gg/sxbN5ZVKTW"
                 target="_blank"
@@ -692,10 +648,12 @@ const MainLayout: React.FC = () => {
             <div className="SOCIALItem" onClick={invitation}>
               <img src={Email} alt="" />
               <span>spaceballok@gmail.com</span>
-            </div> */}
+            </div> 
+            */}
+            </div>
           </div>
-        </div>
-      </Footer>
+        </Footer>
+      }
       {
         showSubMenu && <div className="subMenuMold" onClick={() => { setShowSubMenu(false) }}>
           <div className="subMenu">
@@ -706,22 +664,20 @@ const MainLayout: React.FC = () => {
         </div>
       }
       <div className="FootMenu">
-        <div className="MenuItem flexCenter" onClick={showNode}>节点</div>
-        <div className="division"></div>
-        <div className="MenuItem flexCenter" onClick={() => {
+        <div className={SmallActive === 1 ? "MenuItem flexCenter activeMenuItem" : "MenuItem flexCenter"} onClick={() => { showNode(); setSmallActive(1) }}>节点{SmallActive === 1 && <img src={activeBg} alt="" />}</div>
+        <div className={SmallActive === 2 ? "MenuItem flexCenter activeMenuItem" : "MenuItem flexCenter"} onClick={() => {
           navigate("/BlindBox");
-        }}>{t("BlindBox")}</div>
+          setSmallActive(2)
+        }}>{t("BlindBox")}{SmallActive === 2 && <img src={activeBg} alt="" />}</div>
+        <div className={SmallActive === 3 ? "MenuItem flexCenter activeMenuItem" : "MenuItem flexCenter"} onClick={() => { showNftOther(); setSmallActive(3) }}>NFT{SmallActive === 3 && <img src={activeBg} alt="" />}</div>
+        <div className={SmallActive === 4 ? "MenuItem flexCenter activeMenuItem" : "MenuItem flexCenter"} onClick={() => { showSBLOther(); setSmallActive(4) }}>SBL{SmallActive === 4 && <img src={activeBg} alt="" />}</div>
         <div className="division"></div>
-        <div className="MenuItem flexCenter" onClick={showNftOther}>NFT</div>
-        <div className="division"></div>
-        <div className="MenuItem flexCenter" onClick={showSBLOther}>SBL</div>
-        <div className="division"></div>
-        <div className="MenuItem flexCenter" onClick={showOther}>
+        <div className="MenuItem flexCenter" onClick={() => { showOther(); setSmallActive(5) }}>
           <div className="other flexCenter">
             ···
           </div>
-        </div>
-      </div>
+        </div >
+      </div >
       {showDropMenu && <div className="Mask" onClick={() => { setShowDropMenu(null) }}></div>}
     </Layout >
   );

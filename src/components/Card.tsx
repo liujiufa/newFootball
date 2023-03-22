@@ -17,11 +17,6 @@ export interface CardInfoType {
   currentPower: number,
   basePower: number
 }
-interface CardPropsType {
-  showDetia: Function,
-  cardInfo: CardInfoType,
-  Index: number,
-}
 function Card(props: any) {
   console.log(props.cardInfo, '11111111');
   let { t } = useTranslation()
@@ -34,7 +29,7 @@ function Card(props: any) {
   }
   return (
     <div className="Card">
-      <div className="CardItem">
+      <div className={props?.selectedCard?.cardNo === props.cardInfo.cardNo ? "CardItem selectCardItem" : "CardItem "}>
         <div className="valueBox">
           <div className="title">價值<div className='iconBox'><img src={valueIcon} alt="" /></div></div>
           <div className="valuePrice">{props.cardInfo.currentInitValue} BNB</div>

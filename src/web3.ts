@@ -12,7 +12,7 @@ interface contractType {
     [propName: string]: Contract;
 }
 export const ChainId = {
-    BSC: 97,
+    BSC: "0x61",
     // BSC: 56,
 }
 //切换链
@@ -56,32 +56,48 @@ export const changeNetwork = (chainId: number) => {
         }
     })
 }
-// react-web3允许连接的链
-export const injected = new InjectedConnector({
-    supportedChainIds: [ChainId.BSC],
-})
 
-export const useConnectWallet = () => {
-    const { activate, deactivate, active } = useWeb3React()
-    const connectWallet = useCallback((connector: InjectedConnector, chainId: number) => {
-        //切换到指定链
-        return activate(connector, undefined, true).then((e) => {
-        }).catch(errr => {
-            changeNetwork(chainId).then(() => {
 
-            })
-        })
-    }, [])
-    useMemo(() => {
-        // 首次尝试连接
-        !active && connectWallet(injected, ChainId.BSC)
-        window.ethereum && window.ethereum.on('chainChanged', () => {
-            // 切换网络后，尝试连接
-            // !active && connectWallet(injected, ChainId.BSC)
-        })
-    }, [])
-    return connectWallet
-}
+// export const useConnectWallet = () => {
+//     const { activate, deactivate, active } = useWeb3React()
+//     const connectWallet = useCallback((connector: InjectedConnector, chainId: number) => {
+//         //切换到指定链
+//         return activate(connector, undefined, true).then((e: any) => {
+//             if (window.ethereum && window.ethereum.on) {
+//                 // 监听钱包事件
+//                 window.ethereum.on('accountsChanged', (accounts: string[]) => {
+//                     if (accounts.length === 0) {
+//                         // 无账号，则代表锁定了,主动断开
+//                         deactivate()
+//                     }
+//                     // 账号改了，刷新网页
+//                     // window.location.reload()
+//                 })
+//                 window.ethereum.on('disconnect', () => {
+//                     // 断开连接
+//                     deactivate()
+//                 })
+//                 window.ethereum.on('disconnect', () => {
+//                     // 断开连接
+//                     deactivate()
+//                 })
+//             }
+//         }).catch(errr => {
+//             changeNetwork(chainId).then(() => {
+
+//             })
+//         })
+//     }, [])
+//     useMemo(() => {
+//         // 首次尝试连接
+//         !active && connectWallet(injected, ChainId.BSC)
+//         window.ethereum && window.ethereum.on('chainChanged', () => {
+//             // 切换网络后，尝试连接
+//             // !active && connectWallet(injected, ChainId.BSC)
+//         })
+//     }, [])
+//     return connectWallet
+// }
 
 export class Contracts {
     //单例
@@ -344,6 +360,11 @@ export class Contracts {
     getPledgeAward(addr: string, data: string) {
         this.verification('Pledge')
         return this.contract.Pledge?.methods.withdrawReward(data).send({ from: addr })
+    }
+    //是否可以质押
+    isAbleToStake(addr: string) {
+        this.verification('Pledge')
+        return this.contract.Pledge?.methods.isAbleToStake().call({ from: addr })
     }
     //领取节点收益
     getNodeFundAward(addr: string, data: string) {

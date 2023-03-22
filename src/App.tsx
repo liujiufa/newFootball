@@ -10,7 +10,6 @@ import { GetQueryString } from './utils/tool'
 import { stateType } from './store/reducer'
 import { createAddMessageAction, createLoginSuccessAction, createDelMessageAction } from './store/actions'
 import { Login } from './API'
-import { useConnectWallet } from './web3'
 import Loding from './components/loding'
 import ViewportProvider from './components/viewportContext'
 // import { useNavigate } from "react-router-dom";
@@ -18,6 +17,7 @@ import ViewportProvider from './components/viewportContext'
 import prohibit from './assets/image/prohibit.png'
 import cloneIcon from './assets/image/cloneIcon.png'
 import { t } from 'i18next';
+import useConnectWallet from './hooks/useConnectWallet';
 
 const Message = styled.span`
   color: #fff;
@@ -45,6 +45,13 @@ const MessageBox = styled.div`
 // }
 function App() {
   const web3React = useWeb3React()
+  const {connectWallet} =   useConnectWallet()
+
+  useEffect(() => {
+    connectWallet && connectWallet()
+  }, [connectWallet])
+  
+
   // const navigate = useNavigate();
   useEffect(() => {
     if (web3React.active) {
@@ -61,7 +68,6 @@ function App() {
   //     window.localStorage.setItem('address', address);
   //   }
   // },[])
-  useConnectWallet()
   function addMessage(msg: string) {
     dispatch(createAddMessageAction({
       message: msg,

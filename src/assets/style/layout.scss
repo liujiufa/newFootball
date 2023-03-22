@@ -4,9 +4,10 @@
   padding: 0 !important;
 }
 
-.ant-layout-footer {
+.footer {
+  // background: transparent !important;
+  background: linear-gradient(270deg, #5BDFFA 9.37%, #35E1D7 45.72%, #3DDBB2 77.82%, #14FD87 100%) !important;
 
-  background: linear-gradient(90deg, #16FC8C 0%, #53E1EE 100%) !important;
   backdrop-filter: blur(70px);
   /* Note: backdrop-filter has minimal browser support */
   border-radius: 0px;
@@ -214,7 +215,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 47px auto;
+      margin: 20px auto;
 
       .left {
         margin-right: 25px;
@@ -286,6 +287,11 @@
     color: #000000;
     letter-spacing: 0.08em;
 
+    a {
+      display: flex;
+      align-items: center;
+    }
+
 
     span {
       font-family: 'DIN';
@@ -311,6 +317,7 @@
 }
 
 @media (max-width: 850px) {
+
   .footerLink {
     align-items: center;
     justify-content: center;
@@ -331,6 +338,10 @@
         margin-left: 0;
       }
     }
+  }
+
+  .footer {
+    background: transparent !important
   }
 }
 
@@ -361,7 +372,7 @@
 
   .MenuItem {
     flex: 1;
-    color: rgba(255, 255, 255, 0.8);
+    color: #fff;
     font-size: 12px;
     font-weight: 400;
     font-family: IMPACT !important;
@@ -369,17 +380,32 @@
     align-items: center;
 
     .other {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.6);
       width: 20px;
       height: 20px;
       border-radius: 50%;
     }
   }
 
+  .activeMenuItem {
+    font-family: 'Impact';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #003F06;
+    // position: relative;
+
+    img {
+      position: absolute;
+      bottom: 0;
+    }
+  }
+
   .division {
     width: 1px;
     height: 28px;
-    background: linear-gradient(90.88deg, #17FC8D 2.75%, #53E2ED 99.51%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 48.96%, rgba(255, 255, 255, 0) 100%);
     transform: matrix(-1, 0, 0, 1, 0, 0);
   }
 }
@@ -388,15 +414,14 @@
   display: none;
   position: absolute;
   padding: 0 20px;
-  bottom: 46px;
-  background: #0A0922;
-  box-shadow: 0px 1px 2px rgba(215, 179, 255, 0.4);
-  border-radius: 22px;
-  width: 337px;
+  bottom: 60px;
+  background: #FFFFFF;
+  box-shadow: -17px -2px 72px rgba(171, 200, 188, 0.3);
+  border-radius: 8px;
+  width: 189px;
   max-width: 80%;
   // height: 183px;
   right: 0;
-  border: 1px solid #CABEFF;
 }
 
 .subMenuMold {
@@ -406,18 +431,19 @@
   z-index: 99999999;
 
   .SubMenuItem {
-    height: 45px;
-    color: rgba(255, 255, 255, 0.8);
-    font-weight: 600;
+    height: 40px;
+    color: #000000;
     font-size: 12px;
-    line-height: 45px;
-    font-weight: 400;
+    line-height: 40px;
     font-family: IMPACT !important;
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 700;
   }
 }
 
 @media (max-width:670px) {
-  .ant-layout-footer {
+  .footer {
     margin-bottom: 46px;
   }
 

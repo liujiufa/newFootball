@@ -18,19 +18,20 @@ export let socketUrl: string = 'http://47.107.116.172:10089/endpointWisely';
 // export let socketUrl: string = 'http://spaceballgames.com:8912/endpointWisely';
 // 自己
 // export let baseUrl: string = 'http://47.107.116.172:10000';
-// export let socketUrl: string = 'http://192.168.2.118:8912/endpointWisely';
-
+// export let socketUrl: string = 'http://47.107.116.172:8912/endpointWisely';
 // export let baseUrl: string = 'http://spaceballgames.com:10000';
 // export let baseUrl: string = 'http://192.168.2.124:10000';
 // export let baseUrl: string = 'http://192.168.2.118:10000';
 // export let baseUrl: string = 'http://192.168.2.107:10000';
 export let BlockUrl: string = 'https://testnet.bscscan.com/tx/';
-export let obj = { 0.2: 0.1, 0.5: 0.2, 1: 0.3, 2.5: 0.4, 8: 0.5 }
+export let obj = { 0.2: 0.01, 0.5: 0.02, 1: 0.03, 2.5: 0.04, 8: 0.05 }
 export let starLevel = { 1: "1星", 2: "2星", 3: "3星", 4: "4星", 5: "5星", 6: "6星" }
-export let nftLevel = { 1: "精灵仙子", 2: "水精灵", 3: "木精灵", 4: "火精灵", 5: "土精灵", 6: "金精灵" }
+export let nftLevel = { 1: "精灵仙子", 2: "木精灵", 3: "水精灵", 4: "火精灵", 5: "土精灵", 6: "金精灵" }
 export let nftType = { 1: "绯红", 2: "橙黄", 3: "湛蓝", 4: "翠色", 5: "浅紫" }
 export let landLevel = { 1: "地球领土", 2: "行星领土", 3: "银河领土", 4: "星际领土", 5: "宇宙领土" }
 export let rewardType = { 1: "", 2: "", 3: "獎勵領取", 4: "獎勵發放", 5: "" }
+export let grade = { 1: "一等奖", 2: "二等奖", 3: "三等奖", 4: "幸运奖" }
+
 export let BNBValue = 0.01
 interface abiObjType {
     [propName: string]: any;
@@ -80,19 +81,22 @@ export const contractAddress: contractAddressType = {
     "InviteReward": "0x983ca7414E4E2474d8E04e0ac7eD0789E45DbAc0",
     "FundNode": "0x8dAA1c2E81F35e4De1F1301C4ca8634e879BF615",
     "NodeDistribute": "0xC0821A15Cb45b9d11A5A316cCDD6E4501A2DA787",
-    // v2
+    // v3
     // "Token": "0x495411D684d06Ab95453C4376c2c34538bBCb651",
-    // "BlindBox": "0x5427A4764161A578cAe1400B41Bd6297cb7817C7",
+    // "BlindBox": "0x759d7F72166503f8Ae22d38F33FFc719A6Efc6E6",
     // "EXChangeNFT": "0x0d156E69426cBE8527D6b370E148ba0F6F911b18",
     // "NFT": "0x23c402C48C50906a2F7760E805385CA187C55762",
     // "Merge": "0x075bd4Db4AFbf3DC4A6e4CBBda07b1087926F276",
     // "Node": "0xF66D5bDbe33681F90C4ce070f4AE5128DA341B03",
     // "Liquidity": "0x67eA4B18ee62975aEa0b21eC793145268754c03B",
     // "BurnFund": "0x1395Eb8CF44105d4F42F80e075Fd14747333C2EB",
-    // "Pledge": "0x375ff2948D3e0E75D1a5f3288C8DEf2a69a3A298",
+    // "Pledge": "0xa3666fe7Cf584ea7D0836c4b53cdDb9d3fdb0F89",
     // "LandNFT": "0x5E29Eb812ee60281887FD48a0F7ac0e18b274542",
     // "LandReward": "0x1f030EC1a30CBB3e5e351a7a0D71c9843B8c38aD",
     // "InviteReward": "0x6DC795AA13334aB2Da19f4b11A420BdBb0127f52",
     // "FundNode": "0xE593344a4dEeA65d85D79fB0E22ebCE11a4ab932",
     // "NodeDistribute": "0xCFF8F1f9231a80876151A9B7621eB35fb7Bc75f2",
+    // "DestructBalance": "0x0000000000000000000000000000000000000000",
 }
+
+

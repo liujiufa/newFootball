@@ -3,6 +3,11 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "_blindBoxAdd",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
         "name": "_nftAddress",
         "type": "address"
       },
@@ -243,6 +248,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "blindBoxAdd",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "bytes32",
@@ -304,6 +322,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "isAbleToStake",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -312,6 +343,19 @@
       }
     ],
     "name": "nonces",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "numToStake",
     "outputs": [
       {
         "internalType": "uint256",
@@ -388,6 +432,32 @@
       }
     ],
     "name": "revokeRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_blindBoxAdd",
+        "type": "address"
+      }
+    ],
+    "name": "setBlindBoxAdd",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_numToStake",
+        "type": "uint256"
+      }
+    ],
+    "name": "setNumToStake",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -526,6 +596,47 @@
       }
     ],
     "name": "unstake",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "withdrawBNB",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "withdrawErc20",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
