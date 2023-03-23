@@ -206,24 +206,24 @@ function Pledge() {
         SetTotalNum(res.data.size)
       })
       // 推送
-      let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getPledgeCardUserInfo/${web3React.account}`, `/getPledgeCardUserInfo/${web3React.account}`,
-        {
-          currentPage: page,
-          pageSize: 12,
-          userAddress: web3React.account
-        }, (data: any) => {
-          console.log(data, '用户徽章')
-          setuserCard(data.list)
-          SetTotalNum(data.size)
-        })
-      return () => {
-        try {
-          stompClient.disconnect()
-        } catch {
+      // let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getPledgeCardUserInfo/${web3React.account}`, `/getPledgeCardUserInfo/${web3React.account}`,
+      //   {
+      //     currentPage: page,
+      //     pageSize: 12,
+      //     userAddress: web3React.account
+      //   }, (data: any) => {
+      //     console.log(data, '用户徽章')
+      //     setuserCard(data.list)
+      //     SetTotalNum(data.size)
+      //   })
+      // return () => {
+      //   try {
+      //     stompClient.disconnect()
+      //   } catch {
 
-        }
-        clearInterval(sendTimer)
-      }
+      //   }
+      //   clearInterval(sendTimer)
+      // }
 
     }
   }, [state.token, web3React.account, page, totalNum, cancelPledgeSuccess])

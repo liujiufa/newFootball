@@ -9,12 +9,13 @@
     text-align: center;
 }
 
+
 .subTitle {
-    font-family: 'PingFang SC';
+    font-family: 'Rockwell Extra Bold';
     font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 28px;
+    font-weight: 800;
+    font-size: 30px;
+    line-height: 35px;
     text-align: center;
     margin-top: 40px;
     background: linear-gradient(180deg, #61E1A0 0%, #5CE0FB 100%);
@@ -436,6 +437,19 @@
 
                 .referee {
                     width: 100px;
+                }
+            }
+
+            .smallAddressBox {
+                display: block;
+                margin-top: 12px;
+
+                >div {
+                    text-align: left;
+                }
+
+                span {
+                    word-break: break-all;
                 }
             }
 
@@ -983,6 +997,78 @@
 
     .Invitation .itemBox .allRewardBox .inputValue,
     .Invitation .itemBox .inputBox .inputValue {
+        margin-bottom: 30px;
+    }
+
+    .SwapTitle {
+        margin-top: 20px;
+        font-size: 28px !important;
+    }
+
+    .subTitle {
+        font-size: 16px;
+        /* line-height: 35px; */
+        line-height: auto;
+        margin-top: 0px;
+    }
+
+    #NodeApply .Invitation {
+        margin-top: 20px;
+    }
+
+    .Invitation .itemBox .itemTip {
+        margin-top: 0px;
+    }
+
+    .Invitation {
+        margin-top: 20px;
+    }
+
+    #NodeFund .Invitation .itemBox .titleBox .title {
+        font-size: 16px;
+
+        span {
+            font-size: 16px;
+        }
+    }
+
+    #NodeFund .Invitation .itemBox .content .NFTNum {
+        margin-top: 20px;
+
+        span {
+            font-size: 18px;
+        }
+    }
+
+    #NodeFund .Invitation .itemBox .yestoday {
         margin-bottom: 20px;
+    }
+
+    #NodeApply .Invitation .nodeAction .bottomContent .price {
+        font-size: 16px;
+    }
+
+    #NodeApply .nodeRank .nodeContent .item {
+        font-size: 16px;
+    }
+
+    #NodeApply .nodeRank .nodeContent .title {
+        padding: 15px 0px;
+    }
+
+    #NodeApply .nodeRank .nodeContent .myItems {
+        padding: 15px 0px;
+    }
+
+    #NodeApply .nodeRank .nodeContent .items {
+        padding: 15px 0px;
+    }
+
+    #NodeApply .nodeRank {
+        margin-top: 20px;
+    }
+
+    #NodeApply .nodeRank .nodeContent {
+        margin-top: 12px;
     }
 }

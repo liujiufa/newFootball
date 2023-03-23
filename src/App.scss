@@ -9,7 +9,7 @@
 
     .messageLebel {
         width: 48px;
-        background: #7F53FE;
+        background: #14FD87;
         // display: flex;
         // justify-content: center;
         text-align: center;
@@ -31,7 +31,7 @@
     .messageConter {
         padding-left: 12px;
         flex: 1;
-        background: #26274D;
+        background: #fff;
         position: relative;
         display: flex;
         align-items: center;
@@ -42,14 +42,14 @@
         .title {
             width: 100%;
             font-size: 16px;
-            color: #fff;
+            color: #000;
             margin-top: 18px;
         }
 
         .content {
             width: 100%;
             font-size: 16px;
-            color: #fff;
+            color: #000;
             text-align: left;
         }
 
@@ -69,6 +69,35 @@
     background: transparent;
     top: 0;
     z-index: 99;
+}
+
+.NoData {
+    .box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .title {
+            font-family: 'PingFang SC' !important;
+            font-style: normal !important;
+            font-weight: 400 !important;
+            font-size: 16px !important;
+            line-height: 22px !important;
+            letter-spacing: 0.1em !important;
+            color: rgba(0, 0, 0, 0.7) !important;
+        }
+    }
+}
+
+.valueBox {
+    .iconBox {
+        @media(max-width:425px) {
+            img {
+                width: 16px;
+                height: 16px;
+            }
+        }
+    }
 }
 
 @media screen and (max-width:967px) {

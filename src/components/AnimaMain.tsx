@@ -37,6 +37,8 @@ export default function AnimaBox({ visable }: AnimaType) {
         if (!visable) {
             setStateLottie(null)
             setResponse(null)
+        } else {
+            setResponse(CardDJSON)
         }
     }, [visable])
 

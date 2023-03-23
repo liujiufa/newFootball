@@ -28,6 +28,8 @@ import NFTIcon1 from "../assets/image/NFTIcon1.png";
 import NFTIcon2 from "../assets/image/NFTIcon2.png";
 import NFTIcon3 from "../assets/image/NFTIcon3.png";
 import NFTIcon4 from "../assets/image/NFTIcon4.png";
+import EcologyIcon0 from "../assets/image/EcologyIcon1.png";
+import EcologyIcon1 from "../assets/image/EcologyIcon2.png";
 import activeBg from "../assets/image/activeBg.png";
 import "../assets/style/layout.scss";
 import { Menu, Dropdown } from "antd";
@@ -317,8 +319,8 @@ const MainLayout: React.FC = () => {
       { icon: NFTIcon4, title: "合成", subtitle: '徽章合成解鎖更高權益', path: '/Synthesis' },
     ],
     "/Ecology": [
-      { icon: MBASIcon0, title: "競猜娛樂", subtitle: '-', path: '/NFT' },
-      { icon: MBASIcon1, title: "遊戲競技", subtitle: '-', path: '/Land' },
+      { icon: EcologyIcon0, title: "遊戲競技", subtitle: '基於MetaBase公鏈協議的區塊鏈遊戲', path: '' },
+      { icon: EcologyIcon1, title: "競猜娛樂", subtitle: '通過使用MBAS和NFT參與競猜', path: '' },
     ],
     "/...": [
       { icon: MBASIcon0, title: "邀請", subtitle: '-', path: '/Invitation' },
@@ -482,14 +484,14 @@ const MainLayout: React.FC = () => {
               SWAP
             </div>
 
-            {/* <div
+            <div
               className={menuActive("/Ecology")}
               onClick={() => {
                 setShowDropMenu("/Ecology");
               }}
             >
               {t('Ecology')}
-            </div> */}
+            </div>
             {/* <div
               className={menuActive("/farms")}
               onClick={() => {
@@ -544,7 +546,6 @@ const MainLayout: React.FC = () => {
               placement="bottom"
               overlayClassName="LangDropDown"
               trigger={["click"]}
-            //   arrow={{ pointAtCenter: true }}
             >
               <img style={{ width: "24px" }} src={Lang} alt="" />
             </Dropdown>
@@ -621,6 +622,20 @@ const MainLayout: React.FC = () => {
                   <span>Telegram</span>
                 </a>
               </div>
+              <div className="SOCIALItem">
+                <a
+                  // href={
+                  //   i18n.language === "zh"
+                  //     ? "http://spaceballgames.com/File/SpaceBallZh.pdf"
+                  //     : "http://spaceballgames.com/File/SpaceBallEn.pdf"
+                  // }
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src={Doc} alt="" />
+                  <span>Doc</span>
+                </a>
+              </div>
               {/* <div className="SOCIALItem">
               <a
                 href="https://discord.gg/sxbN5ZVKTW"
@@ -670,7 +685,7 @@ const MainLayout: React.FC = () => {
           setSmallActive(2)
         }}>{t("BlindBox")}{SmallActive === 2 && <img src={activeBg} alt="" />}</div>
         <div className={SmallActive === 3 ? "MenuItem flexCenter activeMenuItem" : "MenuItem flexCenter"} onClick={() => { showNftOther(); setSmallActive(3) }}>NFT{SmallActive === 3 && <img src={activeBg} alt="" />}</div>
-        <div className={SmallActive === 4 ? "MenuItem flexCenter activeMenuItem" : "MenuItem flexCenter"} onClick={() => { showSBLOther(); setSmallActive(4) }}>SBL{SmallActive === 4 && <img src={activeBg} alt="" />}</div>
+        <div className={SmallActive === 4 ? "MenuItem flexCenter activeMenuItem" : "MenuItem flexCenter"} onClick={() => { showSBLOther(); setSmallActive(4) }}>MBAS{SmallActive === 4 && <img src={activeBg} alt="" />}</div>
         <div className="division"></div>
         <div className="MenuItem flexCenter" onClick={() => { showOther(); setSmallActive(5) }}>
           <div className="other flexCenter">
@@ -678,7 +693,7 @@ const MainLayout: React.FC = () => {
           </div>
         </div >
       </div >
-      {showDropMenu && <div className="Mask" onClick={() => { setShowDropMenu(null) }}></div>}
+      {showDropMenu && <div className="Mask" onClick={() => { setShowDropMenu(null); }}></div>}
     </Layout >
   );
 };

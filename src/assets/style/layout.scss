@@ -231,7 +231,7 @@
       }
 
       .subtitle {
-        width: 200px;
+        width: 250px;
         margin-top: 10px;
         font-family: 'PingFang SC';
         font-style: normal;
@@ -305,6 +305,8 @@
     }
 
     img {
+      width: 16px;
+      height: 16px;
       margin-right: 8px;
     }
   }
@@ -373,8 +375,8 @@
   .MenuItem {
     flex: 1;
     color: #fff;
-    font-size: 12px;
-    font-weight: 400;
+    font-size: 14px;
+    font-weight: 700;
     font-family: IMPACT !important;
     display: flex;
     align-items: center;
@@ -390,8 +392,8 @@
   .activeMenuItem {
     font-family: 'Impact';
     font-style: normal;
-    font-weight: 400;
-    font-size: 10px;
+    font-weight: 700;
+    font-size: 14px;
     line-height: 12px;
     color: #003F06;
     // position: relative;

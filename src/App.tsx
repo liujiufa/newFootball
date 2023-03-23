@@ -16,9 +16,15 @@ import ViewportProvider from './components/viewportContext'
 // import Home from './view/Home';
 import prohibit from './assets/image/prohibit.png'
 import cloneIcon from './assets/image/cloneIcon.png'
+import valueIcon1 from './assets/image/valueIcon1.svg'
+import valueIcon2 from './assets/image/valueIcon2.svg'
+import valueIcon3 from './assets/image/valueIcon3.svg'
+import valueIcon4 from './assets/image/valueIcon4.svg'
+import valueIcon5 from './assets/image/valueIcon5.svg'
 import { t } from 'i18next';
 import useConnectWallet from './hooks/useConnectWallet';
 
+declare let window: any;
 const Message = styled.span`
   color: #fff;
   text-align: center;
@@ -43,14 +49,54 @@ const MessageBox = styled.div`
 //   var r = window.location.search.substr(1).match(reg);
 //   if(r!=null){ return  unescape(r[2]); }else{ return null; }
 // }
+export const ValueBox = (value: number) => {
+  const IconBox = () => {
+    if (0 <= value && value <= 1.25) {
+      return <div className='iconBox'>
+        <img src={valueIcon1} alt="" />
+      </div>
+    } else if (value <= 2.5) {
+      return <div className='iconBox'>
+        <img src={valueIcon1} alt="" />
+        <img src={valueIcon2} alt="" /></div>
+    } else if (value <= 5) {
+      return <div className='iconBox'>
+        <img src={valueIcon1} alt="" />
+        <img src={valueIcon2} alt="" />
+        <img src={valueIcon3} alt="" />
+      </div>
+    } else if (value <= 10) {
+      return <div className='iconBox'>
+        <img src={valueIcon1} alt="" />
+        <img src={valueIcon2} alt="" />
+        <img src={valueIcon3} alt="" />
+        <img src={valueIcon4} alt="" /></div>
+    } else {
+      return <div className='iconBox'>
+        <img src={valueIcon1} alt="" />
+        <img src={valueIcon2} alt="" />
+        <img src={valueIcon3} alt="" />
+        <img src={valueIcon4} alt="" />
+        <img src={valueIcon5} alt="" /></div>
+    }
+  }
+  return <div className="valueBox">
+    <div className="title">價值
+      <IconBox></IconBox>
+    </div>
+    <div className="valuePrice">{value} BNB</div>
+  </div>
+}
+
+
 function App() {
   const web3React = useWeb3React()
-  const {connectWallet} =   useConnectWallet()
+  const { connectWallet } = useConnectWallet()
 
   useEffect(() => {
     connectWallet && connectWallet()
   }, [connectWallet])
-  
+
 
   // const navigate = useNavigate();
   useEffect(() => {
@@ -92,6 +138,11 @@ function App() {
       dispatch(createLoginSuccessAction(res.data.token, web3React.account as string))
     })
   }
+
+  window?.ethereum.on('accountsChanged', (accounts: string[]) => {
+    // 账号改了，刷新网页
+    window.location.reload()
+  })
   return (
     <ViewportProvider>
       <div className="App">

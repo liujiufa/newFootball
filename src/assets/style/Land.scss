@@ -415,6 +415,13 @@ body {
 }
 
 @media screen and (max-width:425px) {
+    .Land .Content .screen .title{
+        font-size: 16px;
+    }
+    .Land .processState {
+        margin-top: 20px;
+    }
+
     .Land {
         padding: 0px 12px;
 
@@ -432,6 +439,10 @@ body {
                 }
             }
         }
+    }
+
+    .Land .Content {
+        margin-top: 30px;
     }
 
     .Land .Content .myLandRightBox .RewardBox>div .allReward,

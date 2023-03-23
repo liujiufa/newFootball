@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Modal } from 'antd';
 import { orderInfoType } from '../view/Swap'
 import { Image } from 'antd'
-import { nftType, nftLevel } from '../config'
+import { nftType, nftLevel, starLevel } from '../config'
 
 import '../assets/style/componentsStyle/PutParticulars.scss'
 
@@ -26,12 +26,12 @@ function PutParticulars(props: any) {
           <Image src={props.OrderInfo.image}></Image>
         </div>
         <div className="p1">
-          <div className='kpdetails'>{t('Card Name')}:{t(nftLevel[props.OrderInfo.cardLevel])}-{t(nftType[props.OrderInfo.cardType])}</div>
+          <div className='kpdetails'>{t('Card Name')}:{t(nftLevel[props.OrderInfo.cardLevel])}</div>
           <div className='kpdetails'>{t('CardID')}:{props.OrderInfo.cardNo}</div>
         </div>
         <div className="p2">
           <div className='kpdetails'>{t("Computing power")}:{props.OrderInfo.power}</div>
-          <div className='kpdetails'>{t('CardLevel')}:{t(nftLevel[props.OrderInfo.cardLevel])}</div>
+          <div className='kpdetails'>{t('CardLevel')}:{t(starLevel[props.OrderInfo.cardLevel])}</div>
         </div>
         <div className="p2">
           <div className='kpdetails'>{t('CardType')}:{t(nftType[props.OrderInfo.cardType])}</div>

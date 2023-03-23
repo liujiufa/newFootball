@@ -10,6 +10,7 @@ import { Contracts } from '../web3';
 import { showLoding, addMessage, dateFormat, AddrHandle, getBit } from '../utils/tool';
 import { contractAddress, nftType, nftLevel } from '../config'
 import { BlockUrl, grade } from '../config'
+import AnimaMain from "../components/AnimaMain";
 import Web3 from 'web3';
 import BigNumber from 'big.js'
 import '../assets/style/BlindBox.scss'
@@ -51,8 +52,8 @@ let redioObj = [
   { icon: coinIcon1, title: "一等獎", subtitle: '0.5%' },
   { icon: coinIcon1, title: "二等獎", subtitle: '1%' },
   { icon: coinIcon1, title: "三等獎", subtitle: '1.5%' },
-  { icon: coinIcon1, title: "幸运奖", subtitle: '0.5%' },
-  { icon: coinIcon2, title: "1星", subtitle: '1.5%' },
+  { icon: coinIcon1, title: "幸运奖", subtitle: '7%' },
+  { icon: coinIcon2, title: "1星", subtitle: '54%' },
   { icon: coinIcon3, title: "2星", subtitle: '27%' },
   { icon: coinIcon4, title: "3星", subtitle: '9%' },
 ]
@@ -74,6 +75,7 @@ export default function BlindBox() {
   const [WrapRecord, setWrapRecord] = useState<any>([])
   const [BoxRecord, setBoxRecord] = useState<any>([])
   const [ResultData, setResultData] = useState<any>()
+  const [oepnCardList, setOepnCardList] = useState<number[]>([])
   function changeTab(tab: number) {
     SetTabIndex(tab)
   }
@@ -98,6 +100,7 @@ export default function BlindBox() {
 
   useEffect(() => {
     if (state.token) {
+      setOepnCardList([])
       wrapRecord().then((res: any) => {
         console.log(res.data, 'BNB开奖');
         setWrapRecord(res.data.reverse())
@@ -144,6 +147,19 @@ export default function BlindBox() {
       }
     })
   }
+  console.log(ResultData, BoxBaseArr, BoxBaseArr?.list?.find((item: any) => item.level == ResultData)?.amount, '1212');
+
+  // 打开相应记录列表
+  const openFun = (key: number) => {
+    let list = oepnCardList;
+    const flag = list.some(item => Number(item) === Number(key))
+    if (flag) {
+      list = list.filter(item => Number(item) !== Number(key))
+    } else {
+      list = [...list, key]
+    }
+    setOepnCardList(list)
+  }
 
   // 授权
   function ApproveFun(num: number) {
@@ -189,8 +205,7 @@ export default function BlindBox() {
   }, [web3React.account])
   // BNB開獎記錄
   const AutoBox1 = () => {
-    if (true) {
-      // if (width > 1024) {
+    if (width > 1024) {
       return <div className='bigRecord'>
         <div className="items titles">
           <div className="item time">時間</div>
@@ -218,42 +233,57 @@ export default function BlindBox() {
           <div className='switchIcon'></div>
         </div>
         <div className="bigBox">
-          {WrapRecord?.length > 0 ? WrapRecord.map((item: any, index: any) => <div key={index} className="items contents">
-            <div className="item time">{dateFormat('YYYY-mm-dd HH:MM', new Date(item?.createTime))}</div>
-            <div className="item type">{grade[item?.level]}</div>
-            <div className="item value">{item?.amount} BNB</div>
-            <div className="switchIcon"><img src={swichMiddleIcon} alt="" /></div>
-            {/* 
-            <div className="item addr">{AddrHandle(item?.userAddress, 6, 6)}</div>
-            <div className="item hash" onClick={() => { window.open(BlockUrl + item?.txId) }}>{AddrHandle(item?.txId, 6, 6)}</div>
-             */}
-          </div>) : <NoData></NoData>}
+          {WrapRecord?.length > 0 ? WrapRecord.map((item: any, index: any) =>
+            <div className="Box">
+              <div key={index} className="items contents">
+                <div className="item time">{dateFormat('YYYY-mm-dd HH:MM', new Date(item?.createTime))}</div>
+                <div className="item type">{grade[item?.level]}</div>
+                <div className="item value">{item?.amount} BNB</div>
+                <div className="item switchIcon" onClick={() => { openFun(index) }}><img className={oepnCardList.some(option => Number(option) === Number(index)) ? 'spanRotate' : 'spanReset'} src={swichMiddleIcon} alt="" /></div>
+              </div>
+              {
+                oepnCardList.some(option => Number(option) === Number(index)) && <div className="smallBox">
+                  <div className="item addr">开奖地址<span>{AddrHandle(item?.userAddress, 6, 6)}</span></div>
+                  <div className="item hash" onClick={() => { window.open(BlockUrl + item?.txId) }}>交易哈希<span>{AddrHandle(item?.txId, 6, 6)}</span></div>
+                </div>
+              }
+            </div>
+          ) : <NoData></NoData>}
         </div>
       </div>
     }
   }
   // 我的開獎記錄
   const AutoBox2 = () => {
-    if (true) {
-      // if (width > 1024) {
-      return <div className='bigRecord'>
+    if (width <= 1024) {
+      return <div className='middleRecord'>
         <div className="items titles">
           <div className="item time">時間</div>
           <div className="item type">類型</div>
           <div className="item value">金額</div>
-          <div className="item hash">交易哈希</div>
+          {/* <div className="item hash">交易哈希</div> */}
+          <div className='switchIcon'></div>
         </div>
         <div className="bigBox">
-          {BoxRecord?.length > 0 ? BoxRecord.map((item: any, index: any) => <div key={index} className="items contents">
-            <div className="item time">{dateFormat('YYYY-mm-dd HH:MM', new Date(item?.createTime))}</div>
-            <div className="item type">{gradeValueFun(item)}</div>
-            <div className="item value">{!!item?.amount ? `${item?.amount} BNB` : "-"}</div>
-            <div className="item hash" onClick={() => { window.open(BlockUrl + item?.txId) }}>{AddrHandle(item?.txId, 6, 6)}</div>
-          </div>) : <NoData></NoData>}
+          {BoxRecord?.length > 0 ? BoxRecord.map((item: any, index: any) =>
+            <div className="Box">
+              <div key={index} className="items contents">
+                <div className="item time">{dateFormat('YYYY-mm-dd HH:MM', new Date(item?.createTime))}</div>
+                <div className="item type">{gradeValueFun(item)}</div>
+                <div className="item value">{!!item?.amount ? `${item?.amount} BNB` : "-"}</div>
+                <div className="item switchIcon" onClick={() => { openFun(index) }}><img className={oepnCardList.some(option => Number(option) === Number(index)) ? 'spanRotate' : 'spanReset'} src={swichMiddleIcon} alt="" /></div>
+              </div>
+              {
+                oepnCardList.some(option => Number(option) === Number(index)) && <div className="smallBox">
+                  <div className="item hash" onClick={() => { window.open(BlockUrl + item?.txId) }}>交易哈希<span>{AddrHandle(item?.txId, 6, 6)}</span></div>
+                </div>
+              }
+            </div>
+          ) : <NoData></NoData>}
         </div>
       </div>
     } else {
-      return <div className='middleRecord'>
+      return <div className='bigRecord'>
         <div className="items titles">
           <div className="item time">時間</div>
           <div className="item type">類型</div>
@@ -281,9 +311,9 @@ export default function BlindBox() {
           <img className='img2' src={BlindBoxImg2} alt="" />
           <img className='img3' src={BlindBoxImg3} alt="" />
           <img className='img4' src={BlindBoxImg4} alt="" />
-          <img className='img5' src={BlindBoxImg5} alt="" />
+          <img className='img7' src={BlindBoxImg5} alt="" />
           <img className='img6' src={BlindBoxImg6} alt="" />
-          <img className='img7' src={BlindBoxImg7} alt="" />
+          <img className='img5' src={BlindBoxImg7} alt="" />
         </div>
       </div>
     } else {
@@ -325,8 +355,10 @@ export default function BlindBox() {
           <div className="num">{BoxBaseArr?.totalAmount}BNB</div>
         </div>
         {BoxBaseArr?.list?.map((item: any, index: any) => <div key={index} className="goods">
-          <img src={gradeImg[item?.level]} alt="" />
-          <div className="surplus flexCenter">{item?.surplusCount}</div>
+          <div className="ImgBox">
+            <img src={gradeImg[item?.level]} alt="" />
+            <div className="surplus flexCenter">{item?.surplusCount}</div>
+          </div>
           <div className="title">{grade[item?.level]}</div>
           <div className="num">{item?.amount}BNB</div>
         </div>)}
@@ -373,8 +405,6 @@ export default function BlindBox() {
             </div>) : <NoData></NoData>}
           </div>
         </div>} */}
-
-
       </div>
 
       {/* 成功购买弹窗 */}
@@ -382,15 +412,17 @@ export default function BlindBox() {
         visible={confirmRewardBox}
         className='successBuyModal'
         centered
-        width={'552px'}
+        width={'452px'}
         closable={false}
         footer={null}
         onCancel={() => { setConfirmRewardBox(false) }}>
         <img src={closeIcon} className="closeIcon" alt="" onClick={() => setConfirmRewardBox(false)} />
-        <div className="box">
-          <div className="title">恭喜！</div>
-          <img src={BlindBoxImg} alt="" />
+        <div className="box autoBox">
+          <div className="Title">恭喜！</div>
+          {/* <img src={BlindBoxImg} alt="" /> */}
+          <AnimaMain visable={true} />
           <div className="type">{grade[ResultData]}</div>
+          <div className="type">{BoxBaseArr?.list?.find((item: any) => item.level == ResultData)?.amount}BNB</div>
           <div className="confirmBtn  flexCenter" onClick={() => setConfirmRewardBox(false)}>確認</div>
         </div>
       </Modal>

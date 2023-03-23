@@ -7,16 +7,14 @@ import '../assets/style/componentsStyle/CardItem.scss'
 import { orderInfoType } from '../view/Swap'
 import BigNumber from 'big.js'
 import { useViewport } from '../components/viewportContext'
+import { ValueBox } from '../App'
 function CardItem(props: any) {
   let { t } = useTranslation()
   const { width } = useViewport()
   return (
     <div className="CardItemLinearBorder">
       <div className="CardItem">
-        <div className="valueBox">
-          <div className="title">價值<div className='iconBox'><img src={valueIcon} alt="" /></div></div>
-          <div className="valuePrice">{props.orderInfo?.currentInitValue} BNB</div>
-        </div>
+        {ValueBox(props.orderInfo?.currentInitValue)}
         <div className="CardImg" onClick={() => props.showCardDetail()}>
           {props.type === "goods" && <div className="pending">{t('Pending order')}</div>}
           <img src={props.orderInfo?.image} alt="" />

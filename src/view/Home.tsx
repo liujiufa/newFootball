@@ -58,7 +58,7 @@ import { ReactComponent as NextIcon } from "../assets/image/home/next.svg";
 
 import HomeMouseCard from "../components/HomeMouseCard";
 import { debounce } from "../utils/debounce";
-
+import { stateType } from '../store/reducer'
 
 // Import Swiper styles
 import "swiper/css";
@@ -66,8 +66,12 @@ import "swiper/css/effect-cards";
 import "../assets/style/Home.scss";
 import AnimaMain from "../components/AnimaMain";
 import { contractAddress } from "../config";
-import { addMessage } from "../utils/tool";
+import { addMessage, AddrHandle, NumSplic } from "../utils/tool";
 import { useNavigate } from "react-router-dom";
+import { useWeb3React } from "@web3-react/core";
+import { useSelector } from "react-redux";
+import { Contracts } from '../web3'
+import BigNumber from 'big.js'
 
 const INIT_BT = [
   {
@@ -115,7 +119,6 @@ const LAND_NFT = [
   { img: Land4 },
   { img: Land5 },
 ]
-
 const FAIRY_NFT = [
   { img: Fairy1 },
   { img: Fairy2 },
@@ -128,6 +131,10 @@ const FAIRY_NFT = [
 let GLOBAL_IS_NFT_ENter = false
 
 function Home() {
+  const [totalSupply, setTotalSupply] = useState('0')
+  const [allBalance, setAllBalance] = useState('0')
+  let state = useSelector<stateType, stateType>(state => state);
+  const web3React = useWeb3React()
   const navigate = useNavigate()
   const pabtboxRef = useRef<HTMLDivElement | null>(null)
   const ecolboxRef = useRef<HTMLDivElement | null>(null)
@@ -277,6 +284,19 @@ function Home() {
     }
 
   }, [layoutPabt, bt])
+
+  useEffect(() => {
+    if (web3React.account && state.token) {
+      Contracts.example.totalSupply(web3React.account).then((res: any) => {
+        // console.log(res);
+        setTotalSupply(new BigNumber(res).div(10 ** 18).toString())
+      })
+      // Contracts.example.balanceOf(contractAddress.DestructBalance).then((res: any) => {
+      //   // console.log(res);
+      //   setAllBalance(new BigNumber(res).div(10 ** 18).toString())
+      // })
+    }
+  }, [state.token, web3React.account])
 
   useLayoutEffect(() => {
     if (pabtboxRef?.current && !layoutPabt) {
@@ -510,7 +530,7 @@ function Home() {
                   <div className="casebox-right-text">
                     {t("The MetaBase Welfare Blind Box is a pilot product of MetaBase")}
                   </div>
-                  <div className="casebox-right-btn" onClick={() => { navigate("/BlindBox") }}>
+                  <div className="casebox-right-btn" onClick={() => { navigate("/BlindBox"); window.scrollTo({ top: 0 }) }}>
                     <div className="casebox-right-btn-content" >
                       {t("OPEN CASE")}
                     </div>
@@ -646,10 +666,11 @@ function Home() {
         </div>
         <div className="feans-contract-address">
           {t("Contract address")}
-          {contractAddress?.Token ? contractAddress?.Token : "--"}
+          {contractAddress?.Token ? AddrHandle(contractAddress?.Token, 10, 6) : "--"}
           <div className="feans-contract-address-copy" onClick={() => {
             if (contractAddress?.Token) {
               copy(contractAddress?.Token);
+              addMessage(t("Copy Success"))
             }
           }}></div>
         </div>
@@ -659,9 +680,9 @@ function Home() {
           </div>
           <div className="feans-content-next feans-content">
             {t("Through")}
-            <div className="feans-content-next-link feans-content-next-link-first  animate__animated animate__heartBeat" >{t("MBAS burning")}</div>
+            <div className="feans-content-next-link feans-content-next-link-first  animate__animated animate__heartBeat" onClick={() => { navigate("/DestructFund") }}>{t("MBAS burning")}</div>
             {t("users can")}
-            <div className="feans-content-next-link feans-content-next-link-last  animate__animated animate__heartBeat" >
+            <div className="feans-content-next-link feans-content-next-link-last  animate__animated animate__heartBeat" onClick={() => { navigate("/Node") }}>
               {t("Coinage node")}
             </div>{t("you can also")}
           </div>
@@ -720,12 +741,11 @@ function Home() {
           <div className="feans-asstes-amount-group">
             <div className="feans-asstes-amount-group-base feans-asstes-amount-group-left">
               <div className="feans-asstes-amount-label">{t("MBAS Destory")}</div>
-              145,456,789
+              {NumSplic(`${200000000 - Number(totalSupply)}`, 4)}
             </div>
             <div className="feans-asstes-amount-group-base feans-asstes-amount-group-right">
               <div className="feans-asstes-amount-label">{t("MBAS Total supply")}</div>
-
-              145,456,789
+              200000000
             </div>
           </div>
 
@@ -832,7 +852,7 @@ function Home() {
       <div className="home-bg-third"></div>
       <div className="home-bg-last"></div>
 
-    </div>
+    </div >
   );
 }
 export default React.memo(Home);

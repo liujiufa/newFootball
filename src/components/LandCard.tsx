@@ -41,7 +41,7 @@ function LandCard(props: LandUserCardPropsType) {
       <div className="CardItem">
         <div className="ID">ID:{props.cardInfo.cardNo}</div>
         <div className="CardImg" onClick={() => { props.showDetail(props.Index) }}>
-          {props.cardInfo.isActivation == 0 && <div className="cardBg"></div>}
+          {props.cardInfo.isActivation == 0 && <div className="cardBg"><div className='centerTip'>未激活</div></div>}
           <img src={props.cardInfo.imageUrl} alt="" />
         </div>
 

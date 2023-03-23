@@ -1,8 +1,7 @@
 import React from 'react'
 import '../assets/style/componentsStyle/Card.scss'
-import addIcon from '../assets/image/addIcon.png'
 import { useTranslation } from 'react-i18next'
-import valueIcon from '../assets/image/valueIcon.svg'
+import { ValueBox } from '../App'
 export interface CardInfoType {
   id: number,
   imageUrl: string,
@@ -17,6 +16,8 @@ export interface CardInfoType {
   currentPower: number,
   basePower: number
 }
+
+
 function Card(props: any) {
   console.log(props.cardInfo, '11111111');
   let { t } = useTranslation()
@@ -30,14 +31,11 @@ function Card(props: any) {
   return (
     <div className="Card">
       <div className={props?.selectedCard?.cardNo === props.cardInfo.cardNo ? "CardItem selectCardItem" : "CardItem "}>
-        <div className="valueBox">
-          <div className="title">價值<div className='iconBox'><img src={valueIcon} alt="" /></div></div>
-          <div className="valuePrice">{props.cardInfo.currentInitValue} BNB</div>
-        </div>
+        {ValueBox(props.cardInfo.currentInitValue)}
         <div className="CardImg" onClick={() => { fun() }}>
           <img src={props.cardInfo.imageUrl} alt="" />
         </div>
-        <div className="ID">ID:  {props.cardInfo.cardNo}</div>
+        <div className="ID">ID: {props.cardInfo.cardNo}</div>
       </div>
     </div >
   )

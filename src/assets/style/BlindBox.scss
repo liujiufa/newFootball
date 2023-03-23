@@ -13,11 +13,13 @@
     }
 
     .subTitle {
-        font-family: 'PingFang SC';
+        font-family: 'DIN';
         font-style: normal;
-        font-weight: 400;
-        font-size: 20px;
-        line-height: 28px;
+        font-weight: 700;
+        font-size: 36px;
+        line-height: 44px;
+        /* identical to box height */
+        letter-spacing: 0.14em;
         text-align: center;
         margin-top: 40px;
         background: linear-gradient(180deg, #61E1A0 0%, #5CE0FB 100%);
@@ -45,19 +47,19 @@
 
             .img1 {
                 position: absolute;
-                left: 5%;
+                left: 2%;
                 top: 66%;
             }
 
             .img2 {
                 position: absolute;
-                left: 0%;
+                left: -4%;
                 top: 40%;
             }
 
             .img3 {
                 position: absolute;
-                left: 10%;
+                left: 8%;
                 top: 12%;
             }
 
@@ -69,20 +71,20 @@
 
             .img5 {
                 position: absolute;
-                right: 5%;
+                right: 2%;
                 top: 66%;
 
             }
 
             .img6 {
                 position: absolute;
-                right: 0%;
+                right: -4%;
                 top: 40%;
             }
 
             .img7 {
                 position: absolute;
-                right: 10%;
+                right: 8%;
                 top: 12%;
             }
         }
@@ -123,12 +125,14 @@
             line-height: 22px;
             color: rgba(0, 190, 19, 0.8);
             text-align: center;
+            margin: 12px auto;
         }
 
         .btnBox {
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-bottom: 12px;
 
             .buyBtn {
                 min-width: 150px;
@@ -161,7 +165,7 @@
         .goods {
             position: relative;
 
-            >div {
+            .surplus {
                 font-family: 'PingFang SC';
                 font-style: normal;
                 font-weight: 700;
@@ -186,6 +190,10 @@
                 line-height: 25px;
                 /* identical to box height */
                 color: #FFFFFF;
+            }
+
+            .title {
+                text-align: center;
             }
         }
     }
@@ -373,12 +381,30 @@
             }
 
             .titles {
-                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                // border-bottom: 1px solid rgba(0, 0, 0, 0.1);
                 padding-bottom: 20px;
 
             }
 
             .bigBox {
+                max-height: 400px;
+                overflow-y: auto;
+
+                &::-webkit-scrollbar {
+                    width: 2px; //y轴滚动条粗细
+                }
+
+                //滚动条里面的小方块，能上下左右移动（取决于是垂直滚动条还是水平滚动条）
+                &::-webkit-scrollbar-thumb {
+                    background: #14FD87;
+                    border-radius: 9px;
+                }
+
+                //滚动条的轨道（里面装有thumb）滚动槽
+                &::-webkit-scrollbar-track {
+                    background: rgba(0, 0, 0, 0.1);
+                    border-radius: 9px;
+                }
 
                 .contents {
                     .item {
@@ -394,7 +420,59 @@
                     .hash {
                         color: #009E4E;
                     }
+
+                    .switchIcon {
+                        display: flex;
+                        align-items: center;
+                    }
                 }
+
+                .Box {
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+                    .smallBox {
+
+                        .item {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            margin: 8px 0px;
+                            font-family: 'PingFang SC';
+                            font-style: normal;
+                            font-weight: 400;
+                            font-size: 12px;
+                            line-height: 17px;
+                            /* identical to box height */
+                            color: rgba(0, 0, 0, 0.8);
+
+                            span {
+                                font-family: 'PingFang SC';
+                                font-style: normal;
+                                font-weight: 400;
+                                font-size: 12px;
+                                line-height: 17px;
+                                /* identical to box height */
+                                text-align: right;
+                                color: #000000;
+                            }
+                        }
+
+                        .hash {
+                            span {
+
+                                font-family: 'PingFang SC';
+                                font-style: normal;
+                                font-weight: 700;
+                                font-size: 12px;
+                                line-height: 17px;
+                                /* identical to box height */
+                                text-align: right;
+                                color: #009E4E;
+                            }
+                        }
+                    }
+                }
+
             }
 
             .time {
@@ -458,6 +536,9 @@
 }
 
 @media (max-width:425px) {
+    #BlindBox{
+        margin-bottom: 30px;
+    }
     #BlindBox .contentBox .contractAddr {
         padding: 8px 12px;
 
@@ -478,6 +559,17 @@
 
     #BlindBox .contentBox {
         font-size: 12px;
+    }
+
+}
+
+@media (max-width:500px) {
+    #BlindBox .contentBox {
+        font-size: 12px;
+    }
+
+    #BlindBox .contentBox .middleRecord .bigBox .contents .item {
+        font-size: 12px !important;
     }
 }
 
@@ -534,10 +626,13 @@
             background: url(../image/btnBg.png) no-repeat center / 100% 100%;
         }
     }
+
+    .autoBox {
+        max-width: 300px;
+        margin: auto;
+    }
 }
 
-
-.Title {}
 
 .RadioModal {
     .items {
@@ -577,5 +672,60 @@
                 color: #000000;
             }
         }
+    }
+}
+
+@media (max-width:425px) {
+    #BlindBox .Title {
+        margin: 20px auto 0px;
+        font-size: 28px !important;
+    }
+
+    #BlindBox .subTitle {
+        font-size: 16px;
+        margin-top: 0px;
+    }
+
+    #BlindBox .imgMiddleBox {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            width: 80%;
+            margin: auto;
+        }
+    }
+
+    #BlindBox .goodsBox .goods {
+        img {
+            width: 80px;
+        }
+    }
+
+    #BlindBox .goodsBox .goods .surplus {
+        width: 25px;
+        height: 25px;
+        font-size: 12px;
+    }
+
+    #BlindBox .tabsBox {
+        margin: 20px 0px 10px;
+    }
+
+    #BlindBox .contentBox .middleRecord .items .item {
+        font-weight: 400;
+        font-size: 16px;
+    }
+    #BlindBox .contentBox .middleRecord .titles{
+        padding-bottom: 0px;
+    }
+    #BlindBox .contentBox .middleRecord .bigBox .contents .switchIcon{
+        img{
+            width: 12px;
+        }
+    }
+    #BlindBox .contentBox .contractAddr{
+        margin-top: 20px;
     }
 }

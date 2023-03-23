@@ -349,7 +349,6 @@ function Land() {
             </div>
           </div>
         }
-
       </div>
       {/* 挂卖成功 */}
       <Tips isShow={showCreateOrderSuccess} title={t('List successfully')} subTitle={t('List to the market successfully')} enterFun={() => setShowCreateOrderSuccess(false)} close={() => setShowCreateOrderSuccess(false)}></Tips>
@@ -358,7 +357,7 @@ function Land() {
       {/* 土地详情说明 */}
       <LandDetailDes showModal={landDetailDes} close={() => setLandDetailDes(false)}></LandDetailDes>
       {/* 奖励记录(土地服务费、土地分红) */}
-      {landRewardRecordId && <LandRewardRecord id={landRewardRecordId} showModal={landRewardRecord} close={() => { setLandRewardRecord(false) }}></LandRewardRecord>}
+      {<LandRewardRecord id={landRewardRecordId} showModal={landRewardRecord} close={() => { setLandRewardRecord(false) }}></LandRewardRecord>}
       {/* 土地挂卖 */}
       {
         landUserCard.length > 0 && landUserCard[cardDetialIndex] && <SellCardDetails userLevel={userLevel} isShow={showCreateOrder} CardInfo={landUserCard[cardDetialIndex]} CreateOrderSuccess={CreateOrderSuccess} close={() => setShowCreateOrder(false)} type="CreateOrder"></SellCardDetails>

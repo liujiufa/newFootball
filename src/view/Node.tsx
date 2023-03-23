@@ -62,7 +62,7 @@ function SBL() {
   /* 退还 */
   function returnFun(id: number, amount: number) {
     if (new BigNumber(amount).lte(0)) {
-      addMessage(t('Insufficient recoverable amount'))
+      return addMessage(t('Insufficient recoverable amount'))
     }
     if (web3React.account) {
       showLoding(true)

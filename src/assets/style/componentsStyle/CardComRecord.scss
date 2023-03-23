@@ -25,6 +25,7 @@
     .content {
       overflow-x: auto;
 
+
       .items {
         display: flex;
         justify-content: space-between;
@@ -50,18 +51,23 @@
         }
       }
 
-      .contentItems {
-        font-family: 'DIN';
-        font-style: normal;
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 17px;
-        /* identical to box height */
-        text-align: center;
-        letter-spacing: 0.08em;
-        color: #000000;
-        padding: 10px 0px;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      .Box {
+        max-height: 400px;
+        overflow-y: auto;
+
+        .contentItems {
+          font-family: 'DIN';
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 17px;
+          /* identical to box height */
+          text-align: center;
+          letter-spacing: 0.08em;
+          color: #000000;
+          padding: 10px 0px;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
       }
 
     }

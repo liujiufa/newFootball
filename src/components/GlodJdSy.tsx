@@ -7,13 +7,14 @@ import { getNodeEarnRecord } from '../API'
 import { dateFormat } from '../utils/tool'
 import { useTranslation } from 'react-i18next'
 import "../assets/style/componentsStyle/GlodJdSy.scss";
-import { rewardType } from '../config'
+import { rewardNodeType } from '../config'
 const { Column } = Table;
 interface propsType {
   isShow: boolean,
   id: number,
   close: Function
 }
+
 function GlodJdSy(props: propsType) {
   let { t } = useTranslation()
   let state = useSelector<stateType, stateType>(state => state);
@@ -65,7 +66,7 @@ function GlodJdSy(props: propsType) {
             title={t('Type')}
             render={(item) => (
               <>
-                <div>{rewardType[item.type]}</div>
+                <div>{rewardNodeType[item.type]}</div>
               </>
             )}
           />

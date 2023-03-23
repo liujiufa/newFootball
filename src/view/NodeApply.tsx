@@ -20,6 +20,7 @@ import "../assets/style/Invitation.scss";
 import "../assets/style/componentsStyle/MyDealRecord.scss";
 import "../assets/style/componentsStyle/Reward.scss";
 import NoData from "../components/NoData";
+import { useViewport } from "../components/viewportContext";
 BigNumber.NE = -40
 BigNumber.PE = 40
 interface NodeDataType {
@@ -42,6 +43,7 @@ export default function Invitation() {
   let navigate = useNavigate()
   //   console.log(location.state);
   let { t } = useTranslation();
+  const { width } = useViewport()
   let state = useSelector<stateType, stateType>((state) => state);
   let [NodeApplyData, setNodeApplyData] = useState<NodeDataType>();
   let [NodeRankData, setNodeRankData] = useState<any>([]);
@@ -188,7 +190,7 @@ export default function Invitation() {
         <div className="itemBox">
           <div className="itemTip">
             节点申请介绍:支付0.2BNB参与节点竞选，共同瓜分100万枚MBAS。邀请好友参与，邀请排名前150名，成为创世节点，获得额外认购额度并获赠星级土地奖励，解锁身份特权。 <span onClick={() => { setShowMoreDetail(true) }}>查看更多</span></div>
-          <div className="addressBox">
+          {width > 435 ? <div className="addressBox">
             <div className="referee" >我的邀请链接：</div>
             <div className="addressValue">
               {window.location.origin +
@@ -198,7 +200,19 @@ export default function Invitation() {
             </div>
             <div className="devideLine"></div>
             <div className="copyBtn" onClick={invitation}><img src={copyIcon} alt="" /></div>
-          </div>
+          </div> : <div className="addressBox smallAddressBox">
+            <div className="referee" >我的邀请链接：</div>
+            <div >
+              <span>
+                {window.location.origin +
+                  window.location.pathname +
+                  "?address=" +
+                  AddrHandle(web3React.account as string)}
+              </span>
+              <div className="devideLine"></div>
+              <div className="copyBtn" onClick={invitation}><img src={copyIcon} alt="" /></div>
+            </div>
+          </div>}
           <div className="inviteListBtn">有效邀请:{NodeApplyData?.refereeCount ?? 0} <img onClick={() => { navigate('/Invitation') }} src={ableInviteIcon} alt="" /></div>
         </div>
 

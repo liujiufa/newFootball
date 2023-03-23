@@ -4,6 +4,7 @@ import { Modal } from 'antd';
 import { useTranslation } from 'react-i18next'
 import '../assets/style/componentsStyle/CardComRecord.scss'
 import defaultCard from '../assets/image/defaultCard.png'
+import closeIcon from '../assets/image/closeIcon.png'
 import { useSelector } from 'react-redux';
 import { stateType } from '../store/reducer';
 import { getUserCardCombineRecord } from '../API';
@@ -37,6 +38,7 @@ function CardComSuccess(props: PropsType) {
         closable={false}
         footer={null}
       >
+        <img src={closeIcon} className="closeIcon" alt="" onClick={() => props.close()} />
         <div className='title'>恭喜！</div>
         <div className="content">
           <div className="items titleItems">
@@ -49,28 +51,31 @@ function CardComSuccess(props: PropsType) {
             <div className="item">价值(BNB)</div>
             <div className="item">土地赠送</div>
           </div>
-          {recordList.length > 0 ? recordList.map((item: any, index: any) => <div key={index} className="items contentItems">
-            <div className="item">{dateFormat('YYYY/mm/dd', new Date(item?.createTime))}</div>
-            <div className="item">
-              {nftLevel[item?.combineCardInfoVONFT1?.level]}-{nftType[item?.combineCardInfoVONFT1?.type]}
-              <div className="ID">ID:{item?.combineCardInfoVONFT1?.id}</div>
-            </div>
-            <div className="item">{item?.combineCardInfoVONFT1?.value}</div>
-            <div className="item">
-              {nftLevel[item?.combineCardInfoVONFT2?.level]}-{nftType[item?.combineCardInfoVONFT2?.type]}
-              <div className="ID">ID:{item?.combineCardInfoVONFT2?.id}</div>
-            </div>
-            <div className="item">{item?.combineCardInfoVONFT2?.value}</div>
-            <div className="item">
-              {nftLevel[item?.combineCardInfoVONFT3?.level]}-{nftType[item?.combineCardInfoVONFT3?.type]}
-              <div className="ID">ID:{item?.combineCardInfoVONFT3?.id}</div>
-            </div>
-            <div className="item">{item?.combineCardInfoVONFT3?.value}</div>
-            <div className="item">
-              {landLevel[item?.landLevel]}
-              <div className="ID">ID:{item?.landId}</div>
-            </div>
-          </div>) : <Nodata></Nodata>}
+          <div className="Box">
+            {recordList.length > 0 ? recordList.map((item: any, index: any) => <div key={index} className="items contentItems">
+              <div className="item">{dateFormat('YYYY/mm/dd', new Date(item?.createTime))}</div>
+              <div className="item">
+                {nftLevel[item?.combineCardInfoVONFT1?.level]}-{nftType[item?.combineCardInfoVONFT1?.type]}
+                <div className="ID">ID:{item?.combineCardInfoVONFT1?.id}</div>
+              </div>
+              <div className="item">{item?.combineCardInfoVONFT1?.value}</div>
+              <div className="item">
+                {nftLevel[item?.combineCardInfoVONFT2?.level]}-{nftType[item?.combineCardInfoVONFT2?.type]}
+                <div className="ID">ID:{item?.combineCardInfoVONFT2?.id}</div>
+              </div>
+              <div className="item">{item?.combineCardInfoVONFT2?.value}</div>
+              <div className="item">
+                {nftLevel[item?.combineCardInfoVONFT3?.level]}-{nftType[item?.combineCardInfoVONFT3?.type]}
+                <div className="ID">ID:{item?.combineCardInfoVONFT3?.id}</div>
+              </div>
+              <div className="item">{item?.combineCardInfoVONFT3?.value}</div>
+              <div className="item">
+                {landLevel[item?.landLevel]}
+                <div className="ID">ID:{item?.landId}</div>
+              </div>
+            </div>) : <Nodata></Nodata>}
+          </div>
+
         </div>
       </Modal>
     </>

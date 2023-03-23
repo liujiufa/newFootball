@@ -3,7 +3,7 @@ import React from 'react'
 import { Modal } from 'antd';
 import '../assets/style/componentsStyle/DestructDes.scss'
 import { useTranslation } from 'react-i18next';
-
+import closeIcon from '../assets/image/closeIcon.png'
 function DestructDesRule(props: any) {
   const { t } = useTranslation()
   return (
@@ -16,7 +16,7 @@ function DestructDesRule(props: any) {
         footer={null}
         onCancel={() => props.close()}
       >
-
+        <img src={closeIcon} className="closeIcon" alt="" onClick={() => props.close()} />
         <p className='title'>{t("Burn rule")}</p>
         <div className='box'>
           <p className='zifujg'>{t("BurnRule1")}</p>

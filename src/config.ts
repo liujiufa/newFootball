@@ -30,6 +30,7 @@ export let nftLevel = { 1: "精灵仙子", 2: "木精灵", 3: "水精灵", 4: "�
 export let nftType = { 1: "绯红", 2: "橙黄", 3: "湛蓝", 4: "翠色", 5: "浅紫" }
 export let landLevel = { 1: "地球领土", 2: "行星领土", 3: "银河领土", 4: "星际领土", 5: "宇宙领土" }
 export let rewardType = { 1: "", 2: "", 3: "獎勵領取", 4: "獎勵發放", 5: "" }
+export let rewardNodeType = { 1: "奖励领取", 2: "奖励发放", 3: "节点返还" }
 export let grade = { 1: "一等奖", 2: "二等奖", 3: "三等奖", 4: "幸运奖" }
 
 export let BNBValue = 0.01
@@ -96,7 +97,7 @@ export const contractAddress: contractAddressType = {
     // "InviteReward": "0x6DC795AA13334aB2Da19f4b11A420BdBb0127f52",
     // "FundNode": "0xE593344a4dEeA65d85D79fB0E22ebCE11a4ab932",
     // "NodeDistribute": "0xCFF8F1f9231a80876151A9B7621eB35fb7Bc75f2",
-    // "DestructBalance": "0x0000000000000000000000000000000000000000",
+    "DestructBalance": "0x0000000000000000000000000000000000000000",
 }
 
 

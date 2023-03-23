@@ -6,7 +6,7 @@ import { CardInfoType } from './Card'
 import { useTranslation } from 'react-i18next'
 import { addMessage, showLoding } from '../utils/tool'
 import { Modal, Image } from 'antd';
-import { contractAddress, nftType, nftLevel } from '../config'
+import { contractAddress, nftType, nftLevel, starLevel } from '../config'
 import BigNumber from 'big.js'
 import '../assets/style/componentsStyle/carddetails.scss'
 import { useNavigate } from 'react-router-dom';
@@ -139,11 +139,11 @@ function CardDetails(props: any) {
             }}></Image>
           </div>
           <div className="p1">
-            <div className='kpdetails'>{t('Card Name')}:{t(nftLevel[props.CardInfo.cardLevel])}-{t(nftType[props.CardInfo.cardType])}</div>
+            <div className='kpdetails'>{t('Card Name')}:{t(nftLevel[props.CardInfo.cardLevel])}</div>
             <div className='kpdetails'>{t('CardID')}:{props.CardInfo.cardNo}</div>
           </div>
           <div className="p2">
-            <div className='kpdetails'>{t('CardLevel')}:{t(nftLevel[props.CardInfo.cardLevel])}</div>
+            <div className='kpdetails'>{t('CardLevel')}:{t(starLevel[props.CardInfo.cardLevel])}</div>
             <div className='kpdetails'>{t('ComputingPower')}:{props.CardInfo.power}</div>
           </div>
           <div className="p2">
