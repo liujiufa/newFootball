@@ -1,4 +1,4 @@
-// NTF徽章合成规则
+// NTF精灵合成规则
 import React from 'react'
 import { Modal } from 'antd';
 import { useTranslation } from 'react-i18next'
@@ -27,7 +27,7 @@ function CardComSuccess(props: any) {
         <div className='box'>
           <div className="ImgBox">
             <div className="leftBox">
-              <div className="subTitle">徽章</div>
+              <div className="subTitle">精灵</div>
               <img src={props.data.imageUrl} alt="" />
               <div className="valueBox">
                 {nftLevel[props.data.cardLevel]}-{nftType[props.data.cardType]}！

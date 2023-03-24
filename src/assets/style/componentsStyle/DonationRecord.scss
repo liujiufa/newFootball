@@ -131,3 +131,8 @@
     }
   }
 }
+@media (max-width:425px){
+  .DonationRecord .ant-modal-body .title, .ExchangeRecord .ant-modal-body .title{
+    font-size: 18px;
+  }
+}

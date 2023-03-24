@@ -366,4 +366,24 @@
         }
 
     }
+
+    .AddLiquidityModal .ant-modal-content .ant-modal-body .title {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .AddLiquidityModal .ant-modal-content .ant-modal-body .midBox {
+        margin: 5px auto;
+    }
+
+    .AddLiquidityModal .ant-modal-content .ant-modal-body .btnBox .toApproveBtn {
+        padding: 8px 12px;
+    }
+
+    .AddLiquidityModal .ant-modal-content .ant-modal-body .supplyBtn {
+        padding: 0px;
+        width: 100px;
+        height: 36px;
+        margin-top: 10px;
+    }
 }

@@ -22,14 +22,14 @@ interface CardDetailPropsType {
 }
 const cardClass = ['', 'Perseus Badge', 'Khaos Badge', 'Gaea Badge', 'Astra Badge']
 const level = ['', 'Common', 'Uncommon', 'Outstanding', 'Rare', 'Perfect', 'Epic']
-/* type:Swap 交易场详情 CreateOrder 挂单详情 NFT 背包徽章详情 */
+/* type:Swap 交易场详情 CreateOrder 挂单详情 NFT 背包精灵详情 */
 // const cardObj = {
 //   0: '',
-//   1: ['优秀', '添加价值0.4BNB的LP', '土地内新增购买宝箱和徽章升级消耗SBL的7%，同品质土地新增收益5%', '所有同品质土地每日均分新增购买宝箱和徽章升级消耗SBL的2.5%'],
-//   2: ['稀有', '添加价值1BNB的LP', '土地内新增购买宝箱和徽章升级消耗SBL的10%，同品质土地新增收益10%', '所有同品质土地每日均分新增购买宝箱和徽章升级消耗SBL的2.5%'],
-//   3: ['良品', '添加价值2BNB的LP', '土地内新增购买宝箱和徽章升级消耗SBL的13%，同品质土地新增收益15%', '所有同品质土地每日均分新增购买宝箱和徽章升级消耗SBL的2.5%'],
-//   4: ['史诗', '添加价值5BNB的LP', '土地内新增购买宝箱和徽章升级消耗SBL的15%，同品质土地新增收益20%', '所有同品质土地每日均分新增购买宝箱和徽章升级消耗SBL的2.5%'],
-//   5: ['传奇', '添加价值16BNB的LP', '土地内新增购买宝箱和徽章升级消耗SBL的18%，同品质土地新增收益25%', '所有同品质土地每日均分新增购买宝箱和徽章升级消耗SBL的2.5%']
+//   1: ['优秀', '添加价值0.4BNB的LP', '土地内新增购买宝箱和精灵升级消耗SBL的7%，同品质土地新增收益5%', '所有同品质土地每日均分新增购买宝箱和精灵升级消耗SBL的2.5%'],
+//   2: ['稀有', '添加价值1BNB的LP', '土地内新增购买宝箱和精灵升级消耗SBL的10%，同品质土地新增收益10%', '所有同品质土地每日均分新增购买宝箱和精灵升级消耗SBL的2.5%'],
+//   3: ['良品', '添加价值2BNB的LP', '土地内新增购买宝箱和精灵升级消耗SBL的13%，同品质土地新增收益15%', '所有同品质土地每日均分新增购买宝箱和精灵升级消耗SBL的2.5%'],
+//   4: ['史诗', '添加价值5BNB的LP', '土地内新增购买宝箱和精灵升级消耗SBL的15%，同品质土地新增收益20%', '所有同品质土地每日均分新增购买宝箱和精灵升级消耗SBL的2.5%'],
+//   5: ['传奇', '添加价值16BNB的LP', '土地内新增购买宝箱和精灵升级消耗SBL的18%，同品质土地新增收益25%', '所有同品质土地每日均分新增购买宝箱和精灵升级消耗SBL的2.5%']
 // }
 
 function CardDetails(props: any) {
@@ -99,31 +99,33 @@ function CardDetails(props: any) {
           footer={null}
         >
           <p className='title'>{props.type === "CreateOrder" ? t('Listing details') : t('Card Details')}</p>
-          <div className='hzimg'>
-            <Image src={props.CardInfo.imageUrl} alt=""></Image>
-          </div>
-          <div className="p1">
-            <p className='kpdetails'>{t("Land quality")}: {cardObj[props.CardInfo.cardLevel][0]}</p>
-            <p className='kpdetails'>ID：{props.CardInfo.cardNo}</p>
-          </div>
-          <div className="p2">
-            <p className='kpdetails'>{t("Land title")}：{LevelObj[props.userLevel]}</p>
-            <p className='kpdetails'>{t("Status")}：{props.CardInfo.isActivation == 1 ? t('Active') : t('Not active')}</p>
-          </div>
-
-          <p className='kpdetails'>{t("Activation requirement")}：{cardObj[props.CardInfo.cardLevel][1]}</p>
-          <p className='kpdetails'>{t("Land service income")}：{cardObj[props.CardInfo.cardLevel][2]}</p>
-          <p className='kpdetails'>{t("Land dividend")}：{cardObj[props.CardInfo.cardLevel][3]}</p>
-
-          {/* 挂卖 */}
-          {
-            props.type === "CreateOrder" && <p className='kpdetails'>{t('Please enter price')}:<input type='text' value={putPrice} onChange={putNum} />SBL</p>
-          }
-          {
-            props.type === "CreateOrder" && <div className='butm'>
-              <button className='hc' onClick={createOrder}>{t('Verify')}</button>
+          <div className="detailModalBox">
+            <div className='hzimg'>
+              <Image src={props.CardInfo.imageUrl} alt=""></Image>
             </div>
-          }
+            <div className="p1">
+              <p className='kpdetails'>{t("Land quality")}: {cardObj[props.CardInfo.cardLevel][0]}</p>
+              <p className='kpdetails'>ID：{props.CardInfo.cardNo}</p>
+            </div>
+            <div className="p2">
+              <p className='kpdetails'>{t("Land title")}：{LevelObj[props.userLevel]}</p>
+              <p className='kpdetails'>{t("Status")}：{props.CardInfo.isActivation == 1 ? t('Active') : t('Not active')}</p>
+            </div>
+
+            <p className='kpdetails'>{t("Activation requirement")}：{cardObj[props.CardInfo.cardLevel][1]}</p>
+            <p className='kpdetails'>{t("Land service income")}：{cardObj[props.CardInfo.cardLevel][2]}</p>
+            <p className='kpdetails'>{t("Land dividend")}：{cardObj[props.CardInfo.cardLevel][3]}</p>
+
+            {/* 挂卖 */}
+            {
+              props.type === "CreateOrder" && <p className='kpdetails'>{t('Please enter price')}:<input type='text' value={putPrice} onChange={putNum} />SBL</p>
+            }
+            {
+              props.type === "CreateOrder" && <div className='butm'>
+                <button className='hc' onClick={createOrder}>{t('Verify')}</button>
+              </div>
+            }
+          </div>
         </Modal>
       }
 

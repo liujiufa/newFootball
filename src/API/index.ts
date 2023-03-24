@@ -62,7 +62,7 @@ interface getUserCardType {
     type?: number,
     userAddress: string
 }
-/* 获取用户徽章信息 */
+/* 获取用户精灵信息 */
 export function getUserCard(data: getUserCardType) {
     console.log(data, "data");
     return axois.request({
@@ -84,7 +84,7 @@ export function compoundCard(data: compoundCardType) {
         data
     })
 }
-/* 获取可合成徽章 */
+/* 获取可合成精灵 */
 export function getCardCompoundList(data: getUserCardType) {
     console.log(data, "image.png");
 

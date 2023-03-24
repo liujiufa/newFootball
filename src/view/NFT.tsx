@@ -111,7 +111,7 @@ function NFT() {
   let [userCard, setuserCard] = useState<CardInfoType[]>([])
   /* 合成弹窗控制 */
   const [showCardSynthesis, setshowCardSynthesis] = useState(false)
-  /* 徽章详情弹窗控制 */
+  /* 精灵详情弹窗控制 */
   let [showCardDetail, setShowCardDetail] = useState(false)
   /* 创建订单弹窗控制 */
   let [showCreateOrder, setShowCreateOrder] = useState(false)
@@ -121,13 +121,13 @@ function NFT() {
   let [showOpenCard, setShowOpenCard] = useState(false)
   /* 合成成功弹窗控制 */
   let [showMergeSuccess, setShowMergeSuccess] = useState(false)
-  /* 移动端选择合成徽章 */
+  /* 移动端选择合成精灵 */
   let [showMerge, setshowMerge] = useState(false)
-  /* 移动端选择合成徽章 */
+  /* 移动端选择合成精灵 */
   let [showSelCard, setshowSelCard] = useState(false)
   /* 质押成功 */
   let [showPledge, setShowPledge] = useState(false)
-  /* 选中合成的徽章信息 */
+  /* 选中合成的精灵信息 */
   const [SelCardInfo, setSelCardInfo] = useState<CardInfoType | null>(null)
   /* 开盲盒结果 */
   let [openRes, setOpenRes] = useState<OpenResType[] | null>(null)
@@ -169,7 +169,7 @@ function NFT() {
         type: type,
         userAddress: web3React.account
       }).then(res => {
-        console.log(res.data, "用户徽章")
+        console.log(res.data, "用户精灵")
         setuserCard(res.data.list)
         SetTotalNum(res.data.size)
       })
@@ -220,7 +220,7 @@ function NFT() {
         type: type,
         userAddress: web3React.account
       }).then(res => {
-        console.log(res.data, "用户徽章")
+        console.log(res.data, "用户精灵")
         setuserCard(res.data.list)
         SetTotalNum(res.data.size)
       })
@@ -279,7 +279,7 @@ function NFT() {
             </DropDown>
           </div>
         </div>
-        {/* 徽章徽章 */}
+        {/* 精灵精灵 */}
         {
           userCard.length !== 0 ? <>
             <div className="CardList">
@@ -301,11 +301,11 @@ function NFT() {
       {
         openRes && <OpenRes isShow={showOpenCard} OpenRes={openRes} close={() => setShowOpenCard(false)} ></OpenRes>
       }
-      {/* 徽章详情 */}
+      {/* 精灵详情 */}
       {
         userCard.length > 0 && <CardDetails pledgeSuccessModal={() => { setShowPledge(true) }} isShow={showCardDetail} showMerge={showMergeFun} showCreateOrder={createOrderFun} CardInfo={userCard[cardDetialIndex]} close={() => setShowCardDetail(false)} type="NFT"></CardDetails>
       }
-      {/* 徽章挂卖 */}
+      {/* 精灵挂卖 */}
       {
         userCard.length > 0 && userCard[cardDetialIndex] && <CardDetails pledgeSuccessModal={() => { setShowPledge(true) }} isShow={showCreateOrder} CardInfo={userCard[cardDetialIndex]} CreateOrderSuccess={CreateOrderSuccess} close={() => setShowCreateOrder(false)} type="CreateOrder"></CardDetails>
       }

@@ -195,6 +195,10 @@
             .title {
                 text-align: center;
             }
+
+            .num {
+                text-align: center;
+            }
         }
     }
 
@@ -536,9 +540,10 @@
 }
 
 @media (max-width:425px) {
-    #BlindBox{
+    #BlindBox {
         margin-bottom: 30px;
     }
+
     #BlindBox .contentBox .contractAddr {
         padding: 8px 12px;
 
@@ -717,15 +722,18 @@
         font-weight: 400;
         font-size: 16px;
     }
-    #BlindBox .contentBox .middleRecord .titles{
+
+    #BlindBox .contentBox .middleRecord .titles {
         padding-bottom: 0px;
     }
-    #BlindBox .contentBox .middleRecord .bigBox .contents .switchIcon{
-        img{
+
+    #BlindBox .contentBox .middleRecord .bigBox .contents .switchIcon {
+        img {
             width: 12px;
         }
     }
-    #BlindBox .contentBox .contractAddr{
+
+    #BlindBox .contentBox .contractAddr {
         margin-top: 20px;
     }
 }

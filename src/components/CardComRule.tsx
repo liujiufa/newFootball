@@ -1,4 +1,4 @@
-// NTF徽章合成规则
+// NTF精灵合成规则
 import React from 'react'
 import { Modal } from 'antd';
 import { useTranslation } from 'react-i18next'

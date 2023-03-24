@@ -68,7 +68,7 @@ function Pledge() {
   let [page, SetPage] = useState(1)
   let [userCard, setuserCard] = useState<CardInfoType[]>([])
   let [burnCard, setBurnCard] = useState<any>([])
-  /* 徽章详情弹窗控制 */
+  /* 精灵详情弹窗控制 */
   let [showCardDetail, setShowCardDetail] = useState(false)
   let [cardDetialIndex, setCardDetialIndex] = useState(0)
 
@@ -201,7 +201,7 @@ function Pledge() {
         pageSize: 12,
         userAddress: web3React.account
       }).then(res => {
-        console.log(res.data, "用户徽章", res.data.size)
+        console.log(res.data, "用户精灵", res.data.size)
         setuserCard(res.data.list)
         SetTotalNum(res.data.size)
       })
@@ -212,7 +212,7 @@ function Pledge() {
       //     pageSize: 12,
       //     userAddress: web3React.account
       //   }, (data: any) => {
-      //     console.log(data, '用户徽章')
+      //     console.log(data, '用户精灵')
       //     setuserCard(data.list)
       //     SetTotalNum(data.size)
       //   })
@@ -297,7 +297,7 @@ function Pledge() {
       {pledgeData && <AbleGetReward getFun={Receive} dataId={pledgeData.dataId} data={getValue} showModal={getPage} close={() => { setGetPage(false) }}></AbleGetReward>}
       {/* 取消成功 */}
       <CancelPledgeSuccess showModal={cancelPledgeSuccess} close={() => { setCancelPledgeSuccess(false) }}></CancelPledgeSuccess>
-      {/* 徽章详情 */}
+      {/* 精灵详情 */}
       {
         userCard.length > 0 && <CardDetails isShow={showCardDetail} CardInfo={userCard[cardDetialIndex]} close={() => setShowCardDetail(false)} ></CardDetails>
       }

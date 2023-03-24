@@ -150,6 +150,7 @@ function Home() {
   let { t, i18n } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0)
   const [animaVisable, setAnimaVisable] = useState(true)
+  const [animaMobileVisable, setAnimaMobileVisable] = useState(true)
 
   const [mobileActiveIndex, setMobileActiveIndex] = useState(0)
   let [bt, setBt] = useState<Array<{ img: string, className?: string }>>(INIT_BT);
@@ -499,6 +500,18 @@ function Home() {
     }
   }, [animaVisable])
 
+  useEffect(() => {
+    let timer: number | undefined = undefined
+
+    timer = window.setTimeout(() => {
+      setAnimaMobileVisable(!animaMobileVisable)
+    }, animaMobileVisable ? 3000 : 500);
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [animaMobileVisable])
+
+
 
   return (
     <div id="home" className="bj">
@@ -508,7 +521,8 @@ function Home() {
           <div className="xiang">{t("The first Metaverse world created with welfare as the theme")}</div>
           {/* <a href={i18n.language === "zh" ? "http://spaceballgames.com/File/SpaceBallZh.pdf" : "http://spaceballgames.com/File/SpaceBallEn.pdf"} target="downloadFile">
           </a> */}
-          <div className="btn">{t("WHITEPAPER")}</div>
+          <div className="btn"></div>
+          {/* <div className="btn">{t("WHITEPAPER")}</div> */}
         </div>
       </div>
 
@@ -545,7 +559,10 @@ function Home() {
                 {t("The MetaBase Welfare Blind Box is a pilot product of MetaBase")}
               </div>
               <div className="casebox-mobile-group">
-                <div className="casebox-mobile-img"></div>
+
+                <div className="casebox-mobile-img">
+                  <AnimaMain visable={animaMobileVisable} />
+                </div>
               </div>
               <div className="casebox-mobile-group">
 

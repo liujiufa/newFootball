@@ -1006,12 +1006,18 @@
 }
 
 @media screen and (max-width:425px) {
+    .Invitation .itemBox .itemTitle {
+        margin-bottom: 10px;
+        font-size: 20px;
+    }
+
     #CreateNode .Invitation .itemBox .item .des {
         font-size: 14px;
     }
 
     #CreateNode .Invitation .itemBox .item .list .title {
         font-size: 14px;
+        line-height: 14px;
     }
 
     #CreateNode .Invitation .itemBox .item .list {
@@ -1020,14 +1026,19 @@
 
     #CreateNode .Invitation .itemBox .item .list .value {
         font-size: 14px;
+        line-height: 14px;
     }
 
     #CreateNode .Invitation .itemBox .item .getBtn {
         margin-top: 20px;
+        width: 80px;
+        height: 40px;
     }
 
     #CreateNode .Invitation .itemBox .item .getBtnEnd {
         margin-top: 20px;
+        width: 80px;
+        height: 40px;
     }
 
     #CreateNode .Invitation .itemBox .item .imgBox img {
@@ -1035,7 +1046,7 @@
     }
 
     #CreateNode .Invitation {
-        margin-top: 40px;
+        margin-top: 10px;
     }
 
     .Invitation .itemBox .allRewardBox,
@@ -1056,6 +1067,7 @@
     .SwapTitle {
         margin-top: 20px;
         font-size: 28px !important;
+        line-height: 28px;
     }
 
     .subTitle {
@@ -1066,7 +1078,7 @@
     }
 
     #NodeApply .Invitation {
-        margin-top: 20px;
+        margin-top: 10px;
     }
 
     .Invitation .itemBox .itemTip {
@@ -1124,4 +1136,10 @@
     #NodeApply .nodeRank .nodeContent {
         margin-top: 12px;
     }
+
+    #CreateNode .Invitation .itemBox .item .imgBox {
+        padding: 0px 20px;
+    }
+
+
 }

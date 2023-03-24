@@ -1,4 +1,4 @@
-// 交易场徽章详情
+// 交易场精灵详情
 import React from 'react';
 import { useTranslation } from 'react-i18next'
 import { Modal } from 'antd';

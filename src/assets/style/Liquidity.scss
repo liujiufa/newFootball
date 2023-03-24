@@ -199,10 +199,24 @@
 
 @media screen and (max-width:425px) {
     .LiquidityBox {
+        margin-top: 20px;
         padding: 0px 12px;
 
+        .title {
+            font-size: 28px;
+        }
+
         .content {
-            // margin-top: 50px;
+            padding: 40px 0px;
+            margin-top: 20px;
+
+            .myLiquidity {
+                margin-bottom: 20px;
+            }
+
+            .addLiquidity {
+                padding: 8px 12px;
+            }
         }
     }
 }

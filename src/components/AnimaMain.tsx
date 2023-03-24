@@ -75,7 +75,7 @@ export default function AnimaBox({ visable }: AnimaType) {
         debounce(openBoxCallback, 100)
     }, [])
     return <Fragment>
-        <AnimaMain visable={!!visable} />
+        {/* <AnimaMain visable={!!visable} /> */}
         {!!visable && <Anima ref={lottieRef} visable={!!visable} > </Anima>}
     </Fragment>
 }

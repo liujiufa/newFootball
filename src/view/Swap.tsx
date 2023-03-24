@@ -22,7 +22,7 @@ import { socketUrl, contractAddress } from '../config'
 import BigNumber from 'big.js'
 import '../assets/style/Swap.scss'
 import MarketDealing from '../components/MarketDealing'
-// 徽章等级
+// 精灵等级
 const LevelMap = [
   {
     key: 'pmap',
@@ -199,7 +199,7 @@ function Swap() {
   let [userLevel, setUserLevel] = useState(0)
   /* 我的类型 */
   let [cardMyType, SetCardMyType] = useState(-1)
-  /* 徽章详情弹窗控制 */
+  /* 精灵详情弹窗控制 */
   let [showCardDetail, setShowCardDetail] = useState(false)
   /* 确认购买弹窗控制 */
   let [showEnterBuy, setShowEnterBuy] = useState(false)
@@ -240,7 +240,7 @@ function Swap() {
     setShowCancelOrder(false)
   }, [web3React.account])
 
-  // 徽章
+  // 精灵
   useEffect(() => {
     if (cardType === 1 && TabIndex === 0 && state.token && web3React.account) {
       getOrderList({
@@ -252,7 +252,7 @@ function Swap() {
         sortType: sort
         // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
       }).then(res => {
-        console.log(res.data.list, '徽章列表')
+        console.log(res.data.list, '精灵列表')
         setOrderList(res.data.list)
         SetTotalNum(res.data.size)
       })
@@ -433,7 +433,7 @@ function Swap() {
       <div className="Edition-Center" id="Swap">
         {/* 交易记录 */}
         <MyDealRecord isShow={showOrderRecord} close={() => { setShowOrderRecord(false) }} ></MyDealRecord>
-        {/* 徽章详情 */}
+        {/* 精灵详情 */}
         {
           orderInfo && orderInfo.cardType !== 0 && <PutParticulars isShow={showCardDetail} OrderInfo={orderInfo} close={() => setShowCardDetail(false)} ></PutParticulars>
         }
@@ -453,7 +453,7 @@ function Swap() {
         {
           orderInfo && <MarketDealing isShow={showEnterBuy} buyInfo={orderInfo} close={() => { setShowEnterBuy(false) }} buySuccess={() => setShowBuySuccess(true)}></MarketDealing>
         }
-        {/* 徽章详情 */}
+        {/* 精灵详情 */}
         <div className="SwapTitle">
           {t('Swap')}
         </div>

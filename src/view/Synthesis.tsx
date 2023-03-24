@@ -11,6 +11,8 @@ import Card, { CardInfoType } from '../components/Card'
 import NoData from '../components/NoData'
 import desIcon from '../assets/image/desIcon.png'
 import translateRecoedIcon from '../assets/image/translateRecoedIcon.png'
+import closeIcon from '../assets/image/closeIcon.png'
+
 import defaultCard from '../assets/image/defaultCard.png'
 import addIcon from '../assets/image/addIcon.png'
 import '../assets/style/Synthesis.scss'
@@ -21,7 +23,7 @@ import Tips from '../components/Tips'
 import { useTranslation } from 'react-i18next'
 import { socketUrl } from "../config"
 import { useViewport } from '../components/viewportContext';
-// 徽章合成规则
+// 精灵合成规则
 import CardComRule from '../components/CardComRule'
 import CardComSuccess from '../components/CardComSuccess'
 import CardComRecord from '../components/CardComRecord'
@@ -127,7 +129,7 @@ export default function Synthesis() {
             })
         }
     }
-    //徽章
+    //精灵
     const CardListBox = () => {
         if (!SelCard1) {
             // 第一张
@@ -165,7 +167,7 @@ export default function Synthesis() {
             type: type,
             userAddress: web3React.account as string
         }).then(res => {
-            console.log(res.data, "用户徽章")
+            console.log(res.data, "用户精灵")
             setuserCard(res.data.list)
         })
         // 推送
@@ -332,7 +334,7 @@ export default function Synthesis() {
                         </div> 
                         */}
                     </div>
-                    {/* 徽章 */}
+                    {/* 精灵 */}
                     <CardListBox></CardListBox>
                 </div>
             </div>
@@ -396,6 +398,8 @@ export default function Synthesis() {
                 closable={false}
                 footer={null}
                 onCancel={() => { setShowComModal(false) }}>
+                <img src={closeIcon} className="closeIcon" alt="" onClick={() => setShowComModal(false)} />
+
                 <div className='SynthesisList'>
                     <div className="Category">
                         <div className="dropBox">
@@ -410,7 +414,7 @@ export default function Synthesis() {
                         </div> 
                         */}
                     </div>
-                    {/* 徽章 */}
+                    {/* 精灵 */}
                     <CardListBox></CardListBox>
                 </div>
             </Modal>

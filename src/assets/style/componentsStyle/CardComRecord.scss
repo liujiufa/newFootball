@@ -18,58 +18,60 @@
       /* identical to box height */
       text-align: center;
       color: #000000;
-      overflow-x: auto;
 
     }
 
-    .content {
+    .BigBox {
       overflow-x: auto;
 
-
-      .items {
-        display: flex;
-        justify-content: space-between;
+      .content {
         min-width: 800px;
 
-        .item {
-          width: 90px;
-          text-align: center;
+
+        .items {
+          display: flex;
+          justify-content: space-between;
+
+          .item {
+            width: 90px;
+            text-align: center;
+          }
         }
-      }
 
-      .titleItems {
-        margin: 20px auto;
+        .titleItems {
+          margin: 20px auto;
 
-        .item {
-          font-family: 'PingFang SC';
-          font-style: normal;
-          font-weight: 400;
-          font-size: 14px;
-          line-height: 20px;
-          /* identical to box height */
-          color: rgba(0, 0, 0, 0.8);
+          .item {
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            /* identical to box height */
+            color: rgba(0, 0, 0, 0.8);
+          }
         }
-      }
 
-      .Box {
-        max-height: 400px;
-        overflow-y: auto;
+        .Box {
+          max-height: 400px;
+          overflow-y: auto;
 
-        .contentItems {
-          font-family: 'DIN';
-          font-style: normal;
-          font-weight: 500;
-          font-size: 14px;
-          line-height: 17px;
-          /* identical to box height */
-          text-align: center;
-          letter-spacing: 0.08em;
-          color: #000000;
-          padding: 10px 0px;
-          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+          .contentItems {
+            font-family: 'DIN';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 17px;
+            /* identical to box height */
+            text-align: center;
+            letter-spacing: 0.08em;
+            color: #000000;
+            padding: 10px 0px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+          }
         }
-      }
 
+      }
     }
   }
 }

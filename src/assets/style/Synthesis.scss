@@ -444,8 +444,8 @@
                 }
 
                 .items .CardImg1 {
-                    width: 80px;
-                    height: 80px;
+                    width: 90px;
+                    height: 90px;
                 }
             }
         }
@@ -602,6 +602,25 @@
                     height: 168px;
                 }
             }
+        }
+    }
+}
+
+@media (max-width:425px) {
+    #Synthesis .Title {
+        font-size: 28px;
+        margin: 20px auto 0px;
+    }
+
+    #Synthesis .Content .SynthesisHandle .SynthesisItems .CardItems .Add img {
+        max-width: 30px;
+        max-height: 30px;
+    }
+
+    #Synthesis .Content .SynthesisHandle .SynthesisItems .result {
+        img {
+            width: 40px;
+            height: 40px;
         }
     }
 }

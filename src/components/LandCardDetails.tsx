@@ -33,7 +33,7 @@ function LandCardDetails(props: any) {
     if (!web3React.account) {
       addMessage(t('Please connect Wallet'))
     }
-    /* 判断徽章等级 */
+    /* 判断精灵等级 */
     Contracts.example.setLandApprovalForAll(web3React.account as string, contractAddress.EXChangeNFT, true).then(() => {
       setIsApproved(true)
       addMessage(t('Authorization succeeded'))
@@ -67,24 +67,28 @@ function LandCardDetails(props: any) {
         footer={null}
       >
         <div className='title'>{t("Land details")}</div>
-        <div className='hzimg'>
-          {props.CardInfo.isActivation == 1 && <div className="pending">{t("Activated")}</div>}
-          <img src={props.CardInfo.imageUrl} alt=""></img>
-        </div>
-        <div className="p1">
-          <div className='kpdetails'>{t("Land quality")}: {cardObj[props.CardInfo.cardLevel][0]}</div>
-          <div className='kpdetails'>ID：{props.CardInfo.cardNo}</div>
-        </div>
-        <div className="p2">
-          <div className='kpdetails'>{t("Land title")}：{LevelObj[props.userLevel]}</div>
-          <div className='kpdetails'>{t("Status")}：{props.CardInfo.isActivation == 1 ? t('Active') : t('Not active')}</div>
-        </div>
+        <div className="detailModalBox">
 
-        <div className='kpdetails'>{t("Activation requirement")}：{cardObj[props.CardInfo.cardLevel][1]}</div>
-        <div className='kpdetails'>土地介绍：{i18next.language === "zh" ? props.CardInfo.zhIntroduce : props.CardInfo.introduce}</div>
-        <div className='butm'>
-          {isApproved ? <button className='hc' onClick={() => { props.showCreateOrder && props.showCreateOrder(props.CardInfo.cardLevel) }}>{t("Sale")}</button> : <button className='gm' onClick={() => { createOrderApproval() }}> <div>{t("Sale")}</div></button>}
-          {<button className='hc' onClick={() => { activeFun() }}>激活</button>}
+
+          <div className='hzimg'>
+            {props.CardInfo.isActivation == 1 && <div className="pending">{t("Activated")}</div>}
+            <img src={props.CardInfo.imageUrl} alt=""></img>
+          </div>
+          <div className="p1">
+            <div className='kpdetails'>{t("Land quality")}: {cardObj[props.CardInfo.cardLevel][0]}</div>
+            <div className='kpdetails'>ID：{props.CardInfo.cardNo}</div>
+          </div>
+          <div className="p2">
+            <div className='kpdetails'>{t("Land title")}：{LevelObj[props.userLevel]}</div>
+            <div className='kpdetails'>{t("Status")}：{props.CardInfo.isActivation == 1 ? t('Active') : t('Not active')}</div>
+          </div>
+
+          <div className='kpdetails'>{t("Activation requirement")}：{cardObj[props.CardInfo.cardLevel][1]}</div>
+          <div className='kpdetails'>土地介绍：{i18next.language === "zh" ? props.CardInfo.zhIntroduce : props.CardInfo.introduce}</div>
+          <div className='butm'>
+            {isApproved ? <button className='hc' onClick={() => { props.showCreateOrder && props.showCreateOrder(props.CardInfo.cardLevel) }}>{t("Sale")}</button> : <button className='gm' onClick={() => { createOrderApproval() }}> <div>{t("Sale")}</div></button>}
+            {<button className='hc' onClick={() => { activeFun() }}>激活</button>}
+          </div>
         </div>
       </Modal>
 

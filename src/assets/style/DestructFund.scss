@@ -332,6 +332,38 @@
     .DestructFund {
         padding: 0px 20px;
     }
+
+    .DestructFund .SwapTitle {
+        font-size: 28px;
+        margin-top: 20px;
+    }
+
+    .DestructFund .NodeDesc {
+        margin-top: 20px;
+    }
+
+    .DestructFund .Content {
+        margin-top: 20px;
+    }
+
+    .DestructFund .Content>div .Btn {
+        width: 80px;
+        padding: 0px;
+        margin: 20px auto;
+    }
+
+    .DestructFund .Content>div .DestructValue,
+    .DestructFund .Content>div .rewardValue,
+    .DestructFund .Content>div .toFreed {
+        margin-bottom: 10px;
+    }
+
+    .DestructFund .Content>div .title {
+        font-size: 20px;
+    }
+    .DestructFund .Content > div .subTitle{
+        font-size: 14px;
+    }
 }
 
 @media screen and (max-width:375px) {

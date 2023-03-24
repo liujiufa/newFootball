@@ -310,11 +310,54 @@
 }
 
 @media screen and (max-width:425px) {
+    .Node .SwapTitle {
+        font-size: 28px;
+        margin-top: 20px;
+    }
+
     .Node {
         padding: 0 12px;
 
         .NodeDesc {
             padding: 20px 0px;
+            margin: 0px auto;
         }
+    }
+
+    .nodeApplication .RewardLabel {
+        font-size: 20px;
+    }
+
+    .nodeApplication .NodeTips {
+        margin-bottom: 15px;
+    }
+
+    .nodeApplication .applyBtn {
+        margin: 15px 0px;
+        width: 100px;
+        padding: 0px;
+        height: 40px;
+    }
+
+    .Node .Content {
+        margin-top: 10px;
+    }
+
+    .Node .Content>div .title {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .Node .Content>div .btnBox .Btn {
+        width: 100px;
+        padding: 0px;
+    }
+
+    .Node .Content>div .btnBox .notBtn {
+        width: 100px;
+        padding: 0px;
+    }
+    .Node .Content > div .btnBox{
+        justify-content: space-evenly;
     }
 }

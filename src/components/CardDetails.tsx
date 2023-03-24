@@ -9,8 +9,9 @@ import { Modal, Image } from 'antd';
 import { contractAddress, nftType, nftLevel, starLevel } from '../config'
 import BigNumber from 'big.js'
 import '../assets/style/componentsStyle/carddetails.scss'
+import closeIcon from '../assets/image/closeIcon.png'
 import { useNavigate } from 'react-router-dom';
-/* type:Swap 交易场详情 CreateOrder 挂单详情 NFT 背包徽章详情 */
+/* type:Swap 交易场详情 CreateOrder 挂单详情 NFT 背包精灵详情 */
 function CardDetails(props: any) {
   console.log("CardDetails", props);
 
@@ -99,7 +100,7 @@ function CardDetails(props: any) {
     if (!web3React.account) {
       addMessage(t('Please connect Wallet'))
     }
-    /* 判断徽章等级 */
+    /* 判断精灵等级 */
     Contracts.example.setApprovalForAll(web3React.account as string, contractAddress.EXChangeNFT, true).then(() => {
       setIsApproved(true)
       addMessage(t('Authorization succeeded'))
@@ -132,58 +133,62 @@ function CardDetails(props: any) {
           closable={false}
           footer={null}
         >
+          <img src={closeIcon} className="closeIcon" alt="" onClick={() => props.close()} />
           <div className='title'>{props.type === "CreateOrder" ? t('Listing details') : t('Card Details')}</div>
-          <div className='hzimg'>
-            <Image src={props.CardInfo.imageUrl} alt="" preview={{
-              maskClassName: 'myMaskStyle'
-            }}></Image>
-          </div>
-          <div className="p1">
-            <div className='kpdetails'>{t('Card Name')}:{t(nftLevel[props.CardInfo.cardLevel])}</div>
-            <div className='kpdetails'>{t('CardID')}:{props.CardInfo.cardNo}</div>
-          </div>
-          <div className="p2">
-            <div className='kpdetails'>{t('CardLevel')}:{t(starLevel[props.CardInfo.cardLevel])}</div>
-            <div className='kpdetails'>{t('ComputingPower')}:{props.CardInfo.power}</div>
-          </div>
-          <div className="p2">
-            <div className='kpdetails'>{t('CardType')}:{t(nftType[props.CardInfo.cardType])}</div>
-            <div className='kpdetails'>價值：{props.CardInfo.currentInitValue} BNB</div>
-          </div>
-          <div className='kpdetails'>累计产出: {props.CardInfo.releaseNum} MBAS</div>
+          <div className="detailModalBox">
 
-          <div className='kpdetails'>{t('Introduction Card')}:{i18n.language === 'zh' ? props.CardInfo.zhIntroduce : props.CardInfo.introduce}</div>
 
-          {
-            props.type === "NFT" && <div className='butm'>
-              {/* 挂卖授权 */}
-              {
-                isApproved ? <button className={'hc'}><div onClick={() => { props.showCreateOrder && props.showCreateOrder(props.CardInfo.cardLevel) }}>{t("Sale")}</div></button> :
-                  <button className={'gm'}><div onClick={() => createOrderApproval()}>{t("Sale")}</div></button>
-              }
-              {/* 铸造授权 */}
-              {
-                props.CardInfo.cardLevel <= 5 && <button className={'hc'} onClick={() => { navigate('/Synthesis') }}>{t('Evolve')}</button>
-              }
-              {/* 质押 */}
-              {
-                isApprovePledgeValue ? <button className='hc' onClick={() => { NFTPledgeFun() }}>{t('Pledge')}</button> : <button className='gm' onClick={() => { Approval() }}> <div>{t('Pledge')}</div></button>
-              }
+            <div className='hzimg'>
+              <Image src={props.CardInfo.imageUrl} alt="" preview={{
+                maskClassName: 'myMaskStyle'
+              }}></Image>
             </div>
-          }
-
-          {/* 挂卖 */}
-          {
-            props.type === "CreateOrder" && <p className='kpdetails'>{t('Please enter price')}:<input type='text' value={putPrice} onChange={putNum} />MBAS</p>
-          }
-          {
-            props.type === "CreateOrder" && <div className='butm'>
-              {
-                isApproved ? <button className='hc' onClick={createOrder}>{t('Verify')}</button> : <button className='hc' onClick={() => createOrderApproval()}>{t('Approve')}</button>
-              }
+            <div className="p1">
+              <div className='kpdetails'>{t('Card Name')}:{t(nftLevel[props.CardInfo.cardLevel])}</div>
+              <div className='kpdetails'>{t('CardID')}:{props.CardInfo.cardNo}</div>
             </div>
-          }
-          {/* <span>{t('Click anywhere to close')}</span> */}
+            <div className="p2">
+              <div className='kpdetails'>{t('CardLevel')}:{t(starLevel[props.CardInfo.cardLevel])}</div>
+              <div className='kpdetails'>{t('ComputingPower')}:{props.CardInfo.power}</div>
+            </div>
+            <div className="p2">
+              <div className='kpdetails'>{t('CardType')}:{t(nftType[props.CardInfo.cardType])}</div>
+              <div className='kpdetails'>價值：{props.CardInfo.currentInitValue} BNB</div>
+            </div>
+            <div className='kpdetails'>累计产出: {props.CardInfo.releaseNum} MBAS</div>
+
+            <div className='kpdetails'>{t('Introduction Card')}:{i18n.language === 'zh' ? props.CardInfo.zhIntroduce : props.CardInfo.introduce}</div>
+
+            {
+              props.type === "NFT" && <div className='butm'>
+                {/* 挂卖授权 */}
+                {
+                  isApproved ? <button className={'hc'}><div onClick={() => { props.showCreateOrder && props.showCreateOrder(props.CardInfo.cardLevel) }}>{t("Sale")}</div></button> :
+                    <button className={'gm'}><div onClick={() => createOrderApproval()}>{t("Sale")}</div></button>
+                }
+                {/* 铸造授权 */}
+                {
+                  props.CardInfo.cardLevel <= 5 && <button className={'hc'} onClick={() => { navigate('/Synthesis') }}>{t('Evolve')}</button>
+                }
+                {/* 质押 */}
+                {
+                  isApprovePledgeValue ? <button className='hc' onClick={() => { NFTPledgeFun() }}>{t('Pledge')}</button> : <button className='gm' onClick={() => { Approval() }}> <div>{t('Pledge')}</div></button>
+                }
+              </div>
+            }
+
+            {/* 挂卖 */}
+            {
+              props.type === "CreateOrder" && <p className='kpdetails'>{t('Please enter price')}:<input type='text' value={putPrice} onChange={putNum} />MBAS</p>
+            }
+            {
+              props.type === "CreateOrder" && <div className='butm'>
+                {
+                  isApproved ? <button className='hc' onClick={createOrder}>{t('Verify')}</button> : <button className='hc' onClick={() => createOrderApproval()}>{t('Approve')}</button>
+                }
+              </div>
+            }
+          </div>
         </Modal>
       }
 

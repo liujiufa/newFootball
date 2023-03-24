@@ -1,4 +1,3 @@
-// NTF徽章合成规则
 import React, { useEffect, useState } from 'react'
 import { Modal } from 'antd';
 import { useTranslation } from 'react-i18next'
@@ -40,42 +39,44 @@ function CardComSuccess(props: PropsType) {
       >
         <img src={closeIcon} className="closeIcon" alt="" onClick={() => props.close()} />
         <div className='title'>恭喜！</div>
-        <div className="content">
-          <div className="items titleItems">
-            <div className="item">日期</div>
-            <div className="item">徽章1类型</div>
-            <div className="item">价值(BNB)</div>
-            <div className="item">徽章2类型</div>
-            <div className="item">价值(BNB)</div>
-            <div className="item">合成</div>
-            <div className="item">价值(BNB)</div>
-            <div className="item">土地赠送</div>
-          </div>
-          <div className="Box">
-            {recordList.length > 0 ? recordList.map((item: any, index: any) => <div key={index} className="items contentItems">
-              <div className="item">{dateFormat('YYYY/mm/dd', new Date(item?.createTime))}</div>
-              <div className="item">
-                {nftLevel[item?.combineCardInfoVONFT1?.level]}-{nftType[item?.combineCardInfoVONFT1?.type]}
-                <div className="ID">ID:{item?.combineCardInfoVONFT1?.id}</div>
-              </div>
-              <div className="item">{item?.combineCardInfoVONFT1?.value}</div>
-              <div className="item">
-                {nftLevel[item?.combineCardInfoVONFT2?.level]}-{nftType[item?.combineCardInfoVONFT2?.type]}
-                <div className="ID">ID:{item?.combineCardInfoVONFT2?.id}</div>
-              </div>
-              <div className="item">{item?.combineCardInfoVONFT2?.value}</div>
-              <div className="item">
-                {nftLevel[item?.combineCardInfoVONFT3?.level]}-{nftType[item?.combineCardInfoVONFT3?.type]}
-                <div className="ID">ID:{item?.combineCardInfoVONFT3?.id}</div>
-              </div>
-              <div className="item">{item?.combineCardInfoVONFT3?.value}</div>
-              <div className="item">
-                {landLevel[item?.landLevel]}
-                <div className="ID">ID:{item?.landId}</div>
-              </div>
-            </div>) : <Nodata></Nodata>}
-          </div>
+        <div className="BigBox">
+          <div className="content">
+            <div className="items titleItems">
+              <div className="item">日期</div>
+              <div className="item">精灵1类型</div>
+              <div className="item">价值(BNB)</div>
+              <div className="item">精灵2类型</div>
+              <div className="item">价值(BNB)</div>
+              <div className="item">合成</div>
+              <div className="item">价值(BNB)</div>
+              <div className="item">土地赠送</div>
+            </div>
+            <div className="Box">
+              {recordList.length > 0 ? recordList.map((item: any, index: any) => <div key={index} className="items contentItems">
+                <div className="item">{dateFormat('YYYY/mm/dd', new Date(item?.createTime))}</div>
+                <div className="item">
+                  {nftLevel[item?.combineCardInfoVONFT1?.level]}-{nftType[item?.combineCardInfoVONFT1?.type]}
+                  <div className="ID">ID:{item?.combineCardInfoVONFT1?.id}</div>
+                </div>
+                <div className="item">{item?.combineCardInfoVONFT1?.value}</div>
+                <div className="item">
+                  {nftLevel[item?.combineCardInfoVONFT2?.level]}-{nftType[item?.combineCardInfoVONFT2?.type]}
+                  <div className="ID">ID:{item?.combineCardInfoVONFT2?.id}</div>
+                </div>
+                <div className="item">{item?.combineCardInfoVONFT2?.value}</div>
+                <div className="item">
+                  {nftLevel[item?.combineCardInfoVONFT3?.level]}-{nftType[item?.combineCardInfoVONFT3?.type]}
+                  <div className="ID">ID:{item?.combineCardInfoVONFT3?.id}</div>
+                </div>
+                <div className="item">{item?.combineCardInfoVONFT3?.value}</div>
+                <div className="item">
+                  {landLevel[item?.landLevel]}
+                  <div className="ID">ID:{item?.landId}</div>
+                </div>
+              </div>) : <Nodata></Nodata>}
+            </div>
 
+          </div>
         </div>
       </Modal>
     </>

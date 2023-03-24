@@ -354,13 +354,20 @@ export default function BlindBox() {
           <div className="title">奖金池</div>
           <div className="num">{BoxBaseArr?.totalAmount}BNB</div>
         </div>
-        {BoxBaseArr?.list?.map((item: any, index: any) => <div key={index} className="goods">
+        {BoxBaseArr?.list.length > 0 ? BoxBaseArr?.list?.map((item: any, index: any) => <div key={index} className="goods">
           <div className="ImgBox">
             <img src={gradeImg[item?.level]} alt="" />
             <div className="surplus flexCenter">{item?.surplusCount}</div>
           </div>
           <div className="title">{grade[item?.level]}</div>
           <div className="num">{item?.amount}BNB</div>
+        </div>) : [1, 2, 3, 4].map((item: any, index: any) => <div key={index} className="goods">
+          <div className="ImgBox">
+            <img src={gradeImg[item]} alt="" />
+            <div className="surplus flexCenter">0</div>
+          </div>
+          <div className="title">{grade[item]}</div>
+          <div className="num">0BNB</div>
         </div>)}
       </div>}
       <div className="tabsBox">
@@ -372,9 +379,9 @@ export default function BlindBox() {
       </div>
       <div className="contentBox">
         {/* 盲盒介紹 */}
-        {TabIndex === 0 && <> 寶箱可以隨機開出一星、二星、三星三種屬性的精靈徽章NFT和一等獎、二等獎、三等獎、普通的BNB。精靈徽章NFT可以參與質押挖礦獲取MBAS，低星徽章合成高星徽章時，可以獲得土地NFT獎勵。NFT可在Metabase生態內的交易市場交易，也支持在第三方交易平臺交易。
+        {TabIndex === 0 && <> 寶箱可以隨機開出一星、二星、三星三種屬性的精靈NFT和一等獎、二等獎、三等獎、普通的BNB。精靈NFT可以參與質押挖礦獲取MBAS，低星精灵合成高星精灵時，可以獲得土地NFT獎勵。NFT可在Metabase生態內的交易市場交易，也支持在第三方交易平臺交易。
           <div className="contractAddr">
-            <div className="addrTitle"> 徽章NFT合約地址</div>
+            <div className="addrTitle"> 精灵NFT合約地址</div>
             <div className="addr">{AddrHandle(contractAddress.NFT, 10, 6)} <img onClick={() => {
               copy(
                 contractAddress.BlindBox

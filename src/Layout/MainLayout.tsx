@@ -34,8 +34,8 @@ import EcologyIcon0 from "../assets/image/EcologyIcon1.png";
 import EcologyIcon1 from "../assets/image/EcologyIcon2.png";
 import footerIcon1 from "../assets/image/footerIcon1.svg";
 import footerIcon2 from "../assets/image/footerIcon2.svg";
-import footerIcon3 from "../assets/image/footerIcon3.svg";
-import footerIcon4 from "../assets/image/footerIcon4.svg";
+import footerIcon4 from "../assets/image/footerIcon3.svg";
+import footerIcon3 from "../assets/image/footerIcon4.svg";
 import footerAIcon1 from "../assets/image/footerAIcon1.svg";
 import footerAIcon2 from "../assets/image/footerAIcon2.svg";
 import footerAIcon3 from "../assets/image/footerAIcon3.svg";
@@ -63,17 +63,23 @@ const MainLayout: React.FC = () => {
   const { connectWallet } = useConnectWallet()
   // 底部更多菜单
   const moreSubMenuList = [
-    {
-      name: "SWAP",
-      Fun: () => {
-        window.open("https://pancakeswap.finance/swap?outputCurrency=0xA013e36C78BA39Ff6bE4781f0f2FBF935f6BA05A")
-        // window.open("https://pancake.kiemtienonline360.com/#/swap")
-      }
-    },
+
     {
       name: t("Invitation"),
       Fun: () => {
         navigate("/Invitation");
+      }
+    },
+    {
+      name: "遊戲競技",
+      Fun: () => {
+        // navigate("/Invitation");
+      }
+    },
+    {
+      name: "競猜娛樂",
+      Fun: () => {
+        // navigate("/Invitation");
       }
     },
   ]
@@ -149,6 +155,13 @@ const MainLayout: React.FC = () => {
       name: t('Coinage'),
       Fun: () => {
         navigate("/Node");
+      }
+    },
+    {
+      name: "SWAP",
+      Fun: () => {
+        window.open("https://pancakeswap.finance/swap?outputCurrency=0xA013e36C78BA39Ff6bE4781f0f2FBF935f6BA05A")
+        // window.open("https://pancake.kiemtienonline360.com/#/swap")
       }
     },
     // {
@@ -241,6 +254,7 @@ const MainLayout: React.FC = () => {
       { icon: MBASGovernanceIcon1, title: "鑄幣節點", subtitle: '根据MBAS销毁量获生态铸币权', path: '/Node' },
       { icon: MBASGovernanceIcon2, title: "捐贈銷毀", subtitle: '销毁MBAS获得两倍BNB奖励', path: "/DestructFund" },
       { icon: MBASGovernanceIcon3, title: "农场", subtitle: '质押LP获得生态激励', path: "/farms" },
+      { icon: MBASIcon2, title: "Swap", subtitle: '通过Pancake买卖MBAS', path: '/outLink' },
     ],
     "/MBAS": [
       { icon: MBASIcon0, title: "节点申请", subtitle: '报名参与节点竞选', path: '/NodeApply' },
@@ -248,11 +262,11 @@ const MainLayout: React.FC = () => {
       { icon: MBASIcon2, title: "节点基金", subtitle: '节点基金收益领取', path: '/NodeFund' },
     ],
     "/NFT": [
-      { icon: NFTIcon0, title: "徽章", subtitle: '徽章查看個人精靈徽章', path: '/NFT' },
+      { icon: NFTIcon0, title: "精灵", subtitle: '精灵查看個人精靈精灵', path: '/NFT' },
       { icon: NFTIcon1, title: "土地", subtitle: '獲取土地分紅和服務獎', path: '/Land' },
-      { icon: NFTIcon2, title: "交易中心", subtitle: '自由買賣徽章土地', path: '/Swap' },
-      { icon: NFTIcon3, title: "質押", subtitle: '徽章質押獲得MBAS獎勵', path: '/Pledge' },
-      { icon: NFTIcon4, title: "合成", subtitle: '徽章合成解鎖更高權益', path: '/Synthesis' },
+      { icon: NFTIcon2, title: "交易中心", subtitle: '自由買賣精灵土地', path: '/Swap' },
+      { icon: NFTIcon3, title: "質押", subtitle: '精灵質押獲得MBAS獎勵', path: '/Pledge' },
+      { icon: NFTIcon4, title: "合成", subtitle: '精灵合成解鎖更高權益', path: '/Synthesis' },
     ],
     "/Ecology": [
       { icon: EcologyIcon0, title: "遊戲競技", subtitle: '基於MetaBase公鏈協議的區塊鏈遊戲', path: '' },
@@ -260,7 +274,7 @@ const MainLayout: React.FC = () => {
     ],
     "/...": [
       { icon: MBASIcon0, title: "邀請", subtitle: '-', path: '/Invitation' },
-      { icon: MBASIcon1, title: "SWAP", subtitle: '-', path: '/outLink' },
+      // { icon: MBASIcon1, title: "SWAP", subtitle: '-', path: '/outLink' },
     ]
   }
   // 导航
@@ -438,14 +452,14 @@ const MainLayout: React.FC = () => {
             >
               NFT
             </div>
-            <div
+            {/* <div
               className='MenuItem pointer'
               onClick={() => {
                 window.open("https://pancakeswap.finance/swap?outputCurrency=0xA013e36C78BA39Ff6bE4781f0f2FBF935f6BA05A")
               }}
             >
               SWAP
-            </div>
+            </div> */}
 
             <div
               className={menuActive("/Ecology")}
@@ -702,8 +716,6 @@ const MainLayout: React.FC = () => {
           </div>
         </div >
       </div >
-
-
 
       {showDropMenu && <div className="Mask" onClick={() => { setShowDropMenu(null); }}></div>}
       {refereeUserAddress && refereeUserAddress.toLowerCase() !== (web3React.account)?.toLowerCase() && <Modal
