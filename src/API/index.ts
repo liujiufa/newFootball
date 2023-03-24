@@ -503,6 +503,17 @@ export function drawNodeFund(data: any) {
         data
     })
 }
+// 绑定关系
+export function signBindReferee(data: any) {
+    return axois.request({
+        url: `/user/uUser/signBindReferee`,
+        method: 'post',
+        data: {
+            ...data,
+            Encrypt: true
+        }
+    })
+}
 
 // 获取节点基金的金额
 export function nodeFund() {

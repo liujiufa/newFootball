@@ -3,7 +3,8 @@ import { useCallback } from 'react'
 import { useWeb3React } from '@web3-react/core';
 import { InjectedConnector } from '@web3-react/injected-connector';
 import { ChainId } from '../web3';
-
+import { networkConf } from '../web3'
+import { chain } from 'lodash';
 export const connector = new InjectedConnector({
     supportedChainIds: [Number(ChainId.BSC)],
 })
@@ -22,8 +23,6 @@ export const tryConnect = (activate: any) => {
 export default function useConnectWallet() {
 
     const { activate, deactivate, active } = useWeb3React()
-
-
     const connectWallet = useCallback(
         () => {
             tryConnect(activate).then(() => {
@@ -42,17 +41,22 @@ export default function useConnectWallet() {
                         if (error.code !== 4001) {
                             (window as any)?.ethereum.request({
                                 method: 'wallet_addEthereumChain',
-                                params: [{
-                                    chainId: "0x61",
-                                    chainName: "Ethereum Mainnet",
-                                    rpcUrls: ["https://data-seed-prebsc-2-s1.binance.org:8545"],
-                                    nativeCurrency: {
-                                        symbol: "BNB",
-                                        name: 'BNB',
-                                        decimals: 18
-                                    },
-                                    blockExplorerUrls: ["https://etherscan.io/"]
-                                }]
+                                params: [
+                                    // {
+                                    //     chainId: '0x38',
+                                    //     chainName: "Ethereum Mainnet",
+                                    //     rpcUrls: ["https://bsc-dataseed.binance.org/"],
+                                    //     nativeCurrency: {
+                                    //         symbol: "BNB",
+                                    //         name: 'BNB',
+                                    //         decimals: 18
+                                    //     },
+                                    //     blockExplorerUrls: ["https://etherscan.io/"]
+                                    // }
+                                    {
+                                        ...networkConf[ChainId.BSC]
+                                    }
+                                ]
                             })
                         }
                     })

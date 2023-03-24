@@ -856,6 +856,7 @@
 
                 // @media (max-width:) {}
 
+
                 .imgBox {
                     max-width: 333px;
 
@@ -962,7 +963,15 @@
     }
 }
 
-
+@media (max-width:1024px) {
+    #CreateNode .Invitation .itemBox .item {
+        &:first-child {
+            flex-direction: row;
+            justify-content: center !important;
+            margin-bottom: 20px;
+        }
+    }
+}
 
 
 @media (max-width:768px) {
@@ -981,9 +990,53 @@
             max-width: 80%;
         }
     }
+
+    #CreateNode .Invitation .itemBox {
+        padding: 20px;
+    }
+
+    #CreateNode .Invitation .itemBox .item {
+        max-width: 100%;
+        min-width: 100%;
+    }
+
+    #CreateNode .Invitation .itemBox {
+        display: block;
+    }
 }
 
 @media screen and (max-width:425px) {
+    #CreateNode .Invitation .itemBox .item .des {
+        font-size: 14px;
+    }
+
+    #CreateNode .Invitation .itemBox .item .list .title {
+        font-size: 14px;
+    }
+
+    #CreateNode .Invitation .itemBox .item .list {
+        margin-top: 10px;
+    }
+
+    #CreateNode .Invitation .itemBox .item .list .value {
+        font-size: 14px;
+    }
+
+    #CreateNode .Invitation .itemBox .item .getBtn {
+        margin-top: 20px;
+    }
+
+    #CreateNode .Invitation .itemBox .item .getBtnEnd {
+        margin-top: 20px;
+    }
+
+    #CreateNode .Invitation .itemBox .item .imgBox img {
+        filter: drop-shadow(14.6375px 10.4845px 0px rgba(116, 153, 138, 0.4));
+    }
+
+    #CreateNode .Invitation {
+        margin-top: 40px;
+    }
 
     .Invitation .itemBox .allRewardBox,
     .Invitation .itemBox .inputBox {
@@ -1006,10 +1059,10 @@
     }
 
     .subTitle {
-        font-size: 16px;
+        font-size: 16px !important;
         /* line-height: 35px; */
-        line-height: auto;
-        margin-top: 0px;
+        line-height: auto !important;
+        margin-top: 0px !important;
     }
 
     #NodeApply .Invitation {

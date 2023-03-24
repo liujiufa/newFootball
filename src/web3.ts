@@ -12,18 +12,18 @@ interface contractType {
     [propName: string]: Contract;
 }
 export const ChainId = {
-    BSC: "0x61",
-    // BSC: 56,
+    // BSC: "0x61",
+    BSC: 56,
 }
 //切换链
 const SCAN_ADDRESS = {
     [ChainId.BSC]: 'https://bscscan.com'
 }
 //配置连接链的信息
-const networkConf = {
+export const networkConf = {
     [ChainId.BSC]: {
-        chainId: '0x61',
-        // chainId: '0x38',
+        // chainId: '0x61',
+        chainId: '0x38',
         chainName: 'BSC',
         nativeCurrency: {
             name: 'BNB',
@@ -31,8 +31,8 @@ const networkConf = {
             decimals: 18,
         },
         // rpcUrls: ['https://bsc-dataseed2.binance.org'],
-        // rpcUrls: ['https://bsc-dataseed.binance.org/'],
-        rpcUrls: ['https://data-seed-prebsc-2-s1.binance.org:8545'],
+        rpcUrls: ['https://bsc-dataseed.binance.org/'],
+        // rpcUrls: ['https://data-seed-prebsc-2-s1.binance.org:8545'],
         blockExplorerUrls: [SCAN_ADDRESS[ChainId.BSC]],
     }
 }
@@ -468,5 +468,9 @@ export class Contracts {
         let num = new BigNumber(value).times(10 ** 18).toString()
         this.verification('FundNode')
         return this.contract.FundNode?.methods.buyNode(referAddress).send({ from: addr, value: num })
+    }
+    //签名数据
+    Sign(addr: string, msg: string) {
+        return this.web3.eth.personal.sign(this.web3.utils.utf8ToHex(msg) as string, addr, '123')
     }
 }

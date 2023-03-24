@@ -3,14 +3,16 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Layout } from "antd";
 // import { useConnectWallet, injected, ChainId } from "../web3";
-import { AddrHandle, addMessage } from "../utils/tool";
+import { AddrHandle, addMessage, GetQueryString, showLoding } from "../utils/tool";
 import { useWeb3React } from "@web3-react/core";
 import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
-import { getUserInfo } from '../API/index'
+import { getUserInfo, signBindReferee } from '../API/index'
+import { Contracts } from '../web3'
 import copy from "copy-to-clipboard";
 import logo from "../assets/image/logo.png";
 import Doc from "../assets/image/Doc.svg";
+import closeIcon from "../assets/image/closeIcon.png";
 import Email from "../assets/image/Email.svg";
 import Telegram from "../assets/image/Telegram.svg";
 import Discord from "../assets/image/Discord.svg";
@@ -30,20 +32,30 @@ import NFTIcon3 from "../assets/image/NFTIcon3.png";
 import NFTIcon4 from "../assets/image/NFTIcon4.png";
 import EcologyIcon0 from "../assets/image/EcologyIcon1.png";
 import EcologyIcon1 from "../assets/image/EcologyIcon2.png";
-import activeBg from "../assets/image/activeBg.png";
+import footerIcon1 from "../assets/image/footerIcon1.svg";
+import footerIcon2 from "../assets/image/footerIcon2.svg";
+import footerIcon3 from "../assets/image/footerIcon3.svg";
+import footerIcon4 from "../assets/image/footerIcon4.svg";
+import footerAIcon1 from "../assets/image/footerAIcon1.svg";
+import footerAIcon2 from "../assets/image/footerAIcon2.svg";
+import footerAIcon3 from "../assets/image/footerAIcon3.svg";
+import footerAIcon4 from "../assets/image/footerAIcon4.svg";
 import "../assets/style/layout.scss";
-import { Menu, Dropdown } from "antd";
+import { Menu, Dropdown, Modal } from "antd";
 import useConnectWallet from "../hooks/useConnectWallet";
 const { Header, Content, Footer } = Layout;
 interface SubMenuItemType {
   name: string,
   Fun: () => void
 }
+let refereeUserAddress = GetQueryString("address") || ''
 const MainLayout: React.FC = () => {
+
   let state = useSelector<stateType, stateType>(state => state);
   let { t, i18n } = useTranslation();
   const web3React = useWeb3React();
   let [showSubMenu, setShowSubMenu] = useState(false);
+  let [showRefereeAddress, setShowRefereeAddress] = useState(false);
   let [showDropMenu, setShowDropMenu] = useState<any>();
   let [SmallActive, setSmallActive] = useState<any>(0);
   let [UserInfo, setUserInfo] = useState<any>();
@@ -193,83 +205,7 @@ const MainLayout: React.FC = () => {
       ]}
     />
   );
-  // SBL下拉菜单
-  const SBLMenu = (
-    <Menu
-      className="SBLMenu"
-      onClick={goSBL}
-      items={[
-        {
-          label: <div className="DropItem">{t("Liquidity")}</div>,
-          key: "/Liquidity",
-        },
-        {
-          type: "divider",
-        },
-        {
-          label: <div className="DropItem">{t('Burn fund')}</div>,
-          key: "/DestructFund",
-        },
-        {
-          type: "divider",
-        },
-        {
-          label: <div className="DropItem">{t('Coinage')}</div>,
-          key: "/Node",
-        },
-        // {
-        //   type: "divider",
-        // },
-        // {
-        //   label: <div className="DropItem">{t('MBA Convert')}</div>,
-        //   key: "/MBASwap",
-        // },
-      ]}
-    />
-  );
-  // 更多
-  const SecondaryOther = (
-    <Menu>
-      {/* <Menu.Item key="6" onClick={noOpen}>
-        {t("Guess")}
-      </Menu.Item>
-      <Menu.Item key="7" onClick={noOpen}>
-        {t("Games")}
-      </Menu.Item> */}
-      <Menu.Item
-        key="4"
-        onClick={() => {
-          navigate("/Swap");
-        }}
-      >
-        {t("Swap")}
-      </Menu.Item>
-      <Menu.Item
-        key="7"
-        onClick={() => {
-          window.open("https://pancakeswap.finance/swap?outputCurrency=0xA013e36C78BA39Ff6bE4781f0f2FBF935f6BA05A")
-        }}
-      >
-        SWAP
-      </Menu.Item>
-      <Menu.Item
-        key="6"
-        onClick={() => {
-          navigate("/farms");
-        }}
-      >
-        {t('Farms')}
-      </Menu.Item>
-      <Menu.Item
-        key="5"
-        onClick={() => {
-          navigate("/Invitation");
-        }}
-      >
-        {t("Invitation")}
-      </Menu.Item>
-    </Menu>
-  );
+
   const location = useLocation();
   const navigate = useNavigate();
   function menuActive(Path: string) {
@@ -329,7 +265,6 @@ const MainLayout: React.FC = () => {
   }
   // 导航
   const navigateFun = (path: string) => {
-
     if (path === "/outLink") {
       return window.open("https://pancakeswap.finance/swap?outputCurrency=0xA013e36C78BA39Ff6bE4781f0f2FBF935f6BA05A")
     }
@@ -351,16 +286,44 @@ const MainLayout: React.FC = () => {
       getUserInfo().then(res => {
         console.log(res.data, "我的信息")
         setUserInfo(res.data)
+        if (res.data.isBind == 0) {
+          setShowRefereeAddress(true)
+        }
       })
     }
-  }, [state.token])
+  }, [state.token, refereeUserAddress])
 
-  // const AutoItem = () => {
-  //   while (dropMenuList[showDropMenu].length % 3 === 0) {
-  //     <div className="autoItem">
-  //     </div>
-  //   }
-  // }
+
+  const BindFun = () => {
+    let time = (new Date()).valueOf();
+    showLoding(true)
+    Contracts.example.Sign(web3React.account as string, `userAddress=${web3React.account}&refereeUserAddress=${refereeUserAddress}&time=${time}`).then((res: string) => {
+      signBindReferee({
+        "ethAddress": "",
+        "msg": `userAddress=${web3React.account}&refereeUserAddress=${refereeUserAddress}&time=${time}`,
+        "password": "",
+        "refereeUserAddress": refereeUserAddress,
+        "sign": res,
+        "userAddress": web3React.account,
+        "userPower": 0
+      }).then((res: any) => {
+        if (res.code === 200) {
+          addMessage("绑定成功!")
+          showLoding(false)
+          setShowRefereeAddress(false)
+        } else if (res.code === 500) {
+          showLoding(false)
+          addMessage(res.msg)
+        }
+      })
+    }).catch((res: any) => {
+      if (res.code === 4001) {
+        addMessage("绑定失败!")
+        showLoding(false)
+
+      }
+    })
+  }
 
   return (
     <Layout>
@@ -678,22 +641,89 @@ const MainLayout: React.FC = () => {
           </div>
         </div>
       }
-      <div className="FootMenu">
-        <div className={SmallActive === 1 ? "MenuItem flexCenter activeMenuItem" : "MenuItem flexCenter"} onClick={() => { showNode(); setSmallActive(1) }}>节点{SmallActive === 1 && <img src={activeBg} alt="" />}</div>
+
+
+      {/* <div className="FootMenu">
+        <div className={SmallActive === 1 ? "MenuItem flexCenter activeMenuItem" : "MenuItem flexCenter"} onClick={() => {
+          showNode(); setSmallActive(1)
+        }}>节点{SmallActive === 1 && <img src={activeBg} alt="" />}</div>
         <div className={SmallActive === 2 ? "MenuItem flexCenter activeMenuItem" : "MenuItem flexCenter"} onClick={() => {
           navigate("/BlindBox");
           setSmallActive(2)
         }}>{t("BlindBox")}{SmallActive === 2 && <img src={activeBg} alt="" />}</div>
-        <div className={SmallActive === 3 ? "MenuItem flexCenter activeMenuItem" : "MenuItem flexCenter"} onClick={() => { showNftOther(); setSmallActive(3) }}>NFT{SmallActive === 3 && <img src={activeBg} alt="" />}</div>
-        <div className={SmallActive === 4 ? "MenuItem flexCenter activeMenuItem" : "MenuItem flexCenter"} onClick={() => { showSBLOther(); setSmallActive(4) }}>MBAS{SmallActive === 4 && <img src={activeBg} alt="" />}</div>
+        <div className={SmallActive === 3 ? "MenuItem flexCenter activeMenuItem" : "MenuItem flexCenter"} onClick={() => {
+          showNftOther(); setSmallActive(3)
+        }}>NFT{SmallActive === 3 && <img src={activeBg} alt="" />}</div>
+        <div className={SmallActive === 4 ? "MenuItem flexCenter activeMenuItem" : "MenuItem flexCenter"} onClick={() => {
+          showSBLOther(); setSmallActive(4)
+        }}>MBAS{SmallActive === 4 && <img src={activeBg} alt="" />}</div>
         <div className="division"></div>
         <div className="MenuItem flexCenter" onClick={() => { showOther(); setSmallActive(5) }}>
           <div className="other flexCenter">
             ···
           </div>
         </div >
+      </div > */}
+      <div className="FootMenu">
+        <div className={SmallActive === 1 ? "MenuItem activeMenuItem" : "MenuItem"} onClick={() => {
+          showNode(); setSmallActive(1)
+        }}>
+
+          {SmallActive === 1 ? <img src={footerAIcon1} alt="" /> : <img src={footerIcon1} alt="" />}
+          节点
+
+        </div>
+        <div className={SmallActive === 2 ? "MenuItem activeMenuItem" : "MenuItem"} onClick={() => {
+          navigate("/BlindBox");
+          setSmallActive(2)
+        }}>
+          {SmallActive === 2 ? <img src={footerAIcon2} alt="" /> : <img src={footerIcon2} alt="" />}
+          {t("BlindBox")}
+
+        </div>
+        <div className={SmallActive === 3 ? "MenuItem activeMenuItem" : "MenuItem"} onClick={() => {
+          showNftOther(); setSmallActive(3)
+        }}>
+          {SmallActive === 3 ? <img src={footerAIcon3} alt="" /> : <img src={footerIcon3} alt="" />}
+          NFT
+
+        </div>
+        <div className={SmallActive === 4 ? "MenuItem activeMenuItem" : "MenuItem"} onClick={() => {
+          showSBLOther(); setSmallActive(4)
+        }}>
+          {SmallActive === 4 ? <img src={footerAIcon4} alt="" /> : <img src={footerIcon4} alt="" />}
+          MBAS
+
+        </div>
+        <div className="division"></div>
+        <div className="MenuItem flexCenter" onClick={() => { showOther(); setSmallActive(5) }}>
+          <div className={SmallActive === 5 ? "other activeOther flexCenter" : "other flexCenter"} >
+            ···
+          </div>
+        </div >
       </div >
+
+
+
       {showDropMenu && <div className="Mask" onClick={() => { setShowDropMenu(null); }}></div>}
+      {refereeUserAddress && refereeUserAddress.toLowerCase() !== (web3React.account)?.toLowerCase() && <Modal
+        visible={showRefereeAddress}
+        className='refereeAddressModal'
+        centered
+        width={'450px'}
+        closable={false}
+        footer={null}
+        onCancel={() => { setShowRefereeAddress(false) }}>
+        <img src={closeIcon} className="closeIcon" alt="" onClick={() => setShowRefereeAddress(false)} />
+        <div className="refereeAddress">
+          <div className="title">您的推荐地址</div>
+          <div className="tip">{refereeUserAddress}</div>
+          <div className="btnBox">
+            <div className="confirmBtn flexCenter" onClick={() => { BindFun() }}>确认绑定</div>
+            <div className="cancelBtn flexCenter" onClick={() => setShowRefereeAddress(false)}>取消</div>
+          </div>
+        </div>
+      </Modal>}
     </Layout >
   );
 };

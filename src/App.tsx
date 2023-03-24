@@ -143,6 +143,10 @@ function App() {
     // 账号改了，刷新网页
     window.location.reload()
   })
+  window?.ethereum.on('networkChanged', (accounts: string[]) => {
+    // 改了，刷新网页
+    window.location.reload()
+  })
   return (
     <ViewportProvider>
       <div className="App">
