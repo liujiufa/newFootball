@@ -529,3 +529,17 @@ export function nodeRecurit() {
         method: 'get',
     })
 }
+// 获取首页公告
+export function getRecentNoticeList() {
+    return axois.request({
+        url: `/user/sSystemNotice/getRecentNoticeList`,
+        method: 'get',
+    })
+}
+// 获取所有公告
+export function getNoticeList() {
+    return axois.request({
+        url: `/user/sSystemNotice/getNoticeList`,
+        method: 'get',
+    })
+}

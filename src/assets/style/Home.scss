@@ -6,6 +6,76 @@
 
   z-index: -2;
 
+  .bannerBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    background: transparent;
+
+    top: 35px;
+    width: 100%;
+    max-width: 1206px;
+    height: 85px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 18px 22px;
+
+    .title {
+      font-family: 'PingFang SC';
+      font-style: normal;
+      font-weight: 900;
+      font-size: 35px;
+      line-height: 49px;
+      /* identical to box height */
+      color: #FFFFFF;
+    }
+
+    .content {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      // max-width: 800px;
+      font-family: 'PingFang SC';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 25px;
+      color: #FFFFFF;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0) 53.12%, rgba(255, 255, 255, 0) 55.21%, rgba(255, 255, 255, 0) 100%);
+
+      .subTitle {
+        flex: 1;
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 25px;
+        color: #FFFFFF;
+        width: 100%;
+        max-width: 800px;
+        overflow: hidden;
+        /*内容会被修剪，并且其余内容是不可见的*/
+        text-overflow: ellipsis;
+        /*显示省略符号来代表被修剪的文本。*/
+        white-space: nowrap;
+        /*文本不换行*/
+      }
+
+      .date {
+        margin: 0px 10px;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .view {
+        font-size: 18px;
+        color: #14FD87;
+      }
+    }
+  }
+
   .space {
     width: 100%;
     padding: 10% 0;
@@ -2053,6 +2123,17 @@
 
     }
 
+
+  }
+}
+
+@media (max-width:425px) {
+  .bj .bannerBox .title {
+    font-size: 18px;
+  }
+
+  .bj .bannerBox {
+    top: 0px;
 
   }
 }

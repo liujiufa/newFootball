@@ -16,6 +16,7 @@ const MBASwap = React.lazy(() => import('../view/MBASwap'));
 const Farms = React.lazy(() => import('../view/farms'));
 const Invitation = React.lazy(() => import('../view/Invitation'));
 const NodeApply = React.lazy(() => import('../view/NodeApply'));
+const Notice = React.lazy(() => import('../view/Notice'));
 const NodeFund = React.lazy(() => import('../view/NodeFund'));
 const CreateNode = React.lazy(() => import('../view/CreateNode'));
 const Synthesis = React.lazy(() => import('../view/Synthesis'));
@@ -37,6 +38,7 @@ export default function Router() {
           {/* <Route path="Farms" element={<Farms />}></Route> */}
           <Route path="Invitation" element={<Invitation />}></Route>
           <Route path="NodeApply" element={<NodeApply />}></Route>
+          <Route path="Notice" element={<Notice />}></Route>
           <Route path="NodeFund" element={<NodeFund />}></Route>
           <Route path="CreateNode" element={<CreateNode />}></Route>
           <Route path="Synthesis" element={<Synthesis />}></Route>

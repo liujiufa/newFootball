@@ -963,6 +963,86 @@
     }
 }
 
+// 公告
+#Notice {
+    .smallTitle {
+        margin-top: 60px;
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 28px;
+        line-height: 39px;
+
+        color: #000000;
+    }
+
+    .content {
+        margin-top: 35px;
+        padding: 40px;
+        background: #FFFFFF;
+        box-shadow: 15px 15px 0px rgba(116, 153, 138, 0.4), 29px 10px 91px rgba(0, 0, 0, 0.1);
+        border-radius: 19px;
+
+        max-height: 500px;
+        overflow-y: auto;
+
+        .items {
+            display: flex;
+            flex-wrap: wrap;
+
+            .item {
+                padding: 15px;
+                width: 50%;
+                min-width: 500px;
+
+                font-family: 'PingFang SC';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 25px;
+                color: rgba(0, 0, 0, 0.8);
+
+                span {
+                    font-size: 14px;
+                    color: rgba(0, 0, 0, 0.5);
+
+                }
+            }
+
+            .itemDisplay {
+                display: none;
+            }
+        }
+    }
+}
+
+// 公告详情
+.NoticeModal {
+    .box {
+        .title {
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 34px;
+            text-align: left;
+            color: #000000;
+        }
+
+        .time {
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            color: rgba(0, 0, 0, 0.5);
+            margin: 10px 0px 14px;
+        }
+    }
+}
+
+
+
 @media (max-width:1024px) {
     #CreateNode .Invitation .itemBox .item {
         &:first-child {
@@ -1003,6 +1083,13 @@
     #CreateNode .Invitation .itemBox {
         display: block;
     }
+
+    #Notice .content .items .item {
+        width: 100%;
+        min-width: 100%;
+        padding: 15px 0px;
+    }
+
 }
 
 @media screen and (max-width:425px) {
@@ -1141,5 +1228,17 @@
         padding: 0px 20px;
     }
 
+    #Notice .smallTitle {
+        font-size: 18px;
+    }
+
+    #Notice .smallTitle {
+        margin-top: 20px;
+    }
+
+    #Notice .content {
+        margin-top: 15px;
+        padding: 12px;
+    }
 
 }

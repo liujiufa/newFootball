@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper";
 import copy from "copy-to-clipboard";
-
 import bt1 from "../assets/image/home/bt1.png";
 import bt2 from "../assets/image/home/bt2.png";
 import bt3 from "../assets/image/home/bt3.png";
@@ -31,8 +30,6 @@ import Fairy3 from "../assets/image/home/fairy3.jpg";
 import Fairy4 from "../assets/image/home/fairy4.jpg";
 import Fairy5 from "../assets/image/home/fairy5.jpg";
 import Fairy6 from "../assets/image/home/fairy6.jpg";
-
-
 import RoadMapZh from "../assets/image/home/road-map-zh.png";
 import RoadMapEn from "../assets/image/home/road-map-en.png";
 
@@ -55,11 +52,12 @@ import HabitsLastTitle from "../assets/image/home/habits-last-title.png"
 
 import { ReactComponent as PrevIcon } from "../assets/image/home/prev.svg";
 import { ReactComponent as NextIcon } from "../assets/image/home/next.svg";
+import bannerClose from "../assets/image/bannerClose.svg";
 
 import HomeMouseCard from "../components/HomeMouseCard";
 import { debounce } from "../utils/debounce";
 import { stateType } from '../store/reducer'
-
+import { dateFormat } from '../utils/tool'
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-cards";
@@ -72,7 +70,8 @@ import { useWeb3React } from "@web3-react/core";
 import { useSelector } from "react-redux";
 import { Contracts } from '../web3'
 import BigNumber from 'big.js'
-
+import { getRecentNoticeList } from "../API";
+import { TextLoop } from "react-text-loop-next";
 const INIT_BT = [
   {
     img: bt1,
@@ -141,6 +140,7 @@ function Home() {
 
   const [layoutPabt, setLayoutPabt] = useState(false)
   const [isEnter, setIsEnter] = useState(false)
+  const [shwoBanner, setShowBanner] = useState<any>([])
   const [isNftEnter, setIsNftEnter] = useState(false)
   const [isUp, setIsup] = useState(0)
   const [habitsIndex, setHabitsIndex] = useState(0)
@@ -170,6 +170,17 @@ function Home() {
 
     }
   ])
+
+  useEffect(() => {
+    getRecentNoticeList().then((res: any) => {
+      if (res.code === 200) {
+        console.log(res.data, "公告");
+        setShowBanner(res.data)
+      }
+
+    })
+
+  }, [state.token])
 
   useEffect(() => {
     setEcolboxData([
@@ -515,6 +526,18 @@ function Home() {
 
   return (
     <div id="home" className="bj">
+      {shwoBanner.length > 0 && <div className="bannerBox">
+        <div className="title">公告</div>
+        <TextLoop className="myself">
+          {shwoBanner.map((item: any, index: any) =>
+            <div key={index} className="content">
+              <div className="subTitle">{item.title}</div><div className="date"> {dateFormat('YYYY-mm-dd', new Date(item.createTime))} </div >
+              <div className="view" onClick={() => { navigate("/Notice") }}> 查看</div>
+            </div>
+          )}
+        </TextLoop>
+        <div className="close" onClick={() => { setShowBanner([]) }}><img src={bannerClose} alt="" /></div>
+      </div >}
       <div className="space">
         <div className="tit">
           <div className="title">META BASE</div>

@@ -22,6 +22,7 @@ import MBASGovernanceIcon0 from "../assets/image/MBASGovernanceIcon0.png";
 import MBASGovernanceIcon1 from "../assets/image/MBASGovernanceIcon1.png";
 import MBASGovernanceIcon2 from "../assets/image/MBASGovernanceIcon2.png";
 import MBASGovernanceIcon3 from "../assets/image/MBASGovernanceIcon3.png";
+import MBASGovernanceIcon4 from "../assets/image/MBASGovernanceIcon4.svg";
 import MBASIcon0 from "../assets/image/MBASIcon0.png";
 import MBASIcon1 from "../assets/image/MBASIcon1.png";
 import MBASIcon2 from "../assets/image/MBASIcon2.png";
@@ -80,6 +81,12 @@ const MainLayout: React.FC = () => {
       name: "競猜娛樂",
       Fun: () => {
         // navigate("/Invitation");
+      }
+    },
+    {
+      name: "公告",
+      Fun: () => {
+        navigate("/Notice");
       }
     },
   ]
@@ -254,7 +261,7 @@ const MainLayout: React.FC = () => {
       { icon: MBASGovernanceIcon1, title: "鑄幣節點", subtitle: '根据MBAS销毁量获生态铸币权', path: '/Node' },
       { icon: MBASGovernanceIcon2, title: "捐贈銷毀", subtitle: '销毁MBAS获得两倍BNB奖励', path: "/DestructFund" },
       { icon: MBASGovernanceIcon3, title: "农场", subtitle: '质押LP获得生态激励', path: "/farms" },
-      { icon: MBASIcon2, title: "Swap", subtitle: '通过Pancake买卖MBAS', path: '/outLink' },
+      { icon: MBASGovernanceIcon4, title: "Swap", subtitle: '通过Pancake买卖MBAS', path: '/outLink' },
     ],
     "/MBAS": [
       { icon: MBASIcon0, title: "节点申请", subtitle: '报名参与节点竞选', path: '/NodeApply' },
@@ -274,7 +281,7 @@ const MainLayout: React.FC = () => {
     ],
     "/...": [
       { icon: MBASIcon0, title: "邀請", subtitle: '-', path: '/Invitation' },
-      // { icon: MBASIcon1, title: "SWAP", subtitle: '-', path: '/outLink' },
+      { icon: MBASIcon1, title: "公告", subtitle: '-', path: '/Notice' },
     ]
   }
   // 导航
@@ -484,6 +491,14 @@ const MainLayout: React.FC = () => {
               }}
             >
               {t("Invitation")}
+            </div>
+            <div
+              className={menuActive("/Notice")}
+              onClick={() => {
+                navigateFun("/Notice");
+              }}
+            >
+              {t("Notice")}
             </div>
             <Dropdown
               overlay={menu}
