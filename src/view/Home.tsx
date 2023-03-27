@@ -72,6 +72,7 @@ import { Contracts } from '../web3'
 import BigNumber from 'big.js'
 import { getRecentNoticeList } from "../API";
 import { TextLoop } from "react-text-loop-next";
+import { useViewport } from "../components/viewportContext";
 const INIT_BT = [
   {
     img: bt1,
@@ -130,6 +131,7 @@ const FAIRY_NFT = [
 let GLOBAL_IS_NFT_ENter = false
 
 function Home() {
+  const { width } = useViewport()
   const [totalSupply, setTotalSupply] = useState('0')
   const [allBalance, setAllBalance] = useState('0')
   let state = useSelector<stateType, stateType>(state => state);
@@ -137,10 +139,11 @@ function Home() {
   const navigate = useNavigate()
   const pabtboxRef = useRef<HTMLDivElement | null>(null)
   const ecolboxRef = useRef<HTMLDivElement | null>(null)
+  const [animate, setAnimate] = useState(false)
 
   const [layoutPabt, setLayoutPabt] = useState(false)
   const [isEnter, setIsEnter] = useState(false)
-  const [shwoBanner, setShowBanner] = useState<any>([])
+  const [shwoBanner, setShowBanner] = useState<any>()
   const [isNftEnter, setIsNftEnter] = useState(false)
   const [isUp, setIsup] = useState(0)
   const [habitsIndex, setHabitsIndex] = useState(0)
@@ -170,7 +173,8 @@ function Home() {
 
     }
   ])
-
+  const [timer, setTimer] = useState(0)
+  const intervalRef = useRef<any>()
   useEffect(() => {
     getRecentNoticeList().then((res: any) => {
       if (res.code === 200) {
@@ -523,20 +527,44 @@ function Home() {
   }, [animaMobileVisable])
 
 
+  // 公告向上轮播
+  const changeAnim = () => {
+    if (shwoBanner) {
+      setTimeout(() => {
+        shwoBanner.push(shwoBanner[0]);
+        shwoBanner.shift();
+        setShowBanner(shwoBanner)
+        setAnimate(false)
+      }, 1500)
+    } else {
+
+    }
+  }
+
+  useEffect(() => {
+    intervalRef.current = setInterval(() => {
+      setAnimate(true)
+      changeAnim()
+      setTimer(timer + 1)
+    }, 1500)
+    return () => {
+      clearInterval(intervalRef.current)
+    }
+  }, [timer])
+
 
   return (
     <div id="home" className="bj">
-      {shwoBanner.length > 0 && <div className="bannerBox">
+      {shwoBanner && <div className="bannerBox">
         <div className="title">公告</div>
-        <TextLoop className="myself">
-          {shwoBanner.map((item: any, index: any) =>
-            <div key={index} className="content">
-              <div className="subTitle">{item.title}</div><div className="date"> {dateFormat('YYYY-mm-dd', new Date(item.createTime))} </div >
-              <div className="view" onClick={() => { navigate("/Notice") }}> 查看</div>
-            </div>
+        <div className={"content"}>
+          {shwoBanner.map((item: any, index: any) => <div className={animate ? 'anim box' : 'box'} key={index}>
+            <div className={index === 1 ? " active subBannerTitle" : "subBannerTitle"}>{item.title}11111111111111111</div>{width > 425 && <div className="date"> {dateFormat('YYYY-mm-dd', new Date(item.createTime))} </div >}
+            <div className="view" onClick={() => { navigate("/Notice") }}> 查看</div>
+          </div>
           )}
-        </TextLoop>
-        <div className="close" onClick={() => { setShowBanner([]) }}><img src={bannerClose} alt="" /></div>
+        </div>
+        <div className="close" onClick={() => { setShowBanner(null) }}><img src={bannerClose} alt="" /></div>
       </div >}
       <div className="space">
         <div className="tit">

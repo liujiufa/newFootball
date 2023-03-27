@@ -47,6 +47,7 @@ import useConnectWallet from "../hooks/useConnectWallet";
 const { Header, Content, Footer } = Layout;
 interface SubMenuItemType {
   name: string,
+  path: string,
   Fun: () => void
 }
 let refereeUserAddress = GetQueryString("address") || ''
@@ -60,33 +61,36 @@ const MainLayout: React.FC = () => {
   let [showDropMenu, setShowDropMenu] = useState<any>();
   let [SmallActive, setSmallActive] = useState<any>(0);
   let [UserInfo, setUserInfo] = useState<any>();
-  let [subMenuList, setSubMenuList] = useState<SubMenuItemType[]>([]);
+  let [subMenuList, setSubMenuList] = useState<any[]>([]);
   const { connectWallet } = useConnectWallet()
   // 底部更多菜单
   const moreSubMenuList = [
-
     {
       name: t("Invitation"),
+      path: "/Invitation",
       Fun: () => {
-        navigate("/Invitation");
+        navigateFun("/Invitation");
       }
     },
     {
       name: "遊戲競技",
+      path: "/Games",
       Fun: () => {
-        // navigate("/Invitation");
+        navigateFun("/nodata")
       }
     },
     {
       name: "競猜娛樂",
+      path: "/Guess",
       Fun: () => {
-        // navigate("/Invitation");
+        navigateFun("/nodata")
       }
     },
     {
       name: "公告",
+      path: "/Notice",
       Fun: () => {
-        navigate("/Notice");
+        navigateFun("/Notice");
       }
     },
   ]
@@ -94,18 +98,21 @@ const MainLayout: React.FC = () => {
   const NodeSubMenuList = [
     {
       name: "节点申请",
+      path: "/NodeApply",
       Fun: () => {
         navigateFun("/NodeApply");
       }
     },
     {
       name: "创世节点",
+      path: "/CreateNode",
       Fun: () => {
         navigateFun("/CreateNode");
       }
     },
     {
       name: "节点基金",
+      path: "/NodeFund",
       Fun: () => {
         navigateFun("/NodeFund");
       }
@@ -115,32 +122,37 @@ const MainLayout: React.FC = () => {
   const NFTSubMenuList = [
     {
       name: t("stock2"),
+      path: "/NFT",
       Fun: () => {
-        navigate("/NFT");
+        navigateFun("/NFT");
       }
     },
     {
       name: t('Land'),
+      path: "/Land",
       Fun: () => {
-        navigate("/Land");
+        navigateFun("/Land");
       }
     },
     {
       name: t("Pledge"),
+      path: "/Pledge",
       Fun: () => {
-        navigate("/Pledge");
+        navigateFun("/Pledge");
       }
     },
     {
       name: "交易中心",
+      path: "/Swap",
       Fun: () => {
-        navigate("/Swap");
+        navigateFun("/Swap");
       }
     },
     {
       name: "合成",
+      path: '/Synthesis',
       Fun: () => {
-        navigate("/Synthesis");
+        navigateFun("/Synthesis");
       }
     },
   ]
@@ -148,27 +160,29 @@ const MainLayout: React.FC = () => {
   const SBLSubMenuList = [
     {
       name: t("Liquidity"),
+      path: "/Liquidity",
       Fun: () => {
-        navigate("/Liquidity");
+        navigateFun("/Liquidity");
       }
     },
     {
       name: t('Burn fund'),
+      path: "/DestructFund",
       Fun: () => {
-        navigate("/DestructFund");
+        navigateFun("/DestructFund");
       }
     },
     {
       name: t('Coinage'),
+      path: '/Node',
       Fun: () => {
-        navigate("/Node");
+        navigateFun("/Node");
       }
     },
     {
       name: "SWAP",
       Fun: () => {
-        window.open("https://pancakeswap.finance/swap?outputCurrency=0xA013e36C78BA39Ff6bE4781f0f2FBF935f6BA05A")
-        // window.open("https://pancake.kiemtienonline360.com/#/swap")
+        navigateFun("/outLink");
       }
     },
     // {
@@ -182,29 +196,6 @@ const MainLayout: React.FC = () => {
   function changeLanguage(lang: any) {
     window.localStorage.setItem("lang", lang.key);
     i18n.changeLanguage(lang.key);
-  }
-  function noOpen() {
-    addMessage(t("Not opened yet"));
-  }
-  function invitation() {
-    copy("spaceballok@gmail.com");
-    addMessage(t("Copy Success"));
-  }
-  function goNft(path: any) {
-    console.log(path);
-    if (path.key === "/NFT" || path.key === "/Land" || path.key === "/Pledge") {
-      navigate(path.key);
-    } else {
-      addMessage(t("Not opened yet"));
-    }
-  }
-  // SBL治理
-  function goSBL(path: any) {
-    if (path.key === '/Node' || path.key === '/Liquidity' || path.key === '/MBASwap' || path.key === '/DestructFund') {
-      navigate(path.key);
-    } else {
-      addMessage(t("Not opened yet"));
-    }
   }
 
   const menu = (
@@ -236,6 +227,14 @@ const MainLayout: React.FC = () => {
       return "MenuItem pointer active";
     } else {
       return "MenuItem pointer";
+    }
+  }
+
+  function menuSmallActive(Path: string) {
+    if (Path === location.pathname) {
+      return "SubMenuItem activeSubMenuItem";
+    } else {
+      return "SubMenuItem";
     }
   }
   function showOther() {
@@ -276,8 +275,8 @@ const MainLayout: React.FC = () => {
       { icon: NFTIcon4, title: "合成", subtitle: '精灵合成解鎖更高權益', path: '/Synthesis' },
     ],
     "/Ecology": [
-      { icon: EcologyIcon0, title: "遊戲競技", subtitle: '基於MetaBase公鏈協議的區塊鏈遊戲', path: '' },
-      { icon: EcologyIcon1, title: "競猜娛樂", subtitle: '通過使用MBAS和NFT參與競猜', path: '' },
+      { icon: EcologyIcon0, title: "遊戲競技", subtitle: '基於MetaBase公鏈協議的區塊鏈遊戲', path: '/nodata' },
+      { icon: EcologyIcon1, title: "競猜娛樂", subtitle: '通過使用MBAS和NFT參與競猜', path: '/nodata' },
     ],
     "/...": [
       { icon: MBASIcon0, title: "邀請", subtitle: '-', path: '/Invitation' },
@@ -289,6 +288,10 @@ const MainLayout: React.FC = () => {
     if (path === "/outLink") {
       return window.open("https://pancakeswap.finance/swap?outputCurrency=0xA013e36C78BA39Ff6bE4781f0f2FBF935f6BA05A")
     }
+    if (path === "/nodata") {
+      return addMessage("即将开放")
+    }
+
     if (path === "/CreateNode") {
       if (UserInfo?.nodeLevel > 0 && UserInfo?.endTime < Date.now()) {
         navigate(path)
@@ -665,7 +668,7 @@ const MainLayout: React.FC = () => {
         showSubMenu && <div className="subMenuMold" onClick={() => { setShowSubMenu(false) }}>
           <div className="subMenu">
             {
-              subMenuList.map((item, index) => <div key={index} className="SubMenuItem" onClick={item.Fun}>{item.name}</div>)
+              subMenuList.map((item, index) => <div key={index} className={menuSmallActive(item?.path)} onClick={() => { item.Fun(); }}>{item.name}</div>)
             }
           </div>
         </div>
@@ -697,13 +700,12 @@ const MainLayout: React.FC = () => {
         <div className={SmallActive === 1 ? "MenuItem activeMenuItem" : "MenuItem"} onClick={() => {
           showNode(); setSmallActive(1)
         }}>
-
           {SmallActive === 1 ? <img src={footerAIcon1} alt="" /> : <img src={footerIcon1} alt="" />}
           节点
-
         </div>
         <div className={SmallActive === 2 ? "MenuItem activeMenuItem" : "MenuItem"} onClick={() => {
           navigate("/BlindBox");
+          setShowSubMenu(false)
           setSmallActive(2)
         }}>
           {SmallActive === 2 ? <img src={footerAIcon2} alt="" /> : <img src={footerIcon2} alt="" />}
@@ -733,24 +735,26 @@ const MainLayout: React.FC = () => {
       </div >
 
       {showDropMenu && <div className="Mask" onClick={() => { setShowDropMenu(null); }}></div>}
-      {refereeUserAddress && refereeUserAddress.toLowerCase() !== (web3React.account)?.toLowerCase() && <Modal
-        visible={showRefereeAddress}
-        className='refereeAddressModal'
-        centered
-        width={'450px'}
-        closable={false}
-        footer={null}
-        onCancel={() => { setShowRefereeAddress(false) }}>
-        <img src={closeIcon} className="closeIcon" alt="" onClick={() => setShowRefereeAddress(false)} />
-        <div className="refereeAddress">
-          <div className="title">您的推荐地址</div>
-          <div className="tip">{refereeUserAddress}</div>
-          <div className="btnBox">
-            <div className="confirmBtn flexCenter" onClick={() => { BindFun() }}>确认绑定</div>
-            <div className="cancelBtn flexCenter" onClick={() => setShowRefereeAddress(false)}>取消</div>
+      {
+        refereeUserAddress && refereeUserAddress.toLowerCase() !== (web3React.account)?.toLowerCase() && <Modal
+          visible={showRefereeAddress}
+          className='refereeAddressModal'
+          centered
+          width={'450px'}
+          closable={false}
+          footer={null}
+          onCancel={() => { setShowRefereeAddress(false) }}>
+          <img src={closeIcon} className="closeIcon" alt="" onClick={() => setShowRefereeAddress(false)} />
+          <div className="refereeAddress">
+            <div className="title">您的推荐地址</div>
+            <div className="tip">{refereeUserAddress}</div>
+            <div className="btnBox">
+              <div className="confirmBtn flexCenter" onClick={() => { BindFun() }}>确认绑定</div>
+              <div className="cancelBtn flexCenter" onClick={() => setShowRefereeAddress(false)}>取消</div>
+            </div>
           </div>
-        </div>
-      </Modal>}
+        </Modal>
+      }
     </Layout >
   );
 };

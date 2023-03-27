@@ -437,7 +437,7 @@
   background: #FFFFFF;
   box-shadow: -17px -2px 72px rgba(171, 200, 188, 0.3);
   border-radius: 8px;
-  width: 189px;
+  width: 300px;
   max-width: 80%;
   // height: 183px;
   right: 0;
@@ -450,6 +450,8 @@
   z-index: 99999;
 
   .SubMenuItem {
+    display: flex;
+    align-items: center;
     height: 40px;
     color: #000000;
     font-size: 12px;
@@ -458,6 +460,23 @@
     font-family: 'PingFang SC';
     font-style: normal;
     font-weight: 700;
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height */
+    color: #000000;
+  }
+
+  .activeSubMenuItem {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height */
+    color: #068343;
   }
 }
 

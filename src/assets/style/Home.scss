@@ -12,7 +12,7 @@
     justify-content: space-between;
     position: absolute;
     background: transparent;
-
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 53.12%, rgba(255, 255, 255, 0) 55.21%, rgba(255, 255, 255, 0) 100%);
     top: 35px;
     width: 100%;
     max-width: 1206px;
@@ -27,52 +27,101 @@
       font-weight: 900;
       font-size: 35px;
       line-height: 49px;
-      /* identical to box height */
       color: #FFFFFF;
+      white-space: nowrap;
+      margin-right: 5px;
     }
 
+
     .content {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      // max-width: 800px;
-      font-family: 'PingFang SC';
-      font-style: normal;
-      font-weight: 400;
-      font-size: 18px;
-      line-height: 25px;
-      color: #FFFFFF;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0) 53.12%, rgba(255, 255, 255, 0) 55.21%, rgba(255, 255, 255, 0) 100%);
+      height: 100%;
+      overflow-y: hidden;
 
-      .subTitle {
-        flex: 1;
-        font-family: 'PingFang SC';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 18px;
-        line-height: 25px;
-        color: #FFFFFF;
-        width: 100%;
-        max-width: 800px;
-        overflow: hidden;
-        /*内容会被修剪，并且其余内容是不可见的*/
-        text-overflow: ellipsis;
-        /*显示省略符号来代表被修剪的文本。*/
-        white-space: nowrap;
-        /*文本不换行*/
+      //动画
+      .anim {
+        transition: all 0.5s;
+        margin-top: -24.5px;
+        color: #fff;
       }
 
-      .date {
-        margin: 0px 10px;
-        font-size: 14px;
-        color: rgba(255, 255, 255, 0.8);
+      .box {
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        .subBannerTitle {
+          flex: 1;
+          font-family: 'PingFang SC';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 18px;
+          line-height: 25px;
+          color: rgba($color: #fff, $alpha: 0.2);
+          overflow: hidden;
+          /*内容会被修剪，并且其余内容是不可见的*/
+          text-overflow: ellipsis;
+          /*显示省略符号来代表被修剪的文本。*/
+          white-space: nowrap;
+          /*文本不换行*/
+        }
+
+        .active {
+          color: rgba($color: #fff, $alpha: 1);
+
+        }
+
+        .date {
+          margin: 0px 10px;
+          font-size: 14px;
+          color: rgba(255, 255, 255, 0.8);
+        }
+
+        .view {
+          font-size: 18px;
+          color: #14FD87;
+        }
       }
 
-      .view {
-        font-size: 18px;
-        color: #14FD87;
-      }
+      // .box {
+      //   display: flex;
+      //   font-family: 'PingFang SC';
+      //   font-style: normal;
+      //   font-weight: 400;
+      //   font-size: 18px;
+      //   line-height: 25px;
+      //   color: #FFFFFF;
+      //   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 53.12%, rgba(255, 255, 255, 0) 55.21%, rgba(255, 255, 255, 0) 100%);
+
+      //   .subBannerTitle {
+      //     flex: 1;
+      //     font-family: 'PingFang SC';
+      //     font-style: normal;
+      //     font-weight: 400;
+      //     font-size: 18px;
+      //     line-height: 25px;
+      //     color: #FFFFFF;
+      //     width: 100px !important;
+      //     overflow: hidden;
+      //     /*内容会被修剪，并且其余内容是不可见的*/
+      //     text-overflow: ellipsis;
+      //     /*显示省略符号来代表被修剪的文本。*/
+      //     white-space: nowrap;
+      //     /*文本不换行*/
+      //   }
+
+      //   .date {
+      //     margin: 0px 10px;
+      //     font-size: 14px;
+      //     color: rgba(255, 255, 255, 0.8);
+      //   }
+
+      //   .view {
+      //     font-size: 18px;
+      //     color: #14FD87;
+      //   }
+      // }
+
+
     }
   }
 
@@ -2134,6 +2183,14 @@
 
   .bj .bannerBox {
     top: 0px;
+    padding: 8px 12px
+  }
 
+  .bj .bannerBox .content .anim {
+    margin-top: 0px;
+
+    .subBannerTitle {
+      color: #fff;
+    }
   }
 }
