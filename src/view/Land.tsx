@@ -44,6 +44,7 @@ import myRightActiveEN from '../assets/image/landProcessEN/myRightActive.png'
 
 import RecordIcon from '../assets/image/record.png'
 import helpIcon from '../assets/image/helpIcon.png'
+import shareIcon from '../assets/image/shareIcon.svg'
 
 const LevelMap = [
   {
@@ -134,6 +135,7 @@ function Land() {
   let [showCreateOrder, setShowCreateOrder] = useState(false)
   /* 创建订单成功弹窗控制 */
   let [showCreateOrderSuccess, setShowCreateOrderSuccess] = useState(false)
+  let [ShareModal, setShareModal] = useState(false)
 
   // 奖励记录
   const rewardRecordFun = (index: number) => {
@@ -328,10 +330,17 @@ function Land() {
 
                 <div className="landShare">
                   <div className="title">{t("Land dividend")}</div>
-                  <div className="allReward">
-                    <div className='allRewardBox'>
+                  <div className="allReward " id="itemReward">
+                    <div className=' allRewardBox' id='allRewardBox'>
                       <div className="allRewardTitle">{t("Cumulative income")}：</div>
-                      <div className="allRewardValue">{NumSplic(`${userBeneficial[1]?.totalAmount}`, 4) || "0"} {userBeneficial[1]?.coinName || "MBAS"}</div>
+                      <div className="allRewardValue">{NumSplic(`${userBeneficial[1]?.totalAmount}`, 4) || "0"} {userBeneficial[1]?.coinName || "MBAS"} <img onClick={() => { setShareModal(true) }} src={shareIcon} alt="" /> </div>
+                    </div>
+                    <div className="btnBox"><div></div></div>
+                  </div>
+                  <div className="allReward " id="itemReward">
+                    <div className=' allRewardBox'>
+                      <div className="allRewardTitle">个人累计分红:</div>
+                      <div className="allRewardValue">100.11MBAS</div>
                     </div>
                     <div className="btnBox"><div></div></div>
                   </div>
@@ -356,6 +365,8 @@ function Land() {
       {landUserCard[cardDetialIndex] && <LandCardDetails showCreateOrder={createOrderFun} userLevel={userLevel} CardInfo={landUserCard[cardDetialIndex]} showModal={userCardDetail} close={() => setUserCardDetail(false)}></LandCardDetails>}
       {/* 土地详情说明 */}
       <LandDetailDes showModal={landDetailDes} close={() => setLandDetailDes(false)}></LandDetailDes>
+      {/* 昨日分红详情 */}
+      <LandDetailDes showModal={ShareModal} close={() => setShareModal(false)}></LandDetailDes>
       {/* 奖励记录(土地服务费、土地分红) */}
       {<LandRewardRecord id={landRewardRecordId} showModal={landRewardRecord} close={() => { setLandRewardRecord(false) }}></LandRewardRecord>}
       {/* 土地挂卖 */}

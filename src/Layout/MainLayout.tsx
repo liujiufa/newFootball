@@ -97,21 +97,21 @@ const MainLayout: React.FC = () => {
   // 底部节点菜单
   const NodeSubMenuList = [
     {
-      name: "节点申请",
+      name: t("Application"),
       path: "/NodeApply",
       Fun: () => {
         navigateFun("/NodeApply");
       }
     },
     {
-      name: "创世节点",
+      name: t("Genesis Nodes"),
       path: "/CreateNode",
       Fun: () => {
         navigateFun("/CreateNode");
       }
     },
     {
-      name: "节点基金",
+      name: t("Node Fund"),
       path: "/NodeFund",
       Fun: () => {
         navigateFun("/NodeFund");
@@ -210,7 +210,7 @@ const MainLayout: React.FC = () => {
           type: "divider",
         },
         {
-          label: <span className="LangItem">繁體</span>,
+          label: <span className="LangItem">简体</span>,
           key: "zh",
         },
       ]}
@@ -263,9 +263,9 @@ const MainLayout: React.FC = () => {
       { icon: MBASGovernanceIcon4, title: "Swap", subtitle: '通过Pancake买卖MBAS', path: '/outLink' },
     ],
     "/MBAS": [
-      { icon: MBASIcon0, title: "节点申请", subtitle: '报名参与节点竞选', path: '/NodeApply' },
-      { icon: MBASIcon1, title: "创世节点", subtitle: '创世节点福利专区', path: '/CreateNode' },
-      { icon: MBASIcon2, title: "节点基金", subtitle: '节点基金收益领取', path: '/NodeFund' },
+      { icon: MBASIcon0, title: t("Application"), subtitle: t('Apply To Participate In Node Election'), path: '/NodeApply' },
+      { icon: MBASIcon1, title: t("Genesis Nodes"), subtitle: t('Genesis Nodes Benefit Zone'), path: '/CreateNode' },
+      { icon: MBASIcon2, title: t("Node Fund"), subtitle: t('Claiming Node Fund Earnings'), path: '/NodeFund' },
     ],
     "/NFT": [
       { icon: NFTIcon0, title: "精灵", subtitle: '精灵查看個人精靈精灵', path: '/NFT' },
@@ -378,7 +378,7 @@ const MainLayout: React.FC = () => {
                 setShowDropMenu('/MBAS')
               }}
             >
-              节点
+              {t("Nodes")}
             </div>
             <div
               className={menuActive("/BlindBox")}
@@ -436,7 +436,8 @@ const MainLayout: React.FC = () => {
                 setShowDropMenu('/MBAS')
               }}
             >
-              节点
+              {t("Nodes")}
+
             </div>
             <div
               className={menuActive("/BlindBox")}
@@ -512,7 +513,7 @@ const MainLayout: React.FC = () => {
             >
               <div className="Lang">
                 <img style={{ width: "24px" }} src={Lang} alt="" />
-                {i18n.language === "zh" ? "繁" : "EN"}
+                {i18n.language === "zh" ? "简" : "EN"}
               </div>
             </Dropdown>
             {web3React.account ? (
@@ -701,7 +702,8 @@ const MainLayout: React.FC = () => {
           showNode(); setSmallActive(1)
         }}>
           {SmallActive === 1 ? <img src={footerAIcon1} alt="" /> : <img src={footerIcon1} alt="" />}
-          节点
+          {t("Nodes")}
+
         </div>
         <div className={SmallActive === 2 ? "MenuItem activeMenuItem" : "MenuItem"} onClick={() => {
           navigate("/BlindBox");

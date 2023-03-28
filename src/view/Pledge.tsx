@@ -19,7 +19,6 @@ import { showLoding, addMessage, NumSplic, getWebsocketData, initWebSocket } fro
 import { Contracts } from "../web3";
 import { contractAddress, socketUrl } from "../config";
 import CardDetails from '../components/CardDetails'
-
 import BigNumber from 'big.js'
 import RewardRecord from '../components/RewardRecord'
 import AbleGetReward from '../components/AbleGetReward'
@@ -277,12 +276,15 @@ function Pledge() {
         </div>
         {pledgeData && <div className="pledgeScreen">
           <div className="Tabs">
-            <div className="pledgeValueBox">
-              <div className="recentlyComputingPower">{t("Total current hashrate")}：{pledgeData?.power}</div>
-              <div className="pledgeAllReward">{t("Total staking rewards")}：{NumSplic(`${pledgeData?.totalAmount}`, 8)} MBAS</div>
+            <div className="itemBox">
+              <div className="recentlyComputingPower">全网质押算力：10000.12</div>
+              <div className="pledgeAllReward">昨日单算力产出：0.0021MBAS</div>
+              <div className="pledgeAllReward">昨日质押产值：0.00035 BNB/MBAS</div>
             </div>
           </div>
-          <div className="DropDownGroup">
+          <div className="itemBox">
+            <div className="recentlyComputingPower">{t("Total current hashrate")}：{pledgeData?.power}</div>
+            <div className="pledgeAllReward">{t("Total staking rewards")}：{NumSplic(`${pledgeData?.totalAmount}`, 8)} MBAS</div>
             <div className="ableGetReward">{t("Claimable")}：<span onClick={() => { setRewardRecord(true) }}>{NumSplic(`${pledgeData?.amount}`, 8)} MBAS</span> {pledgeData?.amount ? <div className="getBtn flex" onClick={() => { getBtnFun(pledgeData?.amount) }}>{t("Harvest")}</div> : <div className="getBtn flex" onClick={() => { getBtnFun(0) }}>{t("Harvest")}</div>}</div>
           </div>
         </div>

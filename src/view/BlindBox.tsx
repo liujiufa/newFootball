@@ -372,14 +372,15 @@ export default function BlindBox() {
       </div>}
       <div className="tabsBox">
         <div className="Tabs">
-          <div className={TabIndex === 0 ? 'activeTab linear-gradient' : 'invalidTab'} onClick={() => { changeTab(0) }}>盲盒介紹</div>
+          <div className={TabIndex === 0 ? 'activeTab linear-gradient' : 'invalidTab'} onClick={() => { changeTab(0) }}>{t("Introduction")}</div>
           <div className={TabIndex === 1 ? 'activeTab linear-gradient' : 'invalidTab'} onClick={() => { changeTab(1) }}>BNB開獎記錄</div>
           <div className={TabIndex === 2 ? 'activeTab linear-gradient' : 'invalidTab'} onClick={() => { changeTab(2) }}>我的開獎記錄</div>
         </div>
       </div>
       <div className="contentBox">
         {/* 盲盒介紹 */}
-        {TabIndex === 0 && <> 寶箱可以隨機開出一星、二星、三星三種屬性的精靈NFT和一等獎、二等獎、三等獎、普通的BNB。精靈NFT可以參與質押挖礦獲取MBAS，低星精灵合成高星精灵時，可以獲得土地NFT獎勵。NFT可在Metabase生態內的交易市場交易，也支持在第三方交易平臺交易。
+        {TabIndex === 0 && <>
+          {t("Introduction1")}
           <div className="contractAddr">
             <div className="addrTitle"> 精灵NFT合約地址</div>
             <div className="addr">{AddrHandle(contractAddress.NFT, 10, 6)} <img onClick={() => {

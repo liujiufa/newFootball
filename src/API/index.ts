@@ -543,3 +543,29 @@ export function getNoticeList() {
         method: 'get',
     })
 }
+interface UpdateNoticeListType {
+    content: string;
+    sign?: string | null;
+    msg?: string | null;
+    title?: string | null
+    userAddress?: string | null
+}
+
+// 更新公告
+export function updateNoticeList(data: UpdateNoticeListType) {
+    return axois.request({
+        url: `/user/sSystemNotice/updateNoticeList`,
+        method: 'post',
+        data
+    })
+}
+
+
+// 删除公告
+export function deleteNoticeList(id: number | string, sign: string, msg: string, userAddress: string) {
+    return axois.request({
+        url: `/user/sSystemNotice/deleteNoticeList`,
+        method: 'post',
+        data: ({ id, sign, msg, userAddress })
+    })
+}

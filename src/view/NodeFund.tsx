@@ -25,6 +25,7 @@ import desIcon from "../assets/image/desIcon24.png";
 import record from "../assets/image/record.png";
 import enoughIcon from "../assets/image/enoughIcon.png";
 import noEnoughIcon from "../assets/image/noEnoughIcon.png";
+import dropDownIcon from "../assets/image/dropDownIcon.png";
 import copy from "copy-to-clipboard";
 import { useLocation } from "react-router-dom";
 import "../assets/style/Invitation.scss";
@@ -76,9 +77,7 @@ export default function Invitation() {
   let [TabIndex, setTabIndex] = useState(0);
   let [showGuide, setShowGuide] = useState(false);
   let [showProfit, setShowProfit] = useState(false)
-  let [ProfitId, setProfitId] = useState(-1)
-  /* 邀请奖励机制弹窗控制 */
-  let [ShowRevenueRecord, setShowRevenueRecord] = useState(false);
+  let [ShowShare, setShowShare] = useState(false);
   let [rewardData, setRewardData] = useState<rewardDataType | null>(null);
   let [nodeData, setNodeData] = useState<any>(null);
   let [nodeAwardData, setNodeAwardData] = useState<any>(null);
@@ -149,26 +148,34 @@ export default function Invitation() {
 
   return (
     <div className="Edition-Center" id="NodeFund">
-      <div className="SwapTitle">节点基金</div>
+      <div className="SwapTitle">{t("Node Fund")}</div>
       <div className="Invitation">
         <div className="itemBox">
           <div className="titleBox">
-            <div className="title">达标节点：<NodeState></NodeState></div>
+            <div className="title">{t("ValidNodeTitle")}：<NodeState></NodeState></div>
             <div className="titleIcon"><img src={desIcon} onClick={() => { setShowGuide(true) }} alt="" /></div>
           </div>
           <div className="content">
             <div className="items">
-              <div className="item"><img src={nodeData?.nodeOrLand ? enoughIcon : noEnoughIcon} alt="" /><div> 持有土地的创世节点/持有五星土地</div></div>
-              <div className="item"><img src={nodeData?.is_activation ? enoughIcon : noEnoughIcon} alt="" /><div> 土地激活</div></div>
-              <div className="item"><img src={nodeData?.yesterdayRanking > 0 ? enoughIcon : noEnoughIcon} alt="" /><div> 昨日排名: {nodeData?.yesterdayRanking}</div></div>
+              <div className="item"><img src={nodeData?.nodeOrLand ? enoughIcon : noEnoughIcon} alt="" /><div>{t("ValidNode1")}</div></div>
+              <div className="item"><img src={nodeData?.is_activation ? enoughIcon : noEnoughIcon} alt="" /><div> {t("ValidNode2")}</div></div>
+              <div className="item"><img src={nodeData?.yesterdayRanking > 0 ? enoughIcon : noEnoughIcon} alt="" /><div> {t("Yesterday's ranking")}: {nodeData?.yesterdayRanking}</div></div>
             </div>
-            <div className="NFTNum">我的团队土地NFT数量： <span>{nodeData?.landCount}</span></div>
+            <div className="NFTNum">{t("Total number of Meta Territory NFTs of my Team")}： <span>{nodeData?.landCount}</span></div>
           </div>
         </div>
 
         <div className="itemBox">
-          <div className="reward">奖励总金额：<span> {nodeAwardData?.totalAmount} MBAS</span></div>
-          <div className="yestoday">昨日奖励金额：<span> {nodeAwardData?.yesterDayAmount} MBAS</span></div>
+          <div className="yestoday">昨日节点收益：<span> {nodeAwardData?.yesterDayAmount ?? 0} MBAS</span><img className={ShowShare ? 'spanRotate' : 'spanReset'} onClick={() => { setShowShare(!ShowShare) }} src={dropDownIcon} alt="" />
+            {
+              ShowShare && <div className="content">
+                <div className="item">昨日达标节点：150</div>
+                <div className="item">昨日分红总额：123.1234 MBAS</div>
+              </div>
+            }
+          </div>
+
+          <div className="reward">{t("Total reward amount")}：<span> {nodeAwardData?.totalAmount} MBAS</span></div>
           <div className="inputBox">
             <div className="inputValue">
               <span className="inputValueStyle">{NumSplic(`${nodeAwardData?.amount}`, 4) || "0"}</span>
@@ -193,12 +200,12 @@ export default function Invitation() {
         footer={null}
         onCancel={() => { setShowGuide(false) }}>
         <div className="box">
-          <div className="title">节点基金</div>
+          <div className="title">{t("Node Fund Instruction")}</div>
           <div className="tip">
-            1、当日盲盒全网出售量的5%进入节点基金；<br />
-            2、持有并激活任意等级土地的创世节点、持有并激活5星土
-            地的用户具备参与节点基金排行的资格；<br />
-            3、根据参与用户伞下持有的土地NFT数量排行，当日排行前150的用户可以共同瓜分节点基金当日收益。<br />
+            {t("NodeFundDes1")}<br />
+            {t("NodeFundDes2")}<br />
+            {t("NodeFundDes3")}<br />
+            {t("NodeFundDes4")}<br />
           </div>
         </div>
       </Modal>

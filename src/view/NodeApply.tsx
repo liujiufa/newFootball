@@ -82,11 +82,9 @@ export default function Invitation() {
   useEffect(() => {
     if (state.token && web3React.account) {
       Contracts.example.nodes(web3React.account).then((res: any) => {
-        console.log(res, '是否参与');
         setBtnState(res)
       })
       Contracts.example.claimedNode(web3React.account).then((res: any) => {
-        console.log(res, '是否领取');
         setIsGetBtn(res)
       })
     }
@@ -96,7 +94,6 @@ export default function Invitation() {
     if (state.token && web3React.account) {
       if (web3React.account) {
         Contracts.example.queryClaimMBAS(web3React.account).then((res: any) => {
-          console.log(res, '确认领取数据');
           setIsGetValue([new BigNumber(res[0]).div(10 ** 18).toString(), new BigNumber(res[1]).div(10 ** 18).toString()])
         })
       }
@@ -148,7 +145,7 @@ export default function Invitation() {
       Contracts.example.claimMBAS(web3React.account as string).then((res: any) => {
         console.log(res, "交易哈希");
         showLoding(false)
-        addMessage("领取成功")
+        addMessage(t("Receive success"))
         setHashValue(res.transactionHash)
         setConfirmBuy(false)
         // setShowGetSuccess(true)
@@ -166,12 +163,12 @@ export default function Invitation() {
     if (NodeApplyData!.startTime > Date.now() || Date.now() > NodeApplyData!.endTime) {
       if (BtnState) {
         if (!isGetBtn) {
-          return <div className="btn flexCenter" onClick={() => { setConfirmBuy(true) }}>领取</div>
+          return <div className="btn flexCenter" onClick={() => { setConfirmBuy(true) }}>{t("Harvest")}</div>
         } else {
-          return <div className="btned flexCenter" onClick={() => { setShowGetSuccess(true) }}>已领取</div>
+          return <div className="btned flexCenter" onClick={() => { setShowGetSuccess(true) }}>{t("Claimed")}</div>
         }
       } else {
-        return <div className="btnEnd flexCenter">已结束</div>
+        return <div className="btnEnd flexCenter">{t("Ended")}</div>
       }
     } else {
       if (!BtnState) {
@@ -184,14 +181,14 @@ export default function Invitation() {
 
   return (
     <div className="Edition-Center" id="NodeApply">
-      <div className="SwapTitle">节点申请</div>
-      <div className="subTitle">活动时间: {dateFormat('YYYY.mm.dd HH:MM', new Date(NodeApplyData?.startTime || 0))}-{dateFormat('YYYY.mm.dd HH:MM', new Date(NodeApplyData?.endTime || 0))}</div>
+      <div className="SwapTitle">{t("Application")}</div>
+      <div className="subTitle">{t("Application Period")}: {dateFormat('YYYY.mm.dd HH:MM', new Date(NodeApplyData?.startTime || 0))}-{dateFormat('YYYY.mm.dd HH:MM', new Date(NodeApplyData?.endTime || 0))}</div>
       <div className="Invitation">
         <div className="itemBox">
           <div className="itemTip">
-            节点申请介绍:支付0.2BNB参与节点竞选，共同瓜分100万枚MBAS。邀请好友参与，邀请排名前150名，成为创世节点，获得额外认购额度并获赠星级土地奖励，解锁身份特权。 <span onClick={() => { setShowMoreDetail(true) }}>查看更多</span></div>
+            {t("inviteTip")} <span onClick={() => { setShowMoreDetail(true) }}>{t("See more")}</span></div>
           {width > 435 ? <div className="addressBox">
-            <div className="referee" >我的邀请链接：</div>
+            <div className="referee" >{t("Personal Invitation Link")}：</div>
             <div className="addressValue">
               {window.location.origin +
                 window.location.pathname +
@@ -201,7 +198,7 @@ export default function Invitation() {
             <div className="devideLine"></div>
             <div className="copyBtn" onClick={invitation}><img src={copyIcon} alt="" /></div>
           </div> : <div className="addressBox smallAddressBox">
-            <div className="referee" >我的邀请链接：</div>
+            <div className="referee" >{t("Personal Invitation Link")}：</div>
             <div >
               <span>
                 {window.location.origin +
@@ -213,30 +210,32 @@ export default function Invitation() {
               <div className="copyBtn" onClick={invitation}><img src={copyIcon} alt="" /></div>
             </div>
           </div>}
-          <div className="inviteListBtn">有效邀请:{NodeApplyData?.refereeCount ?? 0} <img onClick={() => { navigate('/Invitation') }} src={ableInviteIcon} alt="" /></div>
+          <div className="inviteListBtn">{t("Valid invitation Number")}:{NodeApplyData?.refereeCount ?? 0} <img onClick={() => { navigate('/Invitation') }} src={ableInviteIcon} alt="" /></div>
         </div>
 
         <div className="itemBox nodeAction">
           <div className="topContent">
             {true ? <img src={nodeAction} alt="" /> : <div className="noNodeAction">
-              <div className="tip">活动时间: {NodeApplyData?.startTime}-{NodeApplyData?.endTime}</div>
+              <div className="tip">{t("Application Period")}: {NodeApplyData?.startTime}-{NodeApplyData?.endTime}</div>
             </div>}
           </div>
           <div className="bottomContent">
-            <div className="price">支付 {NodeApplyData?.campaignPrice || 0.02}{NodeApplyData?.campaignCoinName || "BNB"} 瓜分 {NodeApplyData?.publicOfferNum || 1000000} 枚{NodeApplyData?.publicOfferCoinName || "MBAS"}</div>
+            <div className="price">
+              {t("buyNodeTip", { value1: NodeApplyData?.campaignPrice || 0.02, coinName1: NodeApplyData?.campaignCoinName || "BNB", value2: NodeApplyData?.publicOfferNum || 1000000, coinName2: NodeApplyData?.publicOfferCoinName || "MBAS" })}
+            </div>
             {NodeApplyData && <BtnFun></BtnFun>}
           </div>
         </div>
       </div>
       <div className="nodeRank">
         <div className="nodeTitle">
-          <img src={rankIcon} alt="" />创世节点排行
+          <img src={rankIcon} alt="" />{t("Genesis Node Ranking")}
         </div>
         <div className="nodeContent">
           <div className="items title">
-            <div className="item rank">排行</div>
-            <div className="item address">地址</div>
-            <div className="item num">邀请数量</div>
+            <div className="item rank">{t("Ranking")}</div>
+            <div className="item address">{t("Address")}</div>
+            <div className="item num">{t("Invitations")}</div>
           </div>
 
           {NodeRankData.length > 0 ? <>
@@ -318,13 +317,15 @@ export default function Invitation() {
         footer={null}
         onCancel={() => { setShowMoreDetail(false) }}>
         <div className="box">
-          <div className="title">节点申请</div>
+          <div className="title">{t("Application")}</div>
           <div className="tip">
-            1、所有参与竞选的用户，均可以0.1USDT/MBAS的价格瓜分100万枚MBAS，瓜分后若有BNB剩余，多余的BNB将会被退回。<br />
-            2、邀请好友参与竞选，根据直接邀请成功参与竞选的好友数量进行排行，排行前150名成为创世节点。<br />
-            3、排名1-50名创世节点，将额外获得1BNB的MBAS认购额度，并获赠5星土地；排名51-100名创世节点，将额外获得0.6BNB的MBAS认购额度，并获赠4星土地；排名101-150名创世节点，将额外获得0.3BNB的MBAS认购额度，并获赠3星土地;<br />
-            4、创世节点MBAS认购价格：0.1USDT/MBAS。<br />
-            5、创世节点激活任意等级土地，享有参与节点基金瓜分的权益。<br />
+            {t("NodeDes1")}<br />
+            {t("NodeDes2")}<br />
+            {t("NodeDes3")}<br />
+            {t("NodeDes4")}<br />
+            {t("NodeDes5")}<br />
+            {t("NodeDes6")}<br />
+            {t("NodeDes7")}<br />
           </div>
         </div>
       </Modal>

@@ -42,7 +42,7 @@ export default function Invitation() {
       <div className="content">
         {noticeList.length > 0 ? <>
           <div className="items">
-            {noticeList.map((item: any, index: any) => <div key={index} className="item" onClick={() => { setShowMoreDetail(item) }}> {item.title} <span> {dateFormat('YYYY-mm-dd', new Date(item.createTime))}</span></div>)}
+            {noticeList.map((item: any, index: any) => <div key={index} className="item" onClick={() => { setShowMoreDetail(item) }}> <div className="title">{item.title} </div><div className="time"> {dateFormat('YYYY-mm-dd', new Date(item.createTime))}</div></div>)}
           </div>
           {/* <div className="items">
             {noticeList.map((item: any, index: any) => <div key={index} className={index % 2 === 0 ? "itemDisplay" : "item"} onClick={() => { setShowMoreDetail(item) }}> {item.title} <span> {dateFormat('YYYY-mm-dd', new Date(item.createTime))}</span></div>)
@@ -64,7 +64,6 @@ export default function Invitation() {
           <div className="title">{ShowMoreDetail?.title}</div>
           <div className="time">{dateFormat('YYYY-mm-dd', new Date(ShowMoreDetail?.createTime))}</div>
           <div className="tip" dangerouslySetInnerHTML={{ __html: ShowMoreDetail?.content }}>
-
           </div>
         </div>
       </Modal>

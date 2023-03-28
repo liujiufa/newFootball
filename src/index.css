@@ -23,14 +23,14 @@ code {
     monospace;
 }
 
-html, body, div, span, applet, object, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+html, body, div, span, applet, object, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
   margin: 0;
   padding: 0;
   border: 0;
   font: inherit;
   font-weight: normal;
   vertical-align: baseline;
-  font-size: 12px;
+  /* font-size: 12px; */
   user-select: none;
   /* font-family: PingFang SC, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Segoe UI, Arial, Roboto, 'PingFang SC', miui, 'Hiragino Sans GB', 'Microsoft Yahei', sans-serif !important; */
 }
@@ -121,7 +121,7 @@ input:focus, select:focus, textarea:focus {
 .Edition-Center {
   max-width: 1200px;
   width: 100%;
-  margin:20px auto;
+  margin: 20px auto;
   padding-bottom: 40px;
 }
 
@@ -259,14 +259,16 @@ body::-webkit-scrollbar-thumb {
   border-radius: 19px;
 }
 
-@keyframes home-rotate{
-  0%{
-      transform: rotate(0);
-    }
-  50%{
-    transform:rotate(180deg);
+@keyframes home-rotate {
+  0% {
+    transform: rotate(0);
   }
-  100%{
-       transform: rotate(360deg);
-    }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

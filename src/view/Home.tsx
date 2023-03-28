@@ -154,6 +154,7 @@ function Home() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [animaVisable, setAnimaVisable] = useState(true)
   const [animaMobileVisable, setAnimaMobileVisable] = useState(true)
+  const [ShowBannerState, setShowBannerState] = useState(true)
 
   const [mobileActiveIndex, setMobileActiveIndex] = useState(0)
   let [bt, setBt] = useState<Array<{ img: string, className?: string }>>(INIT_BT);
@@ -555,16 +556,16 @@ function Home() {
 
   return (
     <div id="home" className="bj">
-      {shwoBanner && <div className="bannerBox">
-        <div className="title">公告</div>
+      {ShowBannerState && <div className="bannerBox">
+        <div className="title">{t("Announcement")}</div>
         <div className={"content"}>
-          {shwoBanner.map((item: any, index: any) => <div className={animate ? 'anim box' : 'box'} key={index}>
-            <div className={index === 1 ? " active subBannerTitle" : "subBannerTitle"}>{item.title}11111111111111111</div>{width > 425 && <div className="date"> {dateFormat('YYYY-mm-dd', new Date(item.createTime))} </div >}
-            <div className="view" onClick={() => { navigate("/Notice") }}> 查看</div>
+          {shwoBanner?.map((item: any, index: any) => <div className={animate ? 'anim box' : 'box'} key={index}>
+            <div className={index === 1 ? " active subBannerTitle" : "subBannerTitle"}>{item.title}</div>{width > 425 && <div className={index === 1 ? "date active" : "date"}> {dateFormat('YYYY-mm-dd', new Date(item.createTime))} </div >}
+            {width > 425 ? (index === 1 && <div className="view" onClick={() => { navigate("/Notice") }}>{t("View")}</div>) : <div className="view" onClick={() => { navigate("/Notice") }}>{t("View")}</div>}
           </div>
           )}
         </div>
-        <div className="close" onClick={() => { setShowBanner(null) }}><img src={bannerClose} alt="" /></div>
+        <div className="close" onClick={() => { setShowBannerState(false) }}><img src={bannerClose} alt="" /></div>
       </div >}
       <div className="space">
         <div className="tit">
@@ -618,7 +619,7 @@ function Home() {
               <div className="casebox-mobile-group">
 
                 <div className="casebox-mobile-btn">
-                  <div className="casebox-mobile-btn-content">
+                  <div className="casebox-mobile-btn-content" onClick={() => { navigate("/BlindBox") }}>
                     {t("OPEN CASE")}
                   </div>
                 </div>
@@ -630,8 +631,8 @@ function Home() {
         {/* 应用生态 */}
         <div className="ecol">
           <div className="title">
-            <div className="bei">{t("Ecological NFT")}</div>
-            <div className="zhi">{t("Ecological NFT")}</div>
+            <div className="bei">Meta NFT</div>
+            <div className="zhi">Meta NFT</div>
           </div>
           <div className="ecolbox" style={isNftEnter ? { margin: "144px auto 0" } : {}} onMouseEnter={(event) => {
             setIsEnter(true)
@@ -725,7 +726,6 @@ function Home() {
         </div>
       </div>
       {/* 特色板块 */}
-
 
       <div className="feans">
         <div className="title">

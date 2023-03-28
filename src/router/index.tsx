@@ -20,6 +20,7 @@ const Notice = React.lazy(() => import('../view/Notice'));
 const NodeFund = React.lazy(() => import('../view/NodeFund'));
 const CreateNode = React.lazy(() => import('../view/CreateNode'));
 const Synthesis = React.lazy(() => import('../view/Synthesis'));
+const Announcement = React.lazy(() => import('../view/Announcement'));
 export default function Router() {
   return (
     <Suspense fallback={<PageLoding></PageLoding>}>
@@ -42,6 +43,7 @@ export default function Router() {
           <Route path="NodeFund" element={<NodeFund />}></Route>
           <Route path="CreateNode" element={<CreateNode />}></Route>
           <Route path="Synthesis" element={<Synthesis />}></Route>
+          <Route path="Announcement" element={<Announcement />}></Route>
         </Route>
         <Route path="/DeputyLayout" element={<DeputyLayout />}>
         </Route>

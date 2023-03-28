@@ -74,7 +74,7 @@ export default function Invitation() {
         console.log(res, "创世节点");
         if (res.code === 200) {
           showLoding(true)
-          Contracts.example.claimExtraMBAS(res.data, web3React.account as string, NumSplic(CreateNodeData?.giveValue, 1) as string).then((res: any) => {
+          Contracts.example.claimExtraMBAS(res.data, web3React.account as string, CreateNodeData?.giveValue).then((res: any) => {
             console.log(res, '领取成功');
             showLoding(false)
             addMessage("领取成功")
@@ -86,6 +86,8 @@ export default function Invitation() {
           }).finally(() => {
             showLoding(false)
           })
+        } else {
+
         }
       })
     }

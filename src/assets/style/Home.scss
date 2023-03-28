@@ -11,15 +11,16 @@
     align-items: center;
     justify-content: space-between;
     position: absolute;
-    background: transparent;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 53.12%, rgba(255, 255, 255, 0) 55.21%, rgba(255, 255, 255, 0) 100%);
     top: 35px;
     width: 100%;
     max-width: 1206px;
     height: 85px;
     left: 50%;
     transform: translateX(-50%);
-    padding: 18px 22px;
+    padding: 0px 22px;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 6px 4px 35px rgba(14, 60, 81, 0.5);
+    border-radius: 17px;
 
     .title {
       font-family: 'PingFang SC';
@@ -27,7 +28,7 @@
       font-weight: 900;
       font-size: 35px;
       line-height: 49px;
-      color: #FFFFFF;
+      color: #14FD87;
       white-space: nowrap;
       margin-right: 5px;
     }
@@ -40,7 +41,7 @@
       //动画
       .anim {
         transition: all 0.5s;
-        margin-top: -24.5px;
+        margin-top: -42.5px;
         color: #fff;
       }
 
@@ -65,20 +66,33 @@
           /*文本不换行*/
         }
 
-        .active {
-          color: rgba($color: #fff, $alpha: 1);
 
-        }
 
         .date {
           margin: 0px 10px;
           font-size: 14px;
-          color: rgba(255, 255, 255, 0.8);
+          color: rgba(255, 255, 255, 0.2);
         }
+
+        .active {
+          color: rgba($color: #fff, $alpha: 1) !important;
+
+        }
+
+        // .active {
+        //   .date {
+        //     color: rgba($color: #fff, $alpha: 1);
+
+        //   }
+        // }
 
         .view {
           font-size: 18px;
           color: #14FD87;
+        }
+
+        .NoData {
+          display: none;
         }
       }
 
@@ -2182,8 +2196,14 @@
   }
 
   .bj .bannerBox {
-    top: 0px;
-    padding: 8px 12px
+    top: 12px;
+    padding: 8px 12px;
+    height: 40px;
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
   }
 
   .bj .bannerBox .content .anim {
@@ -2192,5 +2212,8 @@
     .subBannerTitle {
       color: #fff;
     }
+  }
+  .bj .bannerBox .content .box .view{
+    font-size: 14px;
   }
 }

@@ -781,7 +781,7 @@
                 }
 
                 .NFTNum {
-                    margin-top: 40px;
+                    margin-top: 10px;
                     font-family: 'PingFang SC';
                     font-style: normal;
                     font-weight: 400;
@@ -812,7 +812,25 @@
             }
 
             .yestoday {
-                margin-bottom: 40px;
+                color: rgba(0, 200, 99, 0.8);
+
+                span {
+                    color: rgba(0, 200, 99, 0.8);
+                    padding-right: 15px;
+                }
+
+                .content {
+                    .item {
+                        font-family: 'PingFang SC';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 22px;
+                        color: rgba(0, 200, 99, 0.6);
+                        opacity: 0.8;
+                        margin: 5px 10px;
+                    }
+                }
             }
         }
     }
@@ -994,18 +1012,31 @@
                 padding: 15px;
                 width: 50%;
                 min-width: 500px;
+                white-space: nowrap;
+                width: 100px;
 
-                font-family: 'PingFang SC';
-                font-style: normal;
-                font-weight: 400;
-                font-size: 18px;
-                line-height: 25px;
-                color: rgba(0, 0, 0, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
 
-                span {
+                .title {
+                    flex: 1;
+                    overflow: hidden;
+                    /*内容会被修剪，并且其余内容是不可见的*/
+                    text-overflow: ellipsis;
+                    font-family: 'PingFang SC';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 18px;
+                    line-height: 25px;
+                    color: rgba(0, 0, 0, 0.8);
+                    padding-right: 12px;
+                }
+
+                .time {
                     font-size: 14px;
                     color: rgba(0, 0, 0, 0.5);
-
+                    width: 100px;
                 }
             }
 
@@ -1018,7 +1049,29 @@
 
 // 公告详情
 .NoticeModal {
+
     .box {
+        padding: 12px;
+        max-height: 500px;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 3px; //y轴滚动条粗细
+        }
+
+        //滚动条里面的小方块，能上下左右移动（取决于是垂直滚动条还是水平滚动条）
+        &::-webkit-scrollbar-thumb {
+            background: radial-gradient(113.75% 113.75% at 50% 50%, #21FF8F 0%, #54E2EE 100%);
+            border-radius: 9px;
+        }
+
+        //滚动条的轨道（里面装有thumb）滚动槽
+        &::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 9px;
+        }
+
+
         .title {
             font-family: 'PingFang SC';
             font-style: normal;
@@ -1037,6 +1090,15 @@
             line-height: 20px;
             color: rgba(0, 0, 0, 0.5);
             margin: 10px 0px 14px;
+        }
+
+        .tip{
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 22px;
+            color: rgba(0, 0, 0, 0.7);
         }
     }
 }
@@ -1241,4 +1303,15 @@
         padding: 12px;
     }
 
+    .NoticeModal {
+        .box {
+            max-height: 350px !important;
+            overflow-y: auto !important;
+
+            // .tip {
+            //     max-height: 400px !important;
+            //     overflow-y: auto !important;
+            // }
+        }
+    }
 }
