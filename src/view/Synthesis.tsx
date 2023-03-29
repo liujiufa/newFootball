@@ -93,27 +93,27 @@ export default function Synthesis() {
             value: 0
         },
         {
-            key: '精灵仙子',
+            key: 'Fairy',
             value: 1
         },
         {
-            key: '木精灵',
+            key: 'Aqua Genie',
             value: 2
         },
         {
-            key: '水精灵',
+            key: 'Forest Genie',
             value: 3
         },
         {
-            key: '火精灵',
+            key: 'Flame Genie',
             value: 4
         },
         {
-            key: '土精灵',
+            key: 'Terra Genie',
             value: 5
         },
         {
-            key: '金精灵',
+            key: 'Gold Genie',
             value: 6
         }
     ]
@@ -235,10 +235,10 @@ export default function Synthesis() {
             return addMessage(t('Please select the card to synthesize'))
         }
         if (SelCard1.cardLevel !== SelCard2.cardLevel) {
-            return addMessage("卡牌等级不同")
+            return addMessage(t("different card levels"))
         }
         if (SelCard1.cardNo === SelCard2.cardNo) {
-            return addMessage("请选择两张不同卡牌")
+            return addMessage(t("Please choose two different cards"))
         }
         if (!SelCard2) {
             return addMessage(t('Please select the card to synthesize'))
@@ -314,7 +314,7 @@ export default function Synthesis() {
                             }
                             <div className='Tip'>
                                 <div className='TipContent TipContent1' onClick={() => { setShowMergeRule(true) }}>{t('Evolve rules')}<img style={{ marginLeft: '5px' }} src={desIcon} alt="" /></div>
-                                <div className='TipContent' onClick={() => { setShowMergeRecord(true) }}>合成记录<img style={{ marginLeft: '5px' }} src={translateRecoedIcon} alt="" /></div>
+                                <div className='TipContent' onClick={() => { setShowMergeRecord(true) }}>{t("Evolve Record")}<img style={{ marginLeft: '5px' }} src={translateRecoedIcon} alt="" /></div>
                             </div>
                         </div>
                     </div>
@@ -369,7 +369,7 @@ export default function Synthesis() {
                             }
                             <div className='Tip'>
                                 <div className='TipContent TipContent1' onClick={() => { setShowMergeRule(true) }}>{t('Evolve rules')}<img style={{ marginLeft: '5px' }} src={desIcon} alt="" /></div>
-                                <div className='TipContent' onClick={() => { setShowMergeRecord(true) }}>合成记录<img style={{ marginLeft: '5px' }} src={translateRecoedIcon} alt="" /></div>
+                                <div className='TipContent' onClick={() => { setShowMergeRecord(true) }}>{t("Evolve Record")}<img style={{ marginLeft: '5px' }} src={translateRecoedIcon} alt="" /></div>
                             </div>
                         </div>
                     </div>
@@ -386,6 +386,10 @@ export default function Synthesis() {
     return (
         <div id='Synthesis'>
             <div className='Title'>{t('Evolve')}</div>
+            <div className='SynthesisDes'>
+                {t('SynthesisDes1')}<br></br>
+                {t('SynthesisDes2')}<br></br>
+            </div>
             <Content></Content>
             <CardComRule isShow={showMergeRule} close={() => setShowMergeRule(false)}></CardComRule>
             {MergeResult && <CardComSuccess isShow={showMergeSuccess} data={MergeResult.cardUser} close={() => setShowMergeSuccess(false)}></CardComSuccess>}

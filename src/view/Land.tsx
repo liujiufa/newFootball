@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
 import LandDetailDes from '../components/LandDetailDes'
+import LandShareDes from '../components/LandShareDes'
 import { useTranslation } from 'react-i18next'
 import { Pagination } from 'antd';
 import NoData from '../components/NoData'
 import LandCard, { LandUserCard } from '../components/LandCard'
-import { getLandUserBeneficial, getLandUserCardList, getUserInfo, getLandUserList, claimLand, userDrawAward, userCancelDrawAward } from '../API'
+import { getLandUserBeneficial, getLandUserCardList, getUserInfo, getLandUserList, claimLand, userDrawAward, userCancelDrawAward, landBonus } from '../API'
 import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
 import { useWeb3React } from '@web3-react/core'
@@ -52,23 +53,23 @@ const LevelMap = [
     value: 0
   },
   {
-    key: '地球领土',
+    key: 'Supernova',
     value: 1
   },
   {
-    key: '行星领土',
+    key: 'Outpost',
     value: 2
   },
   {
-    key: '银河领土',
+    key: 'Galactic Hub',
     value: 3
   },
   {
-    key: '星际领土',
+    key: 'Star Empire',
     value: 4
   },
   {
-    key: '宇宙领土',
+    key: 'Cosmic Nexus',
     value: 5
   },
 ]
@@ -136,6 +137,7 @@ function Land() {
   /* 创建订单成功弹窗控制 */
   let [showCreateOrderSuccess, setShowCreateOrderSuccess] = useState(false)
   let [ShareModal, setShareModal] = useState(false)
+  let [LandBonus, setLandBonus] = useState<any>([])
 
   // 奖励记录
   const rewardRecordFun = (index: number) => {
@@ -228,6 +230,13 @@ function Land() {
       }
     })
   }
+  const shareFun = () => {
+    if (LandBonus?.length > 0) {
+      return LandBonus?.reduce((sum: any, item: any) => sum + item.amount, 0)
+    } else {
+      return 0
+    }
+  }
 
   useEffect(() => {
     if (state.token && web3React.account && tabActive === '2') {
@@ -243,7 +252,10 @@ function Land() {
         setLandUserCard(res.data.list)
         SetTotalNum(res.data.size)
       })
-
+      landBonus().then(res => {
+        console.log(res.data, "新增");
+        setLandBonus(res.data)
+      })
     }
   }, [state.token, web3React.account, level, page, tabActive, showCreateOrderSuccess])
 
@@ -332,15 +344,15 @@ function Land() {
                   <div className="title">{t("Land dividend")}</div>
                   <div className="allReward " id="itemReward">
                     <div className=' allRewardBox' id='allRewardBox'>
-                      <div className="allRewardTitle">{t("Cumulative income")}：</div>
-                      <div className="allRewardValue">{NumSplic(`${userBeneficial[1]?.totalAmount}`, 4) || "0"} {userBeneficial[1]?.coinName || "MBAS"} <img onClick={() => { setShareModal(true) }} src={shareIcon} alt="" /> </div>
+                      <div className="allRewardTitle">{t("Yesterday's network dividends")}：</div>
+                      <div className="allRewardValue">{shareFun()} MBAS<img onClick={() => { setShareModal(true) }} src={shareIcon} alt="" /> </div>
                     </div>
                     <div className="btnBox"><div></div></div>
                   </div>
                   <div className="allReward " id="itemReward">
                     <div className=' allRewardBox'>
-                      <div className="allRewardTitle">个人累计分红:</div>
-                      <div className="allRewardValue">100.11MBAS</div>
+                      <div className="allRewardTitle">{t("Individual accumulated dividends")}:</div>
+                      <div className="allRewardValue">{NumSplic(`${userBeneficial[1]?.totalAmount}`, 4) || "0"} {userBeneficial[1]?.coinName || "MBAS"}</div>
                     </div>
                     <div className="btnBox"><div></div></div>
                   </div>
@@ -366,7 +378,7 @@ function Land() {
       {/* 土地详情说明 */}
       <LandDetailDes showModal={landDetailDes} close={() => setLandDetailDes(false)}></LandDetailDes>
       {/* 昨日分红详情 */}
-      <LandDetailDes showModal={ShareModal} close={() => setShareModal(false)}></LandDetailDes>
+      <LandShareDes data={LandBonus} showModal={ShareModal} close={() => setShareModal(false)}></LandShareDes>
       {/* 奖励记录(土地服务费、土地分红) */}
       {<LandRewardRecord id={landRewardRecordId} showModal={landRewardRecord} close={() => { setLandRewardRecord(false) }}></LandRewardRecord>}
       {/* 土地挂卖 */}

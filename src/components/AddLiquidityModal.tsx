@@ -165,7 +165,7 @@ function AddLiquidityModal(props: any) {
                         </div>
                     </div>
                     <div className="balanceBox">
-                        {type <= parseFloat(balance) ? <div className="balance"></div> : <div className="noBalance">余额不足！</div>}
+                        {type <= parseFloat(balance) ? <div className="balance"></div> : <div className="noBalance">{t("Insufficient balance")}！</div>}
                     </div>
 
                 </div>
@@ -181,11 +181,11 @@ function AddLiquidityModal(props: any) {
                         </div>
                     </div>
                     <div className="balanceBox">
-                        {parseFloat(toSBL) <= parseFloat(balance1) ? <div className="balance"></div> : <div className="noBalance">余额不足！</div>}
+                        {parseFloat(toSBL) <= parseFloat(balance1) ? <div className="balance"></div> : <div className="noBalance">{t("Insufficient balance")}！</div>}
                     </div>
                 </div>
                 {/* <div className="btnBox">{parseFloat(ApproveValue) <= parseFloat(toSBL) && <div className="approveBtn toApproveBtn  flex" onClick={() => { ApproveFun() }}> 授权 MBAS </div>}</div> */}
-                {parseFloat(ApproveValue) > parseFloat(toSBL) ? <div className="toSupplyBtn flex" onClick={() => { confirmApplyFun() }}>{t("Supply")}</div> : <div className="toSupplyBtn  flex" onClick={() => { ApproveFun() }}> 授权 MBAS </div>}
+                {parseFloat(ApproveValue) > parseFloat(toSBL) ? <div className="toSupplyBtn flex" onClick={() => { confirmApplyFun() }}>{t("Supply")}</div> : <div className="toSupplyBtn  flex" onClick={() => { ApproveFun() }}> {t("Approve12")} </div>}
 
 
                 <p className='titleTip'>{t("AddLand", { landType: landType[type] })}</p>

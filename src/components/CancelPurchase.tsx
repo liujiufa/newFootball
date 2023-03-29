@@ -43,7 +43,7 @@ interface CancelPurchasePropsType{
           <p className='title'>{t('Cancel sale')}</p>
           <p className='zifujg'>{t('ConfirmCancel?')}</p>
         <span>{t('Click anywhere to close')}</span>
-        <button className='btm' onClick={CancelFun}>{t('Verify')}</button>
+        <button className='btm' onClick={CancelFun}>{t('Confirm')}</button>
       </Modal></>
   )
 }

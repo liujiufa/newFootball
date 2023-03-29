@@ -38,6 +38,9 @@ interface PledgeDataType {
   amount: number
   dataId: number
   totalAmount: number
+  computingOutput: number
+  allPower: number
+  pledgeOutputValue: number
 }
 
 function Pledge() {
@@ -60,6 +63,7 @@ function Pledge() {
   let [rewardRecord, setRewardRecord] = useState(false)
   // 取消质押
   let [cancelPledge, setCancelPledge] = useState(false)
+  let [moreWord, setMoreWord] = useState(false)
   // 取消质押
   let [cancelPledgeSuccess, setCancelPledgeSuccess] = useState(false)
   // 取消质押tokenId
@@ -270,31 +274,59 @@ function Pledge() {
         <div className="SwapTitle">
           {t("Stake")}
         </div>
-        <div className="PledgeTabs">
-          <div className={TabIndex === 0 ? 'activeTab invalidTab' : 'invalidTab'} onClick={() => { changeTab(0); }}>質押中</div>
-          <div className={TabIndex === 1 ? 'activeTab invalidTab' : 'invalidTab'} onClick={() => { changeTab(1); }}>已銷毀</div>
+        <div className="SwapDes">
+          {t("pledgeDesc1")}<br></br>
+          {t("pledgeDesc2")}{!moreWord && <span className="" onClick={() => setMoreWord(true)}>{t("load more")}</span>}<br></br>
+          {moreWord && <>
+            {t("pledgeDesc3")}<br></br>
+            {t("pledgeDesc4")}<br></br>
+            {t("pledgeDesc5")}<br></br>
+          </>}
         </div>
-        {pledgeData && <div className="pledgeScreen">
-          <div className="Tabs">
-            <div className="itemBox">
-              <div className="recentlyComputingPower">全网质押算力：10000.12</div>
-              <div className="pledgeAllReward">昨日单算力产出：0.0021MBAS</div>
-              <div className="pledgeAllReward">昨日质押产值：0.00035 BNB/MBAS</div>
-            </div>
+
+        {
+          pledgeData && <div className="pledgeScreen">
+            {width > 425 ? <div className="box">
+              <div className="Tabs">
+                <div className="itemBox">
+                  <div className="recentlyComputingPower">{t("Whole network‘s stake  power")}：{pledgeData?.allPower ?? 0}</div>
+                  <div className="pledgeAllReward">{t("Yesterday's single computing output")}：{pledgeData?.computingOutput ?? 0}MBAS</div>
+                  <div className="pledgeAllReward">{t("Stake output value yesterday")}：{pledgeData?.pledgeOutputValue ?? 0} BNB/MBAS</div>
+                </div>
+              </div>
+              <div className="itemBox">
+                <div className="recentlyComputingPower">{t("Total current hashrate")}：{pledgeData?.power}</div>
+                <div className="pledgeAllReward">{t("Total staking rewards")}：{NumSplic(`${pledgeData?.totalAmount}`, 8)} MBAS</div>
+                <div className="ableGetReward">{t("Claimable")}：<span onClick={() => { setRewardRecord(true) }}>{NumSplic(`${pledgeData?.amount}`, 8)} MBAS</span> {pledgeData?.amount ? <div className="getBtn flex" onClick={() => { getBtnFun(pledgeData?.amount) }}>{t("Harvest")}</div> : <div className="getBtn flex" onClick={() => { getBtnFun(0) }}>{t("Harvest")}</div>}</div>
+              </div>
+            </div> : <div className="box">
+              <div className="itemBox">
+                <div className="recentlyComputingPower">{t("Total current hashrate")}：{pledgeData?.power}</div>
+                <div className="pledgeAllReward">{t("Total staking rewards")}：{NumSplic(`${pledgeData?.totalAmount}`, 8)} MBAS</div>
+                <div className="ableGetReward">{t("Claimable")}：<span onClick={() => { setRewardRecord(true) }}>{NumSplic(`${pledgeData?.amount}`, 8)} MBAS</span> {pledgeData?.amount ? <div className="getBtn flex" onClick={() => { getBtnFun(pledgeData?.amount) }}>{t("Harvest")}</div> : <div className="getBtn flex" onClick={() => { getBtnFun(0) }}>{t("Harvest")}</div>}</div>
+              </div>
+              <div className="Tabs">
+                <div className="itemBox">
+                  <div className="recentlyComputingPower">{t("Whole network‘s stake  power")}：{pledgeData?.allPower ?? 0}</div>
+                  <div className="pledgeAllReward">{t("Yesterday's single computing output")}：{pledgeData?.computingOutput ?? 0}MBAS</div>
+                  <div className="pledgeAllReward">{t("Stake output value yesterday")}：{pledgeData?.pledgeOutputValue ?? 0} BNB/MBAS</div>
+                </div>
+              </div>
+            </div>}
+
           </div>
-          <div className="itemBox">
-            <div className="recentlyComputingPower">{t("Total current hashrate")}：{pledgeData?.power}</div>
-            <div className="pledgeAllReward">{t("Total staking rewards")}：{NumSplic(`${pledgeData?.totalAmount}`, 8)} MBAS</div>
-            <div className="ableGetReward">{t("Claimable")}：<span onClick={() => { setRewardRecord(true) }}>{NumSplic(`${pledgeData?.amount}`, 8)} MBAS</span> {pledgeData?.amount ? <div className="getBtn flex" onClick={() => { getBtnFun(pledgeData?.amount) }}>{t("Harvest")}</div> : <div className="getBtn flex" onClick={() => { getBtnFun(0) }}>{t("Harvest")}</div>}</div>
-          </div>
-        </div>
         }
+        <div className="PledgeTabs">
+          <div className={TabIndex === 0 ? 'activeTab invalidTab' : 'invalidTab'} onClick={() => { changeTab(0); }}>{t("Staking")}</div>
+          <div className={TabIndex === 1 ? 'activeTab invalidTab' : 'invalidTab'} onClick={() => { changeTab(1); }}>{t("Destroyed")}</div>
+        </div>
         <PledgeContent></PledgeContent>
-      </div>
+      </div >
       {/* 取消质押 */}
-      <CancelPledge CancelFun={CancelNFTPledgeFun} tokenId={cancelPledgeValue} showModal={cancelPledge} close={() => { setCancelPledge(false) }}></CancelPledge>
+      < CancelPledge CancelFun={CancelNFTPledgeFun} tokenId={cancelPledgeValue} showModal={cancelPledge} close={() => { setCancelPledge(false) }
+      }></CancelPledge >
       {/* 领取记录 */}
-      <RewardRecord showModal={rewardRecord} close={() => { setRewardRecord(false) }}></RewardRecord>
+      < RewardRecord showModal={rewardRecord} close={() => { setRewardRecord(false) }}></RewardRecord >
       {/* 可领取金额 */}
       {pledgeData && <AbleGetReward getFun={Receive} dataId={pledgeData.dataId} data={getValue} showModal={getPage} close={() => { setGetPage(false) }}></AbleGetReward>}
       {/* 取消成功 */}
@@ -303,7 +335,7 @@ function Pledge() {
       {
         userCard.length > 0 && <CardDetails isShow={showCardDetail} CardInfo={userCard[cardDetialIndex]} close={() => setShowCardDetail(false)} ></CardDetails>
       }
-    </div>
+    </div >
   )
 }
 export default React.memo(Pledge)

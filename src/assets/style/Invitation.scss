@@ -1049,6 +1049,9 @@
 
 // 公告详情
 .NoticeModal {
+    .ant-modal-body {
+        padding: 40px;
+    }
 
     .box {
         padding: 12px;
@@ -1092,7 +1095,7 @@
             margin: 10px 0px 14px;
         }
 
-        .tip{
+        .tip {
             font-family: 'PingFang SC';
             font-style: normal;
             font-weight: 400;

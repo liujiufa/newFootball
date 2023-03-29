@@ -543,6 +543,20 @@ export function getNoticeList() {
         method: 'get',
     })
 }
+// 昨日节点收益：
+export function nodeBonus() {
+    return axois.request({
+        url: `/user/uUserAccount/nodeBonus`,
+        method: 'get',
+    })
+}
+// 土地分红新增数据
+export function landBonus() {
+    return axois.request({
+        url: `/user/lLandUser/landBonus`,
+        method: 'get',
+    })
+}
 interface UpdateNoticeListType {
     content: string;
     sign?: string | null;

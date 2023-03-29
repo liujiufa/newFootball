@@ -9,6 +9,28 @@
   text-align: center;
 }
 
+.SwapDes {
+  max-width: 1200px;
+  margin: 20px auto;
+  border-radius: 19px;
+  text-align: left;
+  font-family: 'PingFang SC';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 25px;
+  color: rgba(0, 0, 0, 0.8);
+
+  span {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    color: #14fd87;
+  }
+}
+
 #Pledge {
   margin-bottom: 20px;
 
@@ -40,92 +62,99 @@
 
 .pledgeScreen {
   // margin-top: 20px;
-  display: flex;
   margin-top: 20px;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  align-items: center;
+
   background: #FFFFFF;
   box-shadow: 15px 16px 0px rgba(116, 153, 138, 0.4);
   border-radius: 19px;
   padding: 25px 35px;
+  overflow-x: auto;
 
-  .Tabs {
+  .box {
+    min-width: 600px;
+    width: 100%;
+
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    .pledgeValueBox {
-      >div {
-        font-size: 16px;
-      }
-    }
-
-    >div {
-      font-family: 'PingFang SC';
-      font-style: normal;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 22px;
-      color: rgba(0, 0, 0, 0.8);
-    }
-
-  }
-
-  .itemBox {
-    font-family: 'PingFang SC';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 22px;
-
-    color: #FFFFFF;
-
-    >div {
-      font-family: 'PingFang SC';
-      font-style: normal;
-      font-weight: 700;
-      font-size: 16px;
-      line-height: 22px;
-      color: rgba(0, 0, 0, 0.8);
-      padding: 10px 0px;
-    }
-
-    .ableGetReward {
+    .Tabs {
       display: flex;
-      align-items: center;
-      font-family: 'PingFang SC';
-      font-style: normal;
-      font-weight: 400;
-      font-size: 16px;
-      color: rgba(0, 0, 0, 0.8);
 
-      span {
+      .pledgeValueBox {
+        >div {
+          font-size: 16px;
+        }
+      }
+
+      >div {
         font-family: 'PingFang SC';
         font-style: normal;
         font-weight: 400;
         font-size: 16px;
-
-        color: rgba(20, 253, 135, 1);
+        line-height: 22px;
+        color: rgba(0, 0, 0, 0.8);
       }
 
-      .getBtn {
-        width: 76px;
-        height: 36px;
-        background: url(../../image/btnBg.png) no-repeat center / 100% 100%;
-        border-radius: 6px;
+    }
+
+    .itemBox {
+      font-family: 'PingFang SC';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 22px;
+
+      color: #FFFFFF;
+
+      >div {
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 22px;
+        color: rgba(0, 0, 0, 0.8);
+        padding: 10px 0px;
+      }
+
+      .ableGetReward {
+        display: flex;
+        align-items: center;
         font-family: 'PingFang SC';
         font-style: normal;
         font-weight: 400;
-        font-size: 14px;
-        /* identical to box height */
-        color: #FFFFFF;
-        margin-left: 20px;
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.8);
+
+        span {
+          font-family: 'PingFang SC';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 16px;
+
+          color: rgba(20, 253, 135, 1);
+        }
+
+        .getBtn {
+          width: 76px;
+          height: 36px;
+          background: url(../../image/btnBg.png) no-repeat center / 100% 100%;
+          border-radius: 6px;
+          font-family: 'PingFang SC';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          /* identical to box height */
+          color: #FFFFFF;
+          margin-left: 20px;
+        }
       }
     }
   }
 
-  // @media (max-width:1024px) {
-  //   margin-top: 0px;
-  // }
+  @media (max-width:1024px) {
+    padding: 20px;
+  }
 }
 
 
@@ -157,9 +186,7 @@
     font-size: 28px !important;
   }
 
-  #Pledge .PledgeTabs {
-    margin-top: 0px;
-  }
+
 
   .CardList {
     grid-template-columns: repeat(auto-fill, 173px);

@@ -38,18 +38,18 @@ function CardComSuccess(props: PropsType) {
         footer={null}
       >
         <img src={closeIcon} className="closeIcon" alt="" onClick={() => props.close()} />
-        <div className='title'>恭喜！</div>
+        <div className='title'>{t("Congratulations")}！</div>
         <div className="BigBox">
           <div className="content">
             <div className="items titleItems">
-              <div className="item">日期</div>
-              <div className="item">精灵1类型</div>
-              <div className="item">价值(BNB)</div>
-              <div className="item">精灵2类型</div>
-              <div className="item">价值(BNB)</div>
-              <div className="item">合成</div>
-              <div className="item">价值(BNB)</div>
-              <div className="item">土地赠送</div>
+              <div className="item">{t("Time")}</div>
+              <div className="item">{t("Card")}1{t("Type")}</div>
+              <div className="item">{t("Value")}(BNB)</div>
+              <div className="item">{t("Card")}2{t("Type")}</div>
+              <div className="item">{t("Value")}(BNB)</div>
+              <div className="item">{t("Evolve")}</div>
+              <div className="item">{t("Value")}(BNB)</div>
+              <div className="item">{t("land gift")}</div>
             </div>
             <div className="Box">
               {recordList.length > 0 ? recordList.map((item: any, index: any) => <div key={index} className="items contentItems">

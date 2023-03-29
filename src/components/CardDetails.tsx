@@ -72,7 +72,7 @@ function CardDetails(props: any) {
             showLoding(false)
           })
         } else {
-          addMessage("不能质押")
+          addMessage(t("cannot pledge"))
         }
       })
 
@@ -153,11 +153,11 @@ function CardDetails(props: any) {
             </div>
             <div className="p2">
               <div className='kpdetails'>{t('CardType')}:{t(nftType[props.CardInfo.cardType])}</div>
-              <div className='kpdetails'>價值：{props.CardInfo.currentInitValue} BNB</div>
+              <div className='kpdetails'>{t('Value')}：{props.CardInfo.currentInitValue} BNB</div>
             </div>
-            <div className='kpdetails'>累计产出: {props.CardInfo.releaseNum} MBAS</div>
+            <div className='kpdetails'>{t("Cumulative output")}: {props.CardInfo.releaseNum} MBAS</div>
 
-            <div className='kpdetails'>{t('Introduction Card')}:{i18n.language === 'zh' ? props.CardInfo.zhIntroduce : props.CardInfo.introduce}</div>
+            <div className='kpdetails introduction'>{t('Introduction Card')}:{i18n.language === 'zh' ? props.CardInfo.zhIntroduce : props.CardInfo.introduce}</div>
 
             {
               props.type === "NFT" && <div className='butm'>
@@ -184,7 +184,7 @@ function CardDetails(props: any) {
             {
               props.type === "CreateOrder" && <div className='butm'>
                 {
-                  isApproved ? <button className='hc' onClick={createOrder}>{t('Verify')}</button> : <button className='hc' onClick={() => createOrderApproval()}>{t('Approve')}</button>
+                  isApproved ? <button className='hc' onClick={createOrder}>{t('Confirm')}</button> : <button className='hc' onClick={() => createOrderApproval()}>{t('Approve')}</button>
                 }
               </div>
             }

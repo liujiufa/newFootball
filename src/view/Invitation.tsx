@@ -184,20 +184,20 @@ export default function Invitation() {
         showLoding(true)
         Contracts.example.getInviteReward(web3React.account as string, res.data)
           .then((res: any) => {
-              addMessage(t('Receive success'))
-              timeoutRef.current = window.setTimeout(() => {
-                getRefereeUserAccount().then((res) => {
-                  console.log(res.data, '邀请奖励');
-                  setRewardData(res.data);
-                });
-              }, 5000);
-            }, (err: any) => {
-              if (err.code === 4001) {
-                userCancelDrawAward({ type, id }).then((res) => {
-                  addMessage(t('Cancellation received successfully'))
-                });
-              }
+            addMessage(t('Receive success'))
+            timeoutRef.current = window.setTimeout(() => {
+              getRefereeUserAccount().then((res) => {
+                console.log(res.data, '邀请奖励');
+                setRewardData(res.data);
+              });
+            }, 5000);
+          }, (err: any) => {
+            if (err.code === 4001) {
+              userCancelDrawAward({ type, id }).then((res) => {
+                addMessage(t('Cancellation received successfully'))
+              });
             }
+          }
           ).finally(() => {
             showLoding(false)
           });
@@ -233,7 +233,7 @@ export default function Invitation() {
 
         <div className="itemBox">
           <div className="itemTitle">{t("Send your invite link")}</div>
-          <div className="itemTip">複製併使用此鏈接，邀請您的朋友加入Meta Base ，一起探索無限精彩的元宇宙世界。建立自己的Meta Base 家族！</div>
+          <div className="itemTip">{t("Copy and use this link, invite your friends to join Meta Base, and explore the infinitely wonderful Metaverse world together. Build your own Meta Base family!")}</div>
           <div className="addressBox">
             <div className="referee" >{t("Invite link")}</div>
             <div className="addressValue">

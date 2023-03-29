@@ -10,6 +10,19 @@
     text-align: center;
 }
 
+.SwapDes {
+    max-width: 1200px;
+    margin: 30px auto;
+    border-radius: 19px;
+    text-align: left;
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
 .screen {
     display: flex;
     margin-top: 30px;
@@ -72,7 +85,10 @@
         justify-content: space-between;
 
         .DropDownGroup {
-            margin-top: 12px;
+            .dropDown {
+                margin-top: 12px;
+
+            }
         }
     }
 }

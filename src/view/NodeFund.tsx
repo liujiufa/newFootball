@@ -4,7 +4,7 @@ import {
   getCardUserMaxLevelInfo,
   drawNodeFund,
   userCancelDrawAward,
-  nodeFund
+  nodeFund, nodeBonus
 } from "../API";
 import { useSelector } from "react-redux";
 import { Modal } from "antd";
@@ -13,7 +13,7 @@ import { stateType } from "../store/reducer";
 import { useWeb3React } from "@web3-react/core";
 import { addMessage, AddrHandle, NumSplic, showLoding } from "../utils/tool";
 import { Contracts } from "../web3";
-import GlodJdSy from '../components/GlodJdSy'
+import GlodJdSyFund from '../components/GlodJdSyFund'
 import BigNumber from "big.js";
 import GainRecording from "../components/GainRecording";
 import InviteList from "../components/InviteList";
@@ -81,8 +81,7 @@ export default function Invitation() {
   let [rewardData, setRewardData] = useState<rewardDataType | null>(null);
   let [nodeData, setNodeData] = useState<any>(null);
   let [nodeAwardData, setNodeAwardData] = useState<any>(null);
-  /* 用户最高等级 */
-  let [MaxLevel, setMaxLevel] = useState(0);
+  let [NodeBonus, setNodeBonus] = useState<any>(null);
   const web3React = useWeb3React();
   const timeoutRef = useRef(0);
   //   console.log(TabIndex, "TabIndex");
@@ -96,6 +95,10 @@ export default function Invitation() {
       nodeFund().then((res: any) => {
         console.log(res.data, '奖励');
         setNodeAwardData(res.data);
+      });
+      nodeBonus().then((res: any) => {
+        console.log(res.data, '奖励1');
+        setNodeBonus(res.data);
       });
     }
   }, [state.token]);
@@ -140,9 +143,9 @@ export default function Invitation() {
   }
   const NodeState = () => {
     if (nodeData?.nodeOrLand && nodeData?.is_activation && nodeData?.yesterdayRanking > 0) {
-      return <span>是</span>
+      return <span>{t("Yes")}</span>
     } else {
-      return <span>否</span>
+      return <span>{t("No")}</span>
     }
   }
 
@@ -166,11 +169,11 @@ export default function Invitation() {
         </div>
 
         <div className="itemBox">
-          <div className="yestoday">昨日节点收益：<span> {nodeAwardData?.yesterDayAmount ?? 0} MBAS</span><img className={ShowShare ? 'spanRotate' : 'spanReset'} onClick={() => { setShowShare(!ShowShare) }} src={dropDownIcon} alt="" />
+          <div className="yestoday" onClick={() => { setShowShare(!ShowShare) }}>{t("Yesterday's node reward")}：<span> {NumSplic(NodeBonus?.yestdayAmount, 4) ?? 0} MBAS</span><img className={ShowShare ? 'spanRotate' : 'spanReset'} src={dropDownIcon} alt="" />
             {
               ShowShare && <div className="content">
-                <div className="item">昨日达标节点：150</div>
-                <div className="item">昨日分红总额：123.1234 MBAS</div>
+                <div className="item">{t("Yesterday's valid node")}：{NodeBonus?.nodeNum ?? 0}</div>
+                <div className="item">{t("Yesterday's dividends")}：{NodeBonus?.bonusAmount ?? 0} MBAS</div>
               </div>
             }
           </div>
@@ -210,7 +213,7 @@ export default function Invitation() {
         </div>
       </Modal>
       {/* 收益记录 */}
-      <GlodJdSy isShow={showProfit} id={6} close={() => { setShowProfit(false) }}></GlodJdSy>
+      <GlodJdSyFund isShow={showProfit} id={6} close={() => { setShowProfit(false) }}></GlodJdSyFund>
 
     </div >
   );

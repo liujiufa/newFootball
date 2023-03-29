@@ -56,7 +56,7 @@ function MarketDealing(props: MarketDealingPropsType) {
         <p className='title'>{t('Confirm purchase')}</p>
         <p className='zifujg'>{t('needPayBuy', { price: props.buyInfo.price, coinName: props.buyInfo.coinName })}</p>
         {/* <span>{t('Click anywhere to close')}</span> */}
-        {<button className='btm' onClick={buyFun}>{t('Verify')}</button>}
+        {<button className='btm' onClick={buyFun}>{t('Confirm')}</button>}
       </Modal></>
   )
 }

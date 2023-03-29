@@ -35,7 +35,7 @@ function PutParticulars(props: any) {
         </div>
         <div className="p2">
           <div className='kpdetails'>{t('CardType')}:{t(nftType[props.OrderInfo.cardType])}</div>
-          <div className='kpdetails'>價值：{props.OrderInfo.currentInitValue} BNB</div>
+          <div className='kpdetails'>{t('Value')}：{props.OrderInfo.currentInitValue} BNB</div>
         </div>
         <div className='kpdetails'>{t('Introduction Card')}:{i18n.language === 'zh' ? props.OrderInfo.zhIntroduce : props.OrderInfo.introduce}</div>
       </Modal>

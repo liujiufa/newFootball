@@ -41,16 +41,16 @@ function PutParticulars(props: PropsType) {
           <Image src={props.OrderInfo.image}></Image>
         </div>
         <div className="p1">
-          <div className='kpdetails'>{t("Land quality")}: {landLevel[props.OrderInfo.cardLevel]}</div>
+          <div className='kpdetails'>{t("Land quality")}: {t(landLevel[props.OrderInfo.cardLevel])}</div>
           <div className='kpdetails'>ID：{props.OrderInfo.cardNo}</div>
         </div>
         <div className="p2">
           <div className='kpdetails'>{t("Land title")}：{LevelObj[props.userLevel]}</div>
-          <div className='kpdetails'>土地等级：{starLevel[props.OrderInfo.cardLevel]}</div>
+          <div className='kpdetails'>{t("Level")}：{starLevel[props.OrderInfo.cardLevel]}</div>
         </div>
 
         <div className='kpdetails'>{t("Activation requirement")}：{cardObj[props.OrderInfo.cardLevel][1]}</div>
-        <div className='kpdetails'>土地介绍：{cardObj[props.OrderInfo.cardLevel][2]}</div>
+        <div className='kpdetails'>{t("land introduction")}：{cardObj[props.OrderInfo.cardLevel][2]}</div>
       </Modal>
     </>
   )

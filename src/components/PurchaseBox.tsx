@@ -25,7 +25,7 @@ function PurchaseBox(props: PurchasePropsType) {
         <div className="Handle">
           <div className="Button">
             <div className="Open flex" onClick={() => props.close()}>
-              {t("Verify")}
+              {t("Confirm")}
             </div>
           </div>
         </div>

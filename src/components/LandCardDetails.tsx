@@ -84,10 +84,10 @@ function LandCardDetails(props: any) {
           </div>
 
           <div className='kpdetails'>{t("Activation requirement")}：{cardObj[props.CardInfo.cardLevel][1]}</div>
-          <div className='kpdetails'>土地介绍：{i18next.language === "zh" ? props.CardInfo.zhIntroduce : props.CardInfo.introduce}</div>
+          <div className='kpdetails'>{t("land introduction")}{i18next.language === "zh" ? props.CardInfo.zhIntroduce : props.CardInfo.introduce}</div>
           <div className='butm'>
             {isApproved ? <button className='hc' onClick={() => { props.showCreateOrder && props.showCreateOrder(props.CardInfo.cardLevel) }}>{t("Sale")}</button> : <button className='gm' onClick={() => { createOrderApproval() }}> <div>{t("Sale")}</div></button>}
-            {<button className='hc' onClick={() => { activeFun() }}>激活</button>}
+            {<button className='hc' onClick={() => { activeFun() }}>{t("Active")}</button>}
           </div>
         </div>
       </Modal>

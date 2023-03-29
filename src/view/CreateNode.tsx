@@ -77,7 +77,7 @@ export default function Invitation() {
           Contracts.example.claimExtraMBAS(res.data, web3React.account as string, CreateNodeData?.giveValue).then((res: any) => {
             console.log(res, '领取成功');
             showLoding(false)
-            addMessage("领取成功")
+            addMessage(t("Receive success"))
             setConfimBuy(false)
             setHashValue(res.transactionHash)
             Contracts.example.nodeReward(web3React.account as string).then((res: any) => {
@@ -114,21 +114,21 @@ export default function Invitation() {
 
   const GetBtnFun = () => {
     if (CreateNodeData?.status === 1) {
-      return <div className="getBtned flexCenter" onClick={() => { setShowGuideed(true) }}>已领取</div>
+      return <div className="getBtned flexCenter" onClick={() => { setShowGuideed(true) }}>{t("Claimed")}</div>
     } else {
-      return <div className="getBtn flexCenter" onClick={() => { drawLandFun() }}>领取</div>
+      return <div className="getBtn flexCenter" onClick={() => { drawLandFun() }}>{t("Claim")}</div>
     }
   }
 
   const BuyBtnFun = () => {
     if (CreateNodeData?.nodeLevel >= 1 && CreateNodeData?.nodeLevel <= 150) {
       if (!isBuy) {
-        return <div className="getBtn flexCenter" onClick={() => { setConfimBuy(true) }}>认购</div>
+        return <div className="getBtn flexCenter" onClick={() => { setConfimBuy(true) }}>{t("Buy")}</div>
       } else {
-        return <div className="getBtned flexCenter" onClick={() => { setShowBuySuccess(true) }}>已认购</div>
+        return <div className="getBtned flexCenter" onClick={() => { setShowBuySuccess(true) }}>{t("Bought")}</div>
       }
     } else {
-      return <div className="getBtnEnd flexCenter">认购</div>
+      return <div className="getBtnEnd flexCenter">{t("Buy")}</div>
     }
   }
 
@@ -138,8 +138,9 @@ export default function Invitation() {
 
   return (
     <div className="Edition-Center" id="CreateNode">
-      <div className="SwapTitle">创世节点</div>
-      <div className="subTitle">恭喜您成为创世节点!您的排名是{CreateNodeData?.nodeLevel}</div>
+      <div className="SwapTitle">{t("Genesis Node")}</div>
+      <div className="subTitle">{t("Congratulations on becoming a genesis node! Your rank is")}{CreateNodeData?.nodeLevel}</div>
+      {/* <div className="subTitle">恭喜您成为创世节点!您的排名是{CreateNodeData?.nodeLevel}</div> */}
       <div className="Invitation">
         <div className="itemBox">
           <div className="item">
@@ -149,19 +150,17 @@ export default function Invitation() {
             </div>
           </div>
           <div className="item">
-            <div className="des">排名1-50名创世节点，额外获得1BNB的MBAS认购额度，并获赠5星土地；
-              排名51-100名创世节点，额外获得0.6BNB的MBAS认购额度，并获赠4星土地；
-              排名101-150名创世节点，额外获得0.3BNB的MBAS认购额度，并获赠3星土地。
+            <div className="des">{t("The genesis nodes ranked")}
             </div>
             <div className="list">
-              <div className="title">认购额度:</div>
+              <div className="title">{t("Subscription quota")}:</div>
               <div className="value">{NumSplic(CreateNodeData?.giveValue, 1)}BNB</div>
             </div>
             <div className="list">
-              <div className="title">认购价格:</div>
+              <div className="title">{t("Subscription Price")}:</div>
               <div className="value">{NumSplic(CreateNodeData?.initPrice, 1)}USDT/MBAS</div>
             </div>
-            {CreateNodeData ? <BuyBtnFun></BuyBtnFun> : <div className="getBtnEnd flexCenter">认购</div>}
+            {CreateNodeData ? <BuyBtnFun></BuyBtnFun> : <div className="getBtnEnd flexCenter">{t("Buy")}</div>}
           </div>
         </div>
       </div>
@@ -176,7 +175,7 @@ export default function Invitation() {
         onCancel={() => { setShowGuide(false) }}>
         <div className="box">
           <div className="tip">
-            领取成功!在MBAS中添加LP激活土地，<span onClick={() => { activeFun() }}>去添加</span>
+            {t("Claimed successfully! Add LP activation land in MBAS")}，<span onClick={() => { activeFun() }}>{t("Go to add")}</span>
           </div>
         </div>
       </Modal>
@@ -191,7 +190,7 @@ export default function Invitation() {
         onCancel={() => { setShowGuideed(false) }}>
         <div className="box">
           <div className="tip">
-            已成功认领取{landLevel[CreateNodeData?.level]}星土地 <span onClick={() => { navigate('/Land') }}>查看</span>
+            {t("Successfully claimed 5-star land View", { value: landLevel[CreateNodeData?.level] })} <span onClick={() => { navigate('/Land') }}>{t("View")}</span>
           </div>
         </div>
       </Modal>
@@ -205,11 +204,11 @@ export default function Invitation() {
         footer={null}
         onCancel={() => { setConfimBuy(false) }}>
         <div className="box">
-          <div className="title">认购</div>
+          <div className="title">{t("Buy")}</div>
           <div className="tip">
-            本次认购需支付{NumSplic(CreateNodeData?.giveValue, 4)}BNB,将获得{NumSplic(isBuyValue[1], 4)}MBAS
+            {t("This subscription needs to pay 1BNB and will get 111MBAS", { value1: NumSplic(CreateNodeData?.giveValue, 4), value2: NumSplic(isBuyValue[1], 4) })}
           </div>
-          {!isBuy ? <div className="confirm flexCenter" onClick={() => { drawAwardFun() }}>確認</div> : <div className="confirmed flexCenter">確認</div>}
+          {!isBuy ? <div className="confirm flexCenter" onClick={() => { drawAwardFun() }}>{t("Confirm")}</div> : <div className="confirmed flexCenter">{t("Confirm")}</div>}
         </div>
       </Modal>
       {/* 成功认购 */}
@@ -223,7 +222,8 @@ export default function Invitation() {
         onCancel={() => { setShowBuySuccess(false) }}>
         <div className="box">
           <div className="tip">
-            已成功认购{parseInt(isBuyValue[1])}MBAS（认购价值～{NumSplic(CreateNodeData?.giveValue, 1)}BNB）<span onClick={() => { window.open(BlockUrl + hashValue) }}>查看</span>
+            {t("Successfully purchased 100MBAS ( value ~ 1BNB)", { value1: parseInt(isBuyValue[1]), value2: NumSplic(CreateNodeData?.giveValue, 1) })}<span onClick={() => { window.open(BlockUrl + hashValue) }}>{t("View")}</span>
+            {/* 已成功认购{parseInt(isBuyValue[1])}MBAS（认购价值～{NumSplic(CreateNodeData?.giveValue, 1)}BNB）<span onClick={() => { window.open(BlockUrl + hashValue) }}>查看</span> */}
           </div>
         </div>
       </Modal>

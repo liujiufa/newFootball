@@ -19,15 +19,15 @@ function DestructDesRule(props: any) {
       >
         <img src={closeIcon} className="closeIcon" alt="" onClick={() => props.close()} />
 
-        <p className='title'>昨日分红详情</p>
+        <p className='title'>{t("DesTitle")}</p>
         <div className='box'>
-          <p className='zifujg'>一星土地激活数量：5 ，分红额度：200.1234MBAS
+          <p className='zifujg'>{t("DesItem1")}
           </p>
-          <p className='zifujg'>二星土地激活数量：5 ，分红额度：200.1234MBAS</p>
-          <p className='zifujg'>三星土地激活数量：5 ，分红额度：200.1234MBAS</p>
-          <p className='zifujg'>四星土地激活数量：5 ，分红额度：200.1234MBAS
+          <p className='zifujg'>{t("DesItem2")}</p>
+          <p className='zifujg'>{t("DesItem3")}</p>
+          <p className='zifujg'>{t("DesItem4")}
           </p>
-          <p className='zifujg'>五星土地激活数量：5 ，分红额度：200.1234MBAS</p>
+          <p className='zifujg'>{t("DesItem5")}</p>
 
         </div>
 

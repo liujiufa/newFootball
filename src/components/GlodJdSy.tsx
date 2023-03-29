@@ -66,7 +66,7 @@ function GlodJdSy(props: propsType) {
             title={t('Type')}
             render={(item) => (
               <>
-                <div>{rewardNodeType[item.type]}</div>
+                <div>{t(rewardNodeType[item.type])}</div>
               </>
             )}
           />

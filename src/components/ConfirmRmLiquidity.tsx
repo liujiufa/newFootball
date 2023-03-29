@@ -40,7 +40,7 @@ function ConfirmRmLiquidity(props: any) {
                     <div className="itemTitle">MBAS</div>
                     <div className="value"><img src={SBLIcon} alt="" />{props.data.tokenAmount}</div>
                 </div>
-                <div className="subtip">移除LP可能会导致土地失效，影响您的权益收益</div>
+                <div className="subtip">{t("Removal of LP may cause the land to become invalid and affect your equity income")}</div>
 
                 <div className="toRemoveBtn flex" onClick={() => { props.rmFun() }}>{t("Confirm removal")}</div>
 

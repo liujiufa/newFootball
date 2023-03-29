@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { addMessage, showLoding } from '../utils/tool'
 import { Modal, Image } from 'antd';
 import { contractAddress } from '../config'
+import i18next from 'i18next';
 import BigNumber from 'big.js'
 import '../assets/style/componentsStyle/carddetails.scss'
 
@@ -37,11 +38,11 @@ function CardDetails(props: any) {
   const LevelObj = { 0: t('Not active'), 1: t('Lord'), 2: t('Castellan'), 3: t('Mayor'), 4: t('Governor'), 5: t('Speaker') }
   const cardObj = {
     0: '',
-    1: [t('Excellent'), t('add LP with value of 0.4 BNB'), t('LandServiceIncome1'), t('LandDividend')],
-    2: [t('Rare'), t('add LP with value of 1 BNB'), t('LandServiceIncome2'), t('LandDividend')],
-    3: [t('Good'), t('add LP with value of 2 BNB'), t('LandServiceIncome3'), t('LandDividend')],
-    4: [t('Epic'), t('add LP with value of 5 BNB'), t('LandServiceIncome4'), t('LandDividend')],
-    5: [t('Legend'), t('add LP with value of 16 BNB'), t('LandServiceIncome5'), t('LandDividend')]
+    1: [t('Supernova'), t('add LP with value of 0.4 BNB'),],
+    2: [t('Outpost'), t('add LP with value of 1 BNB'),],
+    3: [t('Galactic Hub'), t('add LP with value of 2 BNB'),],
+    4: [t('Star Empire'), t('add LP with value of 5 BNB'),],
+    5: [t('Cosmic Nexus'), t('add LP with value of 16 BNB'),]
   }
   const web3React = useWeb3React()
   let [putPrice, setPutPrice] = useState('')
@@ -113,16 +114,14 @@ function CardDetails(props: any) {
             </div>
 
             <p className='kpdetails'>{t("Activation requirement")}：{cardObj[props.CardInfo.cardLevel][1]}</p>
-            <p className='kpdetails'>{t("Land service income")}：{cardObj[props.CardInfo.cardLevel][2]}</p>
-            <p className='kpdetails'>{t("Land dividend")}：{cardObj[props.CardInfo.cardLevel][3]}</p>
-
+            <div className='kpdetails'>{t("land introduction")}{i18next.language === "zh" ? props.CardInfo.zhIntroduce : props.CardInfo.introduce}</div>
             {/* 挂卖 */}
             {
-              props.type === "CreateOrder" && <p className='kpdetails'>{t('Please enter price')}:<input type='text' value={putPrice} onChange={putNum} />SBL</p>
+              props.type === "CreateOrder" && <p className='kpdetails'>{t('Please enter price')}:<input type='text' value={putPrice} onChange={putNum} />MBAS</p>
             }
             {
               props.type === "CreateOrder" && <div className='butm'>
-                <button className='hc' onClick={createOrder}>{t('Verify')}</button>
+                <button className='hc' onClick={createOrder}>{t('Confirm')}</button>
               </div>
             }
           </div>

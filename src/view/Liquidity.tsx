@@ -183,6 +183,7 @@ export default function Liquidity() {
         <>
             <div className="LiquidityBox">
                 <div className='title'>{t('Liquidity')}</div>
+                <div className="Desc">{t('LiquidityDesc')}</div>
                 {
                     userLpList.length > 0 ?
                         <div className="myLiquidityContent">

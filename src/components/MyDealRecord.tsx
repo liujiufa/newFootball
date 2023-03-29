@@ -68,7 +68,7 @@ function MyDealRecord(props: propsType) {
             title={t('Grade')}
             render={(item) => (
               <>
-                <div>{item.cardType === 0 ? landLevel[item.cardLevel] : starLevel[item.cardLevel]}</div>
+                <div>{item.cardType === 0 ? t(landLevel[item.cardLevel]) : starLevel[item.cardLevel]}</div>
               </>
             )}
           />
@@ -76,7 +76,7 @@ function MyDealRecord(props: propsType) {
             title={t('Type')}
             render={(item) => (
               <>
-                <div>{item.cardType === 0 ? "土地NFT" : "精灵NFT"}</div>
+                <div>{item.cardType === 0 ? t("Land NFT") : t("Badge NFT")}</div>
               </>
             )}
           />

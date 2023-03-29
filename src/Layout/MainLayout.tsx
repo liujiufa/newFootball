@@ -73,21 +73,21 @@ const MainLayout: React.FC = () => {
       }
     },
     {
-      name: "遊戲競技",
+      name: t("Game Competition"),
       path: "/Games",
       Fun: () => {
         navigateFun("/nodata")
       }
     },
     {
-      name: "競猜娛樂",
+      name: t("Quiz entertainment"),
       path: "/Guess",
       Fun: () => {
         navigateFun("/nodata")
       }
     },
     {
-      name: "公告",
+      name: t("Announcement"),
       path: "/Notice",
       Fun: () => {
         navigateFun("/Notice");
@@ -121,7 +121,7 @@ const MainLayout: React.FC = () => {
   // 底部NFT菜单
   const NFTSubMenuList = [
     {
-      name: t("stock2"),
+      name: t("Card"),
       path: "/NFT",
       Fun: () => {
         navigateFun("/NFT");
@@ -142,14 +142,14 @@ const MainLayout: React.FC = () => {
       }
     },
     {
-      name: "交易中心",
+      name: t("Swap"),
       path: "/Swap",
       Fun: () => {
         navigateFun("/Swap");
       }
     },
     {
-      name: "合成",
+      name: t("Evolve"),
       path: '/Synthesis',
       Fun: () => {
         navigateFun("/Synthesis");
@@ -256,11 +256,11 @@ const MainLayout: React.FC = () => {
   // 下拉菜单
   const dropMenuList = {
     "/MBASGovernance": [
-      { icon: MBASGovernanceIcon0, title: "流動性", subtitle: '添加流动性激活土地', path: '/Liquidity' },
-      { icon: MBASGovernanceIcon1, title: "鑄幣節點", subtitle: '根据MBAS销毁量获生态铸币权', path: '/Node' },
-      { icon: MBASGovernanceIcon2, title: "捐贈銷毀", subtitle: '销毁MBAS获得两倍BNB奖励', path: "/DestructFund" },
-      { icon: MBASGovernanceIcon3, title: "农场", subtitle: '质押LP获得生态激励', path: "/farms" },
-      { icon: MBASGovernanceIcon4, title: "Swap", subtitle: '通过Pancake买卖MBAS', path: '/outLink' },
+      { icon: MBASGovernanceIcon0, title: t("Liquidity"), subtitle: t('Add liquidity to activate land'), path: '/Liquidity' },
+      { icon: MBASGovernanceIcon1, title: t("Coinage"), subtitle: t('Obtain ecological minting rights based on the amount of MBAS burned'), path: '/Node' },
+      { icon: MBASGovernanceIcon2, title: t("Donate to destroy"), subtitle: t('Destory MBAS to get double BNB rewards'), path: "/DestructFund" },
+      { icon: MBASGovernanceIcon3, title: t("Farms"), subtitle: t('Pledge LP to get ecological incentives'), path: "/farms" },
+      { icon: MBASGovernanceIcon4, title: "Swap", subtitle: t('Buy and Sell MBAS with Pancake'), path: '/outLink' },
     ],
     "/MBAS": [
       { icon: MBASIcon0, title: t("Application"), subtitle: t('Apply To Participate In Node Election'), path: '/NodeApply' },
@@ -268,19 +268,19 @@ const MainLayout: React.FC = () => {
       { icon: MBASIcon2, title: t("Node Fund"), subtitle: t('Claiming Node Fund Earnings'), path: '/NodeFund' },
     ],
     "/NFT": [
-      { icon: NFTIcon0, title: "精灵", subtitle: '精灵查看個人精靈精灵', path: '/NFT' },
-      { icon: NFTIcon1, title: "土地", subtitle: '獲取土地分紅和服務獎', path: '/Land' },
-      { icon: NFTIcon2, title: "交易中心", subtitle: '自由買賣精灵土地', path: '/Swap' },
-      { icon: NFTIcon3, title: "質押", subtitle: '精灵質押獲得MBAS獎勵', path: '/Pledge' },
-      { icon: NFTIcon4, title: "合成", subtitle: '精灵合成解鎖更高權益', path: '/Synthesis' },
+      { icon: NFTIcon0, title: t("Card"), subtitle: t('View individual Cards'), path: '/NFT' },
+      { icon: NFTIcon1, title: t("Land"), subtitle: t('Get land bonuses and service awards'), path: '/Land' },
+      { icon: NFTIcon2, title: t("Trading Center"), subtitle: t('Buy and sell elf land freely'), path: '/Swap' },
+      { icon: NFTIcon3, title: t("Stake"), subtitle: t('Genie staking to get MBAS rewards'), path: '/Pledge' },
+      { icon: NFTIcon4, title: t("Evolve"), subtitle: t('Genie synthesis unlocks higher rights'), path: '/Synthesis' },
     ],
     "/Ecology": [
-      { icon: EcologyIcon0, title: "遊戲競技", subtitle: '基於MetaBase公鏈協議的區塊鏈遊戲', path: '/nodata' },
-      { icon: EcologyIcon1, title: "競猜娛樂", subtitle: '通過使用MBAS和NFT參與競猜', path: '/nodata' },
+      { icon: EcologyIcon0, title: t("Game Competition"), subtitle: t('Blockchain games based on the MetaBase public chain protocol'), path: '/nodata' },
+      { icon: EcologyIcon1, title: t("Quiz entertainment"), subtitle: t('Participate in the guessing game by using MBAS and NFT'), path: '/nodata' },
     ],
     "/...": [
-      { icon: MBASIcon0, title: "邀請", subtitle: '-', path: '/Invitation' },
-      { icon: MBASIcon1, title: "公告", subtitle: '-', path: '/Notice' },
+      { icon: MBASIcon0, title: t("Invitation"), subtitle: '-', path: '/Invitation' },
+      { icon: MBASIcon1, title: t("Announcement"), subtitle: '-', path: '/Notice' },
     ]
   }
   // 导航
@@ -289,7 +289,7 @@ const MainLayout: React.FC = () => {
       return window.open("https://pancakeswap.finance/swap?outputCurrency=0xA013e36C78BA39Ff6bE4781f0f2FBF935f6BA05A")
     }
     if (path === "/nodata") {
-      return addMessage("即将开放")
+      return addMessage(t("Open soon"))
     }
 
     if (path === "/CreateNode") {
@@ -297,7 +297,7 @@ const MainLayout: React.FC = () => {
         navigate(path)
         setShowDropMenu(null)
       } else {
-        addMessage("您没有权限！")
+        addMessage(t("You do not have permission"))
       }
     } else {
       navigate(path)
@@ -332,7 +332,7 @@ const MainLayout: React.FC = () => {
         "userPower": 0
       }).then((res: any) => {
         if (res.code === 200) {
-          addMessage("绑定成功!")
+          addMessage(t("Bind successfully"))
           showLoding(false)
           setShowRefereeAddress(false)
         } else if (res.code === 500) {
@@ -342,7 +342,7 @@ const MainLayout: React.FC = () => {
       })
     }).catch((res: any) => {
       if (res.code === 4001) {
-        addMessage("绑定失败!")
+        addMessage(t("Binding failed!"))
         showLoding(false)
 
       }
@@ -675,7 +675,6 @@ const MainLayout: React.FC = () => {
         </div>
       }
 
-
       {/* <div className="FootMenu">
         <div className={SmallActive === 1 ? "MenuItem flexCenter activeMenuItem" : "MenuItem flexCenter"} onClick={() => {
           showNode(); setSmallActive(1)
@@ -748,11 +747,11 @@ const MainLayout: React.FC = () => {
           onCancel={() => { setShowRefereeAddress(false) }}>
           <img src={closeIcon} className="closeIcon" alt="" onClick={() => setShowRefereeAddress(false)} />
           <div className="refereeAddress">
-            <div className="title">您的推荐地址</div>
+            <div className="title">{t("Your referral address")}</div>
             <div className="tip">{refereeUserAddress}</div>
             <div className="btnBox">
-              <div className="confirmBtn flexCenter" onClick={() => { BindFun() }}>确认绑定</div>
-              <div className="cancelBtn flexCenter" onClick={() => setShowRefereeAddress(false)}>取消</div>
+              <div className="confirmBtn flexCenter" onClick={() => { BindFun() }}>{t("Confirm binding")}</div>
+              <div className="cancelBtn flexCenter" onClick={() => setShowRefereeAddress(false)}>{t("Cancel")}</div>
             </div>
           </div>
         </Modal>

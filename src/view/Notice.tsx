@@ -35,9 +35,9 @@ export default function Invitation() {
 
   return (
     <div className="Edition-Center" id="Notice">
-      <div className="SwapTitle">公告中心</div>
+      <div className="SwapTitle">{t("Announcement Center")}</div>
       <div className="smallTitle">
-        最新公告
+        {t("Latest Announcement")}
       </div>
       <div className="content">
         {noticeList.length > 0 ? <>

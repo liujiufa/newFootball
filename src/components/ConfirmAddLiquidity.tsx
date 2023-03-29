@@ -51,15 +51,15 @@ function ConfirmAddLiquidity(props: any) {
                 <p className='title'>{t("Add liquidity")}</p>
 
                 <div className="box">
-                    <div className="subTitle">{t("Deposit BNB")}</div>
+                    <div className="">{t("Deposit BNB")}</div>
                     <div className="value"><img src={BNBIcon} alt="" />{props.data}</div>
                 </div>
                 <div className="box">
-                    <div className="subTitle">入金 MBAS</div>
+                    <div className="">{t("Deposit MBAS")}</div>
                     <div className="value"><img src={SBLIcon} alt="" />{NumSplic(toSBL, 4)}</div>
                 </div>
                 <div className="box">
-                    <div className="subTitle">{t("Exchange rate")}</div>
+                    <div className="">{t("Exchange rate")}</div>
                     <div className="radioValue">
                         <div className="radio">1 MBAS = {NumSplic(oneToBNB, 10)} BNB </div>
                         <div className="radio">1 BNB = {NumSplic(oneToSBL, 10)} MBAS</div>

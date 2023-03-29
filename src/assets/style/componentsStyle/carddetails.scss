@@ -60,7 +60,10 @@
         .kpdetails {
           margin: 0;
         }
+
       }
+
+
 
       .kpdetails {
         min-height: 15px;
@@ -92,6 +95,11 @@
         input::-webkit-inner-spin-button {
           -webkit-appearance: none;
         }
+      }
+
+      .introduction {
+        overflow-y: auto;
+        max-height: 150px;
       }
 
       .butm {

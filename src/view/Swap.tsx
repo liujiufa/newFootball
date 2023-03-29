@@ -29,27 +29,27 @@ const LevelMap = [
     value: 0
   },
   {
-    key: '精灵仙子',
+    key: 'Fairy',
     value: 1
   },
   {
-    key: '木精灵',
+    key: 'Aqua Genie',
     value: 2
   },
   {
-    key: '水精灵',
+    key: 'Forest Genie',
     value: 3
   },
   {
-    key: '火精灵',
+    key: 'Flame Genie',
     value: 4
   },
   {
-    key: '土精灵',
+    key: 'Terra Genie',
     value: 5
   },
   {
-    key: '金精灵',
+    key: 'Gold Genie',
     value: 6
   }
 ]
@@ -60,23 +60,23 @@ const LandLevelMap = [
     value: 0
   },
   {
-    key: '地球领土',
+    key: 'Supernova',
     value: 1
   },
   {
-    key: '行星领土',
+    key: 'Outpost',
     value: 2
   },
   {
-    key: '银河领土',
+    key: 'Galactic Hub',
     value: 3
   },
   {
-    key: '星际领土',
+    key: 'Star Empire',
     value: 4
   },
   {
-    key: '宇宙领土',
+    key: 'Cosmic Nexus',
     value: 5
   },
 

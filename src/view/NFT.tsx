@@ -40,27 +40,27 @@ const LevelMap = [
     value: 0
   },
   {
-    key: '精灵仙子',
+    key: 'Fairy',
     value: 1
   },
   {
-    key: '木精灵',
+    key: 'Forest Genie',
     value: 2
   },
   {
-    key: '水精灵',
+    key: 'Aqua Genie',
     value: 3
   },
   {
-    key: '火精灵',
+    key: 'Flame Genie',
     value: 4
   },
   {
-    key: '土精灵',
+    key: 'Terra Genie',
     value: 5
   },
   {
-    key: '金精灵',
+    key: 'Gold Genie',
     value: 6
   }
 ]
@@ -241,7 +241,6 @@ function NFT() {
         try {
           stompClient.disconnect()
         } catch {
-
         }
         clearInterval(sendTimer)
       }
@@ -267,10 +266,12 @@ function NFT() {
         <div className="SwapTitle">
           {t('stock')}
         </div>
+        <div className="SwapDes">
+          {t('stockDesc1')}<br />
+          {t('stockDesc2')}<br />
+          {t('stockDesc3')}<br />
+        </div>
         {/* 合成成功 */}
-        {
-          MergeRes && <ComSucceed isShow={showMergeSuccess} CardInfo={MergeRes as OpenResType} close={() => { setShowMergeSuccess(false) }}></ComSucceed>
-        }
         <div className="screen">
           <div className="DropDownGroup">
             <DropDown Map={LevelMap} change={(num: number) => { SetLevel(num) }} staetIndex={level}>
@@ -297,10 +298,6 @@ function NFT() {
       </div>
       {/*质押成功 */}
       <PledgeSuccess showModal={showPledge} close={() => { setShowPledge(false) }}></PledgeSuccess>
-      {/* 盲盒开启成功 */}
-      {
-        openRes && <OpenRes isShow={showOpenCard} OpenRes={openRes} close={() => setShowOpenCard(false)} ></OpenRes>
-      }
       {/* 精灵详情 */}
       {
         userCard.length > 0 && <CardDetails pledgeSuccessModal={() => { setShowPledge(true) }} isShow={showCardDetail} showMerge={showMergeFun} showCreateOrder={createOrderFun} CardInfo={userCard[cardDetialIndex]} close={() => setShowCardDetail(false)} type="NFT"></CardDetails>

@@ -30,7 +30,7 @@ function GetRecord(props: any) {
           scroll={{ y: 260 }}
         >
           <Column
-            title="邀請链接"
+            title={t("Invitation link")}
             width={140}
             render={(item) => (
               <>
@@ -39,20 +39,20 @@ function GetRecord(props: any) {
             )}
           />
           <Column
-            title="土地领主"
+            title={t("My title")}
             width={140}
             render={(item) => (
               <>
-                <div>土地领主</div>
+                <div>{LevelObj[item.userLevel]}</div>
               </>
             )}
           />
           <Column
-            title="土地下精灵"
+            title={t("Elf(Land's)")}
             width={140}
             render={(item) => (
               <>
-                <div>10</div>
+                <div>{item.cardSize}</div>
               </>
             )}
           />

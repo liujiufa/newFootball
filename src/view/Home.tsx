@@ -120,12 +120,12 @@ const LAND_NFT = [
   { img: Land5 },
 ]
 const FAIRY_NFT = [
-  { img: Fairy1 },
   { img: Fairy2 },
+  { img: Fairy6 },
   { img: Fairy3 },
   { img: Fairy4 },
   { img: Fairy5 },
-  { img: Fairy6 }
+  { img: Fairy1 },
 ]
 
 let GLOBAL_IS_NFT_ENter = false
@@ -308,10 +308,10 @@ function Home() {
         // console.log(res);
         setTotalSupply(new BigNumber(res).div(10 ** 18).toString())
       })
-      // Contracts.example.balanceOf(contractAddress.DestructBalance).then((res: any) => {
-      //   // console.log(res);
-      //   setAllBalance(new BigNumber(res).div(10 ** 18).toString())
-      // })
+      Contracts.example.balanceOf(contractAddress.DestructBalance).then((res: any) => {
+        // console.log(res);
+        setAllBalance(new BigNumber(res).div(10 ** 18).toString())
+      })
     }
   }, [state.token, web3React.account])
 
@@ -746,14 +746,22 @@ function Home() {
           <div className="feans-content">
             {t("MBAS is the native governance token of MetaBase")}
           </div>
-          <div className="feans-content-next feans-content">
+          {i18n.language === "zh" ? <div className="feans-content-next feans-content">
             {t("Through")}
             <div className="feans-content-next-link feans-content-next-link-first  animate__animated animate__heartBeat" onClick={() => { navigate("/DestructFund") }}>{t("MBAS burning")}</div>
             {t("users can")}
             <div className="feans-content-next-link feans-content-next-link-last  animate__animated animate__heartBeat" onClick={() => { navigate("/Node") }}>
-              {t("Coinage node")}
+              {t("Coinage nodezh")}
             </div>{t("you can also")}
-          </div>
+          </div> :
+            <div className="feans-content-next feans-content">
+              {t("ThroughEN")}
+              <div className="feans-content-next-link feans-content-next-link-first  animate__animated animate__heartBeat" onClick={() => { navigate("/DestructFund") }}>{t("MBAS burningEN")}</div>
+              {t("users canEN")}
+              <div className="feans-content-next-link feans-content-next-link-last  animate__animated animate__heartBeat" onClick={() => { navigate("/Node") }}>
+                {t("Coinage nodeEN")}
+              </div>{t("you can alsoEN")}
+            </div>}
           <div className="feans-asstes-chart-group">
 
             <div className="feans-asstes-group-chart1"></div>
@@ -813,7 +821,7 @@ function Home() {
             </div>
             <div className="feans-asstes-amount-group-base feans-asstes-amount-group-right">
               <div className="feans-asstes-amount-label">{t("MBAS Total supply")}</div>
-              200000000
+              {Number(totalSupply).toLocaleString()}
             </div>
           </div>
 

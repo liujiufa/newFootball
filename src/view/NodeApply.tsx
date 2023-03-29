@@ -118,7 +118,6 @@ export default function Invitation() {
     let refereeUserAddress = GetQueryString("address") || '0x0000000000000000000000000000000000000000'
     if (web3React.account) {
       Contracts.example.getBalance(web3React.account).then((res: any) => {
-        console.log(new BigNumber(res).div(10 ** 18).toString(), 'BNB余额');
         if (new BigNumber(BNBValue).lte(new BigNumber(res).div(10 ** 18).toString())) {
           showLoding(true)
           Contracts.example.buyJoinNode(web3React.account as string, refereeUserAddress, BNBValue).then((res: any) => {
@@ -172,9 +171,9 @@ export default function Invitation() {
       }
     } else {
       if (!BtnState) {
-        return <div className="btn flexCenter" onClick={() => { buyNode() }}>参与</div>
+        return <div className="btn flexCenter" onClick={() => { buyNode() }}>{t("Join")}</div>
       } else {
-        return <div className="btned flexCenter">已参与</div>
+        return <div className="btned flexCenter">{t("Joined")}</div>
       }
     }
   }
@@ -269,7 +268,7 @@ export default function Invitation() {
         <img src={closeIcon} className="closeIcon" alt="" onClick={() => setShowJoinSuccess(false)} />
         <div className="box">
           <div className="tip">
-            已成功参与节点，等待活动结束领取代币
+            {t("JoinedTip")}
           </div>
         </div>
       </Modal>
@@ -284,11 +283,11 @@ export default function Invitation() {
         onCancel={() => { setConfirmBuy(false) }}>
         <img src={closeIcon} className="closeIcon" alt="" onClick={() => setConfirmBuy(false)} />
         <div className="box">
-          <div className="title">领取</div>
+          <div className="title">{t("Claim")}</div>
           <div className="tip">
-            当前节点申请已结束，恭喜您成功认购{NumSplic(isGetValue[0], 4)}MBAS,回退{NumSplic(isGetValue[1], 4)}BNB
+            {t("The current node application has ended", { value1: NumSplic(isGetValue[0], 4), value2: NumSplic(isGetValue[1], 4) })}
           </div>
-          <div className="confirm flexCenter" onClick={() => { getNode() }}>確認</div>
+          <div className="confirm flexCenter" onClick={() => { getNode() }}>{t("Confirm")}</div>
         </div>
       </Modal>}
       {/* 已领取 */}
@@ -303,7 +302,8 @@ export default function Invitation() {
         <img src={closeIcon} className="closeIcon" alt="" onClick={() => setShowGetSuccess(false)} />
         <div className="box">
           <div className="tip">
-            当前节点申请已结束，您已成功领取{NumSplic(NodeAplyGetValue?.earnNum || isGetValue[0], 4)}MBAS,回退{NumSplic(NodeAplyGetValue?.needPayNum || isGetValue[1], 4)}BNB，<span onClick={() => { window.open(BlockUrl + (NodeAplyGetValue?.txId || hashValue)) }}> 查看</span>
+            {t("The current node application has ended, you have successful purchase  100MBAS, return 0.151234BNB", { value1: NumSplic(NodeAplyGetValue?.earnNum || isGetValue[0], 4), value2: NumSplic(NodeAplyGetValue?.needPayNum || isGetValue[1], 4) })}
+            ，<span onClick={() => { window.open(BlockUrl + (NodeAplyGetValue?.txId || hashValue)) }}> {t("View")}</span>
           </div>
         </div>
       </Modal>}

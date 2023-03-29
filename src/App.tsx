@@ -16,13 +16,14 @@ import ViewportProvider from './components/viewportContext'
 // import Home from './view/Home';
 import prohibit from './assets/image/prohibit.png'
 import cloneIcon from './assets/image/cloneIcon.png'
-import valueIcon1 from './assets/image/valueIcon1.svg'
-import valueIcon2 from './assets/image/valueIcon2.svg'
-import valueIcon3 from './assets/image/valueIcon3.svg'
-import valueIcon4 from './assets/image/valueIcon4.svg'
-import valueIcon5 from './assets/image/valueIcon5.svg'
+import valueIcon1 from './assets/image/valueIcon1.png'
+import valueIcon2 from './assets/image/valueIcon2.png'
+import valueIcon3 from './assets/image/valueIcon3.png'
+import valueIcon4 from './assets/image/valueIcon4.png'
+import valueIcon5 from './assets/image/valueIcon5.png'
 import { t } from 'i18next';
 import useConnectWallet from './hooks/useConnectWallet';
+import { useTranslation } from 'react-i18next';
 
 declare let window: any;
 const Message = styled.span`
@@ -50,6 +51,7 @@ const MessageBox = styled.div`
 //   if(r!=null){ return  unescape(r[2]); }else{ return null; }
 // }
 export const ValueBox = (value: number) => {
+  const { t } = useTranslation()
   const IconBox = () => {
     if (0 <= value && value <= 1.25) {
       return <div className='iconBox'>
@@ -81,7 +83,7 @@ export const ValueBox = (value: number) => {
     }
   }
   return <div className="valueBox">
-    <div className="title">價值
+    <div className="title">{t("Value")}
       <IconBox></IconBox>
     </div>
     <div className="valuePrice">{value} BNB</div>

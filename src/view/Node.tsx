@@ -156,8 +156,12 @@ function SBL() {
           {t('Node Coinage')}
         </div>
         <div className="NodeDesc">
-          {t('NodeDesc')}
-        </div>
+          {t('NodeDesc')}<br />
+          {t('NodeDesc1')}<br />
+          {t('NodeDesc2')}<br />
+          {t('NodeDesc3')}<br />
+          {t('NodeDesc4')}<br />
+        </div >
         <div className="Content">
           {/* 節點申請 */}
           <Node getFun={() => { getFun() }}></Node>
@@ -216,9 +220,10 @@ function SBL() {
             </div>
           </div>}
         </div>
-      </div>
+      </div >
       {/* 节点收益记录 */}
-      <GlodJdSy isShow={showProfit} id={ProfitId} close={() => { setShowProfit(false) }}></GlodJdSy>
+      <GlodJdSy isShow={showProfit} id={ProfitId} close={() => { setShowProfit(false) }
+      }></GlodJdSy >
     </div >
   )
 }

@@ -23,24 +23,24 @@ function CardComSuccess(props: any) {
         closable={false}
         footer={null}
       >
-        <p className='title'>恭喜！</p>
+        <p className='title'>{t("Congratulations")}！</p>
         <div className='box'>
           <div className="ImgBox">
             <div className="leftBox">
-              <div className="subTitle">精灵</div>
+              <div className="subTitle1">{t("Card")}</div>
               <img src={props.data.imageUrl} alt="" />
               <div className="valueBox">
                 {nftLevel[props.data.cardLevel]}-{nftType[props.data.cardType]}！
                 <div className="value">
-                  价值：{props.data.currentInitValue} BNB
+                  {t("Value")}：{props.data.currentInitValue} BNB
                 </div>
               </div>
             </div>
             <div className="rightBox">
-              <div className="subTitle">土地</div>
+              <div className="subTitle1">{t("Land")}</div>
               <img src={props.data.landImgUrl} alt="" />
               <div className="valueBox">
-                {landLevel[props.data.landLevel]}
+                {t(landLevel[props.data.landLevel])}
               </div>
             </div>
           </div>

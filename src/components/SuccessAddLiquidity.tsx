@@ -20,9 +20,9 @@ function SuccessAddLiquidity(props: any) {
             >
                 <p className='title'>{t("Successfully added liquidity")}</p>
 
-                <div className="subTitle">{t("You have obtained")}</div>
+                <div className="subTitle1">{t("You have obtained")}</div>
                 <div className="coinValueBox">{getBit(props.data, 4)} <div className='coinsBox'><img className='img1' src={SBLIcon} alt="" /><img className='img2' src={BNBIcon} alt="" /></div></div>
-                <div className="subTokens">SBL/BNB Pool Tokens</div>
+                <div className="subTokens">SBL/BNB</div>
 
                 {/* <div className="toSupplyBtn flex" onClick={() => { props.close() }}>{t("Confirm supply")}</div> */}
 

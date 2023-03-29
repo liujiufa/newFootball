@@ -12,8 +12,8 @@ interface contractType {
     [propName: string]: Contract;
 }
 export const ChainId = {
-    // BSC: "0x61",
-    BSC: 56,
+    BSC: "0x61",
+    // BSC: 56,
 }
 //切换链
 const SCAN_ADDRESS = {
@@ -22,8 +22,8 @@ const SCAN_ADDRESS = {
 //配置连接链的信息
 export const networkConf = {
     [ChainId.BSC]: {
-        // chainId: '0x61',
-        chainId: '0x38',
+        chainId: '0x61',
+        // chainId: '0x38',
         chainName: 'BSC',
         nativeCurrency: {
             name: 'BNB',
