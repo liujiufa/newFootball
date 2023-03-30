@@ -8,6 +8,7 @@ import { dateFormat } from "../utils/tool";
 import "../assets/style/componentsStyle/DonationRecord.scss";
 import { useTranslation } from "react-i18next";
 import { Content } from "antd/lib/layout/layout";
+import { rewardType } from '../config'
 const { Column } = Table;
 const typeObj = { '3': '收益领取' }
 function GetRecord(props: any) {
@@ -40,7 +41,7 @@ function GetRecord(props: any) {
           dataSource={drawBurnRecord}
           pagination={false}
           rowKey="id"
-          scroll={{  y: 260 }}
+          scroll={{ y: 260 }}
         >
           <Column
             title={t("Time")}
@@ -64,7 +65,7 @@ function GetRecord(props: any) {
             // width={140}
             render={(item) => (
               <>
-                <div>{typeObj[item.type]}</div>
+                <div>{t(rewardType[item.type])}</div>
               </>
             )}
           />

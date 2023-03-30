@@ -172,13 +172,13 @@ export default function Invitation() {
           <div className="yestoday" onClick={() => { setShowShare(!ShowShare) }}>{t("Yesterday's node reward")}：<span> {NumSplic(NodeBonus?.yestdayAmount, 4) ?? 0} MBAS</span><img className={ShowShare ? 'spanRotate' : 'spanReset'} src={dropDownIcon} alt="" />
             {
               ShowShare && <div className="content">
-                <div className="item">{t("Yesterday's valid node")}：{NodeBonus?.nodeNum ?? 0}</div>
-                <div className="item">{t("Yesterday's dividends")}：{NodeBonus?.bonusAmount ?? 0} MBAS</div>
+                <div className="item">{t("Yesterday's valid node")}：{NumSplic(NodeBonus?.nodeNum, 4) ?? 0}</div>
+                <div className="item">{t("Yesterday's dividends")}：{NumSplic(NodeBonus?.bonusAmount, 4) ?? 0} MBAS</div>
               </div>
             }
           </div>
 
-          <div className="reward">{t("Total reward amount")}：<span> {nodeAwardData?.totalAmount} MBAS</span></div>
+          <div className="reward">{t("Total reward amount")}：<span> {NumSplic(nodeAwardData?.totalAmount, 4)} MBAS</span></div>
           <div className="inputBox">
             <div className="inputValue">
               <span className="inputValueStyle">{NumSplic(`${nodeAwardData?.amount}`, 4) || "0"}</span>

@@ -5,7 +5,7 @@ import { useWeb3React } from '@web3-react/core'
 import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
 import { getUserAccountDetail } from '../API/index'
-import { dateFormat } from '../utils/tool'
+import { dateFormat, NumSplic } from '../utils/tool'
 import "../assets/style/componentsStyle/DonationRecord.scss";
 import { useTranslation } from "react-i18next";
 const { Column } = Table;
@@ -56,7 +56,7 @@ function GetRecord(props: any) {
             title={t("Amount")}
             render={(item) => (
               <>
-                <div>{item.amount} {item.coinName}</div>
+                <div>{NumSplic(item.amount, 4)} {item.coinName}</div>
               </>
             )}
           />

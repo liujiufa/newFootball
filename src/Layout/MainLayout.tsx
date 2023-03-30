@@ -180,15 +180,15 @@ const MainLayout: React.FC = () => {
       }
     },
     {
-      name: "SWAP",
+      name: t("SWAPqw"),
       Fun: () => {
         navigateFun("/outLink");
       }
     },
     // {
-    //   name: t('MBA Convert'),
+    //   name: t("Farms"),
     //   Fun: () => {
-    //     navigate("/MBASwap");
+    //     navigateFun("/nodata");
     //   }
     // },
   ]
@@ -259,8 +259,8 @@ const MainLayout: React.FC = () => {
       { icon: MBASGovernanceIcon0, title: t("Liquidity"), subtitle: t('Add liquidity to activate land'), path: '/Liquidity' },
       { icon: MBASGovernanceIcon1, title: t("Coinage"), subtitle: t('Obtain ecological minting rights based on the amount of MBAS burned'), path: '/Node' },
       { icon: MBASGovernanceIcon2, title: t("Donate to destroy"), subtitle: t('Destory MBAS to get double BNB rewards'), path: "/DestructFund" },
-      { icon: MBASGovernanceIcon3, title: t("Farms"), subtitle: t('Pledge LP to get ecological incentives'), path: "/farms" },
-      { icon: MBASGovernanceIcon4, title: "Swap", subtitle: t('Buy and Sell MBAS with Pancake'), path: '/outLink' },
+      // { icon: MBASGovernanceIcon3, title: t("Farms"), subtitle: t('Pledge LP to get ecological incentives'), path: "/nodata" },
+      { icon: MBASGovernanceIcon4, title: t("SWAPqw"), subtitle: t('Buy and Sell MBAS with Pancake'), path: '/outLink' },
     ],
     "/MBAS": [
       { icon: MBASIcon0, title: t("Application"), subtitle: t('Apply To Participate In Node Election'), path: '/NodeApply' },
@@ -395,7 +395,7 @@ const MainLayout: React.FC = () => {
                 setShowDropMenu("/MBASGovernance");
               }}
             >
-              MBAS Governance
+              {t("MBAS Governance")}
             </div>
 
             <div
@@ -406,7 +406,14 @@ const MainLayout: React.FC = () => {
             >
               NFT
             </div>
-
+            <div
+              className={menuActive("/Ecology")}
+              onClick={() => {
+                setShowDropMenu("/Ecology");
+              }}
+            >
+              {t('Ecology')}
+            </div>
             <div
               className={menuActive("/NFT")}
               onClick={() => {
@@ -453,7 +460,7 @@ const MainLayout: React.FC = () => {
                 setShowDropMenu("/MBASGovernance");
               }}
             >
-              MBAS Governance
+              {t("MBAS Governance")}
             </div>
             <div
               className={menuActive("/NFT")}
@@ -502,7 +509,7 @@ const MainLayout: React.FC = () => {
                 navigateFun("/Notice");
               }}
             >
-              {t("Notice")}
+              {t("Announcement")}
             </div>
             <Dropdown
               overlay={menu}
@@ -620,11 +627,11 @@ const MainLayout: React.FC = () => {
               </div>
               <div className="SOCIALItem">
                 <a
-                  // href={
-                  //   i18n.language === "zh"
-                  //     ? "http://spaceballgames.com/File/SpaceBallZh.pdf"
-                  //     : "http://spaceballgames.com/File/SpaceBallEn.pdf"
-                  // }
+                  href={
+                    i18n.language === "zh"
+                      ? "http://www.mbasdao.com/whitePaper/cn_white_paper.pdf"
+                      : "http://www.mbasdao.com/whitePaper/en_white_paper.pdf"
+                  }
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -720,6 +727,7 @@ const MainLayout: React.FC = () => {
           NFT
 
         </div>
+
         <div className={SmallActive === 4 ? "MenuItem activeMenuItem" : "MenuItem"} onClick={() => {
           showSBLOther(); setSmallActive(4)
         }}>
@@ -750,7 +758,7 @@ const MainLayout: React.FC = () => {
             <div className="title">{t("Your referral address")}</div>
             <div className="tip">{refereeUserAddress}</div>
             <div className="btnBox">
-              <div className="confirmBtn flexCenter" onClick={() => { BindFun() }}>{t("Confirm binding")}</div>
+              <div className="confirmBtn flexCenter" onClick={() => { BindFun() }}>{t("Confirm")}</div>
               <div className="cancelBtn flexCenter" onClick={() => setShowRefereeAddress(false)}>{t("Cancel")}</div>
             </div>
           </div>

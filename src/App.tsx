@@ -141,11 +141,11 @@ function App() {
     })
   }
 
-  window?.ethereum.on('accountsChanged', (accounts: string[]) => {
+  window?.ethereum?.on('accountsChanged', (accounts: string[]) => {
     // 账号改了，刷新网页
     window.location.reload()
   })
-  window?.ethereum.on('networkChanged', (accounts: string[]) => {
+  window?.ethereum?.on('networkChanged', (accounts: string[]) => {
     // 改了，刷新网页
     window.location.reload()
   })

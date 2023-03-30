@@ -49,6 +49,7 @@ function SBL() {
   let state = useSelector<stateType, stateType>(state => state);
   let { t } = useTranslation()
   let [showProfit, setShowProfit] = useState(false)
+  let [moreWord, setMoreWord] = useState(false)
   let [NodeBase, setNodeBase] = useState<NodeInfoType | null>(null)
   let [NodeRecord, setNodeRecord] = useState<NodeRecordType[]>([])
   /* 铸币节点奖励记录id */
@@ -156,11 +157,14 @@ function SBL() {
           {t('Node Coinage')}
         </div>
         <div className="NodeDesc">
-          {t('NodeDesc')}<br />
-          {t('NodeDesc1')}<br />
-          {t('NodeDesc2')}<br />
-          {t('NodeDesc3')}<br />
-          {t('NodeDesc4')}<br />
+          {t('NodeDesc0')}{!moreWord && <span className="" onClick={() => setMoreWord(true)}>{t("load more")}</span>}
+          {moreWord && <>
+            {t('NodeDesc0.5')}<br />
+            {t('NodeDesc1')}<br />
+            {t('NodeDesc2')}<br></br>
+            {t('NodeDesc3')}<br></br>
+            {t('NodeDesc4')}<span className="" onClick={() => setMoreWord(false)}>{t("Put away")}</span><br></br>
+          </>}
         </div >
         <div className="Content">
           {/* 節點申請 */}

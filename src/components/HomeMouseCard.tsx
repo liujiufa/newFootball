@@ -113,8 +113,6 @@ export default function HomeMouseCard({
                     }
                 </Card>
             </Content>
-
-
         </Container>
     )
 }

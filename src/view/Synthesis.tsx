@@ -387,8 +387,6 @@ export default function Synthesis() {
         <div id='Synthesis'>
             <div className='Title'>{t('Evolve')}</div>
             <div className='SynthesisDes'>
-                {t('SynthesisDes1')}<br></br>
-                {t('SynthesisDes2')}<br></br>
             </div>
             <Content></Content>
             <CardComRule isShow={showMergeRule} close={() => setShowMergeRule(false)}></CardComRule>

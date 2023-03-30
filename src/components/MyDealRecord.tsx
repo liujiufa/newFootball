@@ -68,7 +68,7 @@ function MyDealRecord(props: propsType) {
             title={t('Grade')}
             render={(item) => (
               <>
-                <div>{item.cardType === 0 ? t(landLevel[item.cardLevel]) : starLevel[item.cardLevel]}</div>
+                <div>{item.cardType === 0 ? t(landLevel[item.cardLevel]) : t(starLevel[item.cardLevel])}</div>
               </>
             )}
           />

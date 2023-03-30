@@ -28,6 +28,15 @@
         font-size: 18px;
         line-height: 25px;
         color: rgba(0, 0, 0, 0.8);
+
+        span {
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 25px;
+            color: #14fd87;
+        }
     }
 
     .content {
@@ -231,5 +240,9 @@
                 padding: 8px 12px;
             }
         }
+    }
+
+    .LiquidityBox .Desc {
+        margin: 20px auto;
     }
 }

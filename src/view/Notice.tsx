@@ -12,6 +12,7 @@ import "../assets/style/componentsStyle/Reward.scss";
 import NoData from "../components/NoData";
 import { useViewport } from "../components/viewportContext";
 import closeIcon from '../assets/image/closeIcon.png'
+import i18n from "../lang/i18n";
 
 export default function Invitation() {
   let location = useLocation();
@@ -42,7 +43,7 @@ export default function Invitation() {
       <div className="content">
         {noticeList.length > 0 ? <>
           <div className="items">
-            {noticeList.map((item: any, index: any) => <div key={index} className="item" onClick={() => { setShowMoreDetail(item) }}> <div className="title">{item.title} </div><div className="time"> {dateFormat('YYYY-mm-dd', new Date(item.createTime))}</div></div>)}
+            {noticeList.map((item: any, index: any) => <div key={index} className="item" onClick={() => { setShowMoreDetail(item) }}> <div className="title">{(i18n.language === "zh" ? item?.title : item?.enTitle)} </div><div className="time"> {dateFormat('YYYY-mm-dd', new Date(item.createTime))}</div></div>)}
           </div>
           {/* <div className="items">
             {noticeList.map((item: any, index: any) => <div key={index} className={index % 2 === 0 ? "itemDisplay" : "item"} onClick={() => { setShowMoreDetail(item) }}> {item.title} <span> {dateFormat('YYYY-mm-dd', new Date(item.createTime))}</span></div>)
@@ -61,9 +62,12 @@ export default function Invitation() {
         onCancel={() => { setShowMoreDetail(null) }}>
         <img src={closeIcon} className="closeIcon" alt="" onClick={() => setShowMoreDetail(null)} />
         <div className="box">
-          <div className="title">{ShowMoreDetail?.title}</div>
+          <div className="title">
+            {(i18n.language === "zh" ? ShowMoreDetail?.title : ShowMoreDetail?.enTitle)}
+          </div>
           <div className="time">{dateFormat('YYYY-mm-dd', new Date(ShowMoreDetail?.createTime))}</div>
-          <div className="tip" dangerouslySetInnerHTML={{ __html: ShowMoreDetail?.content }}>
+          <div className="tip " dangerouslySetInnerHTML={{ __html: (i18n.language === "zh" ? ShowMoreDetail?.content : ShowMoreDetail?.enContent) }}>
+
           </div>
         </div>
       </Modal>

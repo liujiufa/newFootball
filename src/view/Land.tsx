@@ -345,7 +345,7 @@ function Land() {
                   <div className="allReward " id="itemReward">
                     <div className=' allRewardBox' id='allRewardBox'>
                       <div className="allRewardTitle">{t("Yesterday's network dividends")}：</div>
-                      <div className="allRewardValue">{shareFun()} MBAS<img onClick={() => { setShareModal(true) }} src={shareIcon} alt="" /> </div>
+                      <div className="allRewardValue">{NumSplic(shareFun(), 4)} MBAS<img onClick={() => { setShareModal(true) }} src={shareIcon} alt="" /> </div>
                     </div>
                     <div className="btnBox"><div></div></div>
                   </div>

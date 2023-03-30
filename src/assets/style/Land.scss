@@ -285,6 +285,15 @@
                             .allRewardTitle {
                                 color: rgba(0, 200, 99, 0.7);
                             }
+
+                            .allRewardValue {
+                                display: flex;
+                                align-items: center;
+
+                                img {
+                                    margin-left: 10px;
+                                }
+                            }
                         }
                     }
 

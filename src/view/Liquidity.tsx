@@ -53,6 +53,7 @@ export default function Liquidity() {
     const [successRmLiquidity, setSuccessRmLiquidity] = useState(false)
     // 移除弹窗
     const [rmLiquidity, setRmLiquidity] = useState(false)
+    const [moreWord, setMoreWord] = useState(false)
     // 添加值
     const [addLiquidityValue, setAddLiquidityValue] = useState(0)
     // 币对值
@@ -88,9 +89,9 @@ export default function Liquidity() {
     // 添加流动性
     const addLiquidityFun = (type: number) => {
         console.log(balance, toSBL, balance1, type);
-        // if (addLiquidityValue > parseFloat(balance) || parseFloat(toSBL) > parseFloat(balance1)) {
-        //     return addMessage('余额不足')
-        // }
+        if (addLiquidityValue > parseFloat(balance) || parseFloat(toSBL) > parseFloat(balance1)) {
+            return addMessage('余额不足')
+        }
         if (state.token && web3React.account && addLiquidityValue > 0) {
             showLoding(true)
             Contracts.example.addLiquidity(web3React.account, addLiquidityValue, type).then((res: any) => {
@@ -183,7 +184,13 @@ export default function Liquidity() {
         <>
             <div className="LiquidityBox">
                 <div className='title'>{t('Liquidity')}</div>
-                <div className="Desc">{t('LiquidityDesc')}</div>
+                <div className="Desc">
+                    {t('LiquidityDesc0')}{!moreWord && <span className="" onClick={() => setMoreWord(true)}>{t("load more")}</span>}
+                    {moreWord && <>
+                        {t("LiquidityDesc1")}<span className="" onClick={() => setMoreWord(false)}>{t("Put away")}</span><br></br>
+                    </>}
+                    {/* {t('LiquidityDesc')} */}
+                </div>
                 {
                     userLpList.length > 0 ?
                         <div className="myLiquidityContent">

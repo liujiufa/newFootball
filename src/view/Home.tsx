@@ -205,7 +205,7 @@ function Home() {
   }, [t])
 
 
-  const [HABITS_DATA] = useState([
+  const [HABITS_DATA, setHABITS_DATA] = useState([
     {
       className: "habits-process-first-group",
       title: "MetaBase ",
@@ -261,7 +261,7 @@ function Home() {
     {
       className: "habits-process-last-group",
       title: "Meta Base DeFi",
-      viceTitle: "生态",
+      viceTitle: t("Ecology"),
       content: [
         t("Defi decentralized finance is an important part of Meta ecology"),
         t("Meta Swap")
@@ -271,6 +271,78 @@ function Home() {
 
     }
   ])
+
+  useEffect(() => {
+    setHABITS_DATA([
+      {
+        className: "habits-process-first-group",
+        title: "MetaBase ",
+        viceTitle: t("public chain protocol"),
+        content: [
+          t("DAG framework protocol"),
+          t("GHOST Rules")
+        ],
+        img: HabitsProcessFirst,
+        titleImg: HabitsFirstTitle
+
+      },
+      {
+        className: "habits-process-second-group",
+        title: "Meta BaaS",
+        viceTitle: "",
+        content: [
+          t("Meta BaaS (Blockchain as")
+        ],
+        img: HabitsProcessSecond,
+        titleImg: HabitsSecondTitle
+      },
+      {
+        className: "habits-process-third-group",
+        title: t("Meta Base Metaverse"),
+        viceTitle: "",
+        content: [
+          t("Meta Base Metaverse is a metaverse")
+        ],
+        img: HabitsProcessThird,
+        titleImg: HabitsThirdTitle
+      },
+      {
+        className: "habits-process-fourth-group",
+        title: t("Meta Wallet"),
+        viceTitle: "",
+        content: [
+          t("Meta Wallet is committed to creating")
+        ],
+        img: HabitsProcessFourth,
+        titleImg: HabitsFourthTitle
+      }
+      , {
+        className: "habits-process-fifth-group",
+        title: "Meta",
+        viceTitle: t("Digital Pay"),
+        content: [
+          t("Meta is the only circulation token on the Meta Chain")
+        ],
+        img: HabitsProcessFifth,
+        titleImg: HabitsFifthTitle
+      },
+      {
+        className: "habits-process-last-group",
+        title: "Meta Base DeFi",
+        viceTitle: t("Ecology"),
+        content: [
+          t("Defi decentralized finance is an important part of Meta ecology"),
+          t("Meta Swap")
+        ],
+        img: HabitsProcessLast,
+        titleImg: HabitsLastTitle
+
+      }
+    ])
+  }, [i18n.language])
+
+
+
   useLayoutEffect(() => {
     document.documentElement.style.setProperty('--animate-duration', '2s');
   }, [])
@@ -308,10 +380,7 @@ function Home() {
         // console.log(res);
         setTotalSupply(new BigNumber(res).div(10 ** 18).toString())
       })
-      Contracts.example.balanceOf(contractAddress.DestructBalance).then((res: any) => {
-        // console.log(res);
-        setAllBalance(new BigNumber(res).div(10 ** 18).toString())
-      })
+
     }
   }, [state.token, web3React.account])
 
@@ -560,7 +629,7 @@ function Home() {
         <div className="title">{t("Announcement")}</div>
         <div className={"content"}>
           {shwoBanner?.map((item: any, index: any) => <div className={animate ? 'anim box' : 'box'} key={index}>
-            <div className={index === 1 ? " active subBannerTitle" : "subBannerTitle"}>{item.title}</div>{width > 425 && <div className={index === 1 ? "date active" : "date"}> {dateFormat('YYYY-mm-dd', new Date(item.createTime))} </div >}
+            <div className={index === 1 ? " active subBannerTitle" : "subBannerTitle"}>{(i18n.language === "zh" ? item?.title : item?.enTitle)}</div>{width > 425 && <div className={index === 1 ? "date active" : "date"}> {dateFormat('YYYY-mm-dd', new Date(item.createTime))} </div >}
             {width > 425 ? (index === 1 && <div className="view" onClick={() => { navigate("/Notice") }}>{t("View")}</div>) : <div className="view" onClick={() => { navigate("/Notice") }}>{t("View")}</div>}
           </div>
           )}
@@ -571,10 +640,10 @@ function Home() {
         <div className="tit">
           <div className="title">META BASE</div>
           <div className="xiang">{t("The first Metaverse world created with welfare as the theme")}</div>
-          {/* <a href={i18n.language === "zh" ? "http://spaceballgames.com/File/SpaceBallZh.pdf" : "http://spaceballgames.com/File/SpaceBallEn.pdf"} target="downloadFile">
-          </a> */}
-          <div className="btn"></div>
-          {/* <div className="btn">{t("WHITEPAPER")}</div> */}
+          <a href={i18n.language === "zh" ? "http://www.mbasdao.com/whitePaper/cn_white_paper.pdf" : "http://www.mbasdao.com/whitePaper/en_white_paper.pdf"} target="downloadFile">
+            <div className="btn">{t("WHITEPAPER")}</div>
+          </a>
+          {/* <div className="btn"></div> */}
         </div>
       </div>
 

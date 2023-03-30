@@ -11,10 +11,11 @@ import BigNumber from 'big.js'
 import '../assets/style/componentsStyle/carddetails.scss'
 import closeIcon from '../assets/image/closeIcon.png'
 import { useNavigate } from 'react-router-dom';
+import { useViewport } from './viewportContext';
 /* type:Swap 交易场详情 CreateOrder 挂单详情 NFT 背包精灵详情 */
 function CardDetails(props: any) {
   console.log("CardDetails", props);
-
+  const { width } = useViewport()
   const navigate = useNavigate()
   let { t, i18n } = useTranslation()
   const web3React = useWeb3React()
@@ -157,7 +158,7 @@ function CardDetails(props: any) {
             </div>
             <div className='kpdetails'>{t("Cumulative output")}: {props.CardInfo.releaseNum} MBAS</div>
 
-            <div className='kpdetails introduction'>{t('Introduction Card')}:{i18n.language === 'zh' ? props.CardInfo.zhIntroduce : props.CardInfo.introduce}</div>
+            <div className={props.type === "CreateOrder" ? 'kpdetails introduction CreateOrderIntroduction' : 'kpdetails introduction'}>{t('Introduction Card')}:{i18n.language === 'zh' ? props.CardInfo.zhIntroduce : props.CardInfo.introduce}</div>
 
             {
               props.type === "NFT" && <div className='butm'>
@@ -179,14 +180,18 @@ function CardDetails(props: any) {
 
             {/* 挂卖 */}
             {
-              props.type === "CreateOrder" && <p className='kpdetails'>{t('Please enter price')}:<input type='text' value={putPrice} onChange={putNum} />MBAS</p>
-            }
-            {
-              props.type === "CreateOrder" && <div className='butm'>
+              props.type === "CreateOrder" && (width > 425 ? <>
+                <p className='kpdetails'>{t('Please enter price')}:<input type='text' value={putPrice} onChange={putNum} />MBAS</p>
+                <div className='butm'>
+                  {
+                    isApproved ? <button className='hc' onClick={createOrder}>{t('Confirm')}</button> : <button className='hc' onClick={() => createOrderApproval()}>{t('Approve')}</button>
+                  }
+                </div> </> : <div className='butm saleInput'>
+                <p className='kpdetails'>{t('Please enter price')}:<input type='text' value={putPrice} onChange={putNum} />MBAS</p>
                 {
                   isApproved ? <button className='hc' onClick={createOrder}>{t('Confirm')}</button> : <button className='hc' onClick={() => createOrderApproval()}>{t('Approve')}</button>
                 }
-              </div>
+              </div>)
             }
           </div>
         </Modal>

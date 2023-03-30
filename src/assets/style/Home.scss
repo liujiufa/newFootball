@@ -186,7 +186,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        // background-image: url("../image/home/btn1.png");
+        background-image: url("../image/home/btn1.png");
         background-repeat: no-repeat;
         background-size: 100% 100%;
         font-family: "Impact" !important;
@@ -2191,6 +2191,14 @@
 }
 
 @media (max-width:425px) {
+  #home.bj .feans .feans-asstes-amount-group {
+    display: block;
+    .feans-asstes-amount-group-base{
+      width: 100%;
+      margin-top: 12px;
+    }
+  }
+
   .bj .bannerBox .title {
     font-size: 18px;
   }
@@ -2213,7 +2221,8 @@
       color: #fff;
     }
   }
-  .bj .bannerBox .content .box .view{
+
+  .bj .bannerBox .content .box .view {
     font-size: 14px;
   }
 }

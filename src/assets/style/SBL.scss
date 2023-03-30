@@ -30,10 +30,32 @@
         line-height: 25px;
         color: rgba(0, 0, 0, 0.8);
 
+        span {
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 25px;
+            color: #14fd87;
+        }
+
         @media (max-width:768px) {
             padding: 20px 16px;
         }
     }
+
+    // .NodeDesc {
+    //     display: -webkit-box;
+    //     /*必须结合的属性,将对象作为弹性伸缩盒子模型显示*/
+    //     -webkit-line-clamp: 2;
+    //     /*设置多少行*/
+    //     -webkit-box-orient: vertical;
+    //     /*必须结合的属性,设置或检索伸缩盒对象的子元素的排列方式*/
+    //     overflow: hidden;
+    //     /*文本会被修剪，并且剩余的部分不可见*/
+    //     text-overflow: ellipsis;
+    //     /*显示省略号来代表被修剪的文本*/
+    // }
 
     .Content {
         margin: 70px auto 60px;
@@ -357,7 +379,8 @@
         width: 100px;
         padding: 0px;
     }
-    .Node .Content > div .btnBox{
+
+    .Node .Content>div .btnBox {
         justify-content: space-evenly;
     }
 }

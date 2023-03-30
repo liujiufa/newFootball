@@ -30,7 +30,7 @@ function CardComSuccess(props: any) {
               <div className="subTitle1">{t("Card")}</div>
               <img src={props.data.imageUrl} alt="" />
               <div className="valueBox">
-                {nftLevel[props.data.cardLevel]}-{nftType[props.data.cardType]}！
+                {t(nftLevel[props.data.cardLevel])}-{t(nftType[props.data.cardType])}！
                 <div className="value">
                   {t("Value")}：{props.data.currentInitValue} BNB
                 </div>

@@ -136,10 +136,14 @@ export default function Node(props: any) {
                                         {t('Current node application')}:
                                     </div>
                                     {
-                                        t('PayBNBForSBL', { BNBNum: NodeBase.currentNodeBase.price, SBLNum: NodeBase.currentNodeBase.awardNum })
+                                        t('PayBNBForSBL', { BNBNum: NodeBase.currentNodeBase.price, SBLNum: " ? " })
                                     }
+                                    {/* {
+                                        t('PayBNBForSBL', { BNBNum: NodeBase.currentNodeBase.price, SBLNum: NodeBase.currentNodeBase.awardNum })
+                                    } */}
                                 </div>
-                                <div className={NodeBase.currentNodeBase.isBuy ? "applyBtn flexCenter" : "applyBtn invalid flexCenter"} onClick={buyNode}>{t('Application')}</div>
+                                <div className={NodeBase.currentNodeBase.isBuy ? "applyBtn flexCenter" : "applyBtn invalid flexCenter"}>{t('Application')}</div>
+                                {/* <div className={NodeBase.currentNodeBase.isBuy ? "applyBtn flexCenter" : "applyBtn invalid flexCenter"} onClick={buyNode}>{t('Application')}</div> */}
                                 <span className="record" onClick={() => { setshowApplyRecord(true) }}>{t('Record2')} <img src={record} alt="" /></span>
                             </div>
                         }

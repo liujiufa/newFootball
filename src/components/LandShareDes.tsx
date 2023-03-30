@@ -24,7 +24,7 @@ function DestructDesRule(props: any) {
         <div className='box'>
           {props.data?.map((item: any, index: any) => <p key={index} className='zifujg' >
             {/* {starLevel[item?.level]}土地激活数量：{item?.acount}，分红额度：{item?.amount}MBAS */}
-            {t("One-star land activation quantity: 5, dividend amount: 200.1234MBAS", { value1: starLevel[item?.level], value2: item?.acount, value3: NumSplic(item?.amount, 4) })}
+            {t("One-star land activation quantity: 5, dividend amount: 200.1234MBAS", { value1: t(starLevel[item?.level]), value2: item?.acount, value3: NumSplic(item?.amount, 4) })}
           </p>
           )}
           {/* <p className='zifujg'>二星土地激活数量：5 ，分红额度：200.1234MBAS</p>

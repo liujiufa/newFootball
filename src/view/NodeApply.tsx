@@ -181,7 +181,8 @@ export default function Invitation() {
   return (
     <div className="Edition-Center" id="NodeApply">
       <div className="SwapTitle">{t("Application")}</div>
-      <div className="subTitle">{t("Application Period")}: {dateFormat('YYYY.mm.dd HH:MM', new Date(NodeApplyData?.startTime || 0))}-{dateFormat('YYYY.mm.dd HH:MM', new Date(NodeApplyData?.endTime || 0))}</div>
+      <div className="subTitle">{t("Application Period")}: 2023.04.02-2023.04.15</div>
+      {/* <div className="subTitle">{t("Application Period")}: {dateFormat('YYYY.mm.dd HH:MM', new Date(NodeApplyData?.startTime || 0))}-{dateFormat('YYYY.mm.dd HH:MM', new Date(NodeApplyData?.endTime || 0))}</div> */}
       <div className="Invitation">
         <div className="itemBox">
           <div className="itemTip">
@@ -319,13 +320,15 @@ export default function Invitation() {
         <div className="box">
           <div className="title">{t("Application")}</div>
           <div className="tip">
-            {t("NodeDes1")}<br />
-            {t("NodeDes2")}<br />
-            {t("NodeDes3")}<br />
-            {t("NodeDes4")}<br />
-            {t("NodeDes5")}<br />
-            {t("NodeDes6")}<br />
-            {t("NodeDes7")}<br />
+            <div className="autoBox">
+              {t("NodeDes1")}<br />
+              {t("NodeDes2")}<br />
+              {t("NodeDes3")}<br />
+              {t("NodeDes4")}<br />
+              {t("NodeDes5")}<br />
+              {t("NodeDes6")}<br />
+              {t("NodeDes7")}<br />
+            </div>
           </div>
         </div>
       </Modal>

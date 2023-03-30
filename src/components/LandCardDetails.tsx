@@ -19,11 +19,11 @@ function LandCardDetails(props: any) {
 
   const cardObj = {
     0: '',
-    1: [t('Supernova'), t('add LP with value of 0.4 BNB'),],
-    2: [t('Outpost'), t('add LP with value of 1 BNB'),],
-    3: [t('Galactic Hub'), t('add LP with value of 2 BNB'),],
-    4: [t('Star Empire'), t('add LP with value of 5 BNB'),],
-    5: [t('Cosmic Nexus'), t('add LP with value of 16 BNB'),]
+    1: [t('Supernova'), t('add LP with value of 0.4 BNB'), t('landInduce1')],
+    2: [t('Outpost'), t('add LP with value of 1 BNB'), t('landInduce2')],
+    3: [t('Galactic Hub'), t('add LP with value of 2 BNB'), t('landInduce3')],
+    4: [t('Star Empire'), t('add LP with value of 5 BNB'), t('landInduce4')],
+    5: [t('Cosmic Nexus'), t('add LP with value of 16 BNB'), t('landInduce5')]
   }
   const LevelObj = { 0: t('Not active'), 1: t('Lord'), 2: t('Castellan'), 3: t('Mayor'), 4: t('Governor'), 5: t('Speaker') }
   const web3React = useWeb3React()
@@ -68,8 +68,6 @@ function LandCardDetails(props: any) {
       >
         <div className='title'>{t("Land details")}</div>
         <div className="detailModalBox">
-
-
           <div className='hzimg'>
             {props.CardInfo.isActivation == 1 && <div className="pending">{t("Activated")}</div>}
             <img src={props.CardInfo.imageUrl} alt=""></img>
@@ -84,8 +82,8 @@ function LandCardDetails(props: any) {
           </div>
 
           <div className='kpdetails'>{t("Activation requirement")}：{cardObj[props.CardInfo.cardLevel][1]}</div>
-          <div className='kpdetails'>{t("land introduction")}{i18next.language === "zh" ? props.CardInfo.zhIntroduce : props.CardInfo.introduce}</div>
-          <div className='butm'>
+          <div className='kpdetails des'>{t("land introduction")}：{i18next.language === "zh" ? props.CardInfo.zhIntroduce : props.CardInfo.introduce}</div>
+          <div className='butm autoButm'>
             {isApproved ? <button className='hc' onClick={() => { props.showCreateOrder && props.showCreateOrder(props.CardInfo.cardLevel) }}>{t("Sale")}</button> : <button className='gm' onClick={() => { createOrderApproval() }}> <div>{t("Sale")}</div></button>}
             {<button className='hc' onClick={() => { activeFun() }}>{t("Active")}</button>}
           </div>

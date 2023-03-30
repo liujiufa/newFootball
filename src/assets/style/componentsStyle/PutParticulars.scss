@@ -112,8 +112,18 @@
 }
 
 @media screen and (max-width:425px) {
+  .PutParticulars .ant-modal-body .hzimg {
+    width: 250px;
+    height: 250px;
+  }
+
   .PutParticulars {
     padding: 12px !important;
+  }
+
+  .PutParticulars .ant-modal-body .kpdetails {
+    max-height: 100px;
+    overflow-y: auto;
   }
 }
 

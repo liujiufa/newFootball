@@ -18,11 +18,11 @@ function PutParticulars(props: PropsType) {
   const LevelObj = { 0: t('Not active'), 1: t('Lord'), 2: t('Castellan'), 3: t('Mayor'), 4: t('Governor'), 5: t('Speaker') }
   const cardObj = {
     0: '',
-    1: [t('Excellent'), t('add LP with value of 0.4 BNB'), t('LandServiceIncome1'), t('LandDividend')],
-    2: [t('Rare'), t('add LP with value of 1 BNB'), t('LandServiceIncome2'), t('LandDividend')],
-    3: [t('Good'), t('add LP with value of 2 BNB'), t('LandServiceIncome3'), t('LandDividend')],
-    4: [t('Epic'), t('add LP with value of 5 BNB'), t('LandServiceIncome4'), t('LandDividend')],
-    5: [t('Legend'), t('add LP with value of 16 BNB'), t('LandServiceIncome5'), t('LandDividend')]
+    1: [t('Supernova'), t('add LP with value of 0.4 BNB'), t('landInduce1')],
+    2: [t('Outpost'), t('add LP with value of 1 BNB'), t('landInduce2')],
+    3: [t('Galactic Hub'), t('add LP with value of 2 BNB'), t('landInduce3')],
+    4: [t('Star Empire'), t('add LP with value of 5 BNB'), t('landInduce4')],
+    5: [t('Cosmic Nexus'), t('add LP with value of 16 BNB'), t('landInduce5')]
   }
 
   return (

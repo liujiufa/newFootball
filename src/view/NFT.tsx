@@ -44,11 +44,11 @@ const LevelMap = [
     value: 1
   },
   {
-    key: 'Forest Genie',
+    key: 'Aqua Genie',
     value: 2
   },
   {
-    key: 'Aqua Genie',
+    key: 'Forest Genie',
     value: 3
   },
   {

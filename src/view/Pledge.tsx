@@ -275,12 +275,12 @@ function Pledge() {
           {t("Stake")}
         </div>
         <div className="SwapDes">
-          {t("pledgeDesc1")}<br></br>
-          {t("pledgeDesc2")}{!moreWord && <span className="" onClick={() => setMoreWord(true)}>{t("load more")}</span>}<br></br>
+          {t("pledgeDesc1")}{!moreWord && <span className="" onClick={() => setMoreWord(true)}>{t("load more")}</span>}<br></br>
           {moreWord && <>
+            {t("pledgeDesc2")}<br></br>
             {t("pledgeDesc3")}<br></br>
             {t("pledgeDesc4")}<br></br>
-            {t("pledgeDesc5")}<br></br>
+            {t("pledgeDesc5")}<span className="" onClick={() => setMoreWord(false)}>{t("Put away")}</span><br></br>
           </>}
         </div>
 
@@ -296,14 +296,14 @@ function Pledge() {
               </div>
               <div className="itemBox">
                 <div className="recentlyComputingPower">{t("Total current hashrate")}：{pledgeData?.power}</div>
-                <div className="pledgeAllReward">{t("Total staking rewards")}：{NumSplic(`${pledgeData?.totalAmount}`, 8)} MBAS</div>
-                <div className="ableGetReward">{t("Claimable")}：<span onClick={() => { setRewardRecord(true) }}>{NumSplic(`${pledgeData?.amount}`, 8)} MBAS</span> {pledgeData?.amount ? <div className="getBtn flex" onClick={() => { getBtnFun(pledgeData?.amount) }}>{t("Harvest")}</div> : <div className="getBtn flex" onClick={() => { getBtnFun(0) }}>{t("Harvest")}</div>}</div>
+                <div className="pledgeAllReward">{t("Total staking rewards")}：{NumSplic(`${pledgeData?.totalAmount}`, 4)} MBAS</div>
+                <div className="ableGetReward">{t("Claimable")}：<span onClick={() => { setRewardRecord(true) }}>{NumSplic(`${pledgeData?.amount}`, 4)} MBAS</span> {pledgeData?.amount ? <div className="getBtn flex" onClick={() => { getBtnFun(pledgeData?.amount) }}>{t("Harvest")}</div> : <div className="getBtn flex" onClick={() => { getBtnFun(0) }}>{t("Harvest")}</div>}</div>
               </div>
             </div> : <div className="box">
               <div className="itemBox">
                 <div className="recentlyComputingPower">{t("Total current hashrate")}：{pledgeData?.power}</div>
-                <div className="pledgeAllReward">{t("Total staking rewards")}：{NumSplic(`${pledgeData?.totalAmount}`, 8)} MBAS</div>
-                <div className="ableGetReward">{t("Claimable")}：<span onClick={() => { setRewardRecord(true) }}>{NumSplic(`${pledgeData?.amount}`, 8)} MBAS</span> {pledgeData?.amount ? <div className="getBtn flex" onClick={() => { getBtnFun(pledgeData?.amount) }}>{t("Harvest")}</div> : <div className="getBtn flex" onClick={() => { getBtnFun(0) }}>{t("Harvest")}</div>}</div>
+                <div className="pledgeAllReward">{t("Total staking rewards")}：{NumSplic(`${pledgeData?.totalAmount}`, 4)} MBAS</div>
+                <div className="ableGetReward">{t("Claimable")}：<span onClick={() => { setRewardRecord(true) }}>{NumSplic(`${pledgeData?.amount}`, 4)} MBAS</span> {pledgeData?.amount ? <div className="getBtn flex" onClick={() => { getBtnFun(pledgeData?.amount) }}>{t("Harvest")}</div> : <div className="getBtn flex" onClick={() => { getBtnFun(0) }}>{t("Harvest")}</div>}</div>
               </div>
               <div className="Tabs">
                 <div className="itemBox">

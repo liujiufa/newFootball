@@ -192,7 +192,7 @@ export default function BlindBox() {
     if (item?.type === 2) {
       return t(grade[item?.level])
     } else if (item?.type === 1) {
-      return `${nftLevel[item?.level]}-${nftType[item?.nftType]}`
+      return `${t(nftLevel[item?.level])}-${t(nftType[item?.nftType])}`
     }
   }
 
@@ -465,7 +465,7 @@ export default function BlindBox() {
         <img src={closeIcon} className="closeIcon" alt="" onClick={() => setConfirmBox(false)} />
         <div className="box">
           <div className="Title">{t("Congratulations")}！</div>
-          <div className='type'>{ResultData?.name}！</div>
+          <div className='type'>{i18n.language === "zh" ? ResultData?.zhName : ResultData?.name}！</div>
           <img src={ResultData?.image} alt="" />
           <div className="confirmBtn  flexCenter" onClick={() => { navigate("/NFT") }}>{t("View")}</div>
         </div>
