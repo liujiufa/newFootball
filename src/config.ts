@@ -20,8 +20,8 @@ import NodeDistribute from './ABI/NodeDistribute.json';
 // 自己
 // export let baseUrl: string = 'http://18.138.83.205:10000';
 // export let socketUrl: string = 'http://18.138.83.205:8912/endpointWisely';
-export let baseUrl: string = 'http://www.mbasdao.com/';
-export let socketUrl: string = 'http://www.mbasdao.com/endpointWisely';
+export let baseUrl: string = 'https://mbasdao.com/';
+export let socketUrl: string = 'https://mbasdao.com/endpointWisely';
 // export let baseUrl: string = 'http://47.107.116.172:10000';
 // export let socketUrl: string = 'http://47.107.116.172:8912/endpointWisely';
 // export let baseUrl: string = 'http://spaceballgames.com:10000';

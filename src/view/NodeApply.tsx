@@ -221,7 +221,7 @@ export default function Invitation() {
           </div>
           <div className="bottomContent">
             <div className="price">
-              {t("buyNodeTip", { value1: NodeApplyData?.campaignPrice || 0.02, coinName1: NodeApplyData?.campaignCoinName || "BNB", value2: NodeApplyData?.publicOfferNum || 1000000, coinName2: NodeApplyData?.publicOfferCoinName || "MBAS" })}
+              {t("buyNodeTip", { value1: NodeApplyData?.campaignPrice || 0.2, coinName1: NodeApplyData?.campaignCoinName || "BNB", value2: NodeApplyData?.publicOfferNum || 1000000, coinName2: NodeApplyData?.publicOfferCoinName || "MBAS" })}
             </div>
             {NodeApplyData && <BtnFun></BtnFun>}
           </div>

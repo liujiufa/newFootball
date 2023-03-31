@@ -29,7 +29,10 @@ import BlindBoxImg4EN from '../assets/image/BlindBox4EN.png'
 import BlindBoxImg5EN from '../assets/image/BlindBox5EN.png'
 import BlindBoxImg6EN from '../assets/image/BlindBox6EN.png'
 import BlindBoxImg7EN from '../assets/image/BlindBox7EN.png'
-import coinIcon1 from '../assets/image/coinIcon1.png'
+import coinIcon11 from '../assets/image/coinIcon11.png'
+import coinIcon12 from '../assets/image/coinIcon12.png'
+import coinIcon13 from '../assets/image/coinIcon13.png'
+import coinIcon14 from '../assets/image/coinIcon14.png'
 import coinIcon2 from '../assets/image/coinIcon2.png'
 import coinIcon3 from '../assets/image/coinIcon3.png'
 import coinIcon4 from '../assets/image/coinIcon4.png'
@@ -60,10 +63,10 @@ let gradeImg = { 0: gradeAll, 1: grade0, 2: grade1, 3: grade2, 4: grade3 }
 export default function BlindBox() {
   let { t } = useTranslation()
   let redioObj = [
-    { icon: coinIcon1, title: t("First prize"), subtitle: '1%' },
-    { icon: coinIcon1, title: t("Second prize"), subtitle: '1.5%' },
-    { icon: coinIcon1, title: t("Third prize"), subtitle: '2.5%' },
-    { icon: coinIcon1, title: t("General  prize"), subtitle: '10%' },
+    { icon: coinIcon11, title: t("First prize"), subtitle: '1%' },
+    { icon: coinIcon12, title: t("Second prize"), subtitle: '1.5%' },
+    { icon: coinIcon13, title: t("Third prize"), subtitle: '2.5%' },
+    { icon: coinIcon14, title: t("General  prize"), subtitle: '10%' },
     { icon: coinIcon2, title: t("1 star"), subtitle: '45%' },
     { icon: coinIcon3, title: t("2 star"), subtitle: '30%' },
     { icon: coinIcon4, title: t("3 star"), subtitle: '10%' },
@@ -88,17 +91,25 @@ export default function BlindBox() {
     SetTabIndex(tab)
   }
   useEffect(() => {
-    if (state.token) {
-      boxBase().then((res: any) => {
-        console.log(res, '盲盒配置');
-        res.data.map((item: any) => {
+    boxBase().then((res: any) => {
+      console.log(res, '盲盒配置');
+      res.data.map((item: any) => {
+        if (web3React.account) {
           Contracts.example.toMBAS(web3React.account as string, item?.price).then((res: any) => {
             let value = new BigNumber(res).div(10 ** 18).toString()
             console.log({ ...item, MBASPrice: value }, 'value');
             setBoxBaseValue({ ...item, MBASPrice: (parseInt(value) + 1) })
+          }).catch((res: any) => {
+            setBoxBaseValue({ ...item, MBASPrice: 0 })
           })
-        })
+        } else {
+          setBoxBaseValue({ ...item, MBASPrice: 0 })
+        }
       })
+    })
+  }, [state.token])
+  useEffect(() => {
+    if (state.token) {
       wrapCount().then((res: any) => {
         console.log(res.data, '红包');
         setBoxBaseArr(res.data)
@@ -357,10 +368,15 @@ export default function BlindBox() {
         <div className='price'> {t("Price")}：<img src={SBLIcon} alt="" />{BoxBaseValue?.MBASPrice}{BoxBaseValue?.name}（~{BoxBaseValue?.price}BNB）</div>
         <div className="boxNum">{t("Remaining quantity")}：{BoxBaseValue?.totalNum - BoxBaseValue?.sellNum}/{BoxBaseValue?.totalNum}</div>
         <div className="btnBox">
-          {parseFloat(ApproveValue) >= parseFloat(BoxBaseValue?.MBASPrice) ? <div className="buyBtn flexCenter" onClick={() => { openBoxFun() }}>{t("OPEN CASE")}</div> : <div className="buyBtn flexCenter approveBtn" onClick={() => { ApproveFun(BoxBaseValue?.MBASPrice) }}>{t("Approve")}</div>}
+          {
+            BoxBaseValue?.MBASPrice > 0 ?
+              (parseFloat(ApproveValue) >= parseFloat(BoxBaseValue?.MBASPrice) ? <div className="buyBtn flexCenter" onClick={() => { openBoxFun() }}>{t("OPEN CASE")}</div> : <div className="buyBtn flexCenter approveBtn" onClick={() => { ApproveFun(BoxBaseValue?.MBASPrice) }}>{t("Approve")}</div>) :
+              <div className="buyBtn flexCenter">{t("OPEN CASE")}</div>
+          }
           {width < 600 && <img src={decIcon} alt="" onClick={() => {
             setRadioModal(true)
-          }} />}
+          }} />
+          }
         </div>
       </div>
       {BoxBaseArr && <div className="goodsBox">

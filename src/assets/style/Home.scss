@@ -607,166 +607,173 @@
 
     }
 
-    .feans-asstes-chart-group {
+    .feans-asstes-chart-group-container{
       width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative;
-      top: 0;
-      left: 0;
-      margin: 60px 0;
-
-      .feans-asstes-group-chart-base {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+      .feans-asstes-chart-group {
+        width: 80%;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-      }
-
-      .feans-asstes-group-chart1 {
-        width: 80%;
-        padding: 32% 0;
-        background-image: url("../image/home/feans-asstes-group-chart1.png");
-        transition: 0.5s;
-        animation: home-rotate 10s linear infinite;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-      }
-
-      .feans-asstes-group-chart2 {
-        width: 80%;
-        padding: 28% 0;
-        background-image: url("../image/home/feans-asstes-group-chart2.png");
-        z-index: 2;
-
-        .feans-asstes-group-chart-logo {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin: 60px 0;
+  
+        .feans-asstes-group-chart-base {
           position: absolute;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          z-index: 10;
-          width: 21.7%;
-          background-image: url("../image/home/feans-asstes-chart-logo.png");
-          padding: 11.535% 0;
-
+          display: flex;
+          justify-content: center;
+          align-items: center;
           background-repeat: no-repeat;
           background-position: center;
           background-size: contain;
         }
-      }
-
-      .feans-asstes-share-process-base {
-        position: absolute;
-        text-align: left;
-        font-weight: 500;
-        font-size: 18px;
-        cursor: pointer;
-        z-index: 20;
-
-        .feans-asstes-share-text {
-          font-weight: 700;
-          font-size: 24px;
+  
+        .feans-asstes-group-chart1 {
+          width: 80%;
+          padding: 32% 0;
+          background-image: url("../image/home/feans-asstes-group-chart1.png");
+          transition: 0.5s;
+          animation: home-rotate 10s linear infinite;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: contain;
         }
-
-        &:hover {
-
-          font-weight: 700;
-          font-size: 22px;
-
-          .feans-asstes-share-text {
-            font-weight: 900;
-            font-size: 28px;
+  
+        .feans-asstes-group-chart2 {
+          width: 80%;
+          padding: 28% 0;
+          background-image: url("../image/home/feans-asstes-group-chart2.png");
+          z-index: 2;
+  
+          .feans-asstes-group-chart-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            width: 20%;
+            background-image: url("../image/home/feans-asstes-chart-logo.png");
+            padding: 11.535% 0;
+  
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
           }
         }
-      }
-
-      .feans-asstes-share-process1 {
-        top: 12%;
-        left: 74%;
-        color: #FF6B00;
-
-        .feans-asstes-share-text {
+  
+        .feans-asstes-share-process-base {
+          position: absolute;
+          text-align: left;
+          font-weight: 500;
+          font-size: 18px;
+          cursor: pointer;
+          z-index: 20;
+  
+          .feans-asstes-share-text {
+            font-weight: 700;
+            font-size: 24px;
+          }
+  
+          &:hover {
+  
+            font-weight: 700;
+            font-size: 22px;
+  
+            .feans-asstes-share-text {
+              font-weight: 900;
+              font-size: 28px;
+            }
+          }
+        }
+  
+        .feans-asstes-share-process1 {
+          top: 12%;
+          left: 74%;
           color: #FF6B00;
+  
+          .feans-asstes-share-text {
+            color: #FF6B00;
+          }
         }
-      }
-
-      .feans-asstes-share-process2 {
-        bottom: 24%;
-        left: 74%;
-        color: #5B6CFF;
-
-        .feans-asstes-share-text {
+  
+        .feans-asstes-share-process2 {
+          bottom: 24%;
+          left: 74%;
           color: #5B6CFF;
+  
+          .feans-asstes-share-text {
+            color: #5B6CFF;
+          }
         }
-      }
-
-      .feans-asstes-share-process3 {
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        color: #E16DFF;
-
-        .feans-asstes-share-text {
+  
+        .feans-asstes-share-process3 {
+          bottom: 10px;
+          left: 50%;
+          transform: translateX(-50%);
           color: #E16DFF;
+  
+          .feans-asstes-share-text {
+            color: #E16DFF;
+          }
         }
-      }
-
-      .feans-asstes-share-process4 {
-        top: 70%;
-        left: 20%;
-        transform: translateX(-50%);
-        color: #9672FF;
-
-        .feans-asstes-share-text {
+  
+        .feans-asstes-share-process4 {
+          top: 70%;
+          left: 20%;
+          transform: translateX(-50%);
           color: #9672FF;
+  
+          .feans-asstes-share-text {
+            color: #9672FF;
+          }
         }
-      }
-
-      .feans-asstes-share-process5 {
-        top: 40%;
-        left: 20%;
-        transform: translateX(-50%);
-        color: #000AFF;
-
-        .feans-asstes-share-text {
+  
+        .feans-asstes-share-process5 {
+          top: 40%;
+          left: 20%;
+          transform: translateX(-50%);
           color: #000AFF;
+  
+          .feans-asstes-share-text {
+            color: #000AFF;
+          }
         }
-      }
-
-      .feans-asstes-share-process6 {
-        top: 12%;
-        left: 28%;
-        transform: translateX(-50%);
-        color: #FFAE12;
-
-        .feans-asstes-share-text {
+  
+        .feans-asstes-share-process6 {
+          top: 12%;
+          left: 28%;
+          transform: translateX(-50%);
           color: #FFAE12;
+  
+          .feans-asstes-share-text {
+            color: #FFAE12;
+          }
         }
-      }
-
-      .feans-asstes-share-process7 {
-        top: 10px;
-        left: 42%;
-        transform: translateX(-50%);
-        color: #FF3495;
-
-        .feans-asstes-share-text {
+  
+        .feans-asstes-share-process7 {
+          top: 10px;
+          left: 42%;
+          transform: translateX(-50%);
           color: #FF3495;
+  
+          .feans-asstes-share-text {
+            color: #FF3495;
+          }
         }
+  
       }
-
     }
+
 
     .feans-asstes-amount-group {
       width: 100%;

@@ -640,7 +640,7 @@ function Home() {
         <div className="tit">
           <div className="title">META BASE</div>
           <div className="xiang">{t("The first Metaverse world created with welfare as the theme")}</div>
-          <a href={i18n.language === "zh" ? "http://www.mbasdao.com/whitePaper/cn_white_paper.pdf" : "http://www.mbasdao.com/whitePaper/en_white_paper.pdf"} target="downloadFile">
+          <a href={i18n.language === "zh" ? "https://mbasdao.com/whitePaper/cn_white_paper.pdf" : "https://mbasdao.com/whitePaper/en_white_paper.pdf"} target="downloadFile">
             <div className="btn">{t("WHITEPAPER")}</div>
           </a>
           {/* <div className="btn"></div> */}
@@ -831,57 +831,61 @@ function Home() {
                 {t("Coinage nodeEN")}
               </div>{t("you can alsoEN")}
             </div>}
-          <div className="feans-asstes-chart-group">
 
-            <div className="feans-asstes-group-chart1"></div>
-            <div className="feans-asstes-group-chart-base feans-asstes-group-chart2">
-              <div className="feans-asstes-group-chart-logo">
+          <div className="feans-asstes-chart-group-container">
+            <div className="feans-asstes-chart-group">
 
+              <div className="feans-asstes-group-chart1"></div>
+              <div className="feans-asstes-group-chart-base feans-asstes-group-chart2">
+                <div className="feans-asstes-group-chart-logo">
+
+                </div>
               </div>
-            </div>
-            <div className="feans-asstes-share-process-base feans-asstes-share-process1">
-              {t("NFT staking")}
-              <div className="feans-asstes-share-text">
-                35%
+              <div className="feans-asstes-share-process-base feans-asstes-share-process1">
+                {t("NFT staking")}
+                <div className="feans-asstes-share-text">
+                  35%
+                </div>
               </div>
-            </div>
-            <div className="feans-asstes-share-process-base feans-asstes-share-process2">
-              {t("Game ecology")}
-              <div className="feans-asstes-share-text">
-                33%
+              <div className="feans-asstes-share-process-base feans-asstes-share-process2">
+                {t("Game ecology")}
+                <div className="feans-asstes-share-text">
+                  33%
+                </div>
               </div>
-            </div>
-            <div className="feans-asstes-share-process-base feans-asstes-share-process3">
-              {t("Guessing ecology")}
-              <div className="feans-asstes-share-text">
-                15%
+              <div className="feans-asstes-share-process-base feans-asstes-share-process3">
+                {t("Guessing ecology")}
+                <div className="feans-asstes-share-text">
+                  15%
+                </div>
               </div>
-            </div>
-            <div className="feans-asstes-share-process-base feans-asstes-share-process4">
-              {t("Foundation")}
-              <div className="feans-asstes-share-text">
-                5%
+              <div className="feans-asstes-share-process-base feans-asstes-share-process4">
+                {t("Foundation")}
+                <div className="feans-asstes-share-text">
+                  5%
+                </div>
               </div>
-            </div>
-            <div className="feans-asstes-share-process-base feans-asstes-share-process5">
-              {t("Coinage node")}
-              <div className="feans-asstes-share-text">
-                10%
+              <div className="feans-asstes-share-process-base feans-asstes-share-process5">
+                {t("Coinage node")}
+                <div className="feans-asstes-share-text">
+                  10%
+                </div>
               </div>
-            </div>
-            <div className="feans-asstes-share-process-base feans-asstes-share-process6">
-              {t("Initial liquidity")}
-              <div className="feans-asstes-share-text">
-                1.35%
+              <div className="feans-asstes-share-process-base feans-asstes-share-process6">
+                {t("Initial liquidity")}
+                <div className="feans-asstes-share-text">
+                  1.35%
+                </div>
               </div>
-            </div>
-            <div className="feans-asstes-share-process-base feans-asstes-share-process7">
-              {t("Public offering")}
-              <div className="feans-asstes-share-text">
-                0.65%
+              <div className="feans-asstes-share-process-base feans-asstes-share-process7">
+                {t("Public offering")}
+                <div className="feans-asstes-share-text">
+                  0.65%
+                </div>
               </div>
             </div>
           </div>
+
 
           <div className="feans-asstes-amount-group">
             <div className="feans-asstes-amount-group-base feans-asstes-amount-group-left">

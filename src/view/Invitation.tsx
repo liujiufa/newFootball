@@ -215,7 +215,7 @@ export default function Invitation() {
           <div className="itemTitle">{t("Referral Rewards")}</div>
           <div className="allRewardBox">
             <div className="allReward">
-              <span>{t("Cumulative rewards")}：</span><span>{NumSplic(`${rewardData?.totalAmount}`, 4) || "0"} {rewardData?.coinName || "SBL"}</span>
+              <span>{t("Cumulative rewards")}：</span><span>{NumSplic(`${rewardData?.totalAmount}`, 4) || "0"} {rewardData?.coinName || "MBAS"}</span>
             </div>
             <div className="getBox"></div>
           </div>
@@ -223,7 +223,7 @@ export default function Invitation() {
             <div className="inputValue">
               <span className="inputValueStyle">{NumSplic(`${rewardData?.amountString}`, 4) || "0"}</span>
               <span>
-                <img src={SBLToken} alt="" />{rewardData?.coinName || "SBL"}
+                <img src={SBLToken} alt="" />{rewardData?.coinName || "MBAS"}
               </span>
             </div>
             <div className="getBox"><div className="getBtn flex" onClick={() => Receive(1, rewardData?.id as number, `${rewardData?.amount}`)}>{t("Harvest")}</div></div>

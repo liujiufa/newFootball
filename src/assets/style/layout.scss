@@ -136,12 +136,121 @@
     }
   }
 
+  .MBASPrice {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+    .priceBox {
+      display: flex;
+      align-items: center;
+      font-family: 'DIN';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 20px;
+      /* identical to box height */
+      color: #018D06;
+
+
+      img {
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+      }
+    }
+
+    .marketPrice {
+      position: absolute;
+      top: 41px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 15px;
+      padding: 20px 18px;
+      z-index: 999999;
+      background: #004A46;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 15px;
+
+      .top {
+        margin-bottom: 10px;
+      }
+
+      .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        color: #fff;
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 700;
+        line-height: 17px;
+
+        span {
+          font-family: 'PingFang SC';
+          font-style: normal;
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 22px;
+          margin-left: 40px;
+
+        }
+
+        .green {
+          color: #00FF57 !important;
+
+        }
+
+        .red {
+          color: #FF3407 !important;
+        }
+
+        .BNB {
+          font-family: 'PingFang SC';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 22px;
+          color: rgba(255, 255, 255, 0.5);
+          margin-left: 0px;
+
+        }
+
+      }
+    }
+  }
+
   .MobileHeadMenu {
     display: none;
   }
 
   .Mobile {
     display: none;
+
+    .MBASPrice {
+      margin-right: 10px;
+
+      .priceBox {
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 17px;
+        /* identical to box height */
+        color: #018D06;
+
+        // img {
+        //   width: 16px;
+        //   height: 16px;
+        // }
+      }
+    }
 
     .Connect {
       padding: 8px 16px;

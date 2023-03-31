@@ -31,6 +31,7 @@ import NFTIcon1 from "../assets/image/NFTIcon1.png";
 import NFTIcon2 from "../assets/image/NFTIcon2.png";
 import NFTIcon3 from "../assets/image/NFTIcon3.png";
 import NFTIcon4 from "../assets/image/NFTIcon4.png";
+import priceUP from "../assets/image/priceUP.png";
 import EcologyIcon0 from "../assets/image/EcologyIcon1.png";
 import EcologyIcon1 from "../assets/image/EcologyIcon2.png";
 import footerIcon1 from "../assets/image/footerIcon1.svg";
@@ -57,6 +58,7 @@ const MainLayout: React.FC = () => {
   let { t, i18n } = useTranslation();
   const web3React = useWeb3React();
   let [showSubMenu, setShowSubMenu] = useState(false);
+  let [priceModal, setPriceModal] = useState(false);
   let [showRefereeAddress, setShowRefereeAddress] = useState(false);
   let [showDropMenu, setShowDropMenu] = useState<any>();
   let [SmallActive, setSmallActive] = useState<any>(0);
@@ -286,7 +288,7 @@ const MainLayout: React.FC = () => {
   // 导航
   const navigateFun = (path: string) => {
     if (path === "/outLink") {
-      return window.open("https://pancakeswap.finance/swap?outputCurrency=0xA013e36C78BA39Ff6bE4781f0f2FBF935f6BA05A")
+      return window.open("https://pancakeswap.finance/swap?outputCurrency=0x094B109d635c34f24b1dC784b2b09F30ccf6408C")
     }
     if (path === "/nodata") {
       return addMessage(t("Open soon"))
@@ -348,6 +350,12 @@ const MainLayout: React.FC = () => {
       }
     })
   }
+  const PriceFun = () => {
+    return <div className="priceBox" onClick={() => { setShowDropMenu(true) }}>
+      <img src={priceUP} alt="" />
+      $0.1221
+    </div>
+  }
 
   return (
     <Layout>
@@ -362,7 +370,7 @@ const MainLayout: React.FC = () => {
             alt=""
           />
 
-          {/* 小屏 */}
+          {/* 中屏 */}
           <div className="MenuList Secondary">
             {/* <div
               className={menuActive("/")}
@@ -470,14 +478,7 @@ const MainLayout: React.FC = () => {
             >
               NFT
             </div>
-            {/* <div
-              className='MenuItem pointer'
-              onClick={() => {
-                window.open("https://pancakeswap.finance/swap?outputCurrency=0xA013e36C78BA39Ff6bE4781f0f2FBF935f6BA05A")
-              }}
-            >
-              SWAP
-            </div> */}
+
 
             <div
               className={menuActive("/Ecology")}
@@ -511,6 +512,16 @@ const MainLayout: React.FC = () => {
             >
               {t("Announcement")}
             </div>
+            {/* <div className="MBASPrice">
+              {PriceFun()}
+              {showDropMenu && (!dropMenuList[showDropMenu]) && <div className="marketPrice">
+                <div className="item top">MBAS <span className="BNB"> /BNB</span>
+                  <span className="green">0.0001</span>
+                </div>
+                <div className="item">$0.1221 <span className="red">-0.8%</span></div>
+              </div>}
+            </div> */}
+
             <Dropdown
               overlay={menu}
               placement="bottom"
@@ -542,7 +553,18 @@ const MainLayout: React.FC = () => {
               </>
             )}
           </div>
+          {/* 小屏 */}
           <div className="Mobile">
+
+            {/* <div className="MBASPrice">
+              {PriceFun()}
+              {showDropMenu && (!dropMenuList[showDropMenu]) && <div className="marketPrice">
+                <div className="item top">MBAS/ <span className="BNB"> BNB</span>
+                  <span className="green">0.0001</span>
+                </div>
+                <div className="item">$0.1221 <span className="red">-0.8%</span></div>
+              </div>}
+            </div> */}
             <Dropdown
               arrow={true}
               overlay={menu}
@@ -574,7 +596,7 @@ const MainLayout: React.FC = () => {
         </div>
         {showDropMenu && <div className="dropMenuBox">
           <div className="menuContent">
-            {dropMenuList[showDropMenu].map((item: any, index: any) =>
+            {dropMenuList[showDropMenu]?.map((item: any, index: any) =>
               <div className="item" key={index} onClick={() => { navigateFun(item.path) }}>
                 <div className="left">
                   <img src={item.icon} alt="" />
@@ -629,8 +651,8 @@ const MainLayout: React.FC = () => {
                 <a
                   href={
                     i18n.language === "zh"
-                      ? "http://www.mbasdao.com/whitePaper/cn_white_paper.pdf"
-                      : "http://www.mbasdao.com/whitePaper/en_white_paper.pdf"
+                      ? "https://mbasdao.com/whitePaper/cn_white_paper.pdf"
+                      : "https://mbasdao.com/whitePaper/en_white_paper.pdf"
                   }
                   target="_blank"
                   rel="noreferrer"
