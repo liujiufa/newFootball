@@ -51,6 +51,17 @@
         }
     }
 
+    .ID {
+        font-family: 'PingFang SC';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 56px;
+        text-align: center;
+        color: rgba(0, 0, 0, 0.6);
+
+    }
+
     .CardImg {
         position: relative;
         // background: #171833;
@@ -211,6 +222,8 @@
     }
 
     .coinName {
+        width: 20px;
+        height: 20px;
         margin-right: 10px;
     }
 
@@ -234,10 +247,12 @@
     .CardItemLinearBorder .buyBtn {
         margin: 8px auto 0;
     }
-    .CardItemLinearBorder .buyBtn{
+
+    .CardItemLinearBorder .buyBtn {
         padding: 5px 24px;
     }
-    .CardItem .price{
+
+    .CardItem .price {
         margin-top: auto;
     }
 }
@@ -250,7 +265,8 @@
             font-size: 14px;
         }
     }
-    .CardItem .valueBox .valuePrice{
+
+    .CardItem .valueBox .valuePrice {
         font-size: 12px;
         margin: 0px;
     }

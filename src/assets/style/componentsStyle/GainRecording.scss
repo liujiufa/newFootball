@@ -23,13 +23,13 @@ table {
   box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.1);
   border-radius: 19px;
   // height: 424px;
-  padding-left: 30px;
-  padding-right: 32px;
+  // padding-left: 30px;
+  // padding-right: 32px;
 
   .ant-modal-content {
     box-shadow: none;
     // background: #1d1e44;
-    margin-bottom: 30px;
+    // margin-bottom: 30px;
   }
 
   .ant-modal-header {
@@ -39,12 +39,12 @@ table {
   .ant-modal-body {
     position: relative;
     // background: #1d1e44;
-    padding: 0;
+    padding: 30px;
 
     .title {
       font-size: 24px;
       margin: auto;
-      margin-top: 30px;
+      // margin-top: 30px;
       text-align: center;
       // color: #fff;
       box-shadow: 0;

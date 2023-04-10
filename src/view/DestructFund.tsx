@@ -227,8 +227,8 @@ function DestructFund() {
           {/* 銷毀參與 */}
           <div className="DestructJoin">
             <div className="title">{t("Burn")}</div>
-            <div className="DestructValue">{t("Destruction Fund Quota")}：<span>{NumSplic(burnLimitValue, 4)} BNB</span></div>
-            <div className="subTitle">{t("destructTip", { price1: Math.floor(parseInt(toSBL) * 0.5), price2: parseInt(minBurn) })}<img onClick={() => { setDestructDes(!destructDes) }} src={desIcon} alt="" /></div>
+            <div className="DestructValue">{t("Destruction Fund Quota")}：<div className='BNBValue'>{NumSplic(burnLimitValue, 4)} BNB</div></div>
+            <div className="tip">{t("destructTip", { price1: Math.floor(parseInt(toSBL) * 0.5), price2: parseInt(minBurn) })}<img onClick={() => { setDestructDes(!destructDes) }} src={desIcon} alt="" /></div>
             <div className="inputBox">
               <input value={inputValue} onChange={(e) => { changeFun(e) }} />
               <div className="maxBtn" onClick={() => { maxFun(Math.floor(parseInt(toSBL) * 0.5)) }}>max</div>
@@ -246,7 +246,7 @@ function DestructFund() {
             <div className="rewardValue">{t("Award amount")}：{NumSplic(`${drawBurnRecord?.awardAmount}`, 8) || "0"} {drawBurnRecord?.coinName || "MBAS"}</div>
             <div className="toFreed">{t("To be released")}：{NumSplic(`${drawBurnRecord?.treatAmount}`, 8) || "0"} {drawBurnRecord?.coinName || "MBAS"}</div>
             {drawBurnRecord ? <div className="process">
-              <div className="Freed">{t("Process")}：</div>
+              <div className="Freed DestructFundFreed">{t("Process")}：</div>
               <div className="processBox">
                 <div className="processBar" style={{ width: `${Math.floor(((drawBurnRecord!.awardAmount) - (drawBurnRecord!.treatAmount)) / (drawBurnRecord!.awardAmount) * 100)}%` }}></div>
               </div>

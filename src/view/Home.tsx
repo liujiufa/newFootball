@@ -180,7 +180,11 @@ function Home() {
     getRecentNoticeList().then((res: any) => {
       if (res.code === 200) {
         console.log(res.data, "公告");
-        setShowBanner(res.data)
+        if (res.data?.length > 3) {
+          setShowBanner(res.data)
+        } else {
+          setShowBanner([...res.data, ...res.data, ...res.data])
+        }
       }
 
     })
@@ -640,9 +644,9 @@ function Home() {
         <div className="tit">
           <div className="title">META BASE</div>
           <div className="xiang">{t("The first Metaverse world created with welfare as the theme")}</div>
-          <a href={i18n.language === "zh" ? "https://mbasdao.com/whitePaper/cn_white_paper.pdf" : "https://mbasdao.com/whitePaper/en_white_paper.pdf"} target="downloadFile">
+          {/* <a href={i18n.language === "zh" ? "https://mbasdao.com/whitePaper/cn_white_paper.pdf" : "https://mbasdao.com/whitePaper/en_white_paper.pdf"} target="downloadFile">
             <div className="btn">{t("WHITEPAPER")}</div>
-          </a>
+          </a> */}
           {/* <div className="btn"></div> */}
         </div>
       </div>

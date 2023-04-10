@@ -121,26 +121,27 @@ export function getFullNum(num: number) {
 
 //订阅数据send模式
 export function initWebSocket(url: string, subscribe: string, sendUrl: string, data: any, callback: any,) {
-    let stompClient: any;
-    let sendTimer
     let socket = new SockJS(url);
-    stompClient = Stomp.over(socket);
-    stompClient.connect({}, () => {
-        stompClient.subscribe(subscribe, (data: any) => {
+    const obj: any = {}
+    obj.stompClient = Stomp.over(socket);
+    obj.stompClient.connect({}, () => {
+        obj.subscription = obj.stompClient.subscribe(subscribe, (data: any) => {
             var resdata = JSON.parse(data.body)
             callback(resdata)
         })
-        sendTimer = setInterval(() => {
-            stompClient.send(sendUrl,
+        // obj.sendTimer = setInterval(() => {
+            obj.stompClient.send(sendUrl,
                 { 'Content-Type': 'application/json;charset=UTF-8' },
                 JSON.stringify({ ...data }),
             )
-        }, 2000)
+            console.log(data, sendUrl, "推送数据");
+
+        // }, 2000)
     }, function () {
     });
-    stompClient.ws.onclose = function () {
+    obj.stompClient.ws.onclose = function () {
     };
-    return { stompClient, sendTimer }
+    return obj
 }
 export function getWebsocketData(url: string, subscribe: string, callback: any) {
     console.log(url, subscribe);

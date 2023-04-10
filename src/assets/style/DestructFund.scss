@@ -10,7 +10,7 @@
         font-style: normal;
         font-weight: 400;
         font-size: 60px;
-        line-height: 73px;
+        // line-height: 73px;
         color: rgba(0, 0, 0, 0.7);
         text-align: center;
     }
@@ -75,7 +75,7 @@
                 color: rgba(0, 0, 0, 0.8);
                 margin-bottom: 25px;
 
-                >span {
+                .BNBValue {
                     // font-family: 'PingFang SC';
                     // font-style: normal;
                     // font-weight: 400;
@@ -90,14 +90,17 @@
                     /* identical to box height */
                     letter-spacing: 0.08em;
                     color: #00FF94;
+                    margin-bottom: 20px;
                 }
             }
 
             .DestructValue {
+                display: block;
                 color: rgba(0, 0, 0, 0.8);
+                margin-bottom: 0px;
             }
 
-            .subTitle {
+            .tip {
                 display: flex;
                 align-items: center;
                 font-family: 'PingFang SC';
@@ -131,6 +134,11 @@
 
                 .Freed {
                     width: 42px;
+                }
+
+                .DestructFundFreed {
+                    width: 65px;
+
                 }
 
                 .value {
@@ -260,7 +268,7 @@
                 line-height: 20px;
                 /* identical to box height */
                 color: #FFFFFF;
-                width: 150px;
+                width: 120px;
                 height: 40px;
                 background: url(../image/btnBg.png) no-repeat center / 100% 100%;
                 border-radius: 6px;
@@ -347,7 +355,8 @@
     }
 
     .DestructFund .Content>div .Btn {
-        width: 80px;
+        width: 120px;
+        height: 36px;
         padding: 0px;
         margin: 20px auto;
     }
@@ -358,10 +367,22 @@
         margin-bottom: 10px;
     }
 
+    .DestructFund .Content>div .DestructValue {
+        display: block;
+
+        .BNBValue {
+            font-family: 'PingFang SC';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 18px;
+        }
+    }
+
     .DestructFund .Content>div .title {
         font-size: 20px;
     }
-    .DestructFund .Content > div .subTitle{
+
+    .DestructFund .Content>div .tip {
         font-size: 14px;
     }
 }
@@ -373,5 +394,9 @@
 
     .DestructFund .Content>div .inputBox {
         padding: 16px 12px;
+    }
+
+    .DestructFund .Content>div .inputBox .coinBox img {
+        margin: 0px 5px;
     }
 }

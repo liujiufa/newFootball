@@ -85,6 +85,9 @@
         justify-content: space-between;
 
         .DropDownGroup {
+            >img{
+                margin-top: 12px;
+            }
             .dropDown {
                 margin-top: 12px;
 
@@ -149,6 +152,7 @@
 }
 
 @media (max-width:374px) {
+    
     .CardList {
         grid-template-columns: repeat(auto-fill, 140px);
         grid-row-gap: 15px;

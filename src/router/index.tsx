@@ -21,6 +21,7 @@ const NodeFund = React.lazy(() => import('../view/NodeFund'));
 const CreateNode = React.lazy(() => import('../view/CreateNode'));
 const Synthesis = React.lazy(() => import('../view/Synthesis'));
 const Announcement = React.lazy(() => import('../view/Announcement'));
+const WhiteList = React.lazy(() => import('../view/WhiteList'));
 export default function Router() {
   return (
     <Suspense fallback={<PageLoding></PageLoding>}>
@@ -44,6 +45,7 @@ export default function Router() {
           <Route path="CreateNode" element={<CreateNode />}></Route>
           <Route path="Synthesis" element={<Synthesis />}></Route>
           <Route path="Announcement" element={<Announcement />}></Route>
+          <Route path="WhiteList" element={<WhiteList />}></Route>
         </Route>
         <Route path="/DeputyLayout" element={<DeputyLayout />}>
         </Route>

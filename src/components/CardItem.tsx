@@ -14,7 +14,7 @@ function CardItem(props: any) {
   return (
     <div className="CardItemLinearBorder">
       <div className="CardItem">
-        {ValueBox(props.orderInfo?.currentInitValue)}
+        {props.orderInfo?.cardType !== 0 ? ValueBox(props.orderInfo?.currentInitValue) : <div className="ID">ID:{props.orderInfo?.cardNo}</div>}
         <div className="CardImg" onClick={() => props.showCardDetail()}>
           {props.type === "goods" && <div className="pending">{t('Pending order')}</div>}
           <img src={props.orderInfo?.image} alt="" />
@@ -24,7 +24,7 @@ function CardItem(props: any) {
           props.type === "commodity" && <>
             <div className="price">
               <div className="box">
-                {width > 425 && <img className="coinName" src={props.orderInfo?.coinName === 'SBL' ? SBLIcon : BNBIcon} alt="" />}
+                {width > 425 && <img className="coinName" src={props.orderInfo?.coinName === 'MBAS' ? SBLIcon : BNBIcon} alt="" />}
                 <div className="priceFlex">
                   <div>{props.orderInfo?.price} {props.orderInfo?.coinName}</div>
                 </div>
@@ -37,7 +37,7 @@ function CardItem(props: any) {
           props.type === "goods" && <>
             <div className="price">
               <div className="box">
-                {width > 425 && <img className="coinName" src={props.orderInfo?.coinName === 'SBL' ? SBLIcon : BNBIcon} alt="" />}
+                {width > 425 && <img className="coinName" src={props.orderInfo?.coinName === 'MBAS' ? SBLIcon : BNBIcon} alt="" />}
                 <div className="priceFlex">
                   <div>{props.orderInfo?.price} {props.orderInfo?.coinName}</div>
                 </div>

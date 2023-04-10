@@ -29,6 +29,7 @@ interface NodeDataType {
   "campaignPrice": number,
   "campaignCoinName": string,
   "startTime": number,
+  "drawTime": number,
   "endTime": number,
   "status": number,
   "publicOfferPrice": number,
@@ -162,7 +163,11 @@ export default function Invitation() {
     if (NodeApplyData!.startTime > Date.now() || Date.now() > NodeApplyData!.endTime) {
       if (BtnState) {
         if (!isGetBtn) {
-          return <div className="btn flexCenter" onClick={() => { setConfirmBuy(true) }}>{t("Harvest")}</div>
+          if (Date.now() > NodeApplyData!.drawTime) {
+            return <div className="btn flexCenter" onClick={() => { setConfirmBuy(true) }}>{t("Harvest")}</div>
+          } else {
+            return <div className="btnEnd flexCenter">{t("Harvest")}</div>
+          }
         } else {
           return <div className="btned flexCenter" onClick={() => { setShowGetSuccess(true) }}>{t("Claimed")}</div>
         }

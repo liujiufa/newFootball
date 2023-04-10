@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import orderRecord from '../assets/image/orderRecord.png'
 import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
@@ -22,6 +22,9 @@ import { socketUrl, contractAddress } from '../config'
 import BigNumber from 'big.js'
 import '../assets/style/Swap.scss'
 import MarketDealing from '../components/MarketDealing'
+
+import { debounce } from "../utils/debounce"
+
 // 精灵等级
 const LevelMap = [
   {
@@ -168,6 +171,12 @@ export interface orderInfoType {
   currentPower: number
   isActivation: number
 }
+
+interface newOrderInfoType {
+  data: orderInfoType[]
+  typeIndex: number
+}
+
 function Swap() {
   let { t } = useTranslation()
   let state = useSelector<stateType, stateType>(state => state);
@@ -197,6 +206,7 @@ function Swap() {
   let [cardType, SetCardType] = useState(1)
   // 我的封号
   let [userLevel, setUserLevel] = useState(0)
+  let [hashTime, setHashTime] = useState(0)
   /* 我的类型 */
   let [cardMyType, SetCardMyType] = useState(-1)
   /* 精灵详情弹窗控制 */
@@ -215,6 +225,10 @@ function Swap() {
   let [orderInfo, setOrderInfo] = useState<orderInfoType | null>(null)
   /* 订单列表 */
   let [orderList, setOrderList] = useState<orderInfoType[]>([])
+  let [nOrderList, setNOrderList] = useState<newOrderInfoType>({data: [], typeIndex: 0})
+  let [landOrderList, setLandOrderList] = useState<newOrderInfoType>({data: [], typeIndex: 0})
+  let [mineOrderList, setMineOrderList] = useState<newOrderInfoType>({data: [], typeIndex: 0})
+  let [newOrderList, setNewOrderList] = useState<Array<orderInfoType[]>>([[], [], []])
   /* 用户订单列表 */
   let [userOrderList, setUserOrderList] = useState<orderInfoType[]>([])
   // SBL授权
@@ -235,30 +249,15 @@ function Swap() {
       showLoding(false)
     })
   }
-
   useEffect(() => {
     setShowCancelOrder(false)
   }, [web3React.account])
+  let obj: any = {}
 
-  // 精灵
-  useEffect(() => {
-    if (cardType === 1 && TabIndex === 0 && state.token && web3React.account) {
-      getOrderList({
-        cardType: cardType,
-        currentPage: page,
-        level: level,
-        pageSize: 12,
-        type: type,
-        sortType: sort
-        // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
-      }).then(res => {
-        console.log(res.data.list, '精灵列表')
-        setOrderList(res.data.list)
-        SetTotalNum(res.data.size)
-      })
-      // 推送
-      let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getOrderList/${web3React.account}`, `/getOrderList/${web3React.account}`,
-        {
+  const getBadgeData = useCallback(
+    () => {
+      if (cardType === 1 && TabIndex === 0 && state.token && web3React.account) {
+        getOrderList({
           cardType: cardType,
           currentPage: page,
           level: level,
@@ -266,40 +265,54 @@ function Swap() {
           type: type,
           sortType: sort
           // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
-        }, (data: any) => {
-          setOrderList(data.list)
-          SetTotalNum(data.size)
+        }).then(res => {
+          console.log(res.data.list, '精灵列表')
+          setOrderList(res.data.list)
+          setNOrderList({data: res.data.list, typeIndex: cardType})
+          console.log("Fri Apr 07 2023 19:44:44 GMT+0800 (中国标准时间)", "setNOrderList", res.data.list )
+          SetTotalNum(res.data.size)
         })
-      return () => {
-        try {
-          stompClient.disconnect()
-        } catch {
-
+        // 推送
+        obj = initWebSocket(socketUrl, `/topic/getOrderList/${web3React.account}`, `/getOrderList/${web3React.account}`,
+          {
+            cardType: cardType,
+            currentPage: page,
+            level: level,
+            pageSize: 12,
+            type: type,
+            sortType: sort
+            // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
+          }, (data: any) => {
+            setOrderList(data.list)
+            setNOrderList({data: data.list, typeIndex: cardType})
+            console.log("Fri Apr 07 2023 19:44:44 GMT+0800 (中国标准时间)", "setNOrderList1", data.list )
+            SetTotalNum(data.size)
+          })
+  
+        return () => {
+          try {
+            console.log("nihao1");
+            obj.stompClient.disconnect()
+            clearInterval(obj.sendTimer)
+            obj.subscription.unsubscribe();
+          } catch {
+  
+          }
         }
-        clearInterval(sendTimer)
-      }
-    }
-  }, [page, sort, type, level, TabIndex, state.token, web3React.account, cardType])
-  // 土地
+      };
+    },
+    [hashTime, page, sort, type, level, TabIndex, state.token, web3React.account, cardType]
+  )
+  
+  // 精灵
   useEffect(() => {
-    console.log('tudi');
-    if (cardType === 2 && TabIndex === 1 && state.token && web3React.account) {
-      getOrderList({
-        cardType: cardType,
-        currentPage: page,
-        level: LandLevel,
-        pageSize: 12,
-        type: -1,
-        sortType: sortLand
-        // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
-      }).then(res => {
-        console.log(res.data.list, '土地列表')
-        setOrderList(res.data.list)
-        SetTotalNum(res.data.size)
-      })
-      // 推送
-      let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getOrderList/${web3React.account}`, `/getOrderList/${web3React.account}`,
-        {
+    getBadgeData()
+  }, [hashTime])
+
+  const getLandData = useCallback(
+    () => {
+      if (cardType === 2 && TabIndex === 1 && state.token && web3React.account) {
+        getOrderList({
           cardType: cardType,
           currentPage: page,
           level: LandLevel,
@@ -307,37 +320,73 @@ function Swap() {
           type: -1,
           sortType: sortLand
           // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
-        }, (data: any) => {
-          setOrderList(data.list)
-          SetTotalNum(data.size)
-        })
-      return () => {
-        try { stompClient.disconnect() } catch {
+        }).then(res => {
+          console.log(res.data.list, '土地列表')
+          setOrderList(res.data.list)
+          setLandOrderList({data: res.data.list, typeIndex: cardType})
+          console.log("Fri Apr 07 2023 19:44:44 GMT+0800 (中国标准时间)", "setLandOrderList", res.data.list )
 
+          SetTotalNum(res.data.size)
+        })
+        // 推送
+        obj = initWebSocket(socketUrl, `/topic/getOrderList/${web3React.account}`, `/getOrderList/${web3React.account}`,
+          {
+            cardType: cardType,
+            currentPage: page,
+            level: LandLevel,
+            pageSize: 12,
+            type: -1,
+            sortType: sortLand
+            // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
+          }, (data: any) => {
+            console.log(data.list, "土地推送");
+  
+            setOrderList(data.list)        
+            setLandOrderList({data: data.list, typeIndex: cardType})
+            console.log("Fri Apr 07 2023 19:44:44 GMT+0800 (中国标准时间)", "setLandOrderList1",  {
+              cardType: cardType,
+              currentPage: page,
+              level: LandLevel,
+              pageSize: 12,
+              type: -1,
+              sortType: sortLand
+              // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
+            }, data.list )
+
+            SetTotalNum(data.size)
+          })
+        return () => {
+          try {
+            console.log("nihao2");
+            obj.stompClient.disconnect()
+            clearInterval(obj.sendTimer)
+            obj.subscription.unsubscribe();
+          } catch {
+  
+          }
         }
-        clearInterval(sendTimer)
-      }
-    }
-  }, [page, LandLevel, sortLand, TabIndex, state.token, web3React.account, cardType])
-  // 我的
+      };
+    },
+    [hashTime, page, sort, type, level, TabIndex, state.token, web3React.account, cardType]
+  )
+  
+  // 土地
   useEffect(() => {
-    if (TabIndex === 2 && state.token && web3React.account) {
-      getOrderList({
-        cardType: cardMyType,
-        currentPage: page,
-        level: userlevel,
-        pageSize: 12,
-        type: usertype,
-        userAddress: web3React.account
-        // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
-      }).then(res => {
-        console.log(res.data.list, '我的列表')
-        setUserOrderList(res.data.list)
-        SetTotalNum(res.data.size)
-      })
-      // 推送
-      let { stompClient, sendTimer } = initWebSocket(socketUrl, `/topic/getOrderList/${web3React.account}`, `/getOrderList/${web3React.account}`,
-        {
+    getLandData()
+  }, [hashTime])
+
+  const getMineData = useCallback(
+    () => {
+      if (cardType === 0 && TabIndex === 2 && state.token && web3React.account) {
+        try {
+          console.log('nihao3');
+          obj.stompClient.disconnect()
+          clearInterval(obj.sendTimer)
+          obj.subscription.unsubscribe();
+        } catch {
+  
+        }
+        getOrderList({
           cardType: cardMyType,
           currentPage: page,
           level: userlevel,
@@ -345,20 +394,65 @@ function Swap() {
           type: usertype,
           userAddress: web3React.account
           // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
-        }, (data: any) => {
-          setUserOrderList(data.list)
-          SetTotalNum(data.size)
+        }).then(res => {
+          console.log(res.data.list, '我的列表')
+          setUserOrderList(res.data.list)
+          setMineOrderList({data: res.data.list, typeIndex: cardMyType})
+          console.log("Fri Apr 07 2023 19:44:44 GMT+0800 (中国标准时间)", "setMineOrderList", res.data.list )
+          SetTotalNum(res.data.size)
         })
-      return () => {
-        try {
-          stompClient.disconnect()
-        } catch {
+        // 推送 
+        obj = initWebSocket(socketUrl, `/topic/getOrderList/${web3React.account}`, `/getOrderList/${web3React.account}`,
+          {
+            cardType: cardMyType,
+            currentPage: page,
+            level: userlevel,
+            pageSize: 12,
+            type: usertype,
+            userAddress: web3React.account
+            // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
+          }, (data: any) => {
+            setUserOrderList(data.list)
+            setMineOrderList({data: data.list, typeIndex: cardMyType})
+            console.log("Fri Apr 07 2023 19:44:44 GMT+0800 (中国标准时间)", "setMineOrderList1", data.list )
+            SetTotalNum(data.size)
+          })
+          return () => {
+            try {
+              console.log("nihao3");
+              obj.stompClient.disconnect()
+              clearInterval(obj.sendTimer)
+              obj.subscription.unsubscribe();
+            } catch {
+    
+            }
+          }
+    };
+    },
+    [hashTime, page, sort, type, level, TabIndex, state.token, web3React.account, cardType]
+  )
 
-        }
-        clearInterval(sendTimer)
-      }
+
+  // 我的
+  useEffect(() => {
+    getMineData()
+  }, [hashTime])
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    timer = setTimeout(() => {
+      setNewOrderList(prev=>{
+        prev = [nOrderList.data, landOrderList.data, mineOrderList.data]
+        console.log("prev", prev)
+        return prev.concat([])
+       })
+       setHashTime(+new Date())
+    }, 2000);
+    return ()=>{
+      clearTimeout(timer)
     }
-  }, [page, usertype, userlevel, TabIndex, state.token, web3React.account, cardMyType])
+  }, [nOrderList, landOrderList, mineOrderList, cardType, cardMyType, TabIndex, state.token, web3React.account])
+  
 
   function onChange(pageNumber: number) {
     SetPage(pageNumber)
@@ -393,7 +487,6 @@ function Swap() {
     setShowCancelSuccess(true)
   }
 
-
   function changeTab(tab: number) {
     SetTabIndex(tab)
   }
@@ -426,6 +519,8 @@ function Swap() {
       })
     }
   }, [web3React.account])
+
+  console.log("newOrderList", newOrderList)
 
 
   return (
@@ -485,12 +580,12 @@ function Swap() {
         </div>
         {
           TabIndex === 0 && <>
-            {/* 交易场订单列表 */}
+            {/* 交易场NFT列表 */}
             {
-              orderList.length !== 0 ? <>
+              newOrderList[0].length !== 0 ? <>
                 <div className="CardList">
                   {
-                    orderList.map((item, index) => <CardItem ApproveValue={ApproveValue} approveFun={ApproveFun} key={item.id} type="commodity" orderInfo={item} showCardDetail={() => { ShowCardDetailFun(index, 'swap') }} buy={() => buy(index)}></CardItem>)
+                    newOrderList[0].map((item, index) => <CardItem ApproveValue={ApproveValue} approveFun={ApproveFun} key={item.id} type="commodity" orderInfo={item} showCardDetail={() => { ShowCardDetailFun(index, 'swap') }} buy={() => buy(index)}></CardItem>)
                   }
                 </div>
               </> : <>
@@ -503,10 +598,10 @@ function Swap() {
           TabIndex === 1 && <>
             {/* 交易场土地列表 */}
             {
-              orderList.length !== 0 ? <>
+              newOrderList[1].length !== 0 ? <>
                 <div className="CardList">
                   {
-                    orderList.map((item, index) => <CardItem ApproveValue={ApproveValue} approveFun={ApproveFun} key={item.id} type="commodity" orderInfo={item} showCardDetail={() => { ShowCardDetailFun(index, 'swap') }} buy={() => buy(index)}></CardItem>)
+                    newOrderList[1].map((item, index) => <CardItem ApproveValue={ApproveValue} approveFun={ApproveFun} key={item.id} type="commodity" orderInfo={item} showCardDetail={() => { ShowCardDetailFun(index, 'swap') }} buy={() => buy(index)}></CardItem>)
                   }
                 </div>
               </> : <>
@@ -519,10 +614,10 @@ function Swap() {
           TabIndex === 2 && <>
             {/* 交易场我的列表 */}
             {
-              userOrderList.length !== 0 ? <>
+              newOrderList[2].length !== 0 ? <>
                 <div className="CardList">
                   {
-                    userOrderList.map((item, index) => <CardItem type="goods" key={item.id} orderInfo={item} showCardDetail={() => { ShowCardDetailFun(index, 'my') }} CancelOrder={() => Cancel(index)}></CardItem>)
+                    newOrderList[2]?.map((item, index) => <CardItem type="goods" key={item.id} orderInfo={item} showCardDetail={() => { ShowCardDetailFun(index, 'my') }} CancelOrder={() => Cancel(index)}></CardItem>)
                   }
                 </div>
               </> : <>

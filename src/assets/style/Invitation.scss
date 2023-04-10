@@ -142,6 +142,8 @@
 
         }
 
+
+
         .rewardRecord {
             display: flex;
             align-items: center;
@@ -716,6 +718,13 @@
     }
 }
 
+// 白名单
+#WhiteList {
+    .Invitation {
+        justify-content: center;
+    }
+}
+
 
 .getModal {
     .ant-modal-content {
@@ -1234,9 +1243,23 @@
         display: block;
     }
 
+    .nodeFundGetBox {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+
+    .Invitation .itemBox .rewardRecord {
+        justify-content: center;
+    }
+
     .Invitation .itemBox .allRewardBox .getBox,
     .Invitation .itemBox .inputBox .getBox {
-        justify-content: flex-start;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .Invitation .itemBox .inputBox .getBox .getBtn {
+        width: 120px;
     }
 
     .Invitation .itemBox .allRewardBox .inputValue,

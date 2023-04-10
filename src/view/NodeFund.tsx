@@ -179,14 +179,14 @@ export default function Invitation() {
           </div>
 
           <div className="reward">{t("Total reward amount")}：<span> {NumSplic(nodeAwardData?.totalAmount, 4)} MBAS</span></div>
-          <div className="inputBox">
+          <div className="inputBox ">
             <div className="inputValue">
               <span className="inputValueStyle">{NumSplic(`${nodeAwardData?.amount}`, 4) || "0"}</span>
               <span>
                 <img src={SBLToken} alt="" />{nodeAwardData?.coinName || "MBAS"}
               </span>
             </div>
-            <div className="getBox"><div className="getBtn flex" onClick={() => Receive(nodeAwardData?.amount)}>{t("Harvest")}</div></div>
+            <div className="getBox nodeFundGetBox"><div className="getBtn flex" onClick={() => Receive(nodeAwardData?.amount)}>{t("Harvest")}</div></div>
           </div>
           <div className="rewardRecord" onClick={() => setShowProfit(true)}>{t("Records2")}<img src={record} alt="" /></div>
         </div>

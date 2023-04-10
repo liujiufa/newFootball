@@ -512,6 +512,14 @@ const MainLayout: React.FC = () => {
             >
               {t("Announcement")}
             </div>
+            <div
+              className={menuActive("/WhiteList")}
+              onClick={() => {
+                navigateFun("/WhiteList");
+              }}
+            >
+              白名单
+            </div>
             {/* <div className="MBASPrice">
               {PriceFun()}
               {showDropMenu && (!dropMenuList[showDropMenu]) && <div className="marketPrice">
@@ -658,7 +666,7 @@ const MainLayout: React.FC = () => {
                   rel="noreferrer"
                 >
                   <img src={Doc} alt="" />
-                  <span>Doc</span>
+                  <span>{t("White paper")}</span>
                 </a>
               </div>
               {/* <div className="SOCIALItem">

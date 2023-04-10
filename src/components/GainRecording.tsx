@@ -6,6 +6,8 @@ import { Modal, Table } from "antd";
 import { dateFormat } from '../utils/tool'
 import { getUserAccountDetail } from '../API'
 import "../assets/style/componentsStyle/GainRecording.scss";
+import closeIcon from '../assets/image/closeIcon.png'
+
 import { t } from "i18next";
 const { Column } = Table;
 interface propsType {
@@ -38,6 +40,7 @@ function GainRecording(props: propsType) {
         closable={false}
         footer={null}
       >
+        <img src={closeIcon} className="closeIcon" alt="" onClick={() => props.close()} />
         <p className="title"> {t('Records2')} </p>
         <Table
           dataSource={recordData}
