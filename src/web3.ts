@@ -12,8 +12,8 @@ interface contractType {
     [propName: string]: Contract;
 }
 export const ChainId = {
-    // BSC: "0x61",
-    BSC: 56,
+    BSC: "0x61",
+    // BSC: 56,
 }
 //切换链
 const SCAN_ADDRESS = {
@@ -22,8 +22,8 @@ const SCAN_ADDRESS = {
 //配置连接链的信息
 export const networkConf = {
     [ChainId.BSC]: {
-        // chainId: '0x61',
-        chainId: '0x38',
+        chainId: '0x61',
+        // chainId: '0x38',
         chainName: 'BSC',
         nativeCurrency: {
             name: 'BNB',
@@ -31,8 +31,8 @@ export const networkConf = {
             decimals: 18,
         },
         // rpcUrls: ['https://bsc-dataseed2.binance.org'],
-        rpcUrls: ['https://bsc-dataseed.binance.org/'],
-        // rpcUrls: ['https://data-seed-prebsc-2-s1.binance.org:8545'],
+        // rpcUrls: ['https://bsc-dataseed.binance.org/'],
+        rpcUrls: ['https://data-seed-prebsc-2-s1.binance.org:8545'],
         blockExplorerUrls: [SCAN_ADDRESS[ChainId.BSC]],
     }
 }
@@ -417,6 +417,10 @@ export class Contracts {
     getInviteReward(addr: string, data: string) {
         this.verification('InviteReward')
         return this.contract.InviteReward?.methods.withdrawReward(data).send({ from: addr })
+    }
+    getWhiteReward(addr: string, data: string) {
+        this.verification('WhiteReward')
+        return this.contract.WhiteReward?.methods.withdrawReward(data).send({ from: addr })
     }
     //SBL总供应量
     totalSupply(addr: string) {

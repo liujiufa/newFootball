@@ -24,7 +24,6 @@ function GainRecording(props: propsType) {
       getUserAccountDetail(props.type).then(res => {
         setrecordData(res.data)
         console.log(res.data, '邀请奖励记录');
-
       })
     }
   }, [state.token, props.type])

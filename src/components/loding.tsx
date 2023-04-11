@@ -1,6 +1,6 @@
-import styled,{keyframes} from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import lodingimg from '../assets/image/loding.png'
-const turn =keyframes`
+const turn = keyframes`
     0%{-webkit-transform:rotate(0deg);}
     25%{-webkit-transform:rotate(90deg);}
     50%{-webkit-transform:rotate(180deg);}
@@ -26,7 +26,7 @@ const LodingMode = styled.div`
 export default function Loding() {
   return (
     <LodingMode>
-        <img src={lodingimg} alt="" />
+      <img src={lodingimg} alt="" />
     </LodingMode>
   )
 }

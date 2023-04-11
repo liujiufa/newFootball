@@ -557,6 +557,20 @@ export function landBonus() {
         method: 'get',
     })
 }
+
+export function getIsWhite(userAddress: string) {
+    return axois.request({
+        url: `/user/uUserRefereeDetail/getIsWhite/${userAddress}`,
+        method: 'get',
+    })
+}
+
+export function getWhiteUserAccount() {
+    return axois.request({
+        url: `/user/uUserAccount/getWhiteUserAccount`,
+        method: 'get',
+    })
+}
 interface UpdateNoticeListType {
     content: string;
     sign?: string | null;

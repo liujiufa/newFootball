@@ -30,7 +30,7 @@ import "../assets/style/Invitation.scss";
 import "../assets/style/componentsStyle/MyDealRecord.scss";
 import "../assets/style/componentsStyle/Reward.scss";
 import { type } from "@testing-library/user-event/dist/type";
-import { getRefereeUserAccount } from '../API/index'
+import { getWhiteUserAccount } from '../API/index'
 interface InvitationItem {
   userAddress: string;
   id: number;
@@ -127,41 +127,21 @@ export default function Invitation() {
   let [RevenueType, setRevenueType] = useState(0);
   /* 邀请奖励机制弹窗控制 */
   let [ShowRevenueRecord, setShowRevenueRecord] = useState(false);
-  // 邀请奖励数据
-  let [rewardData, setRewardData] = useState<rewardDataType | null>(null);
+  let [rewardData, setRewardData] = useState<any>(null);
   const web3React = useWeb3React();
   const timeoutRef = useRef(0);
   //   console.log(TabIndex, "TabIndex");
   useEffect(() => {
     if (state.token) {
-      // 邀请奖励
-      getRefereeUserAccount().then((res) => {
-        console.log(res.data, '邀请奖励');
+      getWhiteUserAccount().then((res) => {
+        console.log(res.data, '白名单奖励');
         setRewardData(res.data);
-      });
-      // 邀请列表
-      getUserReferee().then((res) => {
-        console.log(res, '邀请列表');
-        setInvitationTypeDate(res.data);
       });
     }
     return () => {
       clearTimeout(timeoutRef.current)
     }
   }, [state.token]);
-  function invitation() {
-    if (!web3React.account) {
-      return addMessage(t("Please connect Wallet"));
-    } else {
-      copy(
-        window.location.origin +
-        window.location.pathname +
-        "?address=" +
-        web3React.account
-      );
-      addMessage(t("Copy Success"));
-    }
-  }
 
   function ShowRevenueRecordFun(type: number) {
     console.log(type);
@@ -182,11 +162,11 @@ export default function Invitation() {
     }).then((res: any) => {
       if (res.data) {
         showLoding(true)
-        Contracts.example.getInviteReward(web3React.account as string, res.data)
+        Contracts.example.getWhiteReward(web3React.account as string, res.data)
           .then((res: any) => {
             addMessage(t('Receive success'))
             timeoutRef.current = window.setTimeout(() => {
-              getRefereeUserAccount().then((res) => {
+              getWhiteUserAccount().then((res) => {
                 console.log(res.data, '邀请奖励');
                 setRewardData(res.data);
               });
@@ -208,11 +188,10 @@ export default function Invitation() {
   }
   return (
     <div className="Edition-Center" id="WhiteList">
-      <div className="SwapTitle">白名单</div>
+      <div className="SwapTitle">{t("Whitelist")}</div>
       <div className="Invitation ">
-
         <div className="itemBox">
-          <div className="itemTitle">我的奖励比例：3%</div>
+          <div className="itemTitle">{t("My Reward Ratio")}：{rewardData?.whiteRate}%</div>
           <div className="allRewardBox">
             <div className="allReward">
               <span>{t("Cumulative rewards")}：</span><span>{NumSplic(`${rewardData?.totalAmount}`, 4) || "0"} {rewardData?.coinName || "MBAS"}</span>
@@ -226,9 +205,9 @@ export default function Invitation() {
                 <img src={SBLToken} alt="" />{rewardData?.coinName || "MBAS"}
               </span>
             </div>
-            <div className="getBox"><div className="getBtn flex" onClick={() => Receive(1, rewardData?.id as number, `${rewardData?.amount}`)}>{t("Harvest")}</div></div>
+            <div className="getBox"><div className="getBtn flex" onClick={() => Receive(7, rewardData?.id as number, `${rewardData?.amount}`)}>{t("Harvest")}</div></div>
           </div>
-          <div className="rewardRecord" onClick={() => ShowRevenueRecordFun(1)}>{t("Records2")}<img src={record} alt="" /></div>
+          <div className="rewardRecord" onClick={() => ShowRevenueRecordFun(7)}>{t("Records2")}<img src={record} alt="" /></div>
         </div>
       </div>
       {/* 奖励记录 */}

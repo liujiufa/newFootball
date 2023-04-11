@@ -10,23 +10,26 @@ import Pledge from './ABI/Stake.json';
 import LandNFT from './ABI/LandNFT.json';
 import LandReward from './ABI/LandDistribute.json';
 import InviteReward from './ABI/InviteReward.json';
+import WhiteReward from './ABI/InviteReward.json';
 import FundNode from './ABI/FundNode.json';
 import NodeDistribute from './ABI/NodeDistribute.json';
 
 // 公司
-export let baseUrl: string = 'http://47.107.116.172:10086';
-export let socketUrl: string = 'http://47.107.116.172:10089/endpointWisely';
+// export let baseUrl: string = 'http://47.107.116.172:10086';
+// export let socketUrl: string = 'http://47.107.116.172:10089/endpointWisely';
 // export let socketUrl: string = 'http://spaceballgames.com:8912/endpointWisely';
+
 // 自己
 // export let baseUrl: string = 'https://mbasdao.com/';
 // export let socketUrl: string = 'https://mbasdao.com/endpointWisely';
+
 // export let baseUrl: string = 'http://47.107.116.172:10000';
 // export let socketUrl: string = 'http://47.107.116.172:8912/endpointWisely';
-// export let baseUrl: string = 'http://spaceballgames.com:10000';
-// export let baseUrl: string = 'http://192.168.2.124:10000';
-// export let baseUrl: string = 'http://192.168.2.118:10000';
-// export let baseUrl: string = 'http://192.168.2.107:10000';
-// export let BlockUrl: string = 'https://testnet.bscscan.com/tx/';
+
+// 本地
+export let baseUrl: string = 'http://192.168.2.117:10000';
+export let socketUrl: string = 'http://192.168.2.117:8912/endpointWisely';
+
 export let BlockUrl: string = 'https://bscscan.com/tx/';
 export let obj = { 0.2: 0.2, 0.5: 0.5, 1: 1, 2.5: 2.5, 8: 8 }
 export let starLevel = { 1: "1 star", 2: "2 star", 3: "3 star", 4: "4 star", 5: "5 star", 6: "6 star" }
@@ -58,6 +61,7 @@ export const abiObj: abiObjType = {
     "LandNFT": LandNFT,
     "LandReward": LandReward,
     "InviteReward": InviteReward,
+    "WhiteReward": WhiteReward,
     "FundNode": FundNode,
     "NodeDistribute": NodeDistribute,
 
@@ -87,21 +91,22 @@ export const contractAddress: contractAddressType = {
     // "FundNode": "0x8dAA1c2E81F35e4De1F1301C4ca8634e879BF615",
     // "NodeDistribute": "0xC0821A15Cb45b9d11A5A316cCDD6E4501A2DA787",
     // 172
-    // "Token": "0x495411D684d06Ab95453C4376c2c34538bBCb651",
-    // "BlindBox": "0x759d7F72166503f8Ae22d38F33FFc719A6Efc6E6",
-    // "EXChangeNFT": "0x0d156E69426cBE8527D6b370E148ba0F6F911b18",
-    // "NFT": "0x23c402C48C50906a2F7760E805385CA187C55762",
-    // "Merge": "0x075bd4Db4AFbf3DC4A6e4CBBda07b1087926F276",
-    // "Node": "0xF66D5bDbe33681F90C4ce070f4AE5128DA341B03",
-    // "Liquidity": "0x67eA4B18ee62975aEa0b21eC793145268754c03B",
-    // "BurnFund": "0x1395Eb8CF44105d4F42F80e075Fd14747333C2EB",
-    // "Pledge": "0xa3666fe7Cf584ea7D0836c4b53cdDb9d3fdb0F89",
-    // "LandNFT": "0x5E29Eb812ee60281887FD48a0F7ac0e18b274542",
-    // "LandReward": "0x1f030EC1a30CBB3e5e351a7a0D71c9843B8c38aD",
-    // "InviteReward": "0x6DC795AA13334aB2Da19f4b11A420BdBb0127f52",
-    // "FundNode": "0xE593344a4dEeA65d85D79fB0E22ebCE11a4ab932",
-    // "NodeDistribute": "0xCFF8F1f9231a80876151A9B7621eB35fb7Bc75f2",
-    // "DestructBalance": "0x0000000000000000000000000000000000000000",
+    "Token": "0x495411D684d06Ab95453C4376c2c34538bBCb651",
+    "BlindBox": "0x759d7F72166503f8Ae22d38F33FFc719A6Efc6E6",
+    "EXChangeNFT": "0x0d156E69426cBE8527D6b370E148ba0F6F911b18",
+    "NFT": "0x23c402C48C50906a2F7760E805385CA187C55762",
+    "Merge": "0x075bd4Db4AFbf3DC4A6e4CBBda07b1087926F276",
+    "Node": "0xF66D5bDbe33681F90C4ce070f4AE5128DA341B03",
+    "Liquidity": "0x67eA4B18ee62975aEa0b21eC793145268754c03B",
+    "BurnFund": "0x1395Eb8CF44105d4F42F80e075Fd14747333C2EB",
+    "Pledge": "0xa3666fe7Cf584ea7D0836c4b53cdDb9d3fdb0F89",
+    "LandNFT": "0x5E29Eb812ee60281887FD48a0F7ac0e18b274542",
+    "LandReward": "0x1f030EC1a30CBB3e5e351a7a0D71c9843B8c38aD",
+    "InviteReward": "0x6DC795AA13334aB2Da19f4b11A420BdBb0127f52",
+    "WhiteReward": "0x667EBed43c579DF2FA433599BD0a88B24493d665",
+    "FundNode": "0xE593344a4dEeA65d85D79fB0E22ebCE11a4ab932",
+    "NodeDistribute": "0xCFF8F1f9231a80876151A9B7621eB35fb7Bc75f2",
+    "DestructBalance": "0x0000000000000000000000000000000000000000",
     // main
     // "Token": "0x094B109d635c34f24b1dC784b2b09F30ccf6408C",
     // "BlindBox": "0x121582FFD8787d18a9c721F9980D6FbE4C2938d1",
@@ -119,21 +124,22 @@ export const contractAddress: contractAddressType = {
     // "NodeDistribute": "0x8e7FeF831d47F3e0f655ffc1E91E364c105400e3",
     // "DestructBalance": "0x0000000000000000000000000000000000000000",
     // 客户
-    "Token": "0xC4a363834962f0eA3A92354D4e68549B11453ED4",
-    "BlindBox": "0x331Eae838aF092295eD5e6903af7Eb4b37e0D883",
-    "EXChangeNFT": "0x4D75D651D0E0B3e2937eb18A98f86387f037498f",
-    "NFT": "0x5Cff3e5556B04cBf164eFb54426E68199afa5B79",
-    "Merge": "0x075bd4Db4AFbf3DC4A6e4CBBda07b1087926F276",
-    "Node": "0x8D5E7c7a74964737b86B0926319354A50EDbf1D0",
-    "Liquidity": "0xd99Bc470934743f1bE0D5A50AB85f5dAf28F49AC",
-    "BurnFund": "0xf1C645d559907947EF8f93c2C058B035C7219c80",
-    "Pledge": "0x4De1081cB40038a7ceB3EE0fE484Ac59BF2CAf2C",
-    "LandNFT": "0x16F9663E61b45a607E7E699436D23c7e5b2A949c",
-    "LandReward": "0x9552AF28951807c616565b7C5B35264eD0ecf53d",
-    "InviteReward": "0x575480d74f16B2319b003Bc86164F4EA273c6920",
-    "FundNode": "0x0C1Fd02F0aba7A3C2bFB3a86B5B4e07157f802fe",
-    "NodeDistribute": "0x21C72004369288415208211D2680A6398DDA8065",
-    "DestructBalance": "0x0000000000000000000000000000000000000000",
+    // "Token": "0xC4a363834962f0eA3A92354D4e68549B11453ED4",
+    // "BlindBox": "0x331Eae838aF092295eD5e6903af7Eb4b37e0D883",
+    // "EXChangeNFT": "0x4D75D651D0E0B3e2937eb18A98f86387f037498f",
+    // "NFT": "0x5Cff3e5556B04cBf164eFb54426E68199afa5B79",
+    // "Merge": "0x075bd4Db4AFbf3DC4A6e4CBBda07b1087926F276",
+    // "Node": "0x8D5E7c7a74964737b86B0926319354A50EDbf1D0",
+    // "Liquidity": "0xd99Bc470934743f1bE0D5A50AB85f5dAf28F49AC",
+    // "BurnFund": "0xf1C645d559907947EF8f93c2C058B035C7219c80",
+    // "Pledge": "0x4De1081cB40038a7ceB3EE0fE484Ac59BF2CAf2C",
+    // "LandNFT": "0x16F9663E61b45a607E7E699436D23c7e5b2A949c",
+    // "LandReward": "0x9552AF28951807c616565b7C5B35264eD0ecf53d",
+    // "InviteReward": "0x575480d74f16B2319b003Bc86164F4EA273c6920",
+    // "WhiteReward": "0x667EBed43c579DF2FA433599BD0a88B24493d665",
+    // "FundNode": "0x0C1Fd02F0aba7A3C2bFB3a86B5B4e07157f802fe",
+    // "NodeDistribute": "0x21C72004369288415208211D2680A6398DDA8065",
+    // "DestructBalance": "0x0000000000000000000000000000000000000000",
 }
 
 

@@ -7,7 +7,7 @@ import { AddrHandle, addMessage, GetQueryString, showLoding } from "../utils/too
 import { useWeb3React } from "@web3-react/core";
 import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
-import { getUserInfo, signBindReferee } from '../API/index'
+import { getUserInfo, signBindReferee, getIsWhite } from '../API/index'
 import { Contracts } from '../web3'
 import copy from "copy-to-clipboard";
 import logo from "../assets/image/logo.png";
@@ -59,6 +59,7 @@ const MainLayout: React.FC = () => {
   const web3React = useWeb3React();
   let [showSubMenu, setShowSubMenu] = useState(false);
   let [priceModal, setPriceModal] = useState(false);
+  let [isWhite, setIsWhite] = useState(false);
   let [showRefereeAddress, setShowRefereeAddress] = useState(false);
   let [showDropMenu, setShowDropMenu] = useState<any>();
   let [SmallActive, setSmallActive] = useState<any>(0);
@@ -67,6 +68,44 @@ const MainLayout: React.FC = () => {
   const { connectWallet } = useConnectWallet()
   // 底部更多菜单
   const moreSubMenuList = [
+    {
+      name: t("Invitation"),
+      path: "/Invitation",
+      Fun: () => {
+        navigateFun("/Invitation");
+      }
+    },
+    {
+      name: t("Game Competition"),
+      path: "/Games",
+      Fun: () => {
+        navigateFun("/nodata")
+      }
+    },
+    {
+      name: t("Quiz entertainment"),
+      path: "/Guess",
+      Fun: () => {
+        navigateFun("/nodata")
+      }
+    },
+    {
+      name: t("Announcement"),
+      path: "/Notice",
+      Fun: () => {
+        navigateFun("/Notice");
+      }
+    },
+    {
+      name: t("Whitelist"),
+      path: "/WhiteList",
+      Fun: () => {
+        navigateFun("/WhiteList");
+      }
+    },
+  ]
+  // 白皮书
+  const moreSubMenuList1 = [
     {
       name: t("Invitation"),
       path: "/Invitation",
@@ -240,7 +279,7 @@ const MainLayout: React.FC = () => {
     }
   }
   function showOther() {
-    setSubMenuList(moreSubMenuList)
+    setSubMenuList(isWhite ? moreSubMenuList : moreSubMenuList1)
     setShowSubMenu(true)
   }
   function showNftOther() {
@@ -280,7 +319,11 @@ const MainLayout: React.FC = () => {
       { icon: EcologyIcon0, title: t("Game Competition"), subtitle: t('Blockchain games based on the MetaBase public chain protocol'), path: '/nodata' },
       { icon: EcologyIcon1, title: t("Quiz entertainment"), subtitle: t('Participate in the guessing game by using MBAS and NFT'), path: '/nodata' },
     ],
-    "/...": [
+    "/...": isWhite ? [
+      { icon: MBASIcon0, title: t("Invitation"), subtitle: '-', path: '/Invitation' },
+      { icon: MBASIcon1, title: t("Announcement"), subtitle: '-', path: '/Notice' },
+      { icon: MBASIcon1, title: t("Whitelist"), subtitle: '-', path: '/WhiteList' },
+    ] : [
       { icon: MBASIcon0, title: t("Invitation"), subtitle: '-', path: '/Invitation' },
       { icon: MBASIcon1, title: t("Announcement"), subtitle: '-', path: '/Notice' },
     ]
@@ -314,6 +357,12 @@ const MainLayout: React.FC = () => {
         setUserInfo(res.data)
         if (res.data.isBind == 0) {
           setShowRefereeAddress(true)
+        }
+      })
+      getIsWhite(web3React.account as string).then((res: any) => {
+        console.log(res.data, "白名单");
+        if (res.code === 200) {
+          setIsWhite(!!res.data)
         }
       })
     }
@@ -512,14 +561,14 @@ const MainLayout: React.FC = () => {
             >
               {t("Announcement")}
             </div>
-            <div
+            {isWhite && <div
               className={menuActive("/WhiteList")}
               onClick={() => {
                 navigateFun("/WhiteList");
               }}
             >
-              白名单
-            </div>
+              {t("Whitelist")}
+            </div>}
             {/* <div className="MBASPrice">
               {PriceFun()}
               {showDropMenu && (!dropMenuList[showDropMenu]) && <div className="marketPrice">
