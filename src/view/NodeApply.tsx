@@ -119,9 +119,9 @@ export default function Invitation() {
     let refereeUserAddress = GetQueryString("address") || '0x0000000000000000000000000000000000000000'
     if (web3React.account) {
       Contracts.example.getBalance(web3React.account).then((res: any) => {
-        if (new BigNumber(BNBValue).lte(new BigNumber(res).div(10 ** 18).toString())) {
+        if (new BigNumber(NodeApplyData?.campaignPrice as number).lte(new BigNumber(res).div(10 ** 18).toString())) {
           showLoding(true)
-          Contracts.example.buyJoinNode(web3React.account as string, refereeUserAddress, BNBValue).then((res: any) => {
+          Contracts.example.buyJoinNode(web3React.account as string, refereeUserAddress, NodeApplyData?.campaignPrice as number).then((res: any) => {
             console.log(res, '购买end');
             showLoding(false)
             setShowJoinSuccess(true)
@@ -308,8 +308,8 @@ export default function Invitation() {
         <img src={closeIcon} className="closeIcon" alt="" onClick={() => setShowGetSuccess(false)} />
         <div className="box">
           <div className="tip">
-            {t("The current node application has ended, you have successful purchase  100MBAS, return 0.151234BNB", { value1: NumSplic(NodeAplyGetValue?.earnNum || isGetValue[0], 4), value2: NumSplic(NodeAplyGetValue?.needPayNum || isGetValue[1], 4) })}
-            ，<span onClick={() => { window.open(BlockUrl + (NodeAplyGetValue?.txId || hashValue)) }}> {t("View")}</span>
+            {t("The current node application has ended, you have successful purchase  100MBAS, return 0.151234BNB", { value1: NumSplic(NodeAplyGetValue?.earnNum || isGetValue[0], 4), value2: NumSplic(Number(NodeAplyGetValue?.needPayNum).toString() || isGetValue[1], 4) })}
+            ，<span onClick={() => { window.open(BlockUrl + (NodeAplyGetValue?.txId || hashValue)) }} className="View"> {t("View")}</span>
           </div>
         </div>
       </Modal>}

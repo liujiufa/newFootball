@@ -24,6 +24,7 @@ import valueIcon5 from './assets/image/valueIcon5.png'
 import { t } from 'i18next';
 import useConnectWallet from './hooks/useConnectWallet';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 declare let window: any;
 const Message = styled.span`
@@ -94,7 +95,7 @@ export const ValueBox = (value: number) => {
 function App() {
   const web3React = useWeb3React()
   const { connectWallet } = useConnectWallet()
-
+  const navigate = useNavigate()
   useEffect(() => {
     connectWallet && connectWallet()
   }, [connectWallet])
@@ -143,10 +144,12 @@ function App() {
 
   window?.ethereum?.on('accountsChanged', (accounts: string[]) => {
     // 账号改了，刷新网页
+    navigate("/")
     window.location.reload()
   })
   window?.ethereum?.on('networkChanged', (accounts: string[]) => {
     // 改了，刷新网页
+    navigate("/")
     window.location.reload()
   })
   return (

@@ -352,6 +352,7 @@ const MainLayout: React.FC = () => {
 
   useEffect(() => {
     if (state.token) {
+      console.log("12");
       getUserInfo().then(res => {
         console.log(res.data, "我的信息")
         setUserInfo(res.data)
