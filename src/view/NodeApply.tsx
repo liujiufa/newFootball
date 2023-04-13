@@ -9,8 +9,8 @@ import { addMessage, AddrHandle, dateFormat, NumSplic, showLoding, GetQueryStrin
 import { Contracts } from "../web3";
 import { BlockUrl, BNBValue } from '../config'
 import BigNumber from "big.js";
-import copyIcon from "../assets/image/copyIcon.png";
-import ableInviteIcon from "../assets/image/ableInviteIcon.png";
+import copyIcon from "../assets/image/copyIcon.svg";
+import ableInviteIcon from "../assets/image/ableInviteIcon.svg";
 import nodeAction from "../assets/image/nodeAction.png";
 import rankIcon from "../assets/image/rankIcon.png";
 import closeIcon from "../assets/image/closeIcon.png";

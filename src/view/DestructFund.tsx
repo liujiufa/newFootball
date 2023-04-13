@@ -18,7 +18,7 @@ import GetRecord from '../components/GetRecord'
 import SBLIcon from '../assets/image/SBLIcon.png'
 import BNBIcon from '../assets/image/BNBIcon.svg'
 import RecordIcon from '../assets/image/record.png'
-import desIcon from '../assets/image/desIcon.png'
+import desIcon from '../assets/image/desIcon.svg'
 
 interface DestructRewardType {
   awardAmount: number,

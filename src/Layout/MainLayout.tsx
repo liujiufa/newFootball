@@ -38,10 +38,12 @@ import footerIcon1 from "../assets/image/footerIcon1.svg";
 import footerIcon2 from "../assets/image/footerIcon2.svg";
 import footerIcon4 from "../assets/image/footerIcon3.svg";
 import footerIcon3 from "../assets/image/footerIcon4.svg";
+import footerIcon5 from "../assets/image/footerIcon5.svg";
 import footerAIcon1 from "../assets/image/footerAIcon1.svg";
 import footerAIcon2 from "../assets/image/footerAIcon2.svg";
 import footerAIcon3 from "../assets/image/footerAIcon3.svg";
 import footerAIcon4 from "../assets/image/footerAIcon4.svg";
+import footerAIcon5 from "../assets/image/footerAIcon5.svg";
 import "../assets/style/layout.scss";
 import { Menu, Dropdown, Modal } from "antd";
 import useConnectWallet from "../hooks/useConnectWallet";
@@ -817,8 +819,8 @@ const MainLayout: React.FC = () => {
         </div>
         <div className="division"></div>
         <div className="MenuItem flexCenter" onClick={() => { showOther(); setSmallActive(5) }}>
-          <div className={SmallActive === 5 ? "other activeOther flexCenter" : "other flexCenter"} >
-            ···
+          <div className={SmallActive === 5 ? " flexCenter" : "flexCenter"} >
+            {SmallActive === 5 ? <img src={footerAIcon5} alt="" /> : <img src={footerIcon5} alt="" />}
           </div>
         </div >
       </div >

@@ -44,7 +44,7 @@ import grade2 from '../assets/image/grade3.png'
 import grade3 from '../assets/image/grade4.png'
 import copyIcon from '../assets/image/copyIcon.png'
 import closeIcon from '../assets/image/closeIcon.png'
-import decIcon from '../assets/image/desIcon.png'
+import decIcon from '../assets/image/desIcon.svg'
 import swichMiddleIcon from '../assets/image/swichMiddleIcon.png'
 import { useNavigate } from 'react-router-dom';
 import copy from "copy-to-clipboard";
@@ -416,7 +416,7 @@ export default function BlindBox() {
           {t("Introduction3")}<br></br>
           {t("Introduction4")}<br></br>
 
-          <div className="contractAddr">
+          {/* <div className="contractAddr">
             <div className="addrTitle">{t("Fairy NFT contract address")}</div>
             <div className="addr">{AddrHandle(contractAddress.NFT, 10, 6)} <img onClick={() => {
               copy(
@@ -424,7 +424,7 @@ export default function BlindBox() {
               );
               addMessage(t("Copy Success"));
             }} src={copyIcon} alt="" /></div>
-          </div>
+          </div> */}
         </>}
 
         {/* BNB開獎記錄 */}

@@ -9,8 +9,8 @@ import { Modal, Pagination } from 'antd';
 import { addMessage, initWebSocket, showLoding } from '../utils/tool'
 import Card, { CardInfoType } from '../components/Card'
 import NoData from '../components/NoData'
-import desIcon from '../assets/image/desIcon.png'
-import translateRecoedIcon from '../assets/image/translateRecoedIcon.png'
+import desIcon from '../assets/image/desIcon.svg'
+import record from '../assets/image/record.png'
 import closeIcon from '../assets/image/closeIcon.png'
 
 import defaultCard from '../assets/image/defaultCard.png'
@@ -314,7 +314,7 @@ export default function Synthesis() {
                             }
                             <div className='Tip'>
                                 <div className='TipContent TipContent1' onClick={() => { setShowMergeRule(true) }}>{t('Evolve rules')}<img style={{ marginLeft: '5px' }} src={desIcon} alt="" /></div>
-                                <div className='TipContent' onClick={() => { setShowMergeRecord(true) }}>{t("Evolve Record")}<img style={{ marginLeft: '5px' }} src={translateRecoedIcon} alt="" /></div>
+                                <div className='TipContent' onClick={() => { setShowMergeRecord(true) }}>{t("Evolve Record")}<img style={{ marginLeft: '5px' }} src={record} alt="" /></div>
                             </div>
                         </div>
                     </div>
@@ -369,7 +369,7 @@ export default function Synthesis() {
                             }
                             <div className='Tip'>
                                 <div className='TipContent TipContent1' onClick={() => { setShowMergeRule(true) }}>{t('Evolve rules')}<img style={{ marginLeft: '5px' }} src={desIcon} alt="" /></div>
-                                <div className='TipContent' onClick={() => { setShowMergeRecord(true) }}>{t("Evolve Record")}<img style={{ marginLeft: '5px' }} src={translateRecoedIcon} alt="" /></div>
+                                <div className='TipContent' onClick={() => { setShowMergeRecord(true) }}>{t("Evolve Record")}<img style={{ marginLeft: '5px' }} src={record} alt="" /></div>
                             </div>
                         </div>
                     </div>

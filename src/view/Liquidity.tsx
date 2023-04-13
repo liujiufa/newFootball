@@ -185,10 +185,10 @@ export default function Liquidity() {
             <div className="LiquidityBox">
                 <div className='title'>{t('Liquidity')}</div>
                 <div className="Desc">
-                    {t('LiquidityDesc0')}{!moreWord && <span className="" onClick={() => setMoreWord(true)}>{t("load more")}</span>}
-                    {moreWord && <>
+                    {t('LiquidityDesc0')}{!moreWord && <span className="" onClick={() => setMoreWord(true)}></span>}
+                    {/* {moreWord && <>
                         {t("LiquidityDesc1")}<span className="" onClick={() => setMoreWord(false)}>{t("Put away")}</span><br></br>
-                    </>}
+                    </>} */}
                     {/* {t('LiquidityDesc')} */}
                 </div>
                 {

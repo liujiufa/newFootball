@@ -19,7 +19,7 @@ import GainRecording from "../components/GainRecording";
 import InviteList from "../components/InviteList";
 import BNBIcon from "../assets/image/BNBIcon.svg";
 import SBLToken from "../assets/image/SBLIcon.png";
-import copyIcon from "../assets/image/copyIcon.png";
+import copyIcon from "../assets/image/copyIcon.svg";
 import mechanism from "../assets/image/mechanism.png";
 import Refresh from "../assets/image/Refresh.png";
 import record from "../assets/image/record.png";

@@ -69,7 +69,7 @@ function LandCardDetails(props: any) {
         <div className='title'>{t("Land details")}</div>
         <div className="detailModalBox">
           <div className='hzimg'>
-            {props.CardInfo.isActivation == 1 && <div className="pending">{t("Activated")}</div>}
+            {/* {props.CardInfo.isActivation == 1 && <div className="pending">{t("Activated")}</div>} */}
             <img src={props.CardInfo.imageUrl} alt=""></img>
           </div>
           <div className="p1">
@@ -85,7 +85,7 @@ function LandCardDetails(props: any) {
           <div className='kpdetails des'>{t("land introduction")}：{i18next.language === "zh" ? props.CardInfo.zhIntroduce : props.CardInfo.introduce}</div>
           <div className='butm autoButm'>
             {isApproved ? <button className='hc' onClick={() => { props.showCreateOrder && props.showCreateOrder(props.CardInfo.cardLevel) }}>{t("Sale")}</button> : <button className='gm' onClick={() => { createOrderApproval() }}> <div>{t("Sale")}</div></button>}
-            {<button className='hc' onClick={() => { activeFun() }}>{t("Active")}</button>}
+            {<button className='hc' onClick={() => { activeFun() }}>{t("Active1")}</button>}
           </div>
         </div>
       </Modal>

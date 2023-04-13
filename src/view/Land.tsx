@@ -44,7 +44,7 @@ import landApplyActiveEN from '../assets/image/landProcessEN/landApplyActive.png
 import myRightActiveEN from '../assets/image/landProcessEN/myRightActive.png'
 
 import RecordIcon from '../assets/image/record.png'
-import helpIcon from '../assets/image/helpIcon.png'
+import helpIcon from '../assets/image/helpIcon1.png'
 import shareIcon from '../assets/image/shareIcon.svg'
 
 const LevelMap = [

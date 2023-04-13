@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react"
-import orderRecord from '../assets/image/orderRecord.png'
+import orderRecord from '../assets/image/record.png'
 import { useSelector } from "react-redux";
 import { stateType } from '../store/reducer'
 import PutParticulars from '../components/PutParticulars'
@@ -225,9 +225,9 @@ function Swap() {
   let [orderInfo, setOrderInfo] = useState<orderInfoType | null>(null)
   /* 订单列表 */
   let [orderList, setOrderList] = useState<orderInfoType[]>([])
-  let [nOrderList, setNOrderList] = useState<newOrderInfoType>({data: [], typeIndex: 0})
-  let [landOrderList, setLandOrderList] = useState<newOrderInfoType>({data: [], typeIndex: 0})
-  let [mineOrderList, setMineOrderList] = useState<newOrderInfoType>({data: [], typeIndex: 0})
+  let [nOrderList, setNOrderList] = useState<newOrderInfoType>({ data: [], typeIndex: 0 })
+  let [landOrderList, setLandOrderList] = useState<newOrderInfoType>({ data: [], typeIndex: 0 })
+  let [mineOrderList, setMineOrderList] = useState<newOrderInfoType>({ data: [], typeIndex: 0 })
   let [newOrderList, setNewOrderList] = useState<Array<orderInfoType[]>>([[], [], []])
   /* 用户订单列表 */
   let [userOrderList, setUserOrderList] = useState<orderInfoType[]>([])
@@ -268,8 +268,8 @@ function Swap() {
         }).then(res => {
           console.log(res.data.list, '精灵列表')
           setOrderList(res.data.list)
-          setNOrderList({data: res.data.list, typeIndex: cardType})
-          console.log("Fri Apr 07 2023 19:44:44 GMT+0800 (中国标准时间)", "setNOrderList", res.data.list )
+          setNOrderList({ data: res.data.list, typeIndex: cardType })
+          console.log("Fri Apr 07 2023 19:44:44 GMT+0800 (中国标准时间)", "setNOrderList", res.data.list)
           SetTotalNum(res.data.size)
         })
         // 推送
@@ -284,11 +284,11 @@ function Swap() {
             // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
           }, (data: any) => {
             setOrderList(data.list)
-            setNOrderList({data: data.list, typeIndex: cardType})
-            console.log("Fri Apr 07 2023 19:44:44 GMT+0800 (中国标准时间)", "setNOrderList1", data.list )
+            setNOrderList({ data: data.list, typeIndex: cardType })
+            console.log("Fri Apr 07 2023 19:44:44 GMT+0800 (中国标准时间)", "setNOrderList1", data.list)
             SetTotalNum(data.size)
           })
-  
+
         return () => {
           try {
             console.log("nihao1");
@@ -296,14 +296,14 @@ function Swap() {
             clearInterval(obj.sendTimer)
             obj.subscription.unsubscribe();
           } catch {
-  
+
           }
         }
       };
     },
     [hashTime, page, sort, type, level, TabIndex, state.token, web3React.account, cardType]
   )
-  
+
   // 精灵
   useEffect(() => {
     getBadgeData()
@@ -323,8 +323,8 @@ function Swap() {
         }).then(res => {
           console.log(res.data.list, '土地列表')
           setOrderList(res.data.list)
-          setLandOrderList({data: res.data.list, typeIndex: cardType})
-          console.log("Fri Apr 07 2023 19:44:44 GMT+0800 (中国标准时间)", "setLandOrderList", res.data.list )
+          setLandOrderList({ data: res.data.list, typeIndex: cardType })
+          console.log("Fri Apr 07 2023 19:44:44 GMT+0800 (中国标准时间)", "setLandOrderList", res.data.list)
 
           SetTotalNum(res.data.size)
         })
@@ -340,10 +340,10 @@ function Swap() {
             // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
           }, (data: any) => {
             console.log(data.list, "土地推送");
-  
-            setOrderList(data.list)        
-            setLandOrderList({data: data.list, typeIndex: cardType})
-            console.log("Fri Apr 07 2023 19:44:44 GMT+0800 (中国标准时间)", "setLandOrderList1",  {
+
+            setOrderList(data.list)
+            setLandOrderList({ data: data.list, typeIndex: cardType })
+            console.log("Fri Apr 07 2023 19:44:44 GMT+0800 (中国标准时间)", "setLandOrderList1", {
               cardType: cardType,
               currentPage: page,
               level: LandLevel,
@@ -351,7 +351,7 @@ function Swap() {
               type: -1,
               sortType: sortLand
               // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
-            }, data.list )
+            }, data.list)
 
             SetTotalNum(data.size)
           })
@@ -362,14 +362,14 @@ function Swap() {
             clearInterval(obj.sendTimer)
             obj.subscription.unsubscribe();
           } catch {
-  
+
           }
         }
       };
     },
     [hashTime, page, sort, type, level, TabIndex, state.token, web3React.account, cardType]
   )
-  
+
   // 土地
   useEffect(() => {
     getLandData()
@@ -384,7 +384,7 @@ function Swap() {
           clearInterval(obj.sendTimer)
           obj.subscription.unsubscribe();
         } catch {
-  
+
         }
         getOrderList({
           cardType: cardMyType,
@@ -397,8 +397,8 @@ function Swap() {
         }).then(res => {
           console.log(res.data.list, '我的列表')
           setUserOrderList(res.data.list)
-          setMineOrderList({data: res.data.list, typeIndex: cardMyType})
-          console.log("Fri Apr 07 2023 19:44:44 GMT+0800 (中国标准时间)", "setMineOrderList", res.data.list )
+          setMineOrderList({ data: res.data.list, typeIndex: cardMyType })
+          console.log("Fri Apr 07 2023 19:44:44 GMT+0800 (中国标准时间)", "setMineOrderList", res.data.list)
           SetTotalNum(res.data.size)
         })
         // 推送 
@@ -413,21 +413,21 @@ function Swap() {
             // userAddress: '0xdfbd20242002dd329d27a38ff9f4bd8bd6e4aa58'
           }, (data: any) => {
             setUserOrderList(data.list)
-            setMineOrderList({data: data.list, typeIndex: cardMyType})
-            console.log("Fri Apr 07 2023 19:44:44 GMT+0800 (中国标准时间)", "setMineOrderList1", data.list )
+            setMineOrderList({ data: data.list, typeIndex: cardMyType })
+            console.log("Fri Apr 07 2023 19:44:44 GMT+0800 (中国标准时间)", "setMineOrderList1", data.list)
             SetTotalNum(data.size)
           })
-          return () => {
-            try {
-              console.log("nihao3");
-              obj.stompClient.disconnect()
-              clearInterval(obj.sendTimer)
-              obj.subscription.unsubscribe();
-            } catch {
-    
-            }
+        return () => {
+          try {
+            console.log("nihao3");
+            obj.stompClient.disconnect()
+            clearInterval(obj.sendTimer)
+            obj.subscription.unsubscribe();
+          } catch {
+
           }
-    };
+        }
+      };
     },
     [hashTime, page, sort, type, level, TabIndex, state.token, web3React.account, cardType]
   )
@@ -441,18 +441,18 @@ function Swap() {
   useEffect(() => {
     let timer: NodeJS.Timeout;
     timer = setTimeout(() => {
-      setNewOrderList(prev=>{
+      setNewOrderList(prev => {
         prev = [nOrderList.data, landOrderList.data, mineOrderList.data]
         console.log("prev", prev)
         return prev.concat([])
-       })
-       setHashTime(+new Date())
+      })
+      setHashTime(+new Date())
     }, 2000);
-    return ()=>{
+    return () => {
       clearTimeout(timer)
     }
   }, [nOrderList, landOrderList, mineOrderList, cardType, cardMyType, TabIndex, state.token, web3React.account])
-  
+
 
   function onChange(pageNumber: number) {
     SetPage(pageNumber)
