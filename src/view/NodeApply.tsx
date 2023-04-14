@@ -186,7 +186,7 @@ export default function Invitation() {
   return (
     <div className="Edition-Center" id="NodeApply">
       <div className="SwapTitle">{t("Application")}</div>
-      <div className="subTitle">{t("Application Period")}: 2023.04.02-2023.04.15</div>
+      <div className="subTitle">{t("Application Period")}: 2023.04.02-2023.04.23</div>
       {/* <div className="subTitle">{t("Application Period")}: {dateFormat('YYYY.mm.dd HH:MM', new Date(NodeApplyData?.startTime || 0))}-{dateFormat('YYYY.mm.dd HH:MM', new Date(NodeApplyData?.endTime || 0))}</div> */}
       <div className="Invitation">
         <div className="itemBox">
